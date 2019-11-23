@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29409.12
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rent", "Rent\Rent.csproj", "{5656932D-4663-4840-AF4E-21B513BA909B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent", "Rent\Rent.csproj", "{5656932D-4663-4840-AF4E-21B513BA909B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rent.DomainModels", "Rent.DomainModels\Rent.DomainModels.csproj", "{90022F89-E752-4C51-B624-CB4971341500}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent.DomainModels", "Rent.DomainModels\Rent.DomainModels.csproj", "{90022F89-E752-4C51-B624-CB4971341500}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rent.Repositories", "Rent.Repositories\Rent.Repositories.csproj", "{B0348911-DBE0-431F-9DCE-A60DB784B83B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{90022F89-E752-4C51-B624-CB4971341500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90022F89-E752-4C51-B624-CB4971341500}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90022F89-E752-4C51-B624-CB4971341500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0348911-DBE0-431F-9DCE-A60DB784B83B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0348911-DBE0-431F-9DCE-A60DB784B83B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0348911-DBE0-431F-9DCE-A60DB784B83B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0348911-DBE0-431F-9DCE-A60DB784B83B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Rent.DomainModels\Rent.DomainModels.csproj" />
+    <ProjectReference Include="..\Rent.Repositories\Rent.Repositories.csproj" />
   </ItemGroup>
 
 </Project>
