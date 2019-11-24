@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "Rent.ServiceLayers/1.0.0": {
+        "runtime": {
+          "Rent.ServiceLayers.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Rent.ServiceLayers/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

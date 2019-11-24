@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
 using Rent.Repositories;
+using Rent.ServiceLayers;
 
 namespace Rent
 {
@@ -31,7 +32,7 @@ namespace Rent
                 options.UseSqlServer(connString);
             });
             services.AddControllersWithViews();
-            //services.AddScoped(IProductsRepository, ProductsRepository);
+            services.AddScoped(IProductsService, ProductsService);
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.AddSession();
 
