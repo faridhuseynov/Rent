@@ -3,3 +3,14 @@ D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.ServiceLayers.dll
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.csprojAssemblyReference.cache
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.AssemblyInfoInputs.cache
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.AssemblyInfo.cs
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.Repositories.dll
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.ViewModels.dll
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\data.json
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.ServiceLayers.pdb
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.Repositories.pdb
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\Rent.ViewModels.pdb
+D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.csproj.CopyComplete
+D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.dll
+D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.pdb

@@ -31,8 +31,9 @@ namespace Rent
             services.AddDbContext<AppDbContext>(options => {
                 options.UseSqlServer(connString);
             });
+            services.AddScoped<IProductsRepository, ProductsRepository>();
+            services.AddScoped<IProductsService, ProductsService>();
             services.AddControllersWithViews();
-            services.AddScoped(IProductsService, ProductsService);
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.AddSession();
 
