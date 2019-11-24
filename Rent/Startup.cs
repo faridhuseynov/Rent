@@ -28,12 +28,13 @@ namespace Rent
         public void ConfigureServices(IServiceCollection services)
         {
             var connString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<AppDbContext>(options => {
+            services.AddControllersWithViews();
+            services.AddDbContext<AppDbContext>(options => 
+            {
                 options.UseSqlServer(connString);
             });
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
-            services.AddControllersWithViews();
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.AddSession();
 

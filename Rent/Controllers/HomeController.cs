@@ -14,11 +14,17 @@ namespace Rent.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IProductsService ps;
+        int NoOfRecordsPerPage=3;
+        int NoOfPages;
+        int NoOfRecordsToSkip;
+        //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService)
         {
             _logger = logger;
             ps = productsService;
+            NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ps.GetProducts().Count() / Convert.ToDouble(NoOfRecordsPerPage))));
+            //productParams = new ProductParamsForFilter();
         }
 
         public IActionResult Index()
@@ -31,12 +37,20 @@ namespace Rent.Controllers
             return View();
         }
 
-        public IActionResult GetProducts()
+        public IActionResult Products(int PageNo=2)
         {
-            var products = ps.GetProducts();
+            NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
+            ViewBag.PageNo = PageNo;
+            ViewBag.NoOfPages = NoOfPages;
+            var products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             return View(products);
         }
 
+        public  IActionResult Window()
+        {
+            
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

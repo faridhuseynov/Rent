@@ -289,12 +289,6 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
-              "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
-                "projectPath": "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj"
-              },
-              "D:\\VS\\Rent\\Rent.Repositories\\Rent.Repositories.csproj": {
-                "projectPath": "D:\\VS\\Rent\\Rent.Repositories\\Rent.Repositories.csproj"
-              },
               "D:\\VS\\Rent\\Rent.ServiceLayers\\Rent.ServiceLayers.csproj": {
                 "projectPath": "D:\\VS\\Rent\\Rent.ServiceLayers\\Rent.ServiceLayers.csproj"
               }
@@ -318,6 +312,12 @@
               "target": "Package",
               "version": "[3.0.1, )"
             },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[3.0.1, )"
@@ -325,6 +325,10 @@
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
               "version": "[3.0.1, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "bootstrap": {
               "target": "Package",
