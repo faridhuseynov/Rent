@@ -9,7 +9,7 @@ namespace Rent.ServiceLayers
 {
     public interface ICategoriesService
     {
-        IEnumerable<Category> GetCategories();
+        Task<IEnumerable<Category>> GetCategories();
     }
     public class CategoriesService : ICategoriesService
     {
@@ -18,9 +18,9 @@ namespace Rent.ServiceLayers
         {
             this.cr = categoriessRepository;
         }
-        public IEnumerable<Category> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategories()
         {
-            return cr.GetCategories().Result;
+            return await cr.GetCategories();
         }
     }
 }

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
+using Rent.ViewModels.ProductViewModels;
 
 namespace Rent.Controllers
 {
@@ -16,7 +17,7 @@ namespace Rent.Controllers
         IProductsService ps;
         ICategoriesService cs;
         IEnumerable<Category> categories;
-        int NoOfRecordsPerPage =5;
+        int NoOfRecordsPerPage =10;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
@@ -27,36 +28,50 @@ namespace Rent.Controllers
             ps = productsService;
             cs = categoriesService;
             categories = new List<Category> ();
-            categories = cs.GetCategories();
+            categories = cs.GetCategories().Result;
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ps.GetProducts().Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             //productParams = new ProductParamsForFilter();
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int Id, int PageNo = 1)
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult Products(int PageNo=2)
-        {
+            IEnumerable<ProductDetailsViewModel> products=new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
             ViewBag.NoOfPages = NoOfPages;
-            ViewBag.Categories = cs.GetCategories();
-            var products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
+            ViewBag.Categories = categories;
+            if (Id != 0)
+                products = ps.GetProducts().Where(x => x.CategoryId == Id);
+            else
+                products = ps.GetProducts();
+            products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
+            //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             return View(products);
         }
 
-        public  IActionResult Window()
+        public IActionResult Details(int Id)
         {
-            
-            return View();
+            var product = ps.GetProductByProductID(Id);
+            if (product!=null)
+            {
+                product = ps.GetProductByProductID(Id);
+                return View(product);
+            }
+            return RedirectToAction("Index","Home");
         }
+
+        public IActionResult SendProposal(Proposal proposal)
+        {
+            var product = ps.GetProductByProductID(Id);
+            if (product != null)
+            {
+                product = ps.GetProductByProductID(Id);
+                return View(product);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
