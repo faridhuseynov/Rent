@@ -137,6 +137,8 @@ D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.TagHelpers.output.cache
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.RazorCoreGenerate.cache
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Privacy.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Products.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Window.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
@@ -148,5 +150,9 @@ D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.Views.pdb
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.csproj.CopyComplete
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.dll
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Rent.pdb
-D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Window.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Products.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Create.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Delete.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Details.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Edit.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Index.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_CategoriesPartial.cshtml.g.cs

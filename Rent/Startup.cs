@@ -35,6 +35,8 @@ namespace Rent
             });
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
+            services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<ICategoriesService, CategoriesService>();
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.AddSession();
 

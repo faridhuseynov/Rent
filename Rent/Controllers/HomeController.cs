@@ -14,15 +14,20 @@ namespace Rent.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         IProductsService ps;
-        int NoOfRecordsPerPage=3;
+        ICategoriesService cs;
+        IEnumerable<Category> categories;
+        int NoOfRecordsPerPage =5;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
 
-        public HomeController(ILogger<HomeController> logger, IProductsService productsService)
+        public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService)
         {
             _logger = logger;
             ps = productsService;
+            cs = categoriesService;
+            categories = new List<Category> ();
+            categories = cs.GetCategories();
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ps.GetProducts().Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             //productParams = new ProductParamsForFilter();
         }
@@ -42,6 +47,7 @@ namespace Rent.Controllers
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
             ViewBag.NoOfPages = NoOfPages;
+            ViewBag.Categories = cs.GetCategories();
             var products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             return View(products);
         }
