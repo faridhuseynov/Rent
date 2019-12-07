@@ -8,6 +8,7 @@
         <div class="col-lg-3">
             <div class="list-group">
                 <partial name="_CategoriesPartial" model="@ViewBag.Categories" />
+                <p hidden>@ViewBag.CategoryId</p>
             </div>
         </div>
         <div class="col-lg-8">
@@ -36,7 +37,7 @@
                     else
                     {
                         <li class="page-item">
-                            <span class="page-link">Previous</span>
+                            <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-PageNo="@(ViewBag.PageNo-1)" asp-route-id="@ViewBag.CategoryId">Previous</a>
                         </li>
                     }
                     @for (int i = 0; i < ViewBag.NoOfPages; i++)
@@ -59,14 +60,14 @@
                     @*<li class="page-item"><a class="page-link" href="#">3</a></li>*@
                     @if (@ViewBag.PageNo == ViewBag.NoOfPages)
                     {
-                        <li class="page-item">
-                            <a class="page-link disabled" href="#">Next</a>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
                         </li>
                     }
                     else
                     {
                         <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
+                            <a class="page-link" asp-controller="Home" asp-action="Index" asp-route-PageNo="@(ViewBag.PageNo+1)" asp-route-id="@ViewBag.CategoryId">Next</a>
                         </li>
                     }
                 </ul>
@@ -76,13 +77,20 @@
     </div>
 </div>
 
-<script>
-    $(".page-link").click(function () {
-        //this.setAttribute("class", "active");
-        window.alert("clicked");
-    });
+@section Scripts
+{
+    <script>
+        @*$(".page-link").click(function () {
+            //this.setAttribute("class", "active");
+            var PageNum = this.textContent;
+            $.ajax({
+                url: "/home/index?Id="+@ViewBag.CategoryId+"&PageNo=" + PageNum,
+                type: "GET",
+            });
+        });
 
-    $("a[href='/home/products']").attr("id", "active");
-</script>
+        $("a[href='/home/index']").attr("id", "activeNav");*@
+    </script>
+ }
 
 

@@ -33,7 +33,7 @@ namespace Rent.Controllers
             //productParams = new ProductParamsForFilter();
         }
 
-        public IActionResult Index(int Id, int PageNo = 1)
+        public IActionResult Index(int Id=0, int PageNo = 1)
         {
             IEnumerable<ProductDetailsViewModel> products=new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
@@ -46,6 +46,7 @@ namespace Rent.Controllers
                 products = ps.GetProducts();
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
+            ViewBag.CategoryId = Id;
             return View(products);
         }
 
@@ -60,16 +61,16 @@ namespace Rent.Controllers
             return RedirectToAction("Index","Home");
         }
 
-        public IActionResult SendProposal(Proposal proposal)
-        {
-            var product = ps.GetProductByProductID(Id);
-            if (product != null)
-            {
-                product = ps.GetProductByProductID(Id);
-                return View(product);
-            }
-            return RedirectToAction("Index", "Home");
-        }
+        //public IActionResult SendProposal(Proposal proposal)
+        //{
+        //    var product = ps.GetProductByProductID(Id);
+        //    if (product != null)
+        //    {
+        //        product = ps.GetProductByProductID(Id);
+        //        return View(product);
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
