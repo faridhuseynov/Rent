@@ -11,8 +11,8 @@ namespace Rent.DomainModels.Models
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
-        public decimal ProposedPrice { get; set; }
-        public int OwnerId { get; set; }
+        public decimal? ProposedPrice { get; set; }
+        public int? OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public virtual User Owner { get; set; }
         public int BuyerId { get; set; }

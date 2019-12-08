@@ -16,6 +16,9 @@ namespace Rent.DomainModels.Models
         public virtual User User { get; set; }
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
+        public virtual ICollection<ProductImage> Images { get; set; }
+        public virtual ICollection<Proposal> Proposals { get; set; }
+
 
     }
 }

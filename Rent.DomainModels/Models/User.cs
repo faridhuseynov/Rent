@@ -11,6 +11,7 @@ namespace Rent.DomainModels.Models
         public string Surname { get; set; }
         public string Username { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Proposal> Proposals { get; set; }
 
     }
 }
