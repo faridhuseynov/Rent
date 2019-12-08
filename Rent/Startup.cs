@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
+using Microsoft.AspNetCore.Identity;
 
 namespace Rent
 {
@@ -33,6 +34,7 @@ namespace Rent
             {
                 options.UseSqlServer(connString);
             });
+            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
@@ -59,7 +61,7 @@ namespace Rent
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

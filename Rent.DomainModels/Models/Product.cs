@@ -11,7 +11,7 @@ namespace Rent.DomainModels.Models
         public string ProductName { get; set; }
         public string ProductPrice { get; set; }
         public string ProductDescription { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
         public int CategoryId { get; set; }

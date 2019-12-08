@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent.DomainModels", "Rent.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent.Repositories", "Rent.Repositories\Rent.Repositories.csproj", "{B0348911-DBE0-431F-9DCE-A60DB784B83B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rent.ServiceLayers", "Rent.ServiceLayers\Rent.ServiceLayers.csproj", "{2458F87E-CD6F-4BA6-B646-7C7026B8B279}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent.ServiceLayers", "Rent.ServiceLayers\Rent.ServiceLayers.csproj", "{2458F87E-CD6F-4BA6-B646-7C7026B8B279}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rent.ViewModels", "Rent.ViewModels\Rent.ViewModels.csproj", "{F35C7041-C695-47CC-8054-BF086B137634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rent.ViewModels", "Rent.ViewModels\Rent.ViewModels.csproj", "{F35C7041-C695-47CC-8054-BF086B137634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,8 +19,8 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5656932D-4663-4840-AF4E-21B513BA909B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5656932D-4663-4840-AF4E-21B513BA909B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5656932D-4663-4840-AF4E-21B513BA909B}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{5656932D-4663-4840-AF4E-21B513BA909B}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{5656932D-4663-4840-AF4E-21B513BA909B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5656932D-4663-4840-AF4E-21B513BA909B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{90022F89-E752-4C51-B624-CB4971341500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU

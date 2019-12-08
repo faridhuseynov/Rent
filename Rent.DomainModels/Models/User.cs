@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Rent.DomainModels.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Username { get; set; }
+        //public string Username { get; set; }
         public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Proposal> Proposals { get; set; }
-
     }
 }

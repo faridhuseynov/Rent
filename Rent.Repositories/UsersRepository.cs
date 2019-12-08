@@ -12,12 +12,12 @@ namespace Rent.Repositories
         void AddUser(User user);
         void UpdateUserDetails(User user);
         //void UpdateUserPassword(User user);
-        void DeleteUser(int userId);
+        void DeleteUser(string userId);
         Task<IEnumerable<User>> GetUsers();
         //IEnumerable<User> GetUserByEmailAndPassword(string email, string passwordHash);
         //IEnumerable<User> GetUserByEmail(string email);
-        Task<User> GetUserByUserID(int userID);
-        Task<int> GetLatestUserID();
+        Task<User> GetUserByUserID(string userID);
+        Task<string> GetLatestUserID();
     }
     public class UsersRepository : IUsersRepository
     {
@@ -32,7 +32,7 @@ namespace Rent.Repositories
             await db.SaveChangesAsync();
         }
 
-        async public void DeleteUser(int userId)
+        async public void DeleteUser(string userId)
         {
             var user=await db.Users.FirstOrDefaultAsync(x => x.Id == userId);
             if (user!=null)
@@ -42,7 +42,7 @@ namespace Rent.Repositories
             }
         }
 
-        async public Task<int> GetLatestUserID()
+        async public Task<string> GetLatestUserID()
         {
             var user = await db.Users.LastAsync();
             return user.Id;
@@ -64,7 +64,7 @@ namespace Rent.Repositories
         //    throw new NotImplementedException();
         //}
 
-        public async Task<User> GetUserByUserID(int userID)
+        public async Task<User> GetUserByUserID(string userID)
         {
             var user =await db.Users.FirstOrDefaultAsync(x => x.Id == userID);
             return user;
