@@ -29,7 +29,6 @@ namespace Rent.Controllers
             cs = categoriesService;
             categories = new List<Category> ();
             categories = cs.GetCategories().Result;
-            NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(ps.GetProducts().Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             //productParams = new ProductParamsForFilter();
         }
 
@@ -38,12 +37,13 @@ namespace Rent.Controllers
             IEnumerable<ProductDetailsViewModel> products=new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
-            ViewBag.NoOfPages = NoOfPages;
             ViewBag.Categories = categories;
             if (Id != 0)
                 products = ps.GetProducts().Where(x => x.CategoryId == Id);
             else
                 products = ps.GetProducts();
+            NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(products.Count() / Convert.ToDouble(NoOfRecordsPerPage))));
+            ViewBag.NoOfPages = NoOfPages;
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             ViewBag.CategoryId = Id;
