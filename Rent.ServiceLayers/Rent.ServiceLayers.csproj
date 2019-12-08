@@ -13,15 +13,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="categorydata.json" />
     <None Remove="data.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="data.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
+    <None Remove="userdata.json" />
   </ItemGroup>
 
   <ItemGroup>

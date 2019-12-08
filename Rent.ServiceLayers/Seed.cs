@@ -17,6 +17,26 @@ namespace Rent.ServiceLayers
 
         public static void SeedProducts(AppDbContext context)
         {
+            if (!context.Categories.Any())
+            {
+                var categoryData = System.IO.File.ReadAllText("categorydata.json");
+                var categories = JsonConvert.DeserializeObject<List<Category>>(categoryData);
+                foreach (var category in categories)
+                {
+                    context.Categories.Add(category);
+                }
+                context.SaveChanges();
+            }
+            if (!context.Users.Any())
+            {
+                var userData = System.IO.File.ReadAllText("userdata.json");
+                var users = JsonConvert.DeserializeObject<List<User>>(userData);
+                foreach (var user in users)
+                {
+                    context.Users.Add(user);
+                }
+                context.SaveChanges();
+            }
             if (!context.Products.Any())
             {
                 var productData = System.IO.File.ReadAllText("data.json");

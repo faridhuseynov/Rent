@@ -157,3 +157,5 @@ D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Edit.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Products\Index.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_CategoriesPartial.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Debug\netcoreapp3.0\Razor\Views\Home\Details.cshtml.g.cs
+D:\VS\Rent\Rent\bin\Debug\netcoreapp3.0\categorydata.json
+D:\VS\Rent\Rent\bin\Debug\netcoreapp3.0\userdata.json
