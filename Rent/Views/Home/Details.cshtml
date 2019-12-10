@@ -38,7 +38,7 @@
                         foreach (var image in Model.Images)
                         {
                             <div class="product-preview">
-                                <img src="~/@image.PhotoUrl" alt="">
+                                <img src="@image.PhotoUrl" alt="">
                             </div>
                         }
                     }
@@ -75,18 +75,21 @@
                         <span class="product-available">In Stock</span>
                     </div>
                     <p>@Model.ProductDescription</p>
-
-                    <div class="add-to-cart">
-                        <div class="qty-label">
-                            AZN/gun
-                            <div class="input-number">
-                                <input type="number">
-                                <span class="qty-up">+</span>
-                                <span class="qty-down">-</span>
+                    <form method="post">
+                        <input hidden value="@Model.Id" name="Id" />
+                        <div class="add-to-cart">
+                            <div class="qty-label">
+                                AZN/gun
+                                <div class="input-number">
+                                    <input type="number" name="ProposedPrice">
+                                    <span class="qty-up">+</span>
+                                    <span class="qty-down">-</span>
+                                </div>
                             </div>
+                            <button asp-controller="Home" asp-action="SendProposal"
+                                    class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> send proposal</button>
                         </div>
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> send proposal</button>
-                    </div>
+                    </form>
 
                     <ul class="product-btns">
                         <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
