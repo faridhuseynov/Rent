@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Rent.DomainModels.Models;
+using Rent.Repositories;
 using Rent.ServiceLayers;
 using Rent.ViewModels.ProductViewModels;
 
@@ -16,18 +17,20 @@ namespace Rent.Controllers
         private readonly ILogger<HomeController> _logger;
         IProductsService ps;
         ICategoriesService cs;
-        IProposalsService props;
+        IProposalsRepository props;
         IEnumerable<Category> categories;
         int NoOfRecordsPerPage =10;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
 
-        public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService)
+        public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
+            IProposalsRepository proposalsRepository)
         {
             _logger = logger;
             ps = productsService;
             cs = categoriesService;
+            props = proposalsRepository;
             categories = new List<Category> ();
             categories = cs.GetCategories().Result;
             //productParams = new ProductParamsForFilter();
@@ -67,9 +70,15 @@ namespace Rent.Controllers
             var product = ps.GetProductByProductID(Id);
             if (product != null)
             {
-                Proposal newProposal = new Proposal { ProductId = Id, ProposedPrice = proposedPrice, OwnerId = product.UserId,
-                    BuyerId = "6ee849df-68ee-4f64-ba84-b417c0979d51" };
-                return View(product);
+                props.AddProposal(new Proposal
+                {
+                    ProductId = Id,
+                    ProposedPrice = proposedPrice,
+                    OwnerId = product.UserId,
+                    BuyerId = "6ee849df-68ee-4f64-ba84-b417c0979d51"
+                });
+                TempData["Success"] = $"Proposal {props.GetLatestProposalID()} successfully added!";
+                return RedirectToAction("Index");
             }
             return RedirectToAction("Index", "Home");
         }
