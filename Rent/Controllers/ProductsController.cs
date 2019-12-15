@@ -80,8 +80,8 @@ namespace Rent.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName",product.CategoryId);
+            ViewData["UserId"] = _context.Users.ToList().LastOrDefault().Id.ToString();
             return View(product);
         }
 

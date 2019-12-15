@@ -149,7 +149,6 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Home\Details.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Home\Products.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Home\Window.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\Error.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\_CategoriesPartial.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\_Layout.cshtml.g.cs

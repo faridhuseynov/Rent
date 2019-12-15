@@ -17,7 +17,7 @@
                     foreach (var image in Model.Images)
                     {
                         <div class="product-preview">
-                            <img src="@image.PhotoUrl" alt="">
+                            <img src="~/Images/@image.PhotoUrl" alt="">
                         </div>
                     }
                 }
@@ -38,7 +38,7 @@
                         foreach (var image in Model.Images)
                         {
                             <div class="product-preview">
-                                <img src="~/@image.PhotoUrl" alt="">
+                                <img src="~/Images/@image.PhotoUrl" alt="">
                             </div>
                         }
                     }

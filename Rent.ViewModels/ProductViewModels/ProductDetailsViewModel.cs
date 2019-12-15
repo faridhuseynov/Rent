@@ -21,5 +21,6 @@ namespace Rent.ViewModels.ProductViewModels
         public int CategoryId { get; set; }
         public virtual Category Category { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
+        public string MainPhotoUrl { get; set; }
     }
 }

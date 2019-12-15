@@ -21,10 +21,12 @@
                 @foreach (var product in Model)
                 {
                     <div class="card m-1" style="width: 18rem;">
-                        <img src="..." class="card-img-top" alt="...">
+                        <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@product.ProductName</h5>
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                            <p class="card-text">@product.ProductDescription</p>
+                            <h6 class="card-footer">@product.ProductPrice</h6>
+
                             <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
                         </div>
                     </div>
