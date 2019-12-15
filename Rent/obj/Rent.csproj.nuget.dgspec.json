@@ -45,6 +45,10 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.0, )"
@@ -184,6 +188,10 @@
               "target": "Package",
               "version": "[9.0.0, )"
             },
+            "Microsoft.AspNetCore.Http": {
+              "target": "Package",
+              "version": "[2.2.2, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
@@ -293,6 +301,9 @@
         "frameworks": {
           "netcoreapp3.0": {
             "projectReferences": {
+              "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
+                "projectPath": "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj"
+              },
               "D:\\VS\\Rent\\Rent.ServiceLayers\\Rent.ServiceLayers.csproj": {
                 "projectPath": "D:\\VS\\Rent\\Rent.ServiceLayers\\Rent.ServiceLayers.csproj"
               }
@@ -330,9 +341,13 @@
               "target": "Package",
               "version": "[3.1.0, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+            "Microsoft.VisualStudio.Web.CodeGeneration": {
               "target": "Package",
               "version": "[3.1.0, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.0.0, )"
             },
             "bootstrap": {
               "target": "Package",

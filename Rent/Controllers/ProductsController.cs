@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
+using Rent.ServiceLayers;
 
 namespace Rent.Controllers
 {
@@ -48,8 +50,8 @@ namespace Rent.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
+            ViewData["UserId"] = _context.Users.ToList().LastOrDefault().Id.ToString();
             return View();
         }
 
@@ -58,11 +60,23 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductName,UserId,CategoryId")] Product product)
+        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
+                string fileName;
+                try
+                {
+                    fileName = FileUploaderService.UploadFile(image);
+                }
+                catch (Exception)
+                {
+                    return BadRequest();
+                }
                 _context.Add(product);
+                await _context.SaveChangesAsync();
+                var newProdId = _context.Products.ToList().LastOrDefault().Id;
+                _context.ProductImages.Add(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -94,7 +108,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,UserId,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] Product product)
         {
             if (id != product.Id)
             {
