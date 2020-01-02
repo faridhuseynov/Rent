@@ -2,6 +2,7 @@
 using Rent.DomainModels.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,6 +15,8 @@ namespace Rent.Repositories
         //void UpdateUserPassword(User user);
         void DeleteProposal(int proposalId);
         Task<IEnumerable<Proposal>> GetProposals();
+        Task<IEnumerable<Proposal>> GetProposalsByUserId(string UserId);
+
         Task<Proposal> GetProposalByProposalID(int proposalId);
         Task<int> GetLatestProposalID();
     }
@@ -51,8 +54,14 @@ namespace Rent.Repositories
             }
         }
 
-        async public Task<IEnumerable<Proposal>> GetProposals() {
-            return await db.Proposals.ToListAsync();
+        async public Task<IEnumerable<Proposal>> GetProposals()
+        {
+            return await db.Proposals.Include(p=>p.Product).Include(b=>b.Buyer).Include(o=>o.Owner).ToListAsync();
+        }
+
+        async public Task<IEnumerable<Proposal>> GetProposalsByUserId(string UserId)
+        {
+            return await db.Proposals.Where(x => x.OwnerId == UserId || x.BuyerId == UserId).ToListAsync();
         }
         async public Task<Proposal> GetProposalByProposalID(int proposalId)
         {

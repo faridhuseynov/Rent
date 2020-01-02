@@ -11,6 +11,7 @@ using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
 using Rent.ViewModels.ProductViewModels;
+using Rent.ViewModels.ProposalViewModels;
 
 namespace Rent.Controllers
 {
@@ -19,7 +20,7 @@ namespace Rent.Controllers
         private readonly ILogger<HomeController> _logger;
         IProductsService ps;
         ICategoriesService cs;
-        IProposalsRepository props;
+        IProposalsService propsService;
         private readonly UserManager<User> userManager;
         IEnumerable<Category> categories;
         int NoOfRecordsPerPage = 10;
@@ -28,12 +29,12 @@ namespace Rent.Controllers
         //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
-            IProposalsRepository proposalsRepository, UserManager<User> userManager)
+            IProposalsService proposalsService, UserManager<User> userManager)
         {
             _logger = logger;
             ps = productsService;
             cs = categoriesService;
-            props = proposalsRepository;
+            propsService = proposalsService;
             this.userManager = userManager;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
@@ -75,14 +76,14 @@ namespace Rent.Controllers
             var _buyer = await userManager.FindByEmailAsync(buyer);
             if (product != null)
             {
-                props.AddProposal(new Proposal
+                var addedProposalID=propsService.InsertProposal(new NewProposalViewModel
                 {
                     ProductId = Id,
                     ProposedPrice = proposedPrice,
                     OwnerId = product.UserId,
                     BuyerId = _buyer.Id
                 });
-                TempData["Success"] = $"Proposal {props.GetLatestProposalID().ToString()} successfully added!";
+                TempData["Success"] = $"Proposal {addedProposalID} successfully added!";
             }
             return RedirectToAction("Index", "Home");
         }

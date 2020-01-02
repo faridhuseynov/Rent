@@ -37,8 +37,8 @@ namespace Rent.ServiceLayers
 
         public void DeleteProduct(int ProductID)
         {
-            var productFromRepo = pr.GetProductByProductID(ProductID);
-            if (productFromRepo!=null)
+            //var productFromRepo = pr.GetProductByProductID(ProductID);
+            //if (productFromRepo!=null)
                 pr.DeleteProduct(ProductID);
         }
 

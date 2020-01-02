@@ -2,27 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
+using Rent.ServiceLayers;
 
 namespace Rent.Controllers
 {
     public class ProposalsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IProposalsService proposalsService;
+        private readonly UserManager<User> userManager;
 
-        public ProposalsController(AppDbContext context)
+        public ProposalsController(AppDbContext context,IProposalsService proposalsService, UserManager<User> userManager)
         {
             _context = context;
+            this.proposalsService = proposalsService;
+            this.userManager = userManager;
         }
 
         // GET: Proposals
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string? userName)
         {
-            var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
-            return View(await appDbContext.ToListAsync());
+            var user = userManager.FindByNameAsync(userName).Result;
+            if (user!=null)
+            {
+                var proposals = proposalsService.GetProposals().Where(p => p.OwnerId == user.Id ||
+                p.BuyerId == user.Id);
+                return View(proposals);
+
+            }
+            return RedirectToAction("Home", "Index");
+            //var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
+
+            //return View(await appDbContext.ToListAsync());
         }
 
         // GET: Proposals/Details/5
