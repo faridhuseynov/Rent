@@ -34,7 +34,7 @@ namespace Rent
             {
                 options.UseSqlServer(connString);
             });
-            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+            //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
@@ -42,6 +42,20 @@ namespace Rent
             services.AddScoped<ICategoriesService, CategoriesService>();
             services.AddScoped<IProposalsRepository, ProposalsRepository>();
             //services.AddScoped(IUsersRepository, UsersRepository);
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 8;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+            });
             services.AddSession();
 
         }

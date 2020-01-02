@@ -22,6 +22,7 @@
 
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/css/style.css" />
@@ -29,14 +30,35 @@
 <body>
     <header>
         <div id="top-header">
-            <div class="container">
-                <ul class="header-links pull-left">
+            <div class="container">                <ul class="header-links pull-left">
                     <li><a href="#"><i class="fa fa-phone"></i> +994-55-425-27-72</a></li>
-                    <li><a href="#"><i class="fa fa-envelope-o"></i> faridhuseynov@gmail.com</a></li>
-                    <li><a href="#"><i class="fa fa-map-marker"></i> J.Jabbarli str, 15</a></li>
+                    <li><a href="#"><i class="fa fa-location-arrow"></i> Duisburg Strasse 15</a></li>
                 </ul>
                 <ul class="header-links pull-right">
-                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <!-- Example split danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-outline-danger">@User.Identity.Name</button>
+                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Action</a>
+                                    <a class="dropdown-item" href="#">Another action</a>
+                                    <a class="dropdown-item" href="#">Something else here</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Logout</a>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="btn btn-success" asp-controller="Account" asp-action="Register">Register</a>
+                            <a class="btn btn-info ml-3" asp-controller="Account" asp-action="Login">Sign In</a>
+                        }
+                    </li>
                 </ul>
             </div>
         </div>
@@ -110,13 +132,24 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
-                            </li>*@
-                        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
+        </li>*@
+                        @*<li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Products</a>
-                        </li>
+                        </li>*@
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Index">Proposals</a>
+                            </li>
+                        }
                     </ul>
                 </div>
+
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
             </div>
         </nav>
     </header>
@@ -137,10 +170,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
-@*<script>
-    $(document).click(() => {
-        window.alert("Clicked");
-    })
-
-</script>*@

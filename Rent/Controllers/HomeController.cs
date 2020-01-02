@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Rent.DomainModels.Models;
@@ -18,27 +20,29 @@ namespace Rent.Controllers
         IProductsService ps;
         ICategoriesService cs;
         IProposalsRepository props;
+        private readonly UserManager<User> userManager;
         IEnumerable<Category> categories;
-        int NoOfRecordsPerPage =10;
+        int NoOfRecordsPerPage = 10;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
-            IProposalsRepository proposalsRepository)
+            IProposalsRepository proposalsRepository, UserManager<User> userManager)
         {
             _logger = logger;
             ps = productsService;
             cs = categoriesService;
             props = proposalsRepository;
-            categories = new List<Category> ();
+            this.userManager = userManager;
+            categories = new List<Category>();
             categories = cs.GetCategories().Result;
             //productParams = new ProductParamsForFilter();
         }
 
-        public IActionResult Index(int Id=0, int PageNo = 1)
+        public IActionResult Index(int Id = 0, int PageNo = 1)
         {
-            IEnumerable<ProductDetailsViewModel> products=new List<ProductDetailsViewModel>();
+            IEnumerable<ProductDetailsViewModel> products = new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
             ViewBag.Categories = categories;
@@ -57,17 +61,18 @@ namespace Rent.Controllers
         public IActionResult Details(int Id)
         {
             var product = ps.GetProductByProductID(Id);
-            if (product!=null)
+            if (product != null)
             {
                 product = ps.GetProductByProductID(Id);
                 return View(product);
             }
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
-
-        public IActionResult SendProposal(int Id, decimal proposedPrice)
+        [Authorize]
+        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string buyer)
         {
             var product = ps.GetProductByProductID(Id);
+            var _buyer = await userManager.FindByEmailAsync(buyer);
             if (product != null)
             {
                 props.AddProposal(new Proposal
@@ -75,10 +80,9 @@ namespace Rent.Controllers
                     ProductId = Id,
                     ProposedPrice = proposedPrice,
                     OwnerId = product.UserId,
-                    BuyerId = "6ee849df-68ee-4f64-ba84-b417c0979d51"
+                    BuyerId = _buyer.Id
                 });
-                TempData["Success"] = $"Proposal {props.GetLatestProposalID()} successfully added!";
-                return RedirectToAction("Index");
+                TempData["Success"] = $"Proposal {props.GetLatestProposalID().ToString()} successfully added!";
             }
             return RedirectToAction("Index", "Home");
         }

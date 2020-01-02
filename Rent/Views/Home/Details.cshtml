@@ -76,12 +76,13 @@
                     </div>
                     <p>@Model.ProductDescription</p>
                     <form method="post">
-                        <input hidden value="@Model.Id" name="Id" />
+                        <input hidden name="Id" value="@Model.Id" />
+                        <input hidden value="@User.Identity.Name" name="buyer" />
                         <div class="add-to-cart">
                             <div class="qty-label">
                                 AZN/gun
                                 <div class="input-number">
-                                    <input type="number" name="ProposedPrice">
+                                    <input type="number" name="ProposedPrice" id="proposedPrice" value="0">
                                     <span class="qty-up">+</span>
                                     <span class="qty-down">-</span>
                                 </div>
@@ -319,3 +320,16 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+
+<script>
+    document.getElementsByClassName("qty-up")[0].addEventListener("click", function () {
+        var val = parseInt(document.getElementById('proposedPrice').value)+1;
+        document.getElementById('proposedPrice').value = val;
+    });
+
+        document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
+            var val = parseInt(document.getElementById('proposedPrice').value);
+            if (val!=0)
+                document.getElementById('proposedPrice').value =val-1 ;
+        });
+</script>
