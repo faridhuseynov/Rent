@@ -13,6 +13,11 @@ namespace Rent.DomainModels.Models
 
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLazyLoadingProxies();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Proposal>()
@@ -24,6 +29,11 @@ namespace Rent.DomainModels.Models
                 .HasOne(p => p.Product)
                 .WithMany(o => o.Proposals)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            //modelBuilder.Entity<Proposal>()
+            //    .HasOne(p => p.ProposalType)
+            //    .WithMany(p => p.Proposals)
+            //    .OnDelete(DeleteBehavior.NoAction);
             base.OnModelCreating(modelBuilder);
         }
 
@@ -32,6 +42,7 @@ namespace Rent.DomainModels.Models
         public DbSet<Product> Products { get; set; }
         public DbSet<Proposal> Proposals { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProposalType> ProposalTypes { get; set; }
 
 
     }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Rent.DomainModels.Models;
 using Rent.Repositories;
@@ -22,22 +23,27 @@ namespace Rent.Controllers
         ICategoriesService cs;
         IProposalsService propsService;
         private readonly UserManager<User> userManager;
+        private readonly IProposalTypesRepository proposalTypesRepository;
         IEnumerable<Category> categories;
+        IEnumerable<ProposalType> proposalTypes;
         int NoOfRecordsPerPage = 10;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
-            IProposalsService proposalsService, UserManager<User> userManager)
+            IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository)
         {
             _logger = logger;
             ps = productsService;
             cs = categoriesService;
             propsService = proposalsService;
             this.userManager = userManager;
+            this.proposalTypesRepository = proposalTypesRepository;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
+            proposalTypes = new List<ProposalType>();
+            proposalTypes = proposalTypesRepository.GetProposalTypes().Result;
             //productParams = new ProductParamsForFilter();
         }
 
@@ -56,6 +62,7 @@ namespace Rent.Controllers
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             ViewBag.CategoryId = Id;
+
             return View(products);
         }
 
@@ -65,23 +72,25 @@ namespace Rent.Controllers
             if (product != null)
             {
                 product = ps.GetProductByProductID(Id);
+                ViewBag.ProposalTypes = proposalTypes;
                 return View(product);
             }
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string buyer)
+        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string buyer, int proposalType)
         {
             var product = ps.GetProductByProductID(Id);
             var _buyer = await userManager.FindByEmailAsync(buyer);
             if (product != null)
             {
-                var addedProposalID=propsService.InsertProposal(new NewProposalViewModel
+                var addedProposalID = propsService.InsertProposal(new NewProposalViewModel
                 {
                     ProductId = Id,
                     ProposedPrice = proposedPrice,
                     OwnerId = product.UserId,
-                    BuyerId = _buyer.Id
+                    BuyerId = _buyer.Id,
+                    ProposalType = proposalType
                 });
                 TempData["Success"] = $"Proposal {addedProposalID} successfully added!";
             }

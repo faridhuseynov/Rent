@@ -16,6 +16,8 @@ namespace Rent.ServiceLayers
         void UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel);
         void DeleteProposal(int ProposalID);
         IEnumerable<ProposalDetailsViewModel> GetProposals();
+        IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
+
         ProposalDetailsViewModel GetProposalByProposalId(int ProposalID);
     }
     public class ProposalsService:IProposalsService
@@ -51,6 +53,15 @@ namespace Rent.ServiceLayers
         public IEnumerable<ProposalDetailsViewModel> GetProposals()
         {
             var proposalsList = proposalsRepository.GetProposals();
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Proposal, ProposalDetailsViewModel>(); cfg.IgnoreUnmapped(); });
+            IMapper mapper = config.CreateMapper();
+            var proposals = mapper.Map<IEnumerable<Proposal>, IEnumerable<ProposalDetailsViewModel>>(proposalsList.Result);
+            return proposals;
+        }
+
+        public IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId)
+        {
+            var proposalsList = proposalsRepository.GetProposalsByUserId(UserId);
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<Proposal, ProposalDetailsViewModel>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             var proposals = mapper.Map<IEnumerable<Proposal>, IEnumerable<ProposalDetailsViewModel>>(proposalsList.Result);

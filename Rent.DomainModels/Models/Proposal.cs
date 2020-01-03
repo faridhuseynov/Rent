@@ -21,5 +21,8 @@ namespace Rent.DomainModels.Models
         //public ICollection<string>? BuyersComments { get; set; }
         //public ICollection<string>? OwnersComments { get; set; }
         public bool ProposalStatus { get; set; } = false;
+        public int ProposalTypeId { get; set; }
+        [ForeignKey("ProposalTypeId")]
+        public virtual ProposalType ProposalType { get; set; }
     }
 }

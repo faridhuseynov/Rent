@@ -49,6 +49,7 @@ namespace Rent.Controllers
                 }
                 return View();
             }
+            await signInManager.SignInAsync(user, true);
             return RedirectToAction("Index", "Home");
         }
 
@@ -63,7 +64,7 @@ namespace Rent.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
-            var user = await userManager.FindByEmailAsync(User.Email);
+            var user = await userManager.FindByNameAsync(User.Username);
 
             if (user == null)
                 return View();

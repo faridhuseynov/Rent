@@ -140,7 +140,7 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="Index" asp-route-userName="@User.Identity.Name">Proposals</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Proposals</a>
                             </li>
                         }
                     </ul>

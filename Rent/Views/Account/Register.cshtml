@@ -46,12 +46,17 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
+                </div>
+                <div class="form-group input-group">
                     <input name="Name" asp-for="Name" class="form-control" placeholder="Name" type="text">
                     <span asp-validation-for="Name" class="text-danger"></span>
-
+                </div>
+                <div class="form-group input-group">
                     <input name="Surname" asp-for="Surname" class="form-control" placeholder="Surname" type="text">
                     <span asp-validation-for="Surname" class="text-danger"></span>
 
+                </div>
+                <div class="form-group input-group">
                     <input name="Username" asp-for="Username" class="form-control" placeholder="Username" type="text">
                     <span asp-validation-for="Username" class="text-danger"></span>
 
@@ -62,7 +67,6 @@
                     </div>
                     <input name="Email" asp-for="Email" class="form-control" placeholder="Email address" type="email">
                     <span asp-validation-for="Email" class="text-danger"></span>
-
                 </div>
                 @*<div class="form-group input-group">
                     <div class="input-group-prepend">
@@ -81,12 +85,14 @@
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
                     <input name="Password" asp-for="Password" class="form-control" placeholder="Create password" type="password">
+                    <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input name="Password" asp-for="ConfirmPassword" class="form-control" placeholder="Repeat password" type="password">
+                    <input name="ConfirmPassword" asp-for="ConfirmPassword" class="form-control" placeholder="Repeat password" type="password">
+                    <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>

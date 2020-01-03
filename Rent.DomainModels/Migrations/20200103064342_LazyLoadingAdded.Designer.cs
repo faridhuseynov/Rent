@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rent.DomainModels.Models;
 
 namespace Rent.DomainModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200103064342_LazyLoadingAdded")]
+    partial class LazyLoadingAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,9 +240,6 @@ namespace Rent.DomainModels.Migrations
                     b.Property<bool>("ProposalStatus")
                         .HasColumnType("bit");
 
-                    b.Property<int>("ProposalTypeId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("ProposedPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -252,24 +251,7 @@ namespace Rent.DomainModels.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("ProposalTypeId");
-
                     b.ToTable("Proposals");
-                });
-
-            modelBuilder.Entity("Rent.DomainModels.Models.ProposalType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProposalTypes");
                 });
 
             modelBuilder.Entity("Rent.DomainModels.Models.User", b =>
@@ -431,12 +413,6 @@ namespace Rent.DomainModels.Migrations
                         .WithMany("Proposals")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("Rent.DomainModels.Models.ProposalType", "ProposalType")
-                        .WithMany("Proposals")
-                        .HasForeignKey("ProposalTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

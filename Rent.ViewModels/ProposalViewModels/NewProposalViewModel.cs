@@ -14,5 +14,6 @@ namespace Rent.ViewModels.ProposalViewModels
         public string BuyerId { get; set; }
         //public ICollection<string>? BuyersComments { get; set; }
         //public ICollection<string>? OwnersComments { get; set; }
+        public int ProposalType { get; set; }
     }
 }

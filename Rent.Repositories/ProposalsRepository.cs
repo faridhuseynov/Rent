@@ -56,7 +56,8 @@ namespace Rent.Repositories
 
         async public Task<IEnumerable<Proposal>> GetProposals()
         {
-            return await db.Proposals.Include(p=>p.Product).Include(b=>b.Buyer).Include(o=>o.Owner).ToListAsync();
+            //return await db.Proposals.Include(p=>p.Product).Include(b=>b.Buyer).Include(o=>o.Owner).ToListAsync();
+            return await db.Proposals.ToListAsync();
         }
 
         async public Task<IEnumerable<Proposal>> GetProposalsByUserId(string UserId)

@@ -193,4 +193,7 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\Create.cshtml.g.
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\Delete.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\Details.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\Edit.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\Index.cshtml.g.cs
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Castle.Core.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.EntityFrameworkCore.Proxies.dll
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\IncomingProposals.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Proposals\OutgoingProposals.cshtml.g.cs

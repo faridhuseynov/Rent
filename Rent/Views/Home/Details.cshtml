@@ -79,6 +79,17 @@
                         <input hidden name="Id" value="@Model.Id" />
                         <input hidden value="@User.Identity.Name" name="buyer" />
                         <div class="add-to-cart">
+                            <div class="input-number mb-3">
+                                <select name="proposalType" class="input-select">
+                                    @foreach (var item in ViewBag.ProposalTypes)
+                                    {
+                                        if (item.Id != 2)
+                                        {
+                                            <option class="typeOption" value="@item.Id">@item.Type</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
                             <div class="qty-label">
                                 AZN/gun
                                 <div class="input-number">
@@ -327,9 +338,12 @@
         document.getElementById('proposedPrice').value = val;
     });
 
-        document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
-            var val = parseInt(document.getElementById('proposedPrice').value);
-            if (val!=0)
-                document.getElementById('proposedPrice').value =val-1 ;
-        });
+    document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
+        var val = parseInt(document.getElementById('proposedPrice').value);
+        if (val!=0)
+            document.getElementById('proposedPrice').value =val-1 ;
+    });
+
+    document.getElementsByClassName("typeSelected")
+
 </script>

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Rent.DomainModels.Models
 {
-    public class Category
+    public class ProposalType
     {
         public int Id { get; set; }
-        public string CategoryName { get; set; }
-        public virtual ICollection<Product> Products { get; set; }
+        public string Type { get; set; }
+        public virtual ICollection<Proposal> Proposals { get; set; }
     }
 }

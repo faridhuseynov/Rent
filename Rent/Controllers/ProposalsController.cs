@@ -25,13 +25,12 @@ namespace Rent.Controllers
         }
 
         // GET: Proposals
-        public async Task<IActionResult> Index(string? userName)
+        public async Task<IActionResult> IncomingProposals(string? userName)
         {
             var user = userManager.FindByNameAsync(userName).Result;
             if (user!=null)
             {
-                var proposals = proposalsService.GetProposals().Where(p => p.OwnerId == user.Id ||
-                p.BuyerId == user.Id);
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u=>u.OwnerId==user.Id);
                 return View(proposals);
 
             }
@@ -41,6 +40,20 @@ namespace Rent.Controllers
             //return View(await appDbContext.ToListAsync());
         }
 
+        public async Task<IActionResult> OutgoingProposals(string? userName)
+        {
+            var user = userManager.FindByNameAsync(userName).Result;
+            if (user != null)
+            {
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id);
+                return View(proposals);
+
+            }
+            return RedirectToAction("Home", "Index");
+            //var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
+
+            //return View(await appDbContext.ToListAsync());
+        }
         // GET: Proposals/Details/5
         public async Task<IActionResult> Details(int? id)
         {

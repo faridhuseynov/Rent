@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Rent.ViewModels.ProposalViewModels.ProposalDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Göndərilən Təkliflər";
+}
+
+    <div class="container-fluid">
+        <div class="row mb-3">
+            <a class="btn btn-info" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Gələn Təkliflər</a>
+            <a class="btn btn-info ml-3" asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">Göndərilən Təkliflər</a>
+        </div>
+        <h3>Göndərilən təklif sayı: @Model.Count()</h3>
+            @foreach (var item in Model)
+            {
+                //review the option of  using jumbotron-fluid class
+                <div class="row jumbotron-fluid mb-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@item.Product.MainPhotoUrl" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
+                        <p class="card-text">Məhsulun sahibi: @item.Product.User</p>
+                        <p class="card-text">Haqqında: @item.Product.ProductDescription</p>
+                        <p class="card-text">Təklif: @item.ProposedPrice AZN</p>
+                        <p class="card-footer">Status: @item.ProposalStatus</p>
+                        <a href="#" class="btn btn-primary">Details</a>
+                    </div>
+                    @*<img class="card-img-top" src="@item.Product.MainPhotoUrl" />
+                    @Html.DisplayFor(modelItem => item.Product.ProductName)
+                    @Html.DisplayFor(modelItem => item.ProposedPrice)
+
+                    @Html.DisplayFor(modelItem => item.Owner.UserName)*@
+                </div>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Buyer.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProposalStatus)
+                </td>*@
+                @*<td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>*@
+        }
+    </div>
