@@ -80,23 +80,23 @@
                         <input hidden value="@User.Identity.Name" name="buyer" />
                         <div class="add-to-cart">
                             <div class="input-number mb-3">
-                                <select name="proposalType" class="input-select">
+                                <select name="proposalType" id="propType" class="input-select">
                                     @foreach (var item in ViewBag.ProposalTypes)
                                     {
                                         if (item.Id != 2)
                                         {
-                                            <option class="typeOption" value="@item.Id">@item.Type</option>
+                                            <option value="@item.Id">@item.Type</option>
                                         }
                                     }
                                 </select>
                             </div>
                             <div class="qty-label">
-                                AZN/gun
                                 <div class="input-number">
                                     <input type="number" name="ProposedPrice" id="proposedPrice" value="0">
                                     <span class="qty-up">+</span>
                                     <span class="qty-down">-</span>
                                 </div>
+                                <label id="priceType">azn</label>
                             </div>
                             <button asp-controller="Home" asp-action="SendProposal"
                                     class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> send proposal</button>
@@ -344,6 +344,15 @@
             document.getElementById('proposedPrice').value =val-1 ;
     });
 
-    document.getElementsByClassName("typeSelected")
+    document.getElementById("propType").addEventListener("click", function (event) {
+        if (event.target.value == 1) {
+            //console.log(document.getElementById("priceType").textContent);
+            document.getElementById("priceType").textContent = "azn";
 
+        }
+        else {
+            document.getElementById("priceType").textContent = "azn/gün";
+
+        }
+    });
 </script>

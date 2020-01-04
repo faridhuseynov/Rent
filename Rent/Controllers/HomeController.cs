@@ -90,7 +90,8 @@ namespace Rent.Controllers
                     ProposedPrice = proposedPrice,
                     OwnerId = product.UserId,
                     BuyerId = _buyer.Id,
-                    ProposalType = proposalType
+                    ProposalType = proposalType,
+                    
                 });
                 TempData["Success"] = $"Proposal {addedProposalID} successfully added!";
             }
