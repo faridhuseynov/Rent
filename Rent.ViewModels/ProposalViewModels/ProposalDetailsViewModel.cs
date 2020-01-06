@@ -18,6 +18,8 @@ namespace Rent.ViewModels.ProposalViewModels
         public string BuyerId { get; set; }
         [ForeignKey("BuyerId")]
         public virtual User Buyer { get; set; }
+        public int ProposalTypeId { get; set; }
+        public virtual ProposalType ProposalType { get; set; }
         public bool ProposalStatus { get; set; }
     }
 }

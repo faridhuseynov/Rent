@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -11,20 +12,26 @@ using Rent.ServiceLayers;
 
 namespace Rent.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IProductsService productsService;
+        private readonly ICategoriesService categoriesService;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context, IProductsService productsService,ICategoriesService categoriesService)
         {
             _context = context;
+            this.productsService = productsService;
+            this.categoriesService = categoriesService;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Products.Include(p => p.Category).Include(p => p.User);
-            return View(await appDbContext.ToListAsync());
+            var products = productsService.GetProducts();
+            ViewBag.Categories = await categoriesService.GetCategories();
+            return View(products);
         }
 
         // GET: Products/Details/5

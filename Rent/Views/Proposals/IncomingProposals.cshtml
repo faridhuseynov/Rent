@@ -21,7 +21,17 @@
                     <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
                     <p class="card-text">Təklifi göndərən: @item.Buyer.UserName</p>
                     <p class="card-text">Haqqında: @item.Product.ProductDescription</p>
-                    <p class="card-text">Təklif: @item.ProposedPrice AZN</p>
+                    <p class="card-text">
+                        Təklif: @item.ProposedPrice
+                        @if (item.ProposalTypeId == 1)
+                        {
+                            <span>AZN</span>
+                        }
+                        else
+                        {
+                            <span>AZN/GÜN</span>
+                        }
+                    </p>
                     <p class="card-footer">Status: @item.ProposalStatus</p>
                     <a href="#" class="btn btn-primary">Details</a>
                 </div>

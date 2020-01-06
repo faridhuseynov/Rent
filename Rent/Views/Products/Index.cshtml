@@ -1,49 +1,33 @@
-﻿@model IEnumerable<Rent.DomainModels.Models.Product>
+﻿@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
-
-<h2>Index</h2>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Product
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="container-fluid">
+    @foreach (var item in ViewBag.Categories)
+    {
+        if (Model.Any(x => x.Category.Id == item.Id))
         {
-            <tr>
-                <td>
-                    @*put image here*@
-                    @Html.DisplayFor(modelItem => item.ProductName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductDescription)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.CategoryName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+                <h3 class="mb-0 mt-5">@item.CategoryName</h3>
+                <hr class="mt-0"/>
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    if (product.CategoryId == @item.Id)
+                    {
+                        <div class="card m-3" style="width: 18rem;">
+                            <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text">@product.ProductDescription</p>
+                                <h6 class="card-footer">@product.ProductPrice</h6>
+
+                                <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
         }
-    </tbody>
-</table>
+    }
+</div>
