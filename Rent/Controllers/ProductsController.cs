@@ -29,7 +29,7 @@ namespace Rent.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var products = productsService.GetProducts();
+            var products = productsService.GetProducts().Where(u=>u.User.UserName=="faridq");
             ViewBag.Categories = await categoriesService.GetCategories();
             return View(products);
         }

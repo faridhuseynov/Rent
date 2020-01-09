@@ -3,31 +3,40 @@
 @{
     ViewData["Title"] = "Products";
 }
-<div class="container-fluid">
-    @foreach (var item in ViewBag.Categories)
-    {
-        if (Model.Any(x => x.Category.Id == item.Id))
-        {
-                <h3 class="mb-0 mt-5">@item.CategoryName</h3>
-                <hr class="mt-0"/>
-            <div class="row">
-                @foreach (var product in Model)
-                {
-                    if (product.CategoryId == @item.Id)
-                    {
-                        <div class="card m-3" style="width: 18rem;">
-                            <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">@product.ProductName</h5>
-                                <p class="card-text">@product.ProductDescription</p>
-                                <h6 class="card-footer">@product.ProductPrice</h6>
+    <div class="container-fluid">
+        <a class="btn btn-info mb-4">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
 
-                                <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
-                            </div>
-                        </div>
-                    }
-                }
-            </div>
+        @if (!Model.Any())
+        {
+            <h3>Sizin əlavə edilmiş məhsulunuz yoxdur...</h3>
         }
-    }
-</div>
+        else
+        {
+            @foreach (var item in ViewBag.Categories)
+            {
+                if (Model.Any(x => x.Category.Id == item.Id))
+                {
+                    <h3 class="mb-0 mt-5">@item.CategoryName</h3>
+                    <hr class="mt-0" />
+                    <div class="row">
+                        @foreach (var product in Model)
+                        {
+                            if (product.CategoryId == @item.Id)
+                            {
+                                <div class="card m-3" style="width: 18rem;">
+                                    <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@product.ProductName</h5>
+                                        <p class="card-text">@product.ProductDescription</p>
+                                        <h6 class="card-footer">@product.ProductPrice</h6>
+
+                                        <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
