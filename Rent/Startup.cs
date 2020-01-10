@@ -43,6 +43,7 @@ namespace Rent
             services.AddScoped<IProposalsRepository, ProposalsRepository>();
             services.AddScoped<IProposalsService, ProposalsService>();
             services.AddScoped<IProposalTypesRepository, ProposalTypesRepository>();
+            services.AddScoped<IImagesRepository, ImagesRepository>();
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.Configure<IdentityOptions>(options =>
             {
@@ -77,7 +78,7 @@ namespace Rent
             }
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

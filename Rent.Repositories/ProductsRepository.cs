@@ -9,7 +9,7 @@ namespace Rent.Repositories
 {
     public interface IProductsRepository
     {
-        void AddProduct(Product product);
+        Task AddProduct(Product product);
         void UpdateProductDetails(Product product);
         //void UpdateUserPassword(User user);
         void DeleteProduct(int productId);
@@ -24,7 +24,7 @@ namespace Rent.Repositories
         {
             db = dbContext;
         }
-        async public void AddProduct(Product product)
+        async public Task AddProduct(Product product)
         {
             await db.Products.AddAsync(product);
             await db.SaveChangesAsync();

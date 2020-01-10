@@ -31,7 +31,7 @@ namespace Rent.ServiceLayers
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<NewProductViewModel, Product>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             Product newProduct = mapper.Map<NewProductViewModel, Product>(newProductViewModel);
-            pr.AddProduct(newProduct);
+            await pr.AddProduct(newProduct);
             return await pr.GetLatestProductID();
         }
 

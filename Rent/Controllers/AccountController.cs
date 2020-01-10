@@ -49,7 +49,7 @@ namespace Rent.Controllers
                 }
                 return View();
             }
-            await signInManager.SignInAsync(user, true);
+            await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
 

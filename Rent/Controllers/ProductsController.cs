@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
+using Rent.Repositories;
 using Rent.ServiceLayers;
+using Rent.ViewModels.ProductViewModels;
 
 namespace Rent.Controllers
 {
@@ -18,18 +22,23 @@ namespace Rent.Controllers
         private readonly AppDbContext _context;
         private readonly IProductsService productsService;
         private readonly ICategoriesService categoriesService;
+        private readonly UserManager<User> userManager;
+        private readonly IImagesRepository imagesRepository;
 
-        public ProductsController(AppDbContext context, IProductsService productsService,ICategoriesService categoriesService)
+        public ProductsController(AppDbContext context, IProductsService productsService,
+            ICategoriesService categoriesService, UserManager<User> userManager, IImagesRepository imagesRepository)
         {
             _context = context;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
+            this.imagesRepository = imagesRepository;
         }
 
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var products = productsService.GetProducts().Where(u=>u.User.UserName=="faridq");
+            var products = productsService.GetProducts().Where(u=>u.User.UserName== User.Identity.Name);
             ViewBag.Categories = await categoriesService.GetCategories();
             return View(products);
         }
@@ -57,8 +66,8 @@ namespace Rent.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName");
-            ViewData["UserId"] = _context.Users.ToList().LastOrDefault().Id.ToString();
+            ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View();
         }
 
@@ -67,7 +76,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] Product product)
+        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] NewProductViewModel newProductViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -80,16 +89,16 @@ namespace Rent.Controllers
                 {
                     return BadRequest();
                 }
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                var newProdId = _context.Products.ToList().LastOrDefault().Id;
-                _context.ProductImages.Add(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
-                await _context.SaveChangesAsync();
+                
+
+                var newProdId = await productsService.InsertProduct(newProductViewModel);
+
+                await imagesRepository.AddImage(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "CategoryName",product.CategoryId);
-            ViewData["UserId"] = _context.Users.ToList().LastOrDefault().Id.ToString();
-            return View(product);
+            ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
+            return View(newProductViewModel);
         }
 
         // GET: Products/Edit/5
