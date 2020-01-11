@@ -13,9 +13,9 @@ namespace Rent.ServiceLayers
     {
         Task<int> InsertProduct(NewProductViewModel newProductViewModel);
         void UpdateProductDetails(EditProductDetailsViewModel productDetailsViewModel);
-        void DeleteProduct(int ProductID);
+        Task DeleteProduct(int ProductID);
         IEnumerable<ProductDetailsViewModel> GetProducts();
-        ProductDetailsViewModel GetProductByProductID(int ProductID);
+        Task<ProductDetailsViewModel> GetProductByProductID(int ProductID);
     }
 
     public class ProductsService:IProductsService
@@ -35,11 +35,11 @@ namespace Rent.ServiceLayers
             return await pr.GetLatestProductID();
         }
 
-        public void DeleteProduct(int ProductID)
+        public async Task DeleteProduct(int ProductID)
         {
             //var productFromRepo = pr.GetProductByProductID(ProductID);
             //if (productFromRepo!=null)
-                pr.DeleteProduct(ProductID);
+              await pr.DeleteProduct(ProductID);
         }
 
         public void UpdateProductDetails(EditProductDetailsViewModel editedProductDetailsViewModel)
@@ -59,13 +59,13 @@ namespace Rent.ServiceLayers
             return products;
         }
 
-        public ProductDetailsViewModel GetProductByProductID(int ProductID)
+        public async Task<ProductDetailsViewModel> GetProductByProductID(int ProductID)
         {
-            var productFromRepo = pr.GetProductByProductID(ProductID);
+            var productFromRepo = await pr.GetProductByProductID(ProductID);
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<Product, ProductDetailsViewModel>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
-            var product = mapper.Map<Product, ProductDetailsViewModel>(productFromRepo.Result);
-            return product;
+            var product = mapper.Map<Product, ProductDetailsViewModel>(productFromRepo);
+            return  product;
         }
 
     }

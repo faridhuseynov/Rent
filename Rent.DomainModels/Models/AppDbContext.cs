@@ -20,6 +20,11 @@ namespace Rent.DomainModels.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Product>()
+                .HasOne(u => u.User)
+                .WithMany(p => p.Products)
+                .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<Proposal>()
                 .HasOne(p => p.Owner)
                 .WithMany(o => o.Proposals)

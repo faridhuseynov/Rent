@@ -156,35 +156,20 @@ namespace Rent.Controllers
             return View(product);
         }
 
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Products/UserId/Delete/ProductId
+        [HttpGet]
+        public async Task<IActionResult> Delete(int Id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var product = await _context.Products
-                .Include(p => p.Category)
-                .Include(p => p.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                
+            var product = await productsService.GetProductByProductID(Id);
+
             if (product == null)
             {
                 return NotFound();
             }
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await productsService.DeleteProduct(product.Id);
+            return RedirectToAction("Index","Products");
         }
 
         private bool ProductExists(int id)

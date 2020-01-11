@@ -12,7 +12,7 @@ namespace Rent.Repositories
         Task AddProduct(Product product);
         void UpdateProductDetails(Product product);
         //void UpdateUserPassword(User user);
-        void DeleteProduct(int productId);
+        Task DeleteProduct(int productId);
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProductByProductID(int productId);
         Task<int> GetLatestProductID();
@@ -30,7 +30,7 @@ namespace Rent.Repositories
             await db.SaveChangesAsync();
         }
 
-        async public void DeleteProduct(int productId)
+        public async Task DeleteProduct(int productId)
         {
             var product = await db.Products.FirstOrDefaultAsync(x => x.Id == productId);
             if (product != null)
@@ -40,9 +40,9 @@ namespace Rent.Repositories
             }
         }
 
-        async public Task<int> GetLatestProductID()
+        public async Task<int> GetLatestProductID()
         {
-            var product = await db.Products.LastAsync();
+            var product = await db.Products.LastOrDefaultAsync();
             return product.Id;
         }
 

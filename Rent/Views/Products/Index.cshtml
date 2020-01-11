@@ -30,7 +30,8 @@
                                     <p class="card-text">@product.ProductDescription</p>
                                     <h6 class="card-footer">@product.ProductPrice</h6>
 
-                                    <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+                                    <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+                                    <a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>
                                 </div>
                             </div>
                         }

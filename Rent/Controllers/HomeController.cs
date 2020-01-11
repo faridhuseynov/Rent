@@ -88,7 +88,7 @@ namespace Rent.Controllers
                 {
                     ProductId = Id,
                     ProposedPrice = proposedPrice,
-                    OwnerId = product.UserId,
+                    OwnerId = product.Result.Id.ToString(),
                     BuyerId = _buyer.Id,
                     ProposalTypeId = proposalType                    
                 });

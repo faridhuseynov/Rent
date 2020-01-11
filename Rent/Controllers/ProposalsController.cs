@@ -27,7 +27,7 @@ namespace Rent.Controllers
         // GET: Proposals
         public async Task<IActionResult> IncomingProposals(string? userName)
         {
-            var user = userManager.FindByNameAsync(userName).Result;
+            var user = await userManager.FindByNameAsync(userName);
             if (user!=null)
             {
                 var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u=>u.OwnerId==user.Id);
