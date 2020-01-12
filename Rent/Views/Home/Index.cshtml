@@ -20,12 +20,19 @@
 
                 @foreach (var product in Model)
                 {
-                    <div class="card m-1" style="width: 18rem;">
+                    <div class="card m-1" style="width: 20rem;">
                         <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">@product.ProductName</h5>
                             <p class="card-text">@product.ProductDescription</p>
-                            <h6 class="card-footer">@product.ProductPrice</h6>
+                            @if (product.Sell == true)
+                            {
+                                <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                            }
+                            @if (product.Lend == true)
+                            {
+                                <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                            }
 
                             <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
                         </div>
@@ -64,11 +71,11 @@
                         }
                     }
                     @*<li class="page-item active" aria-current="page">
-                    <span class="page-link">
-                        2
-                        <span class="sr-only">(current)</span>
-                    </span>
-                </li>*@
+                            <span class="page-link">
+                                2
+                                <span class="sr-only">(current)</span>
+                            </span>
+                        </li>*@
                     @*<li class="page-item"><a class="page-link" href="#">3</a></li>*@
                     @if (@ViewBag.PageNo == ViewBag.NoOfPages)
                     {
@@ -103,6 +110,6 @@
 
         $("a[href='/home/index']").attr("id", "activeNav");*@
     </script>
- }
+}
 
 

@@ -16,6 +16,7 @@ namespace Rent.ServiceLayers
         Task DeleteProduct(int ProductID);
         IEnumerable<ProductDetailsViewModel> GetProducts();
         Task<ProductDetailsViewModel> GetProductByProductID(int ProductID);
+        Task<int> GetLastAddedProductId();
     }
 
     public class ProductsService:IProductsService
@@ -66,6 +67,11 @@ namespace Rent.ServiceLayers
             IMapper mapper = config.CreateMapper();
             var product = mapper.Map<Product, ProductDetailsViewModel>(productFromRepo);
             return  product;
+        }
+
+        public async Task<int> GetLastAddedProductId()
+        {
+            return await pr.GetLatestProductID();
         }
 
     }

@@ -66,12 +66,11 @@ namespace Rent.Controllers
             return View(products);
         }
 
-        public IActionResult Details(int Id)
+        public async Task<IActionResult> Details(int Id)
         {
-            var product = ps.GetProductByProductID(Id);
+            var product = await ps.GetProductByProductID(Id);
             if (product != null)
             {
-                product = ps.GetProductByProductID(Id);
                 ViewBag.ProposalTypes = proposalTypes;
                 return View(product);
             }

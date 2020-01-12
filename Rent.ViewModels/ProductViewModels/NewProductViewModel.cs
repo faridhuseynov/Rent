@@ -10,7 +10,10 @@ namespace Rent.ViewModels.ProductViewModels
         public string UserId { get; set; }
         public int CategoryId { get; set; }
         public string ProductDescription { get; set; }
-        public decimal ProductPrice { get; set; }
+        public decimal SellPrice { get; set; }
+        public decimal LendPrice { get; set; }
+        public bool Sell { get; set; }
+        public bool Lend { get; set; }
     }
 }
 

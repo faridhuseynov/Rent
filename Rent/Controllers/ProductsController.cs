@@ -76,22 +76,26 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] NewProductViewModel newProductViewModel)
+        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend")] NewProductViewModel newProductViewModel)
         {
+            string fileName="";
             if (ModelState.IsValid)
             {
-                string fileName;
-                try
+                if (image!=null)
                 {
-                    fileName = FileUploaderService.UploadFile(image);
-                }
-                catch (Exception)
-                {
-                    return BadRequest();
+                    try
+                    {
+                        fileName = FileUploaderService.UploadFile(image);
+                    }
+                    catch (Exception)
+                    {
+                        return BadRequest();
+                    }
                 }
                 
 
-                var newProdId = await productsService.InsertProduct(newProductViewModel);
+                await productsService.InsertProduct(newProductViewModel);
+                var newProdId = await productsService.GetLastAddedProductId();
 
                 await imagesRepository.AddImage(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
                 return RedirectToAction(nameof(Index));

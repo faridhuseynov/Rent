@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rent.DomainModels.Models;
 
 namespace Rent.DomainModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200112071132_ProductSellOrLendAdded")]
+    partial class ProductSellOrLendAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -178,9 +180,6 @@ namespace Rent.DomainModels.Migrations
                     b.Property<bool>("Lend")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("LendPrice")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<string>("MainPhotoUrl")
                         .HasColumnType("nvarchar(max)");
 
@@ -190,11 +189,11 @@ namespace Rent.DomainModels.Migrations
                     b.Property<string>("ProductName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProductPrice")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Sell")
                         .HasColumnType("bit");
-
-                    b.Property<decimal>("SellPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");

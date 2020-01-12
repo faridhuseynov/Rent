@@ -12,21 +12,21 @@
             <!-- Product main img -->
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
-                @if (Model.Images.Count>0)
-                {
-                    foreach (var image in Model.Images)
+                    @if (Model.Images.Count > 0)
+                    {
+                        foreach (var image in Model.Images)
+                        {
+                            <div class="product-preview">
+                                <img src="~/Images/@image.PhotoUrl" alt="">
+                            </div>
+                        }
+                    }
+                    else
                     {
                         <div class="product-preview">
-                            <img src="~/Images/@image.PhotoUrl" alt="">
+                            <img src="~/Images/default-pro.jpg" alt="">
                         </div>
                     }
-                }
-                else
-                {
-                    <div class="product-preview">
-                        <img src="~/Images/default-pro.jpg" alt="">
-                    </div>
-                }
                 </div>
             </div>
             <!-- /Product main img -->
@@ -48,10 +48,10 @@
                             <img src="~/Images/default-pro.jpg" alt="">
                         </div>
                     }
-                  
+
                     @*<div class="product-preview">
-                        <img src="./img/product08.png" alt="">
-                    </div>*@
+                            <img src="./img/product08.png" alt="">
+                        </div>*@
                 </div>
             </div>
             <!-- /Product thumb imgs -->
@@ -70,10 +70,21 @@
                         </div>
                         <a class="review-link" href="#">10 Review(s) | Add your review</a>
                     </div>
-                    <div>
-                        <h3 class="product-price">@Model.ProductPrice <span>AZN/gun</span> <del class="product-old-price">@Model.ProductPrice</del></h3>
-                        <span class="product-available">In Stock</span>
-                    </div>
+                    @if (Model.Lend == true)
+                    {
+                        <div>
+                            <label>Kirayə qiyməti:</label>
+                            <h3 class="product-price">@Model.LendPrice <span>AZN/gun</span></h3>
+                        </div>
+                    }
+                    @if (Model.Sell == true)
+                    {
+                        <div>
+                            <label>Satış qiyməti:</label>
+
+                            <h3 class="product-price">@Model.SellPrice <span>AZN</span></h3>
+                        </div>
+                    }
                     <p>@Model.ProductDescription</p>
                     <form method="post">
                         <input hidden name="Id" value="@Model.Id" />
@@ -99,12 +110,14 @@
                                 <label id="priceType">azn</label>
                             </div>
                             <button asp-controller="Home" asp-action="SendProposal"
-                                    class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> send proposal</button>
+                                    class="add-to-cart-btn">
+                                <i class="fa fa-shopping-cart"></i> send proposal
+                            </button>
                         </div>
                     </form>
 
                     <ul class="product-btns">
-                        <li><a href="#"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i> add to wishlist</a></li>
                     </ul>
 
                     <ul class="product-links">
@@ -334,14 +347,14 @@
 
 <script>
     document.getElementsByClassName("qty-up")[0].addEventListener("click", function () {
-        var val = parseInt(document.getElementById('proposedPrice').value)+1;
+        var val = parseInt(document.getElementById('proposedPrice').value) + 1;
         document.getElementById('proposedPrice').value = val;
     });
 
     document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
         var val = parseInt(document.getElementById('proposedPrice').value);
-        if (val!=0)
-            document.getElementById('proposedPrice').value =val-1 ;
+        if (val != 0)
+            document.getElementById('proposedPrice').value = val - 1;
     });
 
     document.getElementById("propType").addEventListener("click", function (event) {

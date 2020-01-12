@@ -1,12 +1,11 @@
 ﻿@model Rent.ViewModels.ProductViewModels.NewProductViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Yeni Məhsul";
 }
 
-<h2>Create</h2>
+<h2>Yeni məhsul</h2>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,31 +22,44 @@
                 <span asp-validation-for="ProductDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductPrice" class="control-label">Qiyməti</label>
-                <input asp-for="ProductPrice" class="form-control" />
-                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                <input class="form-check-input" asp-for="Sell" type="checkbox" id="sellCheck">
+                <label class="ml-4 form-check-label" asp-for="Sell" for="sellCheck">
+                    Satmaq
+                </label>
+            </div>
+            <div class="form-group">
+                <input class="form-check-input" asp-for="Lend" type="checkbox" id="lendCheck">
+                <label class="ml-4 form-check-label" asp-for="Lend" for="lendCheck">
+                    Kirayə vermək
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SellPrice" class="control-label">Satış Qiyməti (AZN)</label>
+                <input asp-for="SellPrice" class="form-control" disabled id="sellInput" />
+                <span asp-validation-for="SellPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LendPrice" class="control-label">Kirayə Qiyməti (AZN/GÜN)</label>
+                <input asp-for="LendPrice" class="form-control" disabled id="lendInput" />
+                <span asp-validation-for="LendPrice" class="text-danger"></span>
             </div>
             <div class="form-group" hidden>
                 <label asp-for="UserId" class="control-label"></label>
                 <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
             </div>
-            @*<div class="form-group">
-                <label for="image" class="control-label"></label>
-                <input type="file" name="image" id="image" />
-            </div>*@
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label">Kateqoriya</label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
-                    <label class="control-label">Şəkil əlavə et</label>
+                <label class="control-label">Şəkil əlavə et</label>
                 <div class="custom-file">
                     <input type="file" name="image" id="image">
                     <label class="custom-file-label" for="image">Choose file</label>
                 </div>
                 @*<div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">Button</button>
-                </div>*@
+                        <button class="btn btn-outline-secondary" type="button">Button</button>
+                    </div>*@
             </div>
             <div class="form-group">
                 <input type="submit" value="Yarat" class="btn btn-default" />
@@ -62,10 +74,29 @@
 
 
 @section Scripts{
-<script>
-    $('#image').on('change', function () {
-        var filename = $(this).val();
-        $(this).next('.custom-file-label').html(filename);
-    })
-</script>
+    <script>
+        $('#image').on('change', function () {
+            var filename = $(this).val();
+            $(this).next('.custom-file-label').html(filename);
+        })
+
+        $('#sellCheck').click(function () {
+            if ($(this).prop("checked") == true) {
+                $("#sellInput").removeAttr("disabled");
+            } else {
+                $("#sellInput").val("");
+
+                $("#sellInput").attr("disabled", true);
+            }
+        })
+
+        $('#lendCheck').click(function () {
+            if ($(this).prop("checked") == true) {
+                $("#lendInput").removeAttr("disabled");
+            } else {
+                $("#lendInput").val("");
+                $("#lendInput").attr("disabled", true);
+            }
+        })
+    </script>
 }
