@@ -74,7 +74,11 @@
                     {
                         <div>
                             <label>Kirayə qiyməti:</label>
-                            <h3 class="product-price">@Model.LendPrice <span>AZN/gun</span></h3>
+                            <h3 class="product-price">@Model.LendPrice <span>AZN/gün</span></h3>
+                        </div>
+                        <div>
+                            <label>Minimum kirayə müddəti:</label>
+                            <h3 id="minLendDays" class="product-price">@Model.MinLendDays <span>gün</span></h3>
                         </div>
                     }
                     @if (Model.Sell == true)
@@ -113,6 +117,20 @@
                                     class="add-to-cart-btn">
                                 <i class="fa fa-shopping-cart"></i> send proposal
                             </button>
+                        </div>
+                        <div class="date" hidden>
+
+                        <div class="form-group">
+                            <label>Başlanğıc</label>
+                            <input id="dp1" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                            <label class="text-danger" id="dp1ErrorSpan" hidden>Başlanğıc tarixi ən tez sabahdan başlamalıdır</label>
+                        </div>
+                        <div class="form-group">
+                            <label>Son</label>
+                            <input id="dp2" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                            <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
+                            <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.MinLendDays gündür</label>
+                        </div>
                         </div>
                     </form>
 
@@ -344,28 +362,74 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+@section Scripts{
+    <script>
+        document.getElementsByClassName("qty-up")[0].addEventListener("click", function () {
+            var val = parseInt(document.getElementById('proposedPrice').value) + 1;
+            document.getElementById('proposedPrice').value = val;
+        });
 
-<script>
-    document.getElementsByClassName("qty-up")[0].addEventListener("click", function () {
-        var val = parseInt(document.getElementById('proposedPrice').value) + 1;
-        document.getElementById('proposedPrice').value = val;
-    });
+        document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
+            var val = parseInt(document.getElementById('proposedPrice').value);
+            if (val != 0)
+                document.getElementById('proposedPrice').value = val - 1;
+        });
 
-    document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
-        var val = parseInt(document.getElementById('proposedPrice').value);
-        if (val != 0)
-            document.getElementById('proposedPrice').value = val - 1;
-    });
+        document.getElementById("propType").addEventListener("click", function (event) {
+            if (event.target.value == 1) {
+                //console.log(document.getElementById("priceType").textContent);
+                document.getElementById("priceType").textContent = "azn";
+                $(".date").attr("hidden", true);
+            }
+            else {
+                document.getElementById("priceType").textContent = "azn/gün";
+                $(".date").removeAttr("hidden");
 
-    document.getElementById("propType").addEventListener("click", function (event) {
-        if (event.target.value == 1) {
-            //console.log(document.getElementById("priceType").textContent);
-            document.getElementById("priceType").textContent = "azn";
+            }
+        });
+        var date;
+        //function checkStartDate(event) {
+        //    date = new Date(event.value);
+        //    var check = new Date;
+        //    check = Date.now();
+        //    if (check>=date.getTime()) {
+        //        $("#dp1ErrorSpan").removeAttr("hidden");
+        //    }
+        //    else {
+        //        $("#dp1ErrorSpan").attr("hidden", true);
+        //    }
+        //}
 
+        function checkDate() {
+            var startDate = (new Date($("#dp1").val())).getTime();
+            var endDate = (new Date($("#dp2").val())).getTime();
+            var minLendDays = $("#minLendDays").text().split("")[0]*24*3600*1000;
+            if (startDate < Date.now()) {
+                $("#dp1ErrorSpan").removeAttr("hidden");
+            } else {
+                $("#dp1ErrorSpan").attr("hidden", true);
+            }
+            if (startDate >= endDate) {
+                $("#dp2ErrorSpan1").removeAttr("hidden");
+            } else {
+                $("#dp2ErrorSpan1").attr("hidden",true);
+            }
+            if (endDate - startDate < minLendDays) { // to check if difference is less than minLendDays
+                $("#dp2ErrorSpan2").removeAttr("hidden");
+            } else {
+                $("#dp2ErrorSpan2").attr("hidden", true);
+            }
+
+            //var endDate = new Date(event.value);
+            //var check = new Date;
+            ////
+            //check = date.getTime()+172800000;
+            //if (check>=date.getTime()) {
+            //    $("#dp1ErrorSpan").removeAttr("hidden");
+            //}
+            //else {
+            //    $("#dp1ErrorSpan").attr("hidden", true);
+            //}
         }
-        else {
-            document.getElementById("priceType").textContent = "azn/gün";
-
-        }
-    });
-</script>
+    </script>
+}

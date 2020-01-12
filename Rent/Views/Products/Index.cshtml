@@ -23,22 +23,24 @@
                     {
                         if (product.CategoryId == @item.Id)
                         {
-                            <div class="card m-3" style="width: 18rem;">
+                            <div class="card m-3" style="width: 20rem;">
                                 <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
                                 <div class="card-body">
+                                    <input hidden value="@product.Id" />
                                     <h5 class="card-title">@product.ProductName</h5>
                                     <p class="card-text">@product.ProductDescription</p>
                                     @if (product.Sell == true)
                                     {
-                                        <h6 class="card-footer">Satış: @product.SellPrice AZN</h6>
+                                        <h6 class="text-success">Satış: @product.SellPrice AZN</h6>
                                     }
                                     @if (product.Lend == true)
                                     {
-                                        <h6 class="card-footer">Kiralamaq: @product.LendPrice AZN/GÜN</h6>
+                                        <h6 class="text-warning">Kiralamaq: @product.LendPrice AZN/GÜN</h6>
                                     }
 
                                     <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
-                                    <a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>
+                                    <a class="btn btn-danger">Sil</a>
+                                    @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
                                 </div>
                             </div>
                         }
@@ -48,3 +50,22 @@
         }
     }
 </div>
+
+@section Scripts{
+    <script>
+        $(".btn-danger").click(function (event) {
+            var id = $(event.target.parentElement).find("input").val();
+            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            if (response == true) {
+                $.ajax({
+                    type:"GET",
+                    url: "/products/delete/" + id,
+                    success: function () {
+                        location.reload(true);
+                    }
+                })
+            }
+        });
+    </script>
+
+}

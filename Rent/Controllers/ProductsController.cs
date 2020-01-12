@@ -76,7 +76,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend")] NewProductViewModel newProductViewModel)
+        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
             string fileName="";
             if (ModelState.IsValid)
@@ -163,9 +163,7 @@ namespace Rent.Controllers
         // GET: Products/UserId/Delete/ProductId
         [HttpGet]
         public async Task<IActionResult> Delete(int Id)
-        {
-
-                
+        {                
             var product = await productsService.GetProductByProductID(Id);
 
             if (product == null)

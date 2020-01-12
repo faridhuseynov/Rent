@@ -12,6 +12,9 @@ namespace Rent.ViewModels.ProductViewModels
         public string ProductDescription { get; set; }
         public decimal SellPrice { get; set; }
         public decimal LendPrice { get; set; }
+        public int MinLendDays { get; set; }
+        public string MainPhotoUrl { get; set; }
+
         public bool Sell { get; set; }
         public bool Lend { get; set; }
     }
