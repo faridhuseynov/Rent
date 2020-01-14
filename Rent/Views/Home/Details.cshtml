@@ -364,41 +364,29 @@
 <!-- /SECTION -->
 @section Scripts{
     <script>
-        document.getElementsByClassName("qty-up")[0].addEventListener("click", function () {
-            var val = parseInt(document.getElementById('proposedPrice').value) + 1;
-            document.getElementById('proposedPrice').value = val;
+        $(".qty-up").click(function () {
+            var val = parseInt($('#proposedPrice').val()) + 1;
+            $('#proposedPrice').val(val);
         });
 
-        document.getElementsByClassName("qty-down")[0].addEventListener("click", function () {
-            var val = parseInt(document.getElementById('proposedPrice').value);
+        $(".qty-down").click(function () {
+            var val = parseInt($('#proposedPrice').val());
             if (val != 0)
-                document.getElementById('proposedPrice').value = val - 1;
+                $('#proposedPrice').val(val - 1);
         });
 
-        document.getElementById("propType").addEventListener("click", function (event) {
+        $("#propType").click(function (event) {
             if (event.target.value == 1) {
                 //console.log(document.getElementById("priceType").textContent);
-                document.getElementById("priceType").textContent = "azn";
+                $("#priceType").text("azn");
                 $(".date").attr("hidden", true);
             }
             else {
-                document.getElementById("priceType").textContent = "azn/gün";
+                $("#priceType").text("azn/gün");
                 $(".date").removeAttr("hidden");
 
             }
         });
-        var date;
-        //function checkStartDate(event) {
-        //    date = new Date(event.value);
-        //    var check = new Date;
-        //    check = Date.now();
-        //    if (check>=date.getTime()) {
-        //        $("#dp1ErrorSpan").removeAttr("hidden");
-        //    }
-        //    else {
-        //        $("#dp1ErrorSpan").attr("hidden", true);
-        //    }
-        //}
 
         function checkDate() {
             var startDate = (new Date($("#dp1").val())).getTime();
@@ -419,17 +407,6 @@
             } else {
                 $("#dp2ErrorSpan2").attr("hidden", true);
             }
-
-            //var endDate = new Date(event.value);
-            //var check = new Date;
-            ////
-            //check = date.getTime()+172800000;
-            //if (check>=date.getTime()) {
-            //    $("#dp1ErrorSpan").removeAttr("hidden");
-            //}
-            //else {
-            //    $("#dp1ErrorSpan").attr("hidden", true);
-            //}
         }
     </script>
 }
