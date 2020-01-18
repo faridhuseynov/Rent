@@ -83,7 +83,7 @@ namespace Rent.Controllers
             var _buyer = await userManager.FindByEmailAsync(buyer);
             if (product != null)
             {
-                var addedProposalID = propsService.InsertProposal(new NewProposalViewModel
+                await propsService.InsertProposal(new NewProposalViewModel
                 {
                     ProductId = Id,
                     ProposedPrice = proposedPrice,

@@ -94,8 +94,7 @@ namespace Rent.Controllers
                 }
                 
 
-                await productsService.InsertProduct(newProductViewModel);
-                var newProdId = await productsService.GetLastAddedProductId();
+                var newProdId =  await productsService.InsertProduct(newProductViewModel);
 
                 await imagesRepository.AddImage(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
                 return RedirectToAction(nameof(Index));

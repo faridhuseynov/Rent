@@ -54,7 +54,7 @@
 
 @section Scripts{
     <script>
-        $(".btn-danger").click(function (event) {
+        $(".deleteButton").click(function (event) {
             var id = $(event.target.parentElement).find("input").val();
             var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
             if (response == true) {
