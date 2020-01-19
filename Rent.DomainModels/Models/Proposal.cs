@@ -24,5 +24,9 @@ namespace Rent.DomainModels.Models
         public int ProposalTypeId { get; set; }
         [ForeignKey("ProposalTypeId")]
         public virtual ProposalType ProposalType { get; set; }
+        public DateTime ProposalAdded { get; set; }
+        public DateTime ProposalClosed { get; set; }
+        public DateTime ProposedRentStartDate { get; set; }
+        public DateTime ProposedRentEndDate { get; set; }
     }
 }

@@ -30,7 +30,7 @@ namespace Rent.Controllers
             var user = await userManager.FindByNameAsync(userName);
             if (user!=null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u=>u.OwnerId==user.Id);
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u=>u.OwnerId==user.Id).OrderByDescending(p=>p.ProposalAdded);
                 return View(proposals);
 
             }
@@ -45,7 +45,7 @@ namespace Rent.Controllers
             var user = userManager.FindByNameAsync(userName).Result;
             if (user != null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id);
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id).OrderByDescending(p=>p.ProposalAdded);
                 return View(proposals);
 
             }

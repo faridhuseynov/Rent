@@ -18,5 +18,8 @@ namespace Rent.ViewModels.ProposalViewModels
         public virtual ProposalType ProposalType { get; set; }
 
         public bool ProposalStatus { get; set; }
+        public DateTime ProposalAdded { get; set; }
+        public DateTime ProposedRentStartDate { get; set; }
+        public DateTime ProposedRentEndDate { get; set; }
     }
 }

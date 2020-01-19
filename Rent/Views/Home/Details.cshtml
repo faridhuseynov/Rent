@@ -72,18 +72,20 @@
                     </div>
                     @if (Model.Lend == true)
                     {
-                        <div>
-                            <label>Kirayə qiyməti:</label>
-                            <h3 class="product-price">@Model.LendPrice <span>AZN/gün</span></h3>
-                        </div>
-                        <div>
-                            <label>Minimum kirayə müddəti:</label>
-                            <h3 id="minLendDays" class="product-price">@Model.MinLendDays <span>gün</span></h3>
+                        <div id="rentConditions" hidden>
+                            <div>
+                                <label>Kirayə qiyməti:</label>
+                                <h3 class="product-price">@Model.LendPrice <span>AZN/gün</span></h3>
+                            </div>
+                            <div>
+                                <label>Minimum kirayə müddəti:</label>
+                                <h3 id="minLendDays" class="product-price">@Model.MinLendDays <span>gün</span></h3>
+                            </div>
                         </div>
                     }
                     @if (Model.Sell == true)
                     {
-                        <div>
+                        <div id="sellConditions">
                             <label>Satış qiyməti:</label>
 
                             <h3 class="product-price">@Model.SellPrice <span>AZN</span></h3>
@@ -100,7 +102,14 @@
                                     {
                                         if (item.Id != 2)
                                         {
-                                            <option value="@item.Id">@item.Type</option>
+                                            <option value="@item.Id">
+                                    @if (@item.Type == "Buy") 
+                                    { <label>Almaq</label> }
+                                    else
+                                    {
+                                        <label>Kiralamaq</label>
+                                    }
+                                            </option>
                                         }
                                     }
                                 </select>
@@ -122,12 +131,12 @@
 
                         <div class="form-group">
                             <label>Başlanğıc</label>
-                            <input id="dp1" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                            <input id="dp1" name="rentStartDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
                             <label class="text-danger" id="dp1ErrorSpan" hidden>Başlanğıc tarixi ən tez sabahdan başlamalıdır</label>
                         </div>
                         <div class="form-group">
                             <label>Son</label>
-                            <input id="dp2" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                            <input id="dp2" name="rentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
                             <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
                             <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.MinLendDays gündür</label>
                         </div>
@@ -380,17 +389,22 @@
                 //console.log(document.getElementById("priceType").textContent);
                 $("#priceType").text("azn");
                 $(".date").attr("hidden", true);
+                $("#rentConditions").attr("hidden", true);
+                $("#sellConditions").removeAttr("hidden");
+
+
             }
             else {
                 $("#priceType").text("azn/gün");
                 $(".date").removeAttr("hidden");
-
+                $("#rentConditions").removeAttr("hidden");
+                $("#sellConditions").attr("hidden", true);
             }
         });
 
         function checkDate() {
             var startDate = (new Date($("#dp1").val())).getTime();
-            var endDate = (new Date($("#dp2").val())).getTime();
+            var endDate = (new Date($("#dp2").val())).getTime()+86400000;
             var minLendDays = $("#minLendDays").text().split("")[0]*24*3600*1000;
             if (startDate < Date.now()) {
                 $("#dp1ErrorSpan").removeAttr("hidden");

@@ -77,24 +77,30 @@ namespace Rent.Controllers
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string buyer, int proposalType)
+        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,
+            string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate)
         {
             var product = ps.GetProductByProductID(Id);
             var _buyer = await userManager.FindByEmailAsync(buyer);
             int newPropId=0;
             if (product != null)
             {
-                newPropId = await propsService.InsertProposal(new NewProposalViewModel
+                var newProposal = new NewProposalViewModel();
+                if (proposalType==3)
                 {
-                    ProductId = Id,
-                    ProposedPrice = proposedPrice,
-                    OwnerId = product.Result.UserId,
-                    BuyerId = _buyer.Id,
-                    ProposalTypeId = proposalType                    
-                });
+                    newProposal.ProposedRentStartDate = rentStartDate;
+                    newProposal.ProposedRentEndDate = rentEndDate;
+                }
+                newProposal.ProductId = Id;
+                newProposal.ProposedPrice = proposedPrice;
+                newProposal.OwnerId = product.Result.UserId;
+                newProposal.BuyerId = _buyer.Id;
+                newProposal.ProposalTypeId = proposalType;
+                newProposal.ProposalAdded = DateTime.Now;
+                newPropId = await propsService.InsertProposal(newProposal);
             }
             if (newPropId > 0)
-                TempData["Success"] = "Proposal successfully sent";
+                TempData["Success"] = "Təklif uğurla göndərilmişdir";
             return RedirectToAction("Index", "Home");
         }
 
