@@ -97,6 +97,11 @@ namespace Rent.Controllers
                 var newProdId =  await productsService.InsertProduct(newProductViewModel);
 
                 await imagesRepository.AddImage(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
+                if (productsService.GetProductByProductID(newProdId).Result.MainPhotoUrl == null)
+                {
+                    await imagesRepository.SetMainPhoto(newProdId, fileName);
+
+                }
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");

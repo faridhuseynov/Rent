@@ -97,6 +97,8 @@ namespace Rent.Controllers
                 newProposal.BuyerId = _buyer.Id;
                 newProposal.ProposalTypeId = proposalType;
                 newProposal.ProposalAdded = DateTime.Now;
+                //in the proposalstatus table the id = 1 is related to Open status
+                newProposal.ProposalStatusId = 1;
                 newPropId = await propsService.InsertProposal(newProposal);
             }
             if (newPropId > 0)

@@ -32,15 +32,20 @@
                         <span>AZN/GÜN</span>
                     }
                 </p>
-                @if (item.ProposalStatus == false)
+                @if (item.ProposalStatusId == 1)
                 {
                     <label class="card-footer badge-info">Status: Açıq</label>
 
                 }
+                else if (item.ProposalStatusId == 2)
+                {
+                    <label class="card-footer badge-success">Status:Razılıq verilib</label>
+                }
                 else
                 {
-                    <label class="card-footer badge-success">Status:Bağlı</label>
+                    <label class="card-footer badge-danger">Status:Imtina edilib</label>
                 }
+
                 <a href="#" class="btn btn-primary">Details</a>
             </div>
             @*<img class="card-img-top" src="@item.Product.MainPhotoUrl" />

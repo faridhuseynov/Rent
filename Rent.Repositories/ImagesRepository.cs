@@ -14,6 +14,7 @@ namespace Rent.Repositories
         Task DeleteImage(int imageId);
         Task<IEnumerable<ProductImage>> GetImages();
         Task<IEnumerable<ProductImage>> GetImagesByProductID(int productId);
+        Task SetMainPhoto(int productId, string photoUrl);
     }
     public class ImagesRepository:IImagesRepository
     {
@@ -52,6 +53,15 @@ namespace Rent.Repositories
                 return await dbContext.ProductImages.Where(p => p.ProductId == productId).ToListAsync();
             }
             return null;
+        }
+        public async Task SetMainPhoto(int productId, string photoUrl)
+        {
+            var product = await dbContext.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            if (product!=null)
+            {
+                product.MainPhotoUrl = photoUrl;
+                await dbContext.SaveChangesAsync();
+            }
         }
     }
 }

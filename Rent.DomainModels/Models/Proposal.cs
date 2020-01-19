@@ -18,11 +18,10 @@ namespace Rent.DomainModels.Models
         public string BuyerId { get; set; }
         [ForeignKey("BuyerId")]
         public virtual User Buyer { get; set; }
-        //public ICollection<string>? BuyersComments { get; set; }
-        //public ICollection<string>? OwnersComments { get; set; }
-        public bool ProposalStatus { get; set; } = false;
+        public int ProposalStatusId { get; set; }
+        [ForeignKey("ProposalStatusId")]
+        public virtual ProposalStatus ProposalStatus { get; set; }
         public int ProposalTypeId { get; set; }
-        [ForeignKey("ProposalTypeId")]
         public virtual ProposalType ProposalType { get; set; }
         public DateTime ProposalAdded { get; set; }
         public DateTime ProposalClosed { get; set; }

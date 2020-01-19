@@ -19,8 +19,11 @@ namespace Rent.ViewModels.ProposalViewModels
         [ForeignKey("BuyerId")]
         public virtual User Buyer { get; set; }
         public int ProposalTypeId { get; set; }
+        [ForeignKey("ProposalTypeId")]
         public virtual ProposalType ProposalType { get; set; }
-        public bool ProposalStatus { get; set; }
+        public int ProposalStatusId { get; set; }
+        [ForeignKey("ProposalStatusId")]
+        public virtual ProposalStatus ProposalStatus { get; set; }
         public DateTime ProposalAdded { get; set; }
         public DateTime ProposalClosed { get; set; }
         public DateTime ProposedRentStartDate { get; set; }
