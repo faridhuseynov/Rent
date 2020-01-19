@@ -54,6 +54,10 @@ Table OF Contents
 /*----------------------------*\
 	Typography
 \*----------------------------*/
+.card-text{
+    text-overflow:ellipsis;
+    background-color:green;
+}
 
 body {
   font-family: 'Montserrat', sans-serif;

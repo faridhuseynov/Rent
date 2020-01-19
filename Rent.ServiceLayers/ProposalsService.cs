@@ -34,8 +34,7 @@ namespace Rent.ServiceLayers
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<NewProposalViewModel, Proposal>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             Proposal newProposal = mapper.Map<NewProposalViewModel, Proposal>(newProposalViewModel);
-            proposalsRepository.AddProposal(newProposal);
-            return await proposalsRepository.GetLatestProposalID();
+            return await proposalsRepository.AddProposal(newProposal);
         }
 
         public void UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel) {

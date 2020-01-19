@@ -10,7 +10,7 @@ namespace Rent.Repositories
 {
     public interface IProposalsRepository
     {
-        void AddProposal(Proposal proposal);
+        Task<int> AddProposal(Proposal proposal);
         void UpdateProposalDetails(Proposal proposal);
         //void UpdateUserPassword(User user);
         void DeleteProposal(int proposalId);
@@ -27,10 +27,11 @@ namespace Rent.Repositories
         {
             db = dbContext;
         }
-        async public void AddProposal(Proposal proposal)
+        async public Task<int> AddProposal(Proposal proposal)
         {
             await db.Proposals.AddAsync(proposal);
             await db.SaveChangesAsync();
+            return proposal.Id;
         }
 
         async public void UpdateProposalDetails(Proposal proposal)

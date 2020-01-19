@@ -81,17 +81,20 @@ namespace Rent.Controllers
         {
             var product = ps.GetProductByProductID(Id);
             var _buyer = await userManager.FindByEmailAsync(buyer);
+            int newPropId=0;
             if (product != null)
             {
-                await propsService.InsertProposal(new NewProposalViewModel
+                newPropId = await propsService.InsertProposal(new NewProposalViewModel
                 {
                     ProductId = Id,
                     ProposedPrice = proposedPrice,
-                    OwnerId = product.Result.Id.ToString(),
+                    OwnerId = product.Result.UserId,
                     BuyerId = _buyer.Id,
                     ProposalTypeId = proposalType                    
                 });
             }
+            if (newPropId > 0)
+                TempData["Success"] = "Proposal successfully sent";
             return RedirectToAction("Index", "Home");
         }
 
