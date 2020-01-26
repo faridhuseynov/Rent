@@ -103,15 +103,18 @@ namespace Rent.Controllers
 
                 if (newProdId>0)
                 {
-                    foreach (var filePath in fileNames)
+                    if (fileNames!=null)
                     {
-                        await imagesRepository.AddImage(new ProductImage { PhotoUrl = filePath, ProductId = newProdId });
+                        foreach (var filePath in fileNames)
+                        {
+                            await imagesRepository.AddImage(new ProductImage { PhotoUrl = filePath, ProductId = newProdId });
 
+                        }
+                        if (productsService.GetProductByProductID(newProdId).Result.MainPhotoUrl == null)
+                        {
+                            await imagesRepository.SetMainPhoto(newProdId, fileNames[0]);
+                        }
                     }
-                }
-                if (productsService.GetProductByProductID(newProdId).Result.MainPhotoUrl == null)
-                {
-                    await imagesRepository.SetMainPhoto(newProdId, fileNames[0]);
                 }
                 return RedirectToAction(nameof(Index));
             }
