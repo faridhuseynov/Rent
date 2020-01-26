@@ -124,20 +124,15 @@ namespace Rent.Controllers
         }
 
         // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var product = await _context.Products.FindAsync(id);
+            var product = await productsService.GetProductByProductID(id);
             if (product == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
+            ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View(product);
         }
 
@@ -146,35 +141,64 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId")] Product product)
+        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] ProductDetailsViewModel product)
         {
-            if (id != product.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
+                var checkProduct =await productsService.GetProductByProductID(product.Id);
+                if (checkProduct!=null)
                 {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductExists(product.Id))
+                    try
                     {
-                        return NotFound();
+                        await productsService.UpdateProductDetails(product);
                     }
-                    else
+                    catch (DbUpdateConcurrencyException)
                     {
-                        throw;
+                        if (!ProductExists(product.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    if (images!=null)
+                    {
+                        string fileName = "";
+                        var fileNames = new List<string>();
+                        try
+                        {
+                            foreach (var image in images)
+                            {
+                                fileName = FileUploaderService.UploadFile(image);
+                                fileNames.Add(fileName);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            return BadRequest();
+                        }
+
+                        if (fileNames != null)
+                        {
+                            foreach (var filePath in fileNames)
+                            {
+                                await imagesRepository.AddImage(new ProductImage { PhotoUrl = filePath, ProductId = checkProduct.Id });
+
+                            }
+                            if (checkProduct.MainPhotoUrl == null)
+                            {
+                                await imagesRepository.SetMainPhoto(checkProduct.Id, fileNames[0]);
+                            }
+                        }
                     }
                 }
+               
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Id", product.CategoryId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
+            ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View(product);
         }
 

@@ -13,6 +13,7 @@
     <!-- Bootstrap -->
     <link type="text/css" rel="stylesheet" href="~/css/bootstrap.min.css" />
 
+
     <!-- Slick -->
     <link type="text/css" rel="stylesheet" href="~/css/slick.css" />
     <link type="text/css" rel="stylesheet" href="~/css/slick-theme.css" />
@@ -27,10 +28,13 @@
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/css/style.css" />
 </head>
+
+
 <body>
     <header>
         <div id="top-header">
-            <div class="container">                <ul class="header-links pull-left">
+            <div class="container">
+                <ul class="header-links pull-left">
                     <li><a href="#"><i class="fa fa-phone"></i> +994-55-425-27-72</a></li>
                     <li><a href="#"><i class="fa fa-location-arrow"></i> Duisburg Strasse 15</a></li>
                 </ul>
@@ -132,11 +136,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
-        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
+                            </li>*@
                         @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Products</a>
-        </li>*@
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Products">Products</a>
+                            </li>*@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">

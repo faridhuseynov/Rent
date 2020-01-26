@@ -10,7 +10,7 @@ namespace Rent.Repositories
     public interface IProductsRepository
     {
         Task<int> AddProduct(Product product);
-        void UpdateProductDetails(Product product);
+        Task UpdateProductDetails(Product product);
         //void UpdateUserPassword(User user);
         Task DeleteProduct(int productId);
         Task<IEnumerable<Product>> GetProducts();
@@ -69,12 +69,19 @@ namespace Rent.Repositories
             return await db.Products.Include(u=>u.User).Include(i=>i.Images).FirstOrDefaultAsync(x => x.Id == productID);
         }
 
-        public async void UpdateProductDetails(Product product)
+        public async Task UpdateProductDetails(Product product)
         {
             var updatedProduct = await db.Products.FirstOrDefaultAsync(x => x.Id == product.Id);
             if (updatedProduct != null)
             {
                 updatedProduct.ProductName = product.ProductName;
+                updatedProduct.ProductDescription = product.ProductDescription;
+                updatedProduct.Sell = product.Sell;
+                updatedProduct.SellPrice = product.SellPrice;
+                updatedProduct.Lend = product.Lend;
+                updatedProduct.LendPrice = product.LendPrice;
+                updatedProduct.MinLendDays = product.MinLendDays;
+                updatedProduct.CategoryId = product.CategoryId;
                 await db.SaveChangesAsync();
             }
         }
