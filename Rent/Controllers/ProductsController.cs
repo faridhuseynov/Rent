@@ -76,16 +76,21 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormFile image, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
+        public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
             string fileName="";
+            var fileNames = new List<string>();
             if (ModelState.IsValid)
             {
-                if (image!=null)
+                if (images!=null)
                 {
                     try
                     {
-                        fileName = FileUploaderService.UploadFile(image);
+                        foreach (var image in images)
+                        {
+                            fileName = FileUploaderService.UploadFile(image);
+                            fileNames.Add(fileName);
+                        }
                     }
                     catch (Exception)
                     {
@@ -96,11 +101,17 @@ namespace Rent.Controllers
 
                 var newProdId =  await productsService.InsertProduct(newProductViewModel);
 
-                await imagesRepository.AddImage(new ProductImage { PhotoUrl = fileName, ProductId = newProdId });
+                if (newProdId>0)
+                {
+                    foreach (var filePath in fileNames)
+                    {
+                        await imagesRepository.AddImage(new ProductImage { PhotoUrl = filePath, ProductId = newProdId });
+
+                    }
+                }
                 if (productsService.GetProductByProductID(newProdId).Result.MainPhotoUrl == null)
                 {
-                    await imagesRepository.SetMainPhoto(newProdId, fileName);
-
+                    await imagesRepository.SetMainPhoto(newProdId, fileNames[0]);
                 }
                 return RedirectToAction(nameof(Index));
             }
