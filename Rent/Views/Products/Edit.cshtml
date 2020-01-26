@@ -50,14 +50,15 @@
                         <div>
                             @if (image.PhotoUrl == image.Product.MainPhotoUrl)
                             {
-                                <a onclick="setMainPhoto()" class="btn btn-default btn-block disabled">Əsas şəkil seç</a>
+                                <a onclick="setMainPhoto(this)" class="btn btn-default btn-block btn-profile disabled">Əsas şəkil seç</a>
 
                             }
                             else
                             {
                                 <a onclick="setMainPhoto(this)" class="btn btn-primary btn-block btn-profile">Əsas şəkil seç</a>
                             }
-                            <a href="#" class="btn btn-block btn-danger">Şəkli sil</a>
+                            <input value="@image.Id" hidden />
+                            <a onclick="deletePhoto(this)" class="mt-2 btn btn-block btn-danger">Şəkli sil</a>
                         </div>
 
                     </div>
@@ -69,7 +70,7 @@
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div class="form-group" hidden>
-                <input asp-for="@Model.Id" class="form-control" />
+                <input id="productId" asp-for="@Model.Id" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="ProductName" class="control-label">Məhsulun adı</label>
@@ -121,7 +122,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Yadda Saxla" class="btn btn-default" />
             </div>
         </form>
     </div>
@@ -135,14 +136,6 @@
 @section Scripts{
 
     <script>
-        function setMainPhoto(target) {
-            var filePath = $(target).parent().parent().find("img").attr("src").slice(8);
-            $(target).removeClass("btn-primary");
-            $(target).addClass("disabled");
-            //console.log($(".btn-default").find("a").hasClass("btn-profile"));
-            $(".disabled").removeClass("disabled").addClass("btn-primary");
-            console.log(filePath);
-        }
 
         $(document).ready(function () {
             if ($("#sellCheck").prop("checked") == false) {
@@ -186,5 +179,38 @@
 
             }
         })
+        function setMainPhoto(target) {
+            var filePath = $(target).parent().parent().find("img").attr("src").slice(8);
+            $(".disabled").removeClass("disabled").addClass("btn-primary");
+            $(target).removeClass("btn-primary").addClass("disabled btn-default");
+            $.ajax({
+                type: "POST",
+                url: "/Products/SetMainPhoto",
+                data: {
+                    productId:@Model.Id,
+                    filename: filePath
+                }
+            })
+        }
+
+        function deletePhoto(target) {
+            var searchCriteria = $(".disabled");
+                var element = ($(target).parent().find(searchCriteria));
+            if (element.length>0) {
+                window.alert("Şəkil silinməmişdən əvvəl yeni əsas şəkil seçilməlidir");
+            }
+            else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Products/DeletePhoto",
+                    data: {
+                        photoId: $(target).parent().find("input").val()
+                    },
+                    success: function () {
+                        $(target).parent().parent().remove();
+                    }
+                })
+            }
+        };
     </script>
 }

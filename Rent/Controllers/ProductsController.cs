@@ -216,6 +216,20 @@ namespace Rent.Controllers
             return RedirectToAction("Index","Products");
         }
 
+        [HttpPost]
+        public async Task SetMainPhoto(int productId, string filename)
+        {
+            if (productId>0 && !String.IsNullOrWhiteSpace(filename))
+            {
+                await imagesRepository.SetMainPhoto(productId,filename);
+            }
+        }
+
+        [HttpPost]
+        public async Task DeletePhoto (int photoId)
+        {
+            await imagesRepository.DeleteImage(photoId);
+        }
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
