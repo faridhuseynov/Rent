@@ -58,6 +58,10 @@ Table OF Contents
     text-overflow:ellipsis;
 }
 
+.dropdown-menu {
+    background-color: #2B2D42;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
