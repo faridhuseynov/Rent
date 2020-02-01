@@ -25,7 +25,7 @@ namespace Rent
                 {
                     var context = services.GetRequiredService<AppDbContext>();
                     context.Database.Migrate();
-                    Seed.SeedProducts(context);
+                    //Seed.SeedProducts(context);
                 }
                 catch (Exception ex)
                 {

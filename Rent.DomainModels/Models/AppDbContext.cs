@@ -49,6 +49,7 @@ namespace Rent.DomainModels.Models
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<ProposalType> ProposalTypes { get; set; }
         public DbSet<ProposalStatus> ProposalStatuses { get; set; }
+        public DbSet<WishListProduct> WishListProducts { get; set; }
 
     }
 }

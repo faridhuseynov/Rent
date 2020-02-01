@@ -24,6 +24,7 @@ namespace Rent.Controllers
         IProposalsService propsService;
         private readonly UserManager<User> userManager;
         private readonly IProposalTypesRepository proposalTypesRepository;
+        private readonly IWishListProdsRepository wishListProdsRepository;
         IEnumerable<Category> categories;
         IEnumerable<ProposalType> proposalTypes;
         int NoOfRecordsPerPage = 10;
@@ -32,7 +33,8 @@ namespace Rent.Controllers
         //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
-            IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository)
+            IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository,
+            IWishListProdsRepository wishListProdsRepository)
         {
             _logger = logger;
             ps = productsService;
@@ -40,6 +42,7 @@ namespace Rent.Controllers
             propsService = proposalsService;
             this.userManager = userManager;
             this.proposalTypesRepository = proposalTypesRepository;
+            this.wishListProdsRepository = wishListProdsRepository;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
             proposalTypes = new List<ProposalType>();
@@ -106,6 +109,19 @@ namespace Rent.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        public async Task AddProductToWishlist(int productId, string userId)
+        {
+           var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
+            if (wishCheck==null)
+               await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = userId });
+        }
+
+        public async Task RemoveProductFromWishlist(int productId, string userId)
+        {
+            var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
+            if (wishCheck != null)
+                await wishListProdsRepository.DeleteProduct(wishCheck);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

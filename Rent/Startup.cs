@@ -44,6 +44,7 @@ namespace Rent
             services.AddScoped<IProposalsService, ProposalsService>();
             services.AddScoped<IProposalTypesRepository, ProposalTypesRepository>();
             services.AddScoped<IImagesRepository, ImagesRepository>();
+            services.AddScoped<IWishListProdsRepository, WishListProdsRepository>();
             //services.AddScoped(IUsersRepository, UsersRepository);
             services.Configure<IdentityOptions>(options =>
             {

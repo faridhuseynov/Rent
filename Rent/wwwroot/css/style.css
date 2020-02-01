@@ -55,12 +55,15 @@ Table OF Contents
 	Typography
 \*----------------------------*/
 .card-text{
+    white-space:nowrap;
+    overflow:hidden;
     text-overflow:ellipsis;
 }
 
 .dropdown-menu {
     background-color: #2B2D42;
 }
+
 
 body {
   font-family: 'Montserrat', sans-serif;
