@@ -25,6 +25,7 @@ namespace Rent.DomainModels.Models
         public virtual ICollection<Proposal> Proposals { get; set; }
         public bool Sell { get; set; }
         public bool Lend { get; set; }
+        public virtual ICollection<WishListProduct> WishList { get; set; }
 
     }
 }

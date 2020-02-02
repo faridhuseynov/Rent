@@ -71,11 +71,16 @@ namespace Rent.Controllers
 
         public async Task<IActionResult> Details(int Id)
         {
+            var user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //userFromRepo = userManager.GetUserId()
             var product = await ps.GetProductByProductID(Id);
             if (product != null)
             {
                 ViewBag.ProposalTypes = proposalTypes;
+                //await wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w=>
+                //w.ProductId==Id && w.UserId==)
                 return View(product);
+
             }
             return RedirectToAction("Index", "Home");
         }
@@ -109,13 +114,14 @@ namespace Rent.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
         public async Task AddProductToWishlist(int productId, string userId)
         {
-           var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
-            if (wishCheck==null)
-               await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = userId });
+            var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
+            if (wishCheck == null)
+                await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = userId });
         }
-
+        [HttpPost]
         public async Task RemoveProductFromWishlist(int productId, string userId)
         {
             var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);

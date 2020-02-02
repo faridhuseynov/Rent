@@ -373,7 +373,7 @@
 <!-- /SECTION -->
 @section Scripts{
     <script>
-                                //<li><a href="" id="wishlistIcon" onchange="wishClicked()"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+
         $("a").click((event) => {
                 event.preventDefault();
         });
@@ -381,8 +381,26 @@
         function wishClicked(a) {
             if ($(a).find("i").hasClass('fa-heart-o')) {
                 $(a).find("i").addClass('fa-heart').removeClass('fa-heart-o');
-            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/AddProductToWishlist/",
+                    data: {
+                        productid: "@Model.Id",
+                            userid: "@Model.UserId"
+                    }
+                });
+            }
+
+            else {
                 $(a).find("i").removeClass('fa-heart').addClass('fa-heart-o');
+                $.ajax({
+                    type: "POST",
+                    url: "/home/RemoveProductFromWishlist/",
+                    data: {
+                        productid: "@Model.Id",
+                            userid: "@Model.UserId"
+                    }
+                });
 
             }
 

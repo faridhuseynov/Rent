@@ -38,7 +38,7 @@ namespace Rent.Repositories
 
         public async Task<IEnumerable<WishListProduct>> GetWishListProducts()
         {
-           return await dbContext.WishListProducts.ToListAsync();
+            return await dbContext.WishListProducts.ToListAsync();
         }
 
     }
