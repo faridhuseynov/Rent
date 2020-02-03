@@ -65,20 +65,34 @@ namespace Rent.Controllers
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
             ViewBag.CategoryId = Id;
+            //if (User.Identity.IsAuthenticated)
+            //{
 
+            //    var userFromRepo = userManager.FindByNameAsync(User.Identity.Name);
+            //    var wishList = wishListProdsRepository.GetWishListProducts().Result;
+            //    ViewBag.WishCount = wishList.ToList().
+            //    Where(w => w.UserId == userFromRepo.Result.Id).Count();
+            //}
             return View(products);
         }
 
         public async Task<IActionResult> Details(int Id)
         {
-            var user = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            //userFromRepo = userManager.GetUserId()
+            var user = User.Identity.Name;
+            string UserId = "";
+            if (user != null)
+            {
+                var userFromRepo = await userManager.FindByNameAsync(user);
+                if (userFromRepo!=null)
+                    UserId = userFromRepo.Id;
+            }
             var product = await ps.GetProductByProductID(Id);
             if (product != null)
             {
                 ViewBag.ProposalTypes = proposalTypes;
-                //await wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w=>
-                //w.ProductId==Id && w.UserId==)
+                var result = await wishListProdsRepository.GetWishListProducts();
+                ViewBag.Wish = result.ToList().FirstOrDefault(
+                    w => w.ProductId == Id && w.UserId == UserId);
                 return View(product);
 
             }
@@ -120,6 +134,7 @@ namespace Rent.Controllers
             var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
             if (wishCheck == null)
                 await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = userId });
+            //ViewBag.WishCount = wishListProdsRepository.GetWishListProducts().Result.Where(u => u.UserId == userId).Count();
         }
         [HttpPost]
         public async Task RemoveProductFromWishlist(int productId, string userId)

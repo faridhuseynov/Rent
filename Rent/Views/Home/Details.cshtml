@@ -144,7 +144,7 @@
                     </form>
 
                     <ul class="product-btns">
-                        <li><a href="" id="wishlistIcon" onclick="wishClicked(this)"><i class="fa fa-heart-o"></i> add to wishlist</a></li>
+                        <li><a href="" id="wishlistIcon" onclick="wishClicked(this)"><i class="@(ViewBag.Wish != null? "fa fa-heart":"fa fa-heart-o")"></i> add to wishlist</a></li>
                     </ul>
 
                     <ul class="product-links">
@@ -373,11 +373,9 @@
 <!-- /SECTION -->
 @section Scripts{
     <script>
-
-        $("a").click((event) => {
-                event.preventDefault();
+        $("#wishlistIcon").click((event) => {
+            event.preventDefault();
         });
-
         function wishClicked(a) {
             if ($(a).find("i").hasClass('fa-heart-o')) {
                 $(a).find("i").addClass('fa-heart').removeClass('fa-heart-o');
@@ -386,8 +384,12 @@
                     url: "/Home/AddProductToWishlist/",
                     data: {
                         productid: "@Model.Id",
-                            userid: "@Model.UserId"
+                        userid: "@Model.UserId"
                     }
+                    @*success: function () {
+                        console.log(@ViewBag.WishCount);
+                        $("#wishListCount").removeAttr("hidden").text(@ViewBag.WishCount);
+                    }*@
                 });
             }
 
@@ -399,6 +401,12 @@
                     data: {
                         productid: "@Model.Id",
                             userid: "@Model.UserId"
+                    }
+                    @*success: function () {
+                        if (@ViewBag.WishCount== 0) {
+                             $("#wishListCount").attr("hidden",true).text(@ViewBag.WishCount);
+                        }*@
+                       
                     }
                 });
 

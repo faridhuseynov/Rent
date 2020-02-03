@@ -99,16 +99,9 @@
 @section Scripts
 {
     <script>
-        @*$(".page-link").click(function () {
-            //this.setAttribute("class", "active");
-            var PageNum = this.textContent;
-            $.ajax({
-                url: "/home/index?Id="+@ViewBag.CategoryId+"&PageNo=" + PageNum,
-                type: "GET",
-            });
-        });
-
-        $("a[href='/home/index']").attr("id", "activeNav");*@
+        @*if (@ViewBag.WishCount>0) {
+            $("#wishListCount").removeAttr("hidden").text(@ViewBag.WishCount);
+        }*@
     </script>
 }
 
