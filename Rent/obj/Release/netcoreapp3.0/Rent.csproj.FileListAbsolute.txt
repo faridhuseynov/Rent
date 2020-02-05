@@ -198,3 +198,4 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Rent.Repositories.pdb
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Rent.ViewModels.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.Views.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CopyComplete
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\Components\SearchBar\Default.cshtml.g.cs

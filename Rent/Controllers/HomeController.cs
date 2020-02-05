@@ -47,6 +47,7 @@ namespace Rent.Controllers
             categories = cs.GetCategories().Result;
             proposalTypes = new List<ProposalType>();
             proposalTypes = proposalTypesRepository.GetProposalTypes().Result;
+            //SearchBarViewCompService.GetCategories(HttpContext.Session, categories.ToList());
             //productParams = new ProductParamsForFilter();
         }
 
