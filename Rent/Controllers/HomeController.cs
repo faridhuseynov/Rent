@@ -51,7 +51,7 @@ namespace Rent.Controllers
             //productParams = new ProductParamsForFilter();
         }
 
-        public IActionResult Index(int Id = 0, int PageNo = 1)
+        public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
         {
             IEnumerable<ProductDetailsViewModel> products = new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
@@ -61,6 +61,11 @@ namespace Rent.Controllers
                 products = ps.GetProducts().Where(x => x.CategoryId == Id);
             else
                 products = ps.GetProducts();
+            if (!String.IsNullOrWhiteSpace(searchString))
+            {
+                products = products.Where(p => p.ProductName.Contains(searchString)
+                || p.ProductDescription.Contains(searchString)|| p.Category.CategoryName.Contains(searchString));
+            }
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(products.Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             ViewBag.NoOfPages = NoOfPages;
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);

@@ -20,23 +20,31 @@
 
                 @foreach (var product in Model)
                 {
-                    <div class="card m-1" style="width: 20rem; overflow:hidden; white-space:nowrap;">
-                        <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">@product.ProductName</h5>
-                            <p class="card-text">@product.ProductDescription</p>
-                            @if (product.Sell == true)
-                            {
-                                <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
-                            }
-                            @if (product.Lend == true)
-                            {
-                                <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                            }
+                <div class="card m-1" style="width: 20rem; overflow:hidden; white-space:nowrap;">
+                    @if (product.MainPhotoUrl == null)
+                    {
+                        <img src="~/Images/default-pro.jpg" class="card-img-top" alt="...">
 
-                            <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
-                        </div>
+                    }
+                    else
+                    {
+                        <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@product.ProductName</h5>
+                        <p class="card-text">@product.ProductDescription</p>
+                        @if (product.Sell == true)
+                        {
+                            <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                        }
+                        @if (product.Lend == true)
+                        {
+                            <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                        }
+
+                        <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
                     </div>
+                </div>
                 }
             </div>
             <nav aria-label="...">
@@ -99,10 +107,10 @@
 @section Scripts
 {
     <script>
-        @*if (@ViewBag.WishCount>0) {
-            $("#wishListCount").removeAttr("hidden").text(@ViewBag.WishCount);
-        }*@
+
     </script>
 }
+
+
 
 

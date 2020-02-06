@@ -1,4 +1,4 @@
-﻿<form>
+﻿<form method="post">
     <select class="input-select">
         @for(int i = 0; i < ViewBag.Categories.Count; i++)
         {
@@ -6,6 +6,6 @@
 
         }
     </select>
-    <input class="input" placeholder="Search here">
-    <button class="search-btn">Search</button>
+    <input class="input" placeholder="Search here" name="searchString">
+    <button class="search-btn" asp-controller="Home" asp-action="Index">Search</button>
 </form>
