@@ -103,12 +103,12 @@
                                         if (item.Id != 2)
                                         {
                                             <option value="@item.Id">
-                                    @if (@item.Type == "Buy") 
-                                    { <label>Almaq</label> }
-                                    else
-                                    {
-                                        <label>Kiralamaq</label>
-                                    }
+                                                @if (@item.Type == "Buy")
+                                                {<label>Almaq</label> }
+                                                else
+                                                {
+                                                    <label>Kiralamaq</label>
+                                                }
                                             </option>
                                         }
                                     }
@@ -384,7 +384,7 @@
                     url: "/Home/AddProductToWishlist/",
                     data: {
                         productid: "@Model.Id",
-                        userid: "@Model.UserId"
+                        buyer: "@User.Identity.Name"
                     }
                     @*success: function () {
                         console.log(@ViewBag.WishCount);
@@ -400,15 +400,13 @@
                     url: "/home/RemoveProductFromWishlist/",
                     data: {
                         productid: "@Model.Id",
-                            userid: "@Model.UserId"
+                            buyer: "@User.Identity.Name"
                     }
                     @*success: function () {
                         if (@ViewBag.WishCount== 0) {
                              $("#wishListCount").attr("hidden",true).text(@ViewBag.WishCount);
                         }*@
-                       
-                    }
-                });
+                   });
 
             }
 

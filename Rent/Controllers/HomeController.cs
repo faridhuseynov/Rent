@@ -135,19 +135,28 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
-        public async Task AddProductToWishlist(int productId, string userId)
+        public async Task AddProductToWishlist(int productId, string buyer)
         {
-            var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
-            if (wishCheck == null)
-                await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = userId });
+            var _buyer = await userManager.FindByNameAsync(buyer);
+            if (_buyer != null)
+            {
+                var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
+                if (wishCheck == null)
+                    await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = _buyer.Id });
+            }
+            
             //ViewBag.WishCount = wishListProdsRepository.GetWishListProducts().Result.Where(u => u.UserId == userId).Count();
         }
         [HttpPost]
-        public async Task RemoveProductFromWishlist(int productId, string userId)
+        public async Task RemoveProductFromWishlist(int productId, string buyer)
         {
-            var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == userId);
-            if (wishCheck != null)
-                await wishListProdsRepository.DeleteProduct(wishCheck);
+            var _buyer = await userManager.FindByNameAsync(buyer);
+            if (_buyer != null)
+            {
+                var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
+                if (wishCheck != null)
+                    await wishListProdsRepository.DeleteProduct(wishCheck);
+            }
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
