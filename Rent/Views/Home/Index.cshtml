@@ -16,7 +16,7 @@
             {
                 <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
             }
-            <div class="row">
+            <div class="row" style="height:auto">
 
                 @foreach (var product in Model)
                 {
@@ -30,20 +30,30 @@
                     {
                         <img src="~/Images/@product.MainPhotoUrl" class="card-img-top" alt="...">
                     }
-                    <div class="card-body">
-                        <h5 class="card-title">@product.ProductName</h5>
-                        <p class="card-text">@product.ProductDescription</p>
-                        @if (product.Sell == true)
-                        {
-                            <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
-                        }
-                        @if (product.Lend == true)
-                        {
-                            <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                        }
+                <div class="card-body">
+                    <h5 class="card-title">@product.ProductName</h5>
+                    <p class="card-text">@product.ProductDescription</p>
+                    @if (product.Sell == true)
+                    {
+                        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-success">Satış: <span>❌</span></h6>
 
-                        <a asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
-                    </div>
+                    }
+                    @if (product.Lend == true)
+                    {
+                        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                    }
+                    else
+                    {
+                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+
+                    }
+
+                    <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                </div>
                 </div>
                 }
             </div>

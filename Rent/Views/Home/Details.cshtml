@@ -97,20 +97,18 @@
                         <input hidden value="@User.Identity.Name" name="buyer" />
                         <div class="add-to-cart">
                             <div class="input-number mb-3">
-                                <select name="proposalType" id="propType" class="input-select">
+                                <select name="proposalType" id="propType" class="input-select" onclick="proposalTypeChange()">
                                     @foreach (var item in ViewBag.ProposalTypes)
                                     {
-                                        if (item.Id != 2)
-                                        {
-                                            <option value="@item.Id">
-                                                @if (@item.Type == "Buy")
-                                                {<label>Almaq</label> }
-                                                else
-                                                {
-                                                    <label>Kiralamaq</label>
-                                                }
-                                            </option>
-                                        }
+                                            if (item.Type == "Sell" && Model.Sell == true)
+                                            {
+                                                <option value="@item.Id">Almaq</option>
+
+                                            }
+                                            else if (item.Type == "Rent" && Model.Lend == true)
+                                            {
+                                                <option value="@item.Id">Kiralamaq</option>
+                                            }
                                     }
                                 </select>
                             </div>
@@ -373,6 +371,12 @@
 <!-- /SECTION -->
 @section Scripts{
     <script>
+
+        $(document).ready(function () {
+            proposalTypeChange();
+
+        });
+
         $("#wishlistIcon").click((event) => {
             event.preventDefault();
         });
@@ -424,23 +428,26 @@
                 $('#proposedPrice').val(val - 1);
         });
 
-        $("#propType").click(function (event) {
-            if (event.target.value == 1) {
-                //console.log(document.getElementById("priceType").textContent);
-                $("#priceType").text("azn");
-                $(".date").attr("hidden", true);
-                $("#rentConditions").attr("hidden", true);
-                $("#sellConditions").removeAttr("hidden");
+        function proposalTypeChange() {
+                    var check = $("#propType option:selected").text();
+            
+                if (check=="Almaq") {
+                    //console.log(document.getElementById("priceType").textContent);
+                    $("#priceType").text("azn");
+                    $(".date").attr("hidden", true);
+                    $("#rentConditions").attr("hidden", true);
+                    $("#sellConditions").removeAttr("hidden");
 
 
-            }
-            else {
-                $("#priceType").text("azn/gün");
-                $(".date").removeAttr("hidden");
-                $("#rentConditions").removeAttr("hidden");
-                $("#sellConditions").attr("hidden", true);
-            }
-        });
+                }
+                else {
+
+                    $("#priceType").text("azn/gün");
+                    $(".date").removeAttr("hidden");
+                    $("#rentConditions").removeAttr("hidden");
+                    $("#sellConditions").attr("hidden", true);
+                }
+        }
 
         function checkDate() {
             var startDate = (new Date($("#dp1").val())).getTime();

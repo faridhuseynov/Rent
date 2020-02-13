@@ -96,6 +96,8 @@ namespace Rent.Controllers
             if (product != null)
             {
                 ViewBag.ProposalTypes = proposalTypes;
+                //ViewBag.ProposalTypes = product.p;
+
                 var result = await wishListProdsRepository.GetWishListProducts();
                 ViewBag.Wish = result.ToList().FirstOrDefault(
                     w => w.ProductId == Id && w.UserId == UserId);

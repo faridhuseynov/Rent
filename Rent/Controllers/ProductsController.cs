@@ -163,7 +163,7 @@ namespace Rent.Controllers
                             throw;
                         }
                     }
-                    if (images!=null)
+                    if (images.Count()>0)
                     {
                         string fileName = "";
                         var fileNames = new List<string>();
