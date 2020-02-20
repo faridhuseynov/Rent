@@ -1,7 +1,6 @@
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csprojAssemblyReference.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\staticwebassets\Rent.StaticWebAssets.Manifest.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\staticwebassets\Rent.StaticWebAssets.xml
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.RazorAssemblyInfo.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.RazorAssemblyInfo.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.AssemblyInfoInputs.cache
@@ -199,3 +198,8 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Rent.ViewModels.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.Views.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CopyComplete
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\Components\SearchBar\Default.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Account\ViewProfile.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\EntityFramework.SqlServer.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\EntityFramework.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Web.Providers.dll

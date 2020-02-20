@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rent.DomainModels.Models;
@@ -78,6 +79,13 @@ namespace Rent.Controllers
         {
             await signInManager.SignOutAsync();
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewProfile()
+        {
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
+            return View(userFromRepo);
         }
     }
 }
