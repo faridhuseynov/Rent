@@ -92,11 +92,9 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.Identity.Client.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\dotnet-aspnet-codegenerator-design.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Newtonsoft.Json.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\NuGet.Frameworks.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\SQLitePCLRaw.batteries_v2.dll
@@ -200,6 +198,7 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CopyComplete
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\Components\SearchBar\Default.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Account\ViewProfile.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\EntityFramework.SqlServer.dll
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\EntityFramework.dll
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Web.Providers.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\dotnet-aspnet-codegenerator-design.exe
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Text.Encodings.Web.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Text.Json.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Colorful.Console.dll

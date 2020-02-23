@@ -20,7 +20,7 @@
                 @foreach (var item in mainProducts)
                 {
                     <div class="carousel-item @(first ? "active" : "")">
-                        <img style="max-height:300px" src="~/Images/@item.PhotoUrl">
+                        <img style="max-height:300px" src="~/Images/Products/@item.PhotoUrl">
                     </div>
                     { first = false; }
                 }
@@ -46,7 +46,7 @@
                 @foreach (var image in Model.Images)
                 {
                     <div class="card ml-3 mb-3" style="width:150px;height:100px">
-                        <img style="height:100px" class="card-img-top" src="~/Images/@image.PhotoUrl">
+                        <img style="height:100px" class="card-img-top" src="~/Images/Products/@image.PhotoUrl">
                         <div>
                             @if (image.PhotoUrl == image.Product.MainPhotoUrl)
                             {

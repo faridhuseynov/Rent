@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 //using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -66,12 +67,17 @@ namespace Rent.Controllers
             if (!ModelState.IsValid)
                 return View();
             var user = await userManager.FindByNameAsync(User.Username);
-
             if (user == null)
                 return View();
 
-            await signInManager.SignInAsync(user, true);
-            return RedirectToAction("Index", "Home");
+            var result = await userManager.CheckPasswordAsync(user, User.Password);
+            if (result!=false)
+            {
+                await signInManager.SignInAsync(user, result);
+                return RedirectToAction("Index", "Home");
+
+            }
+            return View();
         }
 
         [HttpGet]
@@ -86,6 +92,52 @@ namespace Rent.Controllers
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             return View(userFromRepo);
+        }
+
+
+
+        [HttpPost]
+        public async Task ChangeProfilePicture(IEnumerable<IFormFile> images)
+        {
+            int count = 0;
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
+            foreach (var item in images)
+            {
+                ++count;
+            }
+            //userFromRepo.MainProfilePicture = formData.Name;
+            //var pics = image;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ProfileDetailsChange(string name, string surname,
+            string phoneNumber, string meetingLocation, string email)
+        {
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
+            if (ModelState.IsValid == true)
+            {
+                userFromRepo.Name = name;
+                userFromRepo.Surname = surname;
+                userFromRepo.Email = email;
+                userFromRepo.MeetingLocation = meetingLocation;
+                userFromRepo.PhoneNumber = phoneNumber;
+                await userManager.UpdateAsync(userFromRepo);
+                //await userManager.ChangeEmailAsync(userFromRepo, email,userFromRepo.);
+            }
+            return RedirectToAction("ViewProfile");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PasswordChange(string password)
+        {
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
+            if (ModelState.IsValid == true)
+            {
+                userFromRepo.PasswordHash= userManager.PasswordHasher.HashPassword(userFromRepo, password);
+                await userManager.UpdateAsync(userFromRepo);
+
+            }
+            return RedirectToAction("ViewProfile");
         }
     }
 }

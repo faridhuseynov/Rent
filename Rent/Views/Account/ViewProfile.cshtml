@@ -14,10 +14,25 @@
 
 
             <div class="text-center">
-                <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                <h6>Upload a different photo...</h6>
-                <input type="file" class="text-center center-block file-upload">
-            </div></hr><br>
+                @if (Model.MainProfilePicture == null)
+                {
+                    <img src="~/Images/Users/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
+
+                }
+                else
+                {
+                    <img src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">
+                }
+                <h6>Başqa profil şəkli seç...</h6>
+                @*<form enctype="multipart/form-data">
+                        <input id="profilePhoto"  type="file" class="text-center center-block file-upload"  onchange="photoUpload()" />
+                        <button class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>
+                    </form>*@
+                <input id="profilePhoto" type="file" name="images" class="text-center center-block file-upload" onchange="photoUpload()" multiple />
+                <button class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>
+            </div></hr>
+
+            <br>
 
 
             @*<div class="panel panel-default">
@@ -52,7 +67,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
                     <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
+                    <form method="post" id="registrationForm" asp-controller="Account" asp-action="ProfileDetailsChange" onchange="profileDetailsChanged()">
                         <div class="form-group">
 
                             <div class="col-xs-6">
@@ -83,29 +98,15 @@
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="email"><h4>Location</h4></label>
-                                <input type="email" class="form-control" id="location" placeholder="somewhere" title="enter a location">
+                                <label for="location"><h4>Location</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.MeetingLocation" placeholder="somewhere" title="enter a location">
                             </div>
                         </div>
 
-                        @*<div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password"><h4>Password</h4></label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
-                                </div>
-                            </div>
-                            <div class="form-group">
-
-                                <div class="col-xs-6">
-                                    <label for="password2"><h4>Verify</h4></label>
-                                    <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
-                                </div>
-                            </div>*@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <br>
-                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                <button id="profDetailsSave" class="btn btn-lg btn-light" type="submit" disabled><i class="glyphicon glyphicon-ok-sign"></i> Məlumatları yadda saxla</button>
                             </div>
                         </div>
                     </form>
@@ -118,27 +119,36 @@
                     <h2></h2>
 
                     <hr>
-                    <form class="form" action="##" method="post" id="registrationForm">
-
+                    <form method="post" asp-controller="Account" asp-action="PasswordChange">
 
                         <div class="form-group">
 
                             <div class="col-xs-6">
                                 <label for="password"><h4>Yeni şifrə</h4></label>
-                                <input type="password" class="form-control" id="password" placeholder="Şifrəni daxil et">
+                                <input type="password" class="form-control" name="password" id="password"
+                                       onchange="passwordCheck()" placeholder="Şifrəni daxil et">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="password2"><h4>Şifrəni təsdiq et</h4></label>
-                                <input type="password" class="form-control" name="password2" id="password2" placeholder="Şifrəni təkrarla">
+                                <label for="confirmPassword"><h4>Şifrəni təsdiq et</h4></label>
+                                <input type="password" class="form-control" name="confirmPassword"
+                                       onchange="passwordCheck()" id="confirmPassword"
+                                       placeholder="Şifrəni təkrarla">
                             </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-12">
+                                    <h4 id="message"></h4>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <br>
-                                <button class="btn btn-lg btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Şifrəni dəyiş</button>
+                                <button id="passwordSave" class="btn btn-lg btn-light" type="submit" disabled><i class="glyphicon glyphicon-ok-sign"></i> Şifrəni dəyiş</button>
                             </div>
                         </div>
                     </form>
@@ -153,18 +163,63 @@
 @section Scripts {
 
     <script>
+        function photoUpload(event) {
+            $("#profPicUploadConfirm").removeAttr("disabled");
+            $("#profPicUploadConfirm").removeClass("btn-light").addClass("btn-success");
+
+        };
+
+        function profileDetailsChanged() {
+            $("#profDetailsSave").removeAttr("disabled").removeClass("btn-light").addClass("btn-success");
+        };
+
+        function passwordCheck() {
+            if ($('#password').val() == $('#confirmPassword').val()) {
+                $('#message').html('Şifrələr uyğundur').css('color', 'green');
+                passwordChanged();
+            } else
+                $('#message').html('Şifrələr uyğun gəlmir').css('color', 'red');
+        };
+
+        function passwordChanged() {
+            $("#passwordSave").removeAttr("disabled").removeClass("btn-light").addClass("btn-success");
+        }
+
+        function photoUploadConfirmed() {
+            event.preventDefault();
+            var file = $("#profilePhoto")[0]["files"][0];
+            var formData = new FormData();
+            formData.append("file", file);
+            for (var k of formData.entries()) {
+                console.log(k);
+            }
+            $.ajax({
+                url: "/Account/ChangeProfilePicture",
+                data: formData,
+                processData: false,
+                contentType: false,
+                type: "POST",
+                //cache: false,
+                success: function () {
+                    console.log("Done");
+                },
+                error: function (errorMessage) {
+                    console.log(errorMessage);
+                }
+            });
+        }
         $("#infoItem").click(function () {
             if ($("#infoItem").hasClass("active") != true) {
                 $("#passwordItem").removeClass("active");
                 $("#infoItem").addClass("active");
             }
-        })
+        });
 
         $("#passwordItem").click(function () {
             if ($("#passwordItem").hasClass("active") != true) {
                 $("#infoItem").removeClass("active");
                 $("#passwordItem").addClass("active");
             }
-        })
+        });
     </script>
 }
