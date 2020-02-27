@@ -18,5 +18,8 @@ namespace Rent.DomainModels.Models
         public string MeetingLocation { get; set; }
         public virtual ICollection<ProfileImage> ProfileImages { get; set; }
         public string MainProfilePicture { get; set; }
+        public string City { get; set; }
+        public string Country { get; set; }
+        public string Gender { get; set; }
     }
 }

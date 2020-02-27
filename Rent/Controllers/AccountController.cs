@@ -88,7 +88,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ViewProfile()
+        public async Task<IActionResult> AccountInfo()
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             return View(userFromRepo);
@@ -124,7 +124,7 @@ namespace Rent.Controllers
                 await userManager.UpdateAsync(userFromRepo);
                 //await userManager.ChangeEmailAsync(userFromRepo, email,userFromRepo.);
             }
-            return RedirectToAction("ViewProfile");
+            return RedirectToAction("AccountInfo");
         }
 
         [HttpPost]
@@ -137,7 +137,19 @@ namespace Rent.Controllers
                 await userManager.UpdateAsync(userFromRepo);
 
             }
-            return RedirectToAction("ViewProfile");
+            return RedirectToAction("AccountInfo");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile(string username)
+        {
+            var userFromRepo = await userManager.FindByNameAsync(username);
+            if (userFromRepo!=null)
+            {
+                return View(userFromRepo);
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

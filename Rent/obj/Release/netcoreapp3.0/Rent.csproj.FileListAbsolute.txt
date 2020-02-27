@@ -196,9 +196,11 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Rent.ViewModels.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.Views.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CopyComplete
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Shared\Components\SearchBar\Default.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Account\ViewProfile.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
-D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\dotnet-aspnet-codegenerator-design.exe
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Text.Encodings.Web.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Text.Json.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Colorful.Console.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\dotnet-aspnet-codegenerator-design.dll
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Account\Profile.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Account\AccountInfo.cshtml.g.cs
