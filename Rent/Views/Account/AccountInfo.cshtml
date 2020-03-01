@@ -66,7 +66,6 @@
 
             <div class="tab-content">
                 <div class="tab-pane active" id="home">
-                    <hr>
                     <form method="post" id="registrationForm" asp-controller="Account" asp-action="ProfileDetailsChange" onchange="profileDetailsChanged()">
                         <div class="form-group">
 
@@ -99,7 +98,7 @@
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="gender"><h4>Cinsiyyət</h4></label>
-                                <select>
+                                <select class="form-control form-control-sm" asp-for="@Model.Gender">
                                     <option value="M">Kişi</option>
                                     <option value="F">Qadın</option>
                                     <option value="O">Digər</option>
@@ -110,7 +109,7 @@
                         <div class="form-group">
                             <div class="col-xs-6">
                                 <label for="location"><h4>Ölkə</h4></label>
-                                <select>
+                                <select class="form-control form-control-sm" id="citySelection" asp-for="@Model.Country">
                                     <option value="AF">Afghanistan</option>
                                     <option value="AX">Åland Islands</option>
                                     <option value="AL">Albania</option>
@@ -126,7 +125,7 @@
                                     <option value="AW">Aruba</option>
                                     <option value="AU">Australia</option>
                                     <option value="AT">Austria</option>
-                                    <option value="AZ" selected="selected">Azerbaijan</option>
+                                    <option value="AZ">Azerbaijan</option>
                                     <option value="BS">Bahamas</option>
                                     <option value="BH">Bahrain</option>
                                     <option value="BD">Bangladesh</option>
@@ -369,79 +368,78 @@
                                 <label for="location"><h4>Şəhər</h4></label>
                                 <input type="text" class="form-control" asp-for="@Model.City" placeholder="Şəhər" title="enter a location">
                                 @*<select>
-                    <option value="Bakı">Bakı</option>
-                    <option value="Gəncə">Gəncə</option>
-                    <option value="Sumqayıt">Sumqayıt</option>
-                    <option value="Babək">Babək</option>
-                    <option value="Şəki">Şəki</option>
-                    <option value="Lənkəran">Lənkəran</option>
-                    <option value="Yevlax">Yevlax</option>
-                    <option value="Göyçay">Göyçay</option>
+                    <option value="Baku">Bakı</option>
+                    <option value="Ganja">Gəncə</option>
+                    <option value="Sumgayit">Sumqayıt</option>
+                    <option value="Sheki">Şəki</option>
+                    <option value="Lankaran">Lənkəran</option>
+                    <option value="Yevlakh">Yevlax</option>
+                    <option value="Goychay">Göyçay</option>
                     <option value="Tovuz">Tovuz</option>
-                    <option value="Qəbələ">Qəbələ</option>
-                    <option value="Gədəbəy">Gədəbəy</option>
+                    <option value="Gabala">Qəbələ</option>
+                    <option value="Gadabay">Gədəbəy</option>
                     <option value="Goranboy">Goranboy</option>
-                    <option value="Oğuz">Oğuz</option>
-                    <option value="Zaqatala">Zaqatala</option>
-                    <option value="Mingəçevir">Mingəçevir</option>
-                    <option value="Xızı">Xızı</option>
-                    <option value="Abşeron">Abşeron</option>
-                    <option value="Sədərək">Sədərək</option>
-                    <option value="Zəngilan">Zəngilan</option>
-                    <option value="Ağstafa">Ağstafa</option>
-                    <option value="Ucar">Ucar</option>
-                    <option value="Göygöl">Göygöl</option>
-                    <option value="Xocavənd">Xocavənd</option>
-                    <option value="Xaçmaz">Xaçmaz</option>
-                    <option value="Kəlbəcər">Kəlbəcər</option>
-                    <option value="Yardımlı">Yardımlı</option>
-                    <option value="Daşkəsən">Daşkəsən</option>
-                    <option value="Kürdəmir">Kürdəmir</option>
-                    <option value="Hacıqabul">Hacıqabul</option>
-                    <option value="Qax">Qax</option>
-                    <option value="Qazax">Qazax</option>
-                    <option value="Tərtər">Tərtər</option>
-                    <option value="Biləsuvar">Biləsuvar</option>
-                    <option value="Şəmkir">Şəmkir</option>
-                    <option value="Qubadlı">Qubadlı</option>
-                    <option value="Quba">Quba</option>
-                    <option value="Qusar">Qusar</option>
-                    <option value="Babək">Babək</option>
-                    <option value="Füzuli">Füzuli</option>
-                    <option value="Cəbrayıl">Cəbrayıl</option>
+                    <option value="Oghuz">Oğuz</option>
+                    <option value="Zagatala">Zaqatala</option>
+                    <option value="Mingachevir">Mingəçevir</option>
+                    <option value="Khizi">Xızı</option>
+                    <option value="Absheron">Abşeron</option>
+                    <option value="Sadarak">Sədərək</option>
+                    <option value="Zangilan">Zəngilan</option>
+                    <option value="Aghstafa">Ağstafa</option>
+                    <option value="Ujar">Ucar</option>
+                    <option value="Goygol">Göygöl</option>
+                    <option value="Khojavand">Xocavənd</option>
+                    <option value="Khachmaz">Xaçmaz</option>
+                    <option value="Kalbajar">Kəlbəcər</option>
+                    <option value="Yardimli">Yardımlı</option>
+                    <option value="Dashkasan">Daşkəsən</option>
+                    <option value="Kurdamir">Kürdəmir</option>
+                    <option value="Hajigabul">Hacıqabul</option>
+                    <option value="Gakh">Qax</option>
+                    <option value="Gazakh">Qazax</option>
+                    <option value="Tartar">Tərtər</option>
+                    <option value="Bilasuvar">Biləsuvar</option>
+                    <option value="Shamkir">Şəmkir</option>
+                    <option value="Gubadli">Qubadlı</option>
+                    <option value="Guba">Quba</option>
+                    <option value="Gusar">Qusar</option>
+                    <option value="Babek">Babək</option>
+                    <option value="Fuzuli">Füzuli</option>
+                    <option value="Jabrayıl">Cəbrayıl</option>
                     <option value="Salyan">Salyan</option>
-                    <option value="Xocalı">Xocalı</option>
+                    <option value="Khojalı">Xocalı</option>
                     <option value="Astara">Astara</option>
-                    <option value="Culfa">Culfa</option>
-                    <option value="Ağdaş">Ağdaş</option>
+                    <option value="Julfa">Culfa</option>
+                    <option value="Aghdash">Ağdaş</option>
                     <option value="Lerik">Lerik</option>
-                    <option value="Masallı">Masallı</option>
+                    <option value="Masalli">Masallı</option>
                     <option value="Tovuz">Tovuz</option>
-                    <option value="Beyləqan">Beyləqan</option>
-                    <option value="Ağsu">Ağsu</option>
-                    <option value="Qobustan">Qobustan</option>
-                    <option value="Bərdə">Bərdə</option>
+                    <option value="Beylagan">Beyləqan</option>
+                    <option value="Aghsu">Ağsu</option>
+                    <option value="Gobustan">Qobustan</option>
+                    <option value="Barda">Bərdə</option>
                     <option value="Ordubad">Ordubad</option>
-                    <option value="Balakən">Balakən</option>
-                    <option value="İsmayıllı">İsmayıllı</option>
-                    <option value="Şuşa">Şuşa</option>
+                    <option value="Balakan">Balakən</option>
+                    <option value="İsmayilli">İsmayıllı</option>
+                    <option value="Shusha">Şuşa</option>
                     <option value="Samux">Samux</option>
-                    <option value="Ağcabədi">Ağcabədi</option>
-                    <option value="Ağdam">Ağdam</option>
-                    <option value="Şabran">Şabran</option>
-                    <option value="İmişli">İmişli</option>
-                    <option value="Saatlı">Saatlı</option>
-                    <option value="Naxçıvan">Naxçıvan</option>
-                    <option value="Siyəzən">Siyəzən</option>
-                    <option value="Şahbuz">Şahbuz</option>
-                    <option value="Cəlilabad">Cəlilabad</option>
+                    <option value="Aghjabadi">Ağcabədi</option>
+                    <option value="Aghdam">Ağdam</option>
+                    <option value="Shabran">Şabran</option>
+                    <option value="İmishli">İmişli</option>
+                    <option value="Saatli">Saatlı</option>
+                    <option value="Nakhchivan">Naxçıvan</option>
+                    <option value="Siyazan">Siyəzən</option>
+                    <option value="Shahbuz">Şahbuz</option>
+                    <option value="Jalilabad">Cəlilabad</option>
                     <option value="Sabirabad">Sabirabad</option>
-                    <option value="Neftçala">Neftçala</option>
-                    <option value="Laçın">Laçın</option>
+                    <option value="Neftchala">Neftçala</option>
+                    <option value="Lachın">Laçın</option>
                     <option value="Naftalan">Naftalan</option>
-                    <option value="Zərdab">Zərdab</option>
-                    <option value="Şərur">Şərur</option>
-                    <option value="Kəngərli">Kəngərli</option>
+                    <option value="Zardab">Zərdab</option>
+                    <option value="Sharur">Şərur</option>
+                    <option value="Kangerli">Kəngərli</option>
 
 
                 </select>*@
@@ -515,6 +513,10 @@
 @section Scripts {
 
     <script>
+        $(document).ready(function () {
+            $("option[value='@Model.Country']").attr("selected", "selected");
+        });
+
         function photoUpload(event) {
             $("#profPicUploadConfirm").removeAttr("disabled");
             $("#profPicUploadConfirm").removeClass("btn-light").addClass("btn-success");
@@ -526,15 +528,27 @@
         };
 
         function passwordCheck() {
-            if ($('#password').val() == $('#confirmPassword').val()) {
+            var password = $('#password').val();
+            var confirmPassword = $('#confirmPassword').val();
+            if ((password.length == 0) && (confirmPassword.length == 0)) {
+                $('#message').html('');
+                passwordChanged(false);
+            }else if ((password == confirmPassword)) {
                 $('#message').html('Şifrələr uyğundur').css('color', 'green');
-                passwordChanged();
-            } else
+                passwordChanged(true);
+            } 
+            else {
                 $('#message').html('Şifrələr uyğun gəlmir').css('color', 'red');
+                passwordChanged(false);
+            }
         };
 
-        function passwordChanged() {
-            $("#passwordSave").removeAttr("disabled").removeClass("btn-light").addClass("btn-success");
+        function passwordChanged(bool) {
+            if (bool==true) {
+                $("#passwordSave").removeAttr("disabled").removeClass("btn-light").addClass("btn-success");
+            } else {
+                $("#passwordSave").attr("disabled","true").addClass("btn-light").removeClass("btn-success");
+            }
         }
 
         function photoUploadConfirmed() {

@@ -111,7 +111,8 @@ namespace Rent.Controllers
 
         [HttpPost]
         public async Task<IActionResult> ProfileDetailsChange(string name, string surname,
-            string phoneNumber, string meetingLocation, string email)
+            string phoneNumber, string meetingLocation, string email, string gender, string country,
+            string city)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             if (ModelState.IsValid == true)
@@ -121,6 +122,9 @@ namespace Rent.Controllers
                 userFromRepo.Email = email;
                 userFromRepo.MeetingLocation = meetingLocation;
                 userFromRepo.PhoneNumber = phoneNumber;
+                userFromRepo.City = city;
+                userFromRepo.Country = country;
+                userFromRepo.Gender = gender;
                 await userManager.UpdateAsync(userFromRepo);
                 //await userManager.ChangeEmailAsync(userFromRepo, email,userFromRepo.);
             }
