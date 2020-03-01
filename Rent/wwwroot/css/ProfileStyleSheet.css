@@ -41,7 +41,15 @@ body {
     margin-bottom: 7px;
 }
 
-.profile-usertitle-job {
+.profile-usertitle-location {
+    text-transform: uppercase;
+    color: #5b9bd1;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.profile-usertitle-phone {
     text-transform: uppercase;
     color: #5b9bd1;
     font-size: 12px;

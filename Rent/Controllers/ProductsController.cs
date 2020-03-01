@@ -88,7 +88,7 @@ namespace Rent.Controllers
                     {
                         foreach (var image in images)
                         {
-                            fileName = FileUploaderService.UploadFile(image);
+                            fileName = FileUploaderService.UploadProductPhoto(image);
                             fileNames.Add(fileName);
                         }
                     }
@@ -171,7 +171,7 @@ namespace Rent.Controllers
                         {
                             foreach (var image in images)
                             {
-                                fileName = FileUploaderService.UploadFile(image);
+                                fileName = FileUploaderService.UploadProductPhoto(image);
                                 fileNames.Add(fileName);
                             }
                         }

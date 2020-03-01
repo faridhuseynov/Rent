@@ -27,7 +27,7 @@ namespace Rent.Controllers
         private readonly IWishListProdsRepository wishListProdsRepository;
         IEnumerable<Category> categories;
         IEnumerable<ProposalType> proposalTypes;
-        int NoOfRecordsPerPage = 10;
+        int NoOfRecordsPerPage = 6;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;

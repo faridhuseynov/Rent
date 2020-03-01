@@ -147,10 +147,13 @@ namespace Rent.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile(string username)
         {
-            var userFromRepo = await userManager.FindByNameAsync(username);
-            if (userFromRepo!=null)
+            if (username != User.Identity.Name)
             {
-                return View(userFromRepo);
+                var userFromRepo = await userManager.FindByNameAsync(username);
+                if (userFromRepo != null)
+                {
+                    return View(userFromRepo);
+                }
             }
 
             return RedirectToAction("Index", "Home");
