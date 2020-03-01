@@ -1,0 +1,72 @@
+﻿@model Rent.DomainModels.Models.Message
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>Message</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="SenderId" class="control-label"></label>
+                <select asp-for="SenderId" class="form-control" asp-items="ViewBag.SenderId"></select>
+                <span asp-validation-for="SenderId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RecipientId" class="control-label"></label>
+                <select asp-for="RecipientId" class="form-control" asp-items="ViewBag.RecipientId"></select>
+                <span asp-validation-for="RecipientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="IsRead" /> @Html.DisplayNameFor(model => model.IsRead)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateRead" class="control-label"></label>
+                <input asp-for="DateRead" class="form-control" />
+                <span asp-validation-for="DateRead" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MessageSent" class="control-label"></label>
+                <input asp-for="MessageSent" class="form-control" />
+                <span asp-validation-for="MessageSent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="SenderDeleted" /> @Html.DisplayNameFor(model => model.SenderDeleted)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input asp-for="RecipientDeleted" /> @Html.DisplayNameFor(model => model.RecipientDeleted)
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -8,6 +8,10 @@ body {
     background: #F1F3FA;
 }
 
+/*.modal-backdrop {
+    display: none;
+}*/
+
 /* Profile container */
 .profile {
     margin: 20px 0;

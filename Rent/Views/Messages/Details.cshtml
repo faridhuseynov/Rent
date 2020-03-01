@@ -1,0 +1,66 @@
+﻿@model Rent.DomainModels.Models.Message
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Message</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Sender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Sender.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Recipient)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Recipient.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Content)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRead)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsRead)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DateRead)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.DateRead)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MessageSent)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MessageSent)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SenderDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SenderDeleted)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RecipientDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RecipientDeleted)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

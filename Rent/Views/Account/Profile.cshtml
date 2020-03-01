@@ -41,7 +41,38 @@
                     <!-- SIDEBAR BUTTONS -->
                     <div class="profile-userbuttons">
                         @*<button type="button" class="btn btn-success btn-sm">Follow</button>*@
-                        <button type="button" class="btn btn-danger btn-sm">Message</button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@Model.UserName">Message</button>
+                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for</button>*@
+
+
+                        <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group" hidden>
+                                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                                <input type="text" class="form-control" id="recipient-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="message-text" class="col-form-label">Message:</label>
+                                                <textarea rows="5" class="form-control" id="message-text"></textarea>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- END SIDEBAR BUTTONS -->
                     <!-- SIDEBAR MENU -->
@@ -122,3 +153,47 @@
             </div>
         </div>
     </div>
+
+@section Scripts{ 
+<script>
+
+    $("#message-text").on("input", function () {
+        if ($(this).val() != "") {
+            $("#send-message").removeAttr("disabled");
+        } else {
+            $("#send-message").attr("disabled", true);
+
+        }
+    })
+
+    function sendMessage() {
+        var text = $("#message-text").val();
+        var recipientUserName = $("#recipient-name").val();
+        $.ajax({
+            type: "POST",
+            url: "/Messages/Create",
+            data: {
+                recipientUserName: recipientUserName,
+                content: text
+            },
+            success: function () {
+                $("#message-text").val("");
+                $("#messageModal").modal("toggle");
+            }
+        });
+    };
+
+
+    
+
+    $('#messageModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-title').text('New message to ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+}

@@ -21,5 +21,7 @@ namespace Rent.DomainModels.Models
         public string City { get; set; }
         public string Country { get; set; }
         public string Gender { get; set; }
+        public virtual ICollection<Message> MessagesSent { get; set; }
+        public virtual ICollection<Message> MessagesReceived { get; set; }
     }
 }

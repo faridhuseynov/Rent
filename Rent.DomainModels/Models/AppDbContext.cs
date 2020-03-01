@@ -39,6 +39,18 @@ namespace Rent.DomainModels.Models
             //    .HasOne(p => p.ProposalType)
             //    .WithMany(p => p.Proposals)
             //    .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(u => u.Sender)
+                .WithMany(m => m.MessagesSent)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Message>()
+                .HasOne(u => u.Recipient)
+                .WithMany(m => m.MessagesReceived)
+                .OnDelete(DeleteBehavior.Restrict);
+
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -51,6 +63,7 @@ namespace Rent.DomainModels.Models
         public DbSet<ProposalStatus> ProposalStatuses { get; set; }
         public DbSet<WishListProduct> WishListProducts { get; set; }
         public DbSet<ProfileImage> ProfileImages { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
     }
 }
