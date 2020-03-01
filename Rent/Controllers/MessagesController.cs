@@ -25,11 +25,16 @@ namespace Rent.Controllers
         }
 
         // GET: Messages
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> Inbox()
         {
             var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
+            //var test = messages.ToList().Where(u => u.SenderId == userFromRepo.Id);
+            //ViewBag["Recipients"] = test.OrderByDescending(m => m.MessageSent).Select(m => m.Recipient).ToList();
+            //ViewBag.Received = messages.ToList().Where(u => u.RecipientId == userFromRepo.Id);
             return View(messages);
+            //return View(messages);
         }
 
         [HttpPost]
