@@ -209,3 +209,4 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Delete.cshtml.g.c
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Details.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Inbox.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Outbox.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\_MessageThread.cshtml.g.cs

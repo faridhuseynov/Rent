@@ -100,12 +100,19 @@
                     <div class="col-md-3 clearfix">
                         <div class="header-ctn">
                             <!-- Wishlist -->
-                            @if (User.Identity.IsAuthenticated==true)
+                            @if (User.Identity.IsAuthenticated == true)
                             {
                                 <div>
                                     <a href="#">
                                         <i class="fa fa-heart"></i>
                                         <span>Your Wishlist</span>
+                                        <div id="wishListCount" class="qty" hidden></div>
+                                    </a>
+                                </div> 
+                                <div>
+                                    <a href="/messages/inbox">
+                                        <i class="fa fa-envelope"></i>
+                                        <span>Messages</span>
                                         <div id="wishListCount" class="qty" hidden></div>
                                     </a>
                                 </div>

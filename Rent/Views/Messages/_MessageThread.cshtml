@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Rent.DomainModels.Models.Message>
+@for (int i = 0; i < Model.Count(); i++)
+{
+    <p>Hello</p>
+    @*if (Model.ElementAt(i).Sender.UserName==ViewBag.Sender)
+    {
+        <div class="incoming_msg">
+            <div class="incoming_msg_img">
+                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                     alt="@Model.ElementAt(i).Sender.UserName" />
+            </div>
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <p>
+                        @Model.ElementAt(i).Content
+                    </p>
+                    <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="outgoing_msg">
+            <div class="sent_msg">
+                <p>
+                    @Model.ElementAt(i).Content
+                </p>
+                <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+            </div>
+        </div>
+    }*@
+}

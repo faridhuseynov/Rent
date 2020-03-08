@@ -5,9 +5,9 @@
 }
 <link href="~/css/messageStyleSheet.css" rel="stylesheet" />
 <div class="container">
-    <button class="btn btn-info" id="inbox">Inbox</button>
-    <button class="btn btn-info" id="outbox">Outbox</button>
-    <button class="btn btn-info" id="unread">Unread</button>
+    <a class="btn btn-info" id="inbox" disabled>Inbox</a>
+    <a class="btn btn-info" id="outbox" asp-action="Outbox" asp-controller="Messages">Outbox</a>
+    <a class="btn btn-info" id="unread" asp-action="" asp-controller="">Unread</a>
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -15,28 +15,34 @@
                     <div class="srch_bar">
                         <div class="stylish-input-group">
                             <input type="text" class="search-bar" placeholder="Search">
-                            <span class="input-group-addon">
-                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                            </span>
+                            @*<span class="input-group-addon">
+            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+        </span>*@
+                            <button class="btn" type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                         </div>
                     </div>
                 </div>
                 <div class="inbox_chat">
+                    @{ 
+                        string user="";
+                    }
                     @for (var i = 0; i < Model.Count(); i++)
                     {
-                        if (Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
+                        if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
+                            && (user!=Model.ElementAt(i).Sender.UserName))
                         {
+                            //user=Model.ElementAt(i).Sender.UserName;
                             <a href="#">
                                 @if (i == 0)
                                 {
                                     <div class="chat_list active_chat">
                                         <div class="chat_people">
                                             <div class="chat_img">
-                                                <img src="~/Images/Users/@Model.ElementAt(i).Recipient.MainProfilePicture"
-                                                     alt="@Model.ElementAt(i).Recipient.UserName">
+                                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                                     alt="@Model.ElementAt(i).Sender.UserName">
                                             </div>
                                             <div class="chat_ib">
-                                                <h5>@Model.ElementAt(i).Recipient.Name @Model.ElementAt(i).Recipient.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
+                                                <h5>@Model.ElementAt(i).Sender.Name @Model.ElementAt(i).Sender.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
                                                 <p>
                                                     @Model.ElementAt(i).Content
                                                 </p>

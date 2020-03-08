@@ -33,10 +33,32 @@ namespace Rent.Controllers
             //var test = messages.ToList().Where(u => u.SenderId == userFromRepo.Id);
             //ViewBag["Recipients"] = test.OrderByDescending(m => m.MessageSent).Select(m => m.Recipient).ToList();
             //ViewBag.Received = messages.ToList().Where(u => u.RecipientId == userFromRepo.Id);
-            return View(messages);
+            return View(messages.OrderByDescending(m => m.MessageSent));
             //return View(messages);
         }
 
+        // GET: Messages
+        [HttpGet]
+        public async Task<IActionResult> Outbox()
+        {
+            var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
+            //var test = messages.ToList().Where(u => u.SenderId == userFromRepo.Id);
+            //ViewBag["Recipients"] = test.OrderByDescending(m => m.MessageSent).Select(m => m.Recipient).ToList();
+            //ViewBag.Received = messages.ToList().Where(u => u.RecipientId == userFromRepo.Id);
+            return View(messages.OrderByDescending(m=>m.MessageSent));
+            //return View(messages);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MessageThread(string recipient, string sender)
+        {
+            ViewBag.Sender = sender;
+            var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
+            return PartialView("_MessageThread", messages.Where(u=>(u.Recipient.UserName==recipient && u.Sender.UserName==sender)
+            || (u.Sender.UserName == recipient && u.Recipient.UserName == sender)));
+        }
         [HttpPost]
         public async Task Create(string recipientUserName, string content)
         {

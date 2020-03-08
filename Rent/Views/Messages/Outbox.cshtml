@@ -5,9 +5,9 @@
 }
 <link href="~/css/messageStyleSheet.css" rel="stylesheet" />
 <div class="container">
-    <button class="btn btn-info" id="inbox">Inbox</button>
-    <button class="btn btn-info" id="outbox">Outbox</button>
-    <button class="btn btn-info" id="unread">Unread</button>
+    <a class="btn btn-info" id="inbox" asp-action="Inbox" asp-controller="Messages">Inbox</a>
+    <a class="btn btn-info" id="outbox" disabled>Outbox</a>
+    <a class="btn btn-info" id="unread" asp-action="" asp-controller="">Unread</a>
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -15,18 +15,21 @@
                     <div class="srch_bar">
                         <div class="stylish-input-group">
                             <input type="text" class="search-bar" placeholder="Search">
-                            <span class="input-group-addon">
-                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                            </span>
+                            <button class="btn" type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                         </div>
                     </div>
                 </div>
                 <div class="inbox_chat">
+                    @{
+                        var user = "";
+                    }
                     @for (var i = 0; i < Model.Count(); i++)
                     {
-                        if (Model.ElementAt(i).Sender.UserName == User.Identity.Name)
+                        if ((Model.ElementAt(i).Sender.UserName == User.Identity.Name) &&
+                            (user != Model.ElementAt(i).Recipient.UserName))
                         {
-                            <a href="#">
+                            user = Model.ElementAt(i).Recipient.UserName;
+                            <a href="#" class="message">
                                 @if (i == 0)
                                 {
                                     <div class="chat_list active_chat">
@@ -49,11 +52,11 @@
                                     <div class="chat_list">
                                         <div class="chat_people">
                                             <div class="chat_img">
-                                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                                     alt="@Model.ElementAt(i).Sender.UserName">
+                                                <img src="~/Images/Users/@Model.ElementAt(i).Recipient.MainProfilePicture"
+                                                     alt="@Model.ElementAt(i).Recipient.UserName">
                                             </div>
                                             <div class="chat_ib">
-                                                <h5>@Model.ElementAt(i).Sender.Name @Model.ElementAt(i).Sender.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
+                                                <h5>@Model.ElementAt(i).Recipient.Name @Model.ElementAt(i).Recipient.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
                                                 <p>
                                                     @Model.ElementAt(i).Content
                                                 </p>
@@ -68,38 +71,7 @@
             </div>
             <div class="mesgs">
                 <div class="msg_history">
-                    @*@for (var i = 0; i < Model.Count(); i++)
-                        {
-                            @if (Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
-                            {
-                                <div class="incoming_msg">
-                                    <div class="incoming_msg_img">
-                                        <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                             alt="@Model.ElementAt(i).Sender.UserName">
-                                    </div>
-                                    <div class="received_msg">
-                                        <div class="received_withd_msg">
-                                            <p>
-                                                @Model.ElementAt(i).Content
-                                            </p>
-                                            <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="outgoing_msg">
-                                    <div class="sent_msg">
-                                        <p>
-                                            @Model.ElementAt(i).Content
-                                        </p>
-                                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                    </div>
-                                </div>
-                            }
 
-                        }*@
                 </div>
                 <div class="type_msg">
                     <div class="input_msg_write">
@@ -114,3 +86,62 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(".message").click(function (event) {
+            event.preventDefault();
+            var sender = $(event.target.parentNode.parentNode).find($("img")).attr("alt");
+            var rec = "farid";
+            console.log(sender + " " + rec);
+            $.ajax({
+                URL: "/Messages/MessageThread/",
+                type: "POST",
+                data: {
+                    recipient: rec,
+                    sender: sender
+                },
+                success: function (response) {
+                    //console.log(response);
+                    $(".msg_history").html(response);
+                }
+            });
+        });
+    </script>
+
+    }
+
+    @*recipient=@Model.ElementAt(i)
+        if (@Model.ElementAt((@i)).Recipient.UserName == User.Identity.Name) {
+            $(".msg_history").append(
+                "<p>Hello</p>");*@
+    @*<div class="incoming_msg">
+             <div class="incoming_msg_img">
+                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                     alt="@Model.ElementAt(i).Sender.UserName" />
+            </div>
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <p>
+                        @Model.ElementAt(i).Content
+                    </p>
+                    <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                </div>
+            </div>
+        </div>*@
+    //}
+@*else if (@Model.ElementAt(i).Sender.UserName == user) {
+        $(".msg_history").append(
+
+            "<p>Hello again</p>");
+                        <div class="outgoing_msg">
+                            <div class="sent_msg">
+                                <p>
+                                    @Model.ElementAt(i).Content
+                                </p>
+                                <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                            </div>
+                        </div>
+                    }
+
+    }*@

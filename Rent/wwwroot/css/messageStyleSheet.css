@@ -40,34 +40,31 @@ img {
 }
 
 
-.recent_heading {
-    float: left;
-    width: 40%;
-}
 
 .srch_bar {
-    display: inline-block;
-    text-align: right;
-    width: 60%;
+    display: inline;
+    text-align: left;
+    width: auto;
     padding: 5px;
 }
 
 .headind_srch {
+    width:auto;
     padding: 10px 29px 10px 20px;
     overflow: hidden;
     border-bottom: 1px solid #c4c4c4;
 }
 
-.recent_heading h4 {
+/*.recent_heading h4 {
     color: #05728f;
     font-size: 21px;
     margin: auto;
-}
+}*/
 
 .srch_bar input {
     border: 1px solid #cdcdcd;
     border-width: 0 0 1px 0;
-    width: 80%;
+    width: 85%;
     padding: 2px 0 4px 6px;
     background: none;
 }
@@ -78,6 +75,7 @@ img {
     padding: 0;
     color: #707070;
     font-size: 18px;
+    float:right;
 }
 
 .srch_bar .input-group-addon {
