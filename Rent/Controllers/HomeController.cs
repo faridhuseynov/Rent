@@ -25,6 +25,7 @@ namespace Rent.Controllers
         private readonly UserManager<User> userManager;
         private readonly IProposalTypesRepository proposalTypesRepository;
         private readonly IWishListProdsRepository wishListProdsRepository;
+        private readonly IRatingsRepository ratingsRepository;
         IEnumerable<Category> categories;
         IEnumerable<ProposalType> proposalTypes;
         int NoOfRecordsPerPage = 6;
@@ -34,7 +35,7 @@ namespace Rent.Controllers
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
             IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository,
-            IWishListProdsRepository wishListProdsRepository)
+            IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository)
         {
             _logger = logger;
             ps = productsService;
@@ -43,6 +44,7 @@ namespace Rent.Controllers
             this.userManager = userManager;
             this.proposalTypesRepository = proposalTypesRepository;
             this.wishListProdsRepository = wishListProdsRepository;
+            this.ratingsRepository = ratingsRepository;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
             proposalTypes = new List<ProposalType>();
@@ -159,6 +161,25 @@ namespace Rent.Controllers
                 if (wishCheck != null)
                     await wishListProdsRepository.DeleteProduct(wishCheck);
             }
+        }
+
+        [HttpPost]
+        public async Task AddNewRating(int productId, string rater, string review, int score)
+        {
+            var _rater = await userManager.FindByNameAsync(rater);
+            if (_rater!=null)
+            {
+                var newReview = new Rate();
+                newReview.Note = score;
+                newReview.Review = review;
+                newReview.UserId = _rater.Id;
+                newReview.ProductId = productId;
+                var date = new DateTime();
+                date = DateTime.UtcNow;
+                newReview.DateAdded = date;
+                await ratingsRepository.AddRating(newReview);
+            }
+
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

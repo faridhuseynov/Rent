@@ -26,6 +26,8 @@ namespace Rent.DomainModels.Models
         public bool Sell { get; set; }
         public bool Lend { get; set; }
         public virtual ICollection<WishListProduct> WishList { get; set; }
+        public virtual ICollection<Rate> Rates { get; set; }
+        public double AverageRate { get; set; }
 
     }
 }

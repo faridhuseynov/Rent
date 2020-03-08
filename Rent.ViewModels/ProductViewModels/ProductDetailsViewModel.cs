@@ -26,5 +26,8 @@ namespace Rent.ViewModels.ProductViewModels
         public string MainPhotoUrl { get; set; }
         public bool Sell { get; set; }
         public bool Lend { get; set; }
+        public virtual ICollection<Rate> Rates { get; set; }
+        public double AverageRate { get; set; }
+
     }
 }
