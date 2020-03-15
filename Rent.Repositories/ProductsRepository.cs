@@ -16,6 +16,7 @@ namespace Rent.Repositories
         Task<IEnumerable<Product>> GetProducts();
         Task<Product> GetProductByProductID(int productId);
         Task<int> GetLatestProductID();
+        Task UpdateRating(int productId);
     }
     public class ProductsRepository : IProductsRepository
     {
@@ -82,6 +83,21 @@ namespace Rent.Repositories
                 updatedProduct.LendPrice = product.LendPrice;
                 updatedProduct.MinLendDays = product.MinLendDays;
                 updatedProduct.CategoryId = product.CategoryId;
+                await db.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateRating(int productId)
+        {
+           var product = await db.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            if (product!=null)
+            {
+                int sum = 0;
+                foreach (var item in product.Rates)
+                {
+                    sum += item.Note;
+                }
+                product.AverageRate = sum / product.Rates.Count;
                 await db.SaveChangesAsync();
             }
         }

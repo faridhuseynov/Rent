@@ -17,6 +17,7 @@ namespace Rent.ServiceLayers
         IEnumerable<ProductDetailsViewModel> GetProducts();
         Task<ProductDetailsViewModel> GetProductByProductID(int ProductID);
         Task<int> GetLastAddedProductId();
+        Task UpdateRating(int productId);
     }
 
     public class ProductsService:IProductsService
@@ -73,5 +74,9 @@ namespace Rent.ServiceLayers
             return await pr.GetLatestProductID();
         }
 
+        public async Task UpdateRating(int productId)
+        {
+            await pr.UpdateRating(productId);
+        }
     }
 }

@@ -184,7 +184,7 @@
                         <!-- tab2  -->
                         <div id="tabReview" class="tab-pane fade in">
                             <div class="row">
-                                 @*Rating*@ 
+                                @*Rating*@
                                 <div class="col-md-3">
                                     <div id="rating">
                                         <div class="rating-avg">
@@ -203,6 +203,7 @@
                                                         while (i < 5)
                                                         {
                                                             <i class="fa fa-star-o empty"></i>
+                                                            ++i;
                                                         }
                                                     }
                                                 }
@@ -227,10 +228,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star"></i>
                                                 </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 80%;"></div>
-                                                </div>
-                                                <span class="sum">3</span>
+                                                <span class="sum">@Model.Rates.Where(r => r.Note == 5).Count()</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -240,10 +238,7 @@
                                                     <i class="fa fa-star"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 60%;"></div>
-                                                </div>
-                                                <span class="sum">2</span>
+                                                <span class="sum">@Model.Rates.Where(r => r.Note == 4).Count()</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -253,10 +248,7 @@
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">@Model.Rates.Where(r => r.Note == 3).Count()</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -266,10 +258,7 @@
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">@Model.Rates.Where(r => r.Note == 2).Count()</span>
                                             </li>
                                             <li>
                                                 <div class="rating-stars">
@@ -279,16 +268,13 @@
                                                     <i class="fa fa-star-o"></i>
                                                     <i class="fa fa-star-o"></i>
                                                 </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
+                                                <span class="sum">@Model.Rates.Where(r => r.Note == 1).Count()</span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
-                                 @*Rating*@ 
-                                 @*//Reviews*@ 
+                                @*Rating*@
+                                @*//Reviews*@
                                 <div class="col-md-6">
                                     <div id="reviews">
                                         <ul class="reviews">
@@ -312,6 +298,7 @@
                                                                     while (i < 5)
                                                                     {
                                                                         <i class="fa fa-star-o empty"></i>
+                                                                        ++i;
                                                                     }
                                                                 }
                                                             </div>
@@ -331,13 +318,6 @@
                                 <div class="col-md-3">
                                     <div id="review-form">
                                         <form class="review-form">
-                                            <!--below is for the non-registered users-->
-                                            @*@if (User.Identity.IsAuthenticated == false)
-                                            {
-                                                <input class="input" type="text" placeholder="Your Name">
-                                                <input class="input" type="email" placeholder="Your Email">
-
-                                            }*@
                                             <textarea class="input" id="newReview" placeholder="Your Review"></textarea>
                                             <div class="input-rating">
                                                 <span>Your Rating: </span>
@@ -349,7 +329,6 @@
                                                     <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
                                                 </div>
                                             </div>
-                                            @*<button class="primary-btn" disabled id="postNewRate">Submit</button>*@
                                             <button class="btn disabled" id="postNewRate">Submit</button>
                                         </form>
                                     </div>
@@ -382,12 +361,11 @@
 
         })
 
-        $("#postNewRate").on((event) => {
+        $("#postNewRate").on("click",function (event) {
             event.preventDefault();
             var _review = $("#newReview").val();
             var _score = $('input[name$="rating"]:checked').val();
             var _rater =$("#buyerName").val();
-
             $.ajax({
                 type: "POST",
                 url: "/Home/AddNewRating",
@@ -398,8 +376,7 @@
                     score:_score
                 },
                 success: function () {
-                    $("#newReview").val() = "";
-                    $('input[name$="rating"]').prop("checked",false);
+                    location.reload(true);
                 }
             })
         });
@@ -529,4 +506,25 @@
         <div class="review-body">
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
         </div>
-    </li>*@  
+    </li>*@
+<!--below is for the non-registered users-->
+@*@if (User.Identity.IsAuthenticated == false)
+    {
+        <input class="input" type="text" placeholder="Your Name">
+        <input class="input" type="email" placeholder="Your Email">
+
+    }*@
+
+@*<li>
+    <div class="rating-stars">
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+    </div>
+    <div class="rating-progress">
+        <div style="width: 80%;"></div>
+    </div>
+    <span class="sum">@Model.Rates.Where(r => r.Note == 5).Count()</span>
+</li>*@

@@ -166,7 +166,7 @@ namespace Rent.Controllers
         [HttpPost]
         public async Task AddNewRating(int productId, string rater, string review, int score)
         {
-            var _rater = await userManager.FindByNameAsync(rater);
+            var _rater = await userManager.FindByNameAsync(rater);            
             if (_rater!=null)
             {
                 var newReview = new Rate();
@@ -178,6 +178,7 @@ namespace Rent.Controllers
                 date = DateTime.UtcNow;
                 newReview.DateAdded = date;
                 await ratingsRepository.AddRating(newReview);
+                await ps.UpdateRating(productId);
             }
 
         }
