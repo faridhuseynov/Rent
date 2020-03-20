@@ -12,21 +12,24 @@
             <!-- Product main img -->
             <div class="col-md-5 col-md-push-2">
                 <div id="product-main-img">
-                    @if (Model.Images.Count > 0)
-                    {
-                        foreach (var image in Model.Images)
-                        {
-                            <div class="product-preview">
-                                <img src="~/Images/Products/@image.PhotoUrl" alt="">
-                            </div>
-                        }
-                    }
-                    else
-                    {
-                        <div class="product-preview">
-                            <img src="~/Images/Products/default-pro.jpg" alt="">
-                        </div>
-                    }
+                    <div class="product-preview">
+                        <img id="mainPhoto" src="~/Images/Products/@Model.MainPhotoUrl" alt="">
+                    </div>
+                    @*@if (Model.Images.Count > 0)
+        {
+            foreach (var image in Model.Images)
+            {
+                <div class="product-preview">
+                    <img src="~/Images/Products/@image.PhotoUrl" alt="">
+                </div>
+            }
+        }
+        else
+        {
+            <div class="product-preview">
+                <img src="~/Images/Products/default-pro.jpg" alt="">
+            </div>
+        }*@
                 </div>
             </div>
             <!-- /Product main img -->
@@ -38,7 +41,7 @@
                         foreach (var image in Model.Images)
                         {
                             <div class="product-preview">
-                                <img src="~/Images/Products/@image.PhotoUrl" alt="">
+                                <a href="#" class="carouselImages"><img src="~/Images/Products/@image.PhotoUrl" alt=""></a>
                             </div>
                         }
                     }
@@ -68,7 +71,7 @@
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-o"></i>
                         </div>
-                        <a class="review-link" href="#">10 Review(s) | Add your review</a>
+                        <a class="review-link" href="#reviews">@Model.Rates.Count Review(s) | Add your review</a>
                     </div>
                     @if (Model.Lend == true)
                     {
@@ -166,7 +169,7 @@
                 <div id="product-tab">
                     <!-- product tab nav -->
                     <ul class="tab-nav">
-                        <li class="active" id="description"><a data-toggle="tab" href="#">Description</a></li>
+                        <li class="active" id="description"><a data-toggle="tab" href="">Description</a></li>
                         <li id="review"><a data-toggle="tab" href="">Reviews</a></li>
                     </ul>
                     <!-- /product tab nav -->
@@ -355,6 +358,13 @@
             proposalTypeChange();
 
         });
+
+
+        $(".carouselImages").on("click", function (event) {
+            event.preventDefault();
+            var chosenImage = event.target.getAttribute("src");
+            $("#mainPhoto")[0].setAttribute("src",chosenImage);
+        })
 
         $("#rateBar").click(function () {
             $("#postNewRate").removeClass("disabled").addClass("primary-btn");
