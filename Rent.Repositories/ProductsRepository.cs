@@ -67,7 +67,7 @@ namespace Rent.Repositories
 
         public async Task<Product> GetProductByProductID(int productID)
         {
-            return await db.Products.Include(u=>u.User).Include(i=>i.Images).FirstOrDefaultAsync(x => x.Id == productID);
+            return await db.Products.Include(u=>u.User).Include(i=>i.Images).FirstOrDefaultAsync(p => p.Id == productID);
         }
 
         public async Task UpdateProductDetails(Product product)

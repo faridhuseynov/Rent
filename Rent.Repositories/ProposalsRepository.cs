@@ -19,6 +19,7 @@ namespace Rent.Repositories
 
         Task<Proposal> GetProposalByProposalID(int proposalId);
         Task<int> GetLatestProposalID();
+        Task AcceptOrRejectProposal(int proposalId, int statusId);
     }
     public class ProposalsRepository:IProposalsRepository
     {
@@ -78,6 +79,17 @@ namespace Rent.Repositories
             if (lastProposal != null)
                 return lastProposal.Id;
             return 0;
+        }
+
+        public async Task AcceptOrRejectProposal(int proposalId, int statusId)
+        {
+            var proposal = await db.Proposals.FirstOrDefaultAsync(p => p.Id == proposalId);
+            if (proposal!=null)
+            {
+                proposal.ProposalStatusId = statusId;
+                db.Proposals.Update(proposal);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

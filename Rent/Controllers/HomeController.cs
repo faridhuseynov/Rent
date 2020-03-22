@@ -112,8 +112,8 @@ namespace Rent.Controllers
         public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,
             string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate)
         {
-            var product = ps.GetProductByProductID(Id);
-            var _buyer = await userManager.FindByEmailAsync(buyer);
+            var product = await ps.GetProductByProductID(Id);
+            var _buyer = await userManager.FindByNameAsync(buyer);
             int newPropId=0;
             if (product != null)
             {
@@ -125,7 +125,7 @@ namespace Rent.Controllers
                 }
                 newProposal.ProductId = Id;
                 newProposal.ProposedPrice = proposedPrice;
-                newProposal.OwnerId = product.Result.UserId;
+                newProposal.OwnerId = product.UserId;
                 newProposal.BuyerId = _buyer.Id;
                 newProposal.ProposalTypeId = proposalType;
                 newProposal.ProposalAdded = DateTime.Now;

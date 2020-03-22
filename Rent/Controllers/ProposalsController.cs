@@ -42,7 +42,7 @@ namespace Rent.Controllers
 
         public async Task<IActionResult> OutgoingProposals(string? userName)
         {
-            var user = userManager.FindByNameAsync(userName).Result;
+            var user = await userManager.FindByNameAsync(userName);
             if (user != null)
             {
                 var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id).OrderByDescending(p=>p.ProposalAdded);
@@ -53,6 +53,12 @@ namespace Rent.Controllers
             //var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
 
             //return View(await appDbContext.ToListAsync());
+        }
+
+        public async Task<IActionResult> AcceptOrRejectProposal(int proposalId, int statusId)
+        {
+            await proposalsService.AcceptOrRejectProposal(proposalId, statusId);
+            return RedirectToAction("IncomingProposals", new { userName = User.Identity.Name });
         }
         // GET: Proposals/Details/5
         public async Task<IActionResult> Details(int? id)

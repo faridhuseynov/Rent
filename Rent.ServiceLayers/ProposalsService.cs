@@ -17,8 +17,8 @@ namespace Rent.ServiceLayers
         void DeleteProposal(int ProposalID);
         IEnumerable<ProposalDetailsViewModel> GetProposals();
         IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
-
         ProposalDetailsViewModel GetProposalByProposalId(int ProposalID);
+        Task AcceptOrRejectProposal(int proposalId, int statusId); 
     }
     public class ProposalsService:IProposalsService
     {
@@ -75,6 +75,11 @@ namespace Rent.ServiceLayers
             IMapper mapper = config.CreateMapper();
             var proposal = mapper.Map<Proposal, ProposalDetailsViewModel>(proposalFromRepo.Result);
             return proposal;
+        }
+
+        public async Task AcceptOrRejectProposal(int proposalId, int statusId)
+        {
+            await proposalsRepository.AcceptOrRejectProposal(proposalId, statusId);
         }
     }
 }

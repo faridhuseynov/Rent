@@ -15,7 +15,7 @@
             //review the option of  using jumbotron-fluid class
             <div class="row jumbotron-fluid mb-3">
                 <div class="card" style="width: 18rem;">
-                    <img src="@item.Product.MainPhotoUrl" class="card-img-top" alt="...">
+                    <img src="~/Images/Products/@item.Product.MainPhotoUrl" class="card-img-top" alt="...">
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
@@ -23,7 +23,7 @@
                     <p class="card-text">Haqqında: @item.Product.ProductDescription</p>
                     <p class="card-text">
                         Təklif: @item.ProposedPrice
-                        @if (item.ProposalTypeId == 1)
+                        @if (item.ProposalType.Type == "Sell")
                         {
                             <span>AZN</span>
                         }
@@ -32,8 +32,21 @@
                             <span>AZN/GÜN</span>
                         }
                     </p>
-                    <p class="card-footer">Status: @item.ProposalStatus</p>
-                    <a href="#" class="btn btn-primary">Details</a>
+                    @if (item.ProposalStatus.StatusName == "Open")
+                    {
+                        <label class="card-footer badge-info">Status: Açıq</label>
+                        <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2">Qəbul et</a>
+                        <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3">Rədd et</a>
+
+                    }
+                    else if (item.ProposalStatus.StatusName == "Closed")
+                    {
+                        <label class="card-footer badge-success">Status: Razılıq verilib</label>
+                    }
+                    else
+                    {
+                        <label class="card-footer badge-danger">Status: Imtina edilib</label>
+                    }
                 </div>
                 @*<img class="card-img-top" src="@item.Product.MainPhotoUrl" />
                 @Html.DisplayFor(modelItem => item.Product.ProductName)
