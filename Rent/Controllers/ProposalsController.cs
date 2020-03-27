@@ -30,7 +30,9 @@ namespace Rent.Controllers
             var user = await userManager.FindByNameAsync(userName);
             if (user!=null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u=>u.OwnerId==user.Id).OrderByDescending(p=>p.ProposalAdded);
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.OwnerId == user.Id)
+                    .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
+                    //.OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
                 return View(proposals);
 
             }
@@ -45,7 +47,8 @@ namespace Rent.Controllers
             var user = await userManager.FindByNameAsync(userName);
             if (user != null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id).OrderByDescending(p=>p.ProposalAdded);
+                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id)
+                    .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
                 return View(proposals);
 
             }

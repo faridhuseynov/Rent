@@ -19,10 +19,9 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
-                <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Product.User">
-                    <h6 class="label label-info">Məhsulun sahibi: @item.Product.User</h6>
-                </a>
-                <p class="card-text">Haqqında: @item.Product.ProductDescription</p>
+                    <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Product.User">
+                        <h6 class="label label-info">Məhsulun sahibi: @item.Product.User</h6>
+                    </a>
                 <p class="card-text">
                     Təklif: @item.ProposedPrice
                     @if (item.ProposalType.Type == "Sell")
@@ -42,7 +41,7 @@
                     </p>
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
-                        <label class="card-footer badge-info">Status: Açıq</label>
+                        <label class="card-footer badge-info">Status: Açıq, @item.ProposalAdded.ToString("dd/M/yyyy")</label>
                         <a href="#" class="btn btn-primary">Dəyiş</a>
                     }
                     else if (item.ProposalStatus.StatusName == "Closed")

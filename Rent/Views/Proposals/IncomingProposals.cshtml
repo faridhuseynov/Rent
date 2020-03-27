@@ -40,7 +40,7 @@
                     </p>
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
-                        <label class="card-footer badge-info">Status: Açıq</label>
+            <label class="card-footer badge-info">Status: Açıq, @item.ProposalAdded.ToString("dd/M/yyyy")</label>
                         <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2">Qəbul et</a>
                         <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3">Rədd et</a>
 
