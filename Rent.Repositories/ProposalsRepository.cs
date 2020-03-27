@@ -19,7 +19,7 @@ namespace Rent.Repositories
 
         Task<Proposal> GetProposalByProposalID(int proposalId);
         Task<int> GetLatestProposalID();
-        Task AcceptOrRejectProposal(int proposalId, int statusId);
+        Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate);
     }
     public class ProposalsRepository:IProposalsRepository
     {
@@ -81,12 +81,13 @@ namespace Rent.Repositories
             return 0;
         }
 
-        public async Task AcceptOrRejectProposal(int proposalId, int statusId)
+        public async Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate)
         {
             var proposal = await db.Proposals.FirstOrDefaultAsync(p => p.Id == proposalId);
             if (proposal!=null)
             {
                 proposal.ProposalStatusId = statusId;
+                proposal.ProposalClosed = responseDate;
                 db.Proposals.Update(proposal);
                 await db.SaveChangesAsync();
             }

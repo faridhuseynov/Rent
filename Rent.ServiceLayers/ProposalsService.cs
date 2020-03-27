@@ -18,7 +18,7 @@ namespace Rent.ServiceLayers
         IEnumerable<ProposalDetailsViewModel> GetProposals();
         IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
         ProposalDetailsViewModel GetProposalByProposalId(int ProposalID);
-        Task AcceptOrRejectProposal(int proposalId, int statusId); 
+        Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate); 
     }
     public class ProposalsService:IProposalsService
     {
@@ -77,9 +77,9 @@ namespace Rent.ServiceLayers
             return proposal;
         }
 
-        public async Task AcceptOrRejectProposal(int proposalId, int statusId)
+        public async Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate)
         {
-            await proposalsRepository.AcceptOrRejectProposal(proposalId, statusId);
+            await proposalsRepository.AcceptOrRejectProposal(proposalId, statusId, responseDate);
         }
     }
 }

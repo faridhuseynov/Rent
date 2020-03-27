@@ -29,5 +29,6 @@ namespace Rent.ViewModels.ProposalViewModels
         public DateTime ProposalClosed { get; set; }
         public DateTime ProposedRentStartDate { get; set; }
         public DateTime ProposedRentEndDate { get; set; }
+
     }
 }

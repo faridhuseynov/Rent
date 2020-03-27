@@ -57,7 +57,9 @@ namespace Rent.Controllers
 
         public async Task<IActionResult> AcceptOrRejectProposal(int proposalId, int statusId)
         {
-            await proposalsService.AcceptOrRejectProposal(proposalId, statusId);
+            var responseDate = new DateTime();
+            responseDate = DateTime.Now;
+            await proposalsService.AcceptOrRejectProposal(proposalId, statusId, responseDate);
             return RedirectToAction("IncomingProposals", new { userName = User.Identity.Name });
         }
         // GET: Proposals/Details/5
