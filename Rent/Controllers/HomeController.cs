@@ -68,6 +68,10 @@ namespace Rent.Controllers
                 products = products.Where(p => p.ProductName.Contains(searchString)
                 || p.ProductDescription.Contains(searchString)|| p.Category.CategoryName.Contains(searchString));
             }
+            if (User.Identity.IsAuthenticated==true)
+            {
+                products = products.Where(o => o.User.UserName != User.Identity.Name);
+            }
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(products.Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             ViewBag.NoOfPages = NoOfPages;
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
@@ -120,8 +124,19 @@ namespace Rent.Controllers
                 var newProposal = new NewProposalViewModel();
                 if (proposalType==3)
                 {
+                    // doesn't work properly, date is being sent without correction
                     newProposal.ProposedRentStartDate = rentStartDate;
                     newProposal.ProposedRentEndDate = rentEndDate;
+                    if (newProposal.ProposedRentStartDate.Year.ToString()=="0001")
+                    {
+                        newProposal.ProposedRentStartDate = DateTime.Now;
+                        newProposal.ProposedRentStartDate=newProposal.ProposedRentStartDate.AddDays(1);
+                    }
+                    if (newProposal.ProposedRentEndDate.Year.ToString() == "0001")
+                    {
+                        newProposal.ProposedRentEndDate = DateTime.Now;
+                        newProposal.ProposedRentEndDate = newProposal.ProposedRentEndDate.AddDays(newProposal.Product.MinLendDays);
+                    }
                 }
                 newProposal.ProductId = Id;
                 newProposal.ProposedPrice = proposedPrice;

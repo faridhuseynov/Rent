@@ -117,16 +117,25 @@
                             </div>
                             <div class="qty-label">
                                 <div class="input-number">
-                                    <input type="number" name="ProposedPrice" id="proposedPrice" value="0">
+                                    <input type="number" name="ProposedPrice" id="proposedPrice" value="0" min="1">
                                     <span class="qty-up">+</span>
                                     <span class="qty-down">-</span>
                                 </div>
                                 <label id="priceType">azn</label>
                             </div>
-                            <button asp-controller="Home" asp-action="SendProposal"
-                                    class="add-to-cart-btn">
+                                    @*add-to-cart-btn*@
+                            @{ 
+                                var check = false;
+                                if (Model.Sell == true)
+                                {
+                                    check = true;
+                                }
+
+                            <button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
+                                    class="@(check == true ? "add-to-cart-btn" : "btn btn - light disabled")"  >
                                 <i class="fa fa-shopping-cart"></i> send proposal
                             </button>
+                            }
                         </div>
                         <div class="date" hidden>
 
@@ -440,6 +449,7 @@
             var val = parseInt($('#proposedPrice').val());
             if (val != 0)
                 $('#proposedPrice').val(val - 1);
+
         });
 
         function proposalTypeChange() {
@@ -465,22 +475,42 @@
 
         function checkDate() {
             var startDate = (new Date($("#dp1").val())).getTime();
-            var endDate = (new Date($("#dp2").val())).getTime()+86400000;
-            var minLendDays = $("#minLendDays").text().split("")[0]*24*3600*1000;
+            var endDate = (new Date($("#dp2").val())).getTime() + 86400000;
+            var minLendDays = $("#minLendDays").text().split("")[0] * 24 * 3600 * 1000;
+            var check = true;
             if (startDate < Date.now()) {
                 $("#dp1ErrorSpan").removeAttr("hidden");
+                check = false;
             } else {
                 $("#dp1ErrorSpan").attr("hidden", true);
             }
             if (startDate >= endDate) {
                 $("#dp2ErrorSpan1").removeAttr("hidden");
+                check = false;
             } else {
-                $("#dp2ErrorSpan1").attr("hidden",true);
+                $("#dp2ErrorSpan1").attr("hidden", true);
             }
             if (endDate - startDate < minLendDays) { // to check if difference is less than minLendDays
                 $("#dp2ErrorSpan2").removeAttr("hidden");
+                check = false;
             } else {
                 $("#dp2ErrorSpan2").attr("hidden", true);
+            }
+
+            sendProposalCheck(check);
+        }
+
+        //<button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
+        //        class="btn btn-light disabled" >
+        //    <i class="fa fa-shopping-cart"></i> send proposal
+        //</button>
+        function sendProposalCheck(check) {
+            if (check == true) {
+                $("#sendProposalButton").removeClass("disabled btn btn-light").addClass("add-to-cart-btn");
+                console.log("yes");
+            } else {
+                $("#sendProposalButton").addClass("disabled btn btn-light").removeClass("add-to-cart-btn");
+                console.log("no");
             }
         }
 
