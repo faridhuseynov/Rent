@@ -113,7 +113,7 @@ namespace Rent.Controllers
             return RedirectToAction("Index", "Home");
         }
         [Authorize]
-        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,
+        public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string proposalMessage,
             string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate)
         {
             var product = await ps.GetProductByProductID(Id);
@@ -127,15 +127,15 @@ namespace Rent.Controllers
                     // doesn't work properly, date is being sent without correction
                     newProposal.ProposedRentStartDate = rentStartDate;
                     newProposal.ProposedRentEndDate = rentEndDate;
-                    if (newProposal.ProposedRentStartDate.Year.ToString()=="0001")
+                    if (newProposal.ProposedRentStartDate.Year.ToString()=="1")
                     {
                         newProposal.ProposedRentStartDate = DateTime.Now;
                         newProposal.ProposedRentStartDate=newProposal.ProposedRentStartDate.AddDays(1);
                     }
-                    if (newProposal.ProposedRentEndDate.Year.ToString() == "0001")
+                    if (newProposal.ProposedRentEndDate.Year.ToString() == "1")
                     {
-                        newProposal.ProposedRentEndDate = DateTime.Now;
-                        newProposal.ProposedRentEndDate = newProposal.ProposedRentEndDate.AddDays(newProposal.Product.MinLendDays);
+                        newProposal.ProposedRentEndDate = newProposal.ProposedRentStartDate;
+                        newProposal.ProposedRentEndDate = newProposal.ProposedRentEndDate.AddDays(product.MinLendDays);
                     }
                 }
                 newProposal.ProductId = Id;
@@ -146,6 +146,7 @@ namespace Rent.Controllers
                 newProposal.ProposalAdded = DateTime.Now;
                 //in the proposalstatus table the id = 1 is related to Open status
                 newProposal.ProposalStatusId = 1;
+                newProposal.ProposalMessage = proposalMessage;
                 newPropId = await propsService.InsertProposal(newProposal);
             }
             if (newPropId > 0)

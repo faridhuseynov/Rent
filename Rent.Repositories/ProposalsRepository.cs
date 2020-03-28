@@ -11,7 +11,7 @@ namespace Rent.Repositories
     public interface IProposalsRepository
     {
         Task<int> AddProposal(Proposal proposal);
-        void UpdateProposalDetails(Proposal proposal);
+        Task UpdateProposalDetails(Proposal proposal);
         //void UpdateUserPassword(User user);
         void DeleteProposal(int proposalId);
         Task<IEnumerable<Proposal>> GetProposals();
@@ -35,13 +35,15 @@ namespace Rent.Repositories
             return proposal.Id;
         }
 
-        async public void UpdateProposalDetails(Proposal proposal)
+        async public Task UpdateProposalDetails(Proposal proposal)
         {
             var checkProposal = await db.Proposals.FirstOrDefaultAsync(p => p.Id == proposal.Id);
             if (checkProposal!=null)
             {
-                checkProposal.ProposalStatus = proposal.ProposalStatus;
+                checkProposal.ProposalMessage = proposal.ProposalMessage;
                 checkProposal.ProposedPrice = proposal.ProposedPrice;
+                checkProposal.ProposedRentStartDate = proposal.ProposedRentStartDate;
+                checkProposal.ProposedRentEndDate = proposal.ProposedRentEndDate;
                 await db.SaveChangesAsync();
             }
         }

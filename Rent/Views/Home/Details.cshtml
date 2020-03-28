@@ -123,18 +123,18 @@
                                 </div>
                                 <label id="priceType">azn</label>
                             </div>
-                                    @*add-to-cart-btn*@
-                            @{ 
+                            @*add-to-cart-btn*@
+                            @{
                                 var check = false;
                                 if (Model.Sell == true)
                                 {
                                     check = true;
                                 }
 
-                            <button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
-                                    class="@(check == true ? "add-to-cart-btn" : "btn btn - light disabled")"  >
-                                <i class="fa fa-shopping-cart"></i> send proposal
-                            </button>
+                                <button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
+                                        class="@(check == true ? "add-to-cart-btn" : "btn btn - light disabled")">
+                                    <i class="fa fa-shopping-cart"></i> send proposal
+                                </button>
                             }
                         </div>
                         <div class="date" hidden>
@@ -150,6 +150,10 @@
                                 <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
                                 <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.MinLendDays gündür</label>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="proposalMessage">Məhsul sahibinə təkliflə bağlı əlavə bilgi</label>
+                            <textarea class="form-control" name="proposalMessage"  placeholder="" rows="5"></textarea>
                         </div>
                     </form>
 

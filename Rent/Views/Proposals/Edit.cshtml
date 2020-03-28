@@ -1,53 +1,96 @@
-﻿@model Rent.DomainModels.Models.Proposal
+﻿@model Rent.ViewModels.ProposalViewModels.EditProposalDetailsViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
+<h2>Təklifi dəyişmək</h2>
 
-<h4>Proposal</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="ProductId" class="control-label"></label>
-                <select asp-for="ProductId" class="form-control" asp-items="ViewBag.ProductId"></select>
-                <span asp-validation-for="ProductId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProposedPrice" class="control-label"></label>
-                <input asp-for="ProposedPrice" class="form-control" />
-                <span asp-validation-for="ProposedPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OwnerId" class="control-label"></label>
-                <select asp-for="OwnerId" class="form-control" asp-items="ViewBag.OwnerId"></select>
-                <span asp-validation-for="OwnerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BuyerId" class="control-label"></label>
-                <select asp-for="BuyerId" class="form-control" asp-items="ViewBag.BuyerId"></select>
-                <span asp-validation-for="BuyerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="ProposalStatus" /> @Html.DisplayNameFor(model => model.ProposalStatus)
-                    </label>
+            @if (Model.ProposalType.Type == "Rent")
+            {
+                <div class="form-group">
+                    <label asp-for="ProposedPrice" class="control-label">Təklif edilən məbləğ (AZN/gün)</label>
+                    <input asp-for="ProposedPrice" class="form-control" min="1" />
+                    <span asp-validation-for="ProposedPrice" class="text-danger"></span>
                 </div>
-            </div>
+                <div class="date">
+                    <div class="form-group">
+                        <label>Başlanğıc</label>
+                        <input id="dp1" asp-for="ProposedRentStartDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                        <label class="text-danger" id="dp1ErrorSpan" hidden>Başlanğıc tarixi ən tez sabahdan başlamalıdır</label>
+                    </div>
+                    <div class="form-group">
+                        <label>Son</label>
+                        <input id="dp2" asp-for="ProposedRentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                        <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
+                        <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.Product.MinLendDays gündür</label>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="ProposedPrice" class="control-label">Təklif edilən məbləğ (AZN)</label>
+                    <input asp-for="ProposedPrice" class="form-control" />
+                    <span asp-validation-for="ProposedPrice" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="ProposalMessage" class="control-label">Məhsul sahibinə təkliflə bağlı əlavə bilgi</label>
+                <textarea asp-for="ProposalMessage" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="ProposalMessage" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input id="saveButton" type="submit" value="Yadda saxla" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">Geri dön</a>
 </div>
 
+@section Scripts{
+    <script>
+        function checkDate() {
+            var startDate = (new Date($("#dp1").val())).getTime();
+            var endDate = (new Date($("#dp2").val())).getTime() + 86400000;
+            var minLendDays = @Model.Product.MinLendDays * 24 * 3600 * 1000;
+            var check = true;
+            if (startDate < Date.now()) {
+                $("#dp1ErrorSpan").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp1ErrorSpan").attr("hidden", true);
+            }
+            if (startDate >= endDate) {
+                $("#dp2ErrorSpan1").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp2ErrorSpan1").attr("hidden", true);
+            }
+            if (endDate - startDate < minLendDays) { // to check if difference is less than minLendDays
+                $("#dp2ErrorSpan2").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp2ErrorSpan2").attr("hidden", true);
+            }
+
+            if (check == false) {
+                $("#saveButton").addClass("disabled");
+            } else {
+                $("#saveButton").removeClass("disabled");
+
+
+            }
+        }
+    </script>
+}

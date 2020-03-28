@@ -13,11 +13,11 @@ namespace Rent.ServiceLayers
     public interface IProposalsService 
     {
         Task<int> InsertProposal(NewProposalViewModel newProposalViewModel);
-        void UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel);
+        Task UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel);
         void DeleteProposal(int ProposalID);
         IEnumerable<ProposalDetailsViewModel> GetProposals();
         IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
-        ProposalDetailsViewModel GetProposalByProposalId(int ProposalID);
+        Task<ProposalDetailsViewModel> GetProposalByProposalId(int ProposalID);
         Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate); 
     }
     public class ProposalsService:IProposalsService
@@ -37,11 +37,11 @@ namespace Rent.ServiceLayers
             return await proposalsRepository.AddProposal(newProposal);
         }
 
-        public void UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel) {
+        public async Task UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel) {
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<EditProposalDetailsViewModel, Proposal>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
             Proposal editedProposal = mapper.Map<EditProposalDetailsViewModel, Proposal>(proposalDetailsViewModel);
-            proposalsRepository.UpdateProposalDetails(editedProposal);
+            await proposalsRepository.UpdateProposalDetails(editedProposal);
         }
 
         public void DeleteProposal(int ProposalId)
@@ -68,12 +68,12 @@ namespace Rent.ServiceLayers
         }
 
 
-        public ProposalDetailsViewModel GetProposalByProposalId(int ProposalID)
+        public async Task<ProposalDetailsViewModel> GetProposalByProposalId(int ProposalID)
         {
-            var proposalFromRepo = proposalsRepository.GetProposalByProposalID(ProposalID);
+            var proposalFromRepo = await proposalsRepository.GetProposalByProposalID(ProposalID);
             var config = new MapperConfiguration(cfg => { cfg.CreateMap<Proposal, ProposalDetailsViewModel>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
-            var proposal = mapper.Map<Proposal, ProposalDetailsViewModel>(proposalFromRepo.Result);
+            var proposal = mapper.Map<Proposal, ProposalDetailsViewModel>(proposalFromRepo);
             return proposal;
         }
 

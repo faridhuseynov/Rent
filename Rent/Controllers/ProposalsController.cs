@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
+using Rent.ViewModels.ProposalViewModels;
 
 namespace Rent.Controllers
 {
@@ -122,15 +123,24 @@ namespace Rent.Controllers
                 return NotFound();
             }
 
-            var proposal = await _context.Proposals.FindAsync(id);
+            var proposal = await proposalsService.GetProposalByProposalId((int)id);
             if (proposal == null)
             {
                 return NotFound();
             }
-            ViewData["BuyerId"] = new SelectList(_context.Users, "Id", "Id", proposal.BuyerId);
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", proposal.OwnerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", proposal.ProductId);
-            return View(proposal);
+
+            EditProposalDetailsViewModel proposalToEdit = new EditProposalDetailsViewModel()
+            {
+                ProposedPrice = proposal.ProposedPrice,
+                ProposedRentEndDate = proposal.ProposedRentEndDate,
+                ProposedRentStartDate = proposal.ProposedRentStartDate,
+                ProposalMessage = proposal.ProposalMessage,
+                ProposalType=proposal.ProposalType,
+                ProposalTypeId=proposal.ProposalTypeId,
+                Product =proposal.Product,
+                ProductId = proposal.ProductId
+            };
+            return View(proposalToEdit);
         }
 
         // POST: Proposals/Edit/5
@@ -138,9 +148,9 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProductId,ProposedPrice,OwnerId,BuyerId,ProposalStatus")] Proposal proposal)
+        public async Task<IActionResult> Edit(int id, EditProposalDetailsViewModel proposalToEdit)
         {
-            if (id != proposal.Id)
+            if (id != proposalToEdit.Id)
             {
                 return NotFound();
             }
@@ -149,12 +159,12 @@ namespace Rent.Controllers
             {
                 try
                 {
-                    _context.Update(proposal);
-                    await _context.SaveChangesAsync();
+                    await proposalsService.UpdateProposalDetails(proposalToEdit);
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProposalExists(proposal.Id))
+                    if (!ProposalExists(proposalToEdit.Id))
                     {
                         return NotFound();
                     }
@@ -163,12 +173,9 @@ namespace Rent.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("OutgoingProposals", new { userName = User.Identity.Name});
             }
-            ViewData["BuyerId"] = new SelectList(_context.Users, "Id", "Id", proposal.BuyerId);
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", proposal.OwnerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", proposal.ProductId);
-            return View(proposal);
+            return View(proposalToEdit);
         }
 
         // GET: Proposals/Delete/5
@@ -205,7 +212,7 @@ namespace Rent.Controllers
 
         private bool ProposalExists(int id)
         {
-            return _context.Proposals.Any(e => e.Id == id);
+            return proposalsService.GetProposals().Any(p => p.Id == id);
         }
     }
 }

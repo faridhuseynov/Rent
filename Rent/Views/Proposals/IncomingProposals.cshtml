@@ -38,9 +38,24 @@
                     </p>
                 }
                     </p>
+                    @if (item.ProposalMessage != null)
+                    {
+                        <p class="card-text">
+                            Əlavə: @item.ProposalMessage
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+                            Əlavə: ❌
+                        </p>
+                    }
+                    <p class="card-text">
+                        Göndərilib: @item.ProposalAdded.ToString("dd/M/yyyy")
+                    </p>
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
-            <label class="card-footer badge-info">Status: Açıq, @item.ProposalAdded.ToString("dd/M/yyyy")</label>
+                        <label class="card-footer badge-info">Status: Açıq</label>
                         <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2">Qəbul et</a>
                         <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3">Rədd et</a>
 
@@ -54,22 +69,6 @@
                         <label class="card-footer badge-danger">Status: @item.ProposalClosed.ToString("dd/M/yyyy")-də Imtina edilib</label>
                     }
                 </div>
-                @*<img class="card-img-top" src="@item.Product.MainPhotoUrl" />
-                    @Html.DisplayFor(modelItem => item.Product.ProductName)
-                    @Html.DisplayFor(modelItem => item.ProposedPrice)
-
-                    @Html.DisplayFor(modelItem => item.Owner.UserName)*@
             </div>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Buyer.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProposalStatus)
-                </td>*@
-            @*<td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>*@
         }
 </div>

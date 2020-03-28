@@ -63,7 +63,8 @@ body {
   margin-bottom: 60px;
 }
 .footer {
-  position: absolute;
+  position:relative;
+  margin-top:3px;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
