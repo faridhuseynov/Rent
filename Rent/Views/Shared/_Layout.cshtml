@@ -112,7 +112,7 @@
                                 <div>
                                     <a href="/messages/inbox">
                                         <i class="fa fa-envelope"></i>
-                                        <span>Messages</span>
+                                        <span id="messagesTitle">Messages</span>
                                         <div id="wishListCount" class="qty" hidden></div>
                                     </a>
                                 </div>
@@ -187,6 +187,11 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (User.Identity.IsAuthenticated==true)
+    {
+        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/site.js"></script>
+    }
     @RenderSection("Scripts", required: false)
 </body>
 </html>

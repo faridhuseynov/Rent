@@ -203,10 +203,12 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\ru\Microsoft.CodeAnalysis.Workspaces.r
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Create.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Delete.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Details.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Inbox.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\Outbox.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Messages\_MessageThread.cshtml.g.cs
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\libman.json
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\System.Net.WebSockets.WebSocketProtocol.dll
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache

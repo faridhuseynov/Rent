@@ -76,50 +76,13 @@ namespace Rent.Controllers
                 await messageRepo.AddMessage(message);
             }
         }
-        // GET: Messages/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var message = await _context.Messages
-        //        .Include(m => m.Recipient)
-        //        .Include(m => m.Sender)
-        //        .FirstOrDefaultAsync(m => m.Id == id);
-        //    if (message == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(message);
-        //}
-
-        // POST: Messages/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,SenderId,RecipientId,Content,IsRead,DateRead,MessageSent,SenderDeleted,RecipientDeleted")] Message message)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(message);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    ViewData["RecipientId"] = new SelectList(_context.Users, "Id", "Id", message.RecipientId);
-        //    ViewData["SenderId"] = new SelectList(_context.Users, "Id", "Id", message.SenderId);
-        //    return View(message);
-        //}
-
        
-
-
-        //private bool MessageExists(int id)
-        //{
-        //    return _context.Messages.Any(e => e.Id == id);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetMessagesCount()
+        {
+            var userName = User.Identity.Name;
+            var userId = await userManager.FindByNameAsync(userName);
+            return Ok(messageRepo.GetUserMessagesCount(userId.Id));
+        }
     }
 }
