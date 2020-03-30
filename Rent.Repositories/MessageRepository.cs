@@ -102,7 +102,6 @@ namespace Rent.Repositories
         }
         private void dbChangeNotification(object sender, SqlNotificationEventArgs e)
         {
-            //hub.Clients.All.SendAsync("updateMessageCount");
             hub.Clients.All.SendAsync("updateMessagesCount");
         }
     }

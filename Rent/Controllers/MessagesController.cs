@@ -30,11 +30,7 @@ namespace Rent.Controllers
         {
             var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            //var test = messages.ToList().Where(u => u.SenderId == userFromRepo.Id);
-            //ViewBag["Recipients"] = test.OrderByDescending(m => m.MessageSent).Select(m => m.Recipient).ToList();
-            //ViewBag.Received = messages.ToList().Where(u => u.RecipientId == userFromRepo.Id);
             return View(messages.OrderByDescending(m => m.MessageSent));
-            //return View(messages);
         }
 
         // GET: Messages
@@ -43,11 +39,7 @@ namespace Rent.Controllers
         {
             var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            //var test = messages.ToList().Where(u => u.SenderId == userFromRepo.Id);
-            //ViewBag["Recipients"] = test.OrderByDescending(m => m.MessageSent).Select(m => m.Recipient).ToList();
-            //ViewBag.Received = messages.ToList().Where(u => u.RecipientId == userFromRepo.Id);
             return View(messages.OrderByDescending(m=>m.MessageSent));
-            //return View(messages);
         }
 
         [HttpPost]
