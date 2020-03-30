@@ -39,7 +39,7 @@ namespace Rent.Controllers
                 Name=newUser.Name,
                 Surname=newUser.Surname,
                 Email = newUser.Email,
-                UserName = newUser.Username,
+                UserName = newUser.Username
             };
 
             var result = await userManager.CreateAsync(user, newUser.Password);
@@ -75,7 +75,7 @@ namespace Rent.Controllers
             {
                 await signInManager.SignInAsync(user, result);
                 return RedirectToAction("Index", "Home");
-
+                
             }
             return View();
         }

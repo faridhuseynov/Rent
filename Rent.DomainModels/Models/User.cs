@@ -14,6 +14,7 @@ namespace Rent.DomainModels.Models
         public int WishProductsCount { get; set; }
         public virtual ICollection<Product> Products { get; set; }
         public virtual ICollection<Proposal> Proposals { get; set; }
+        //public DateTime LastIncomingProposalReviewed { get; set; }
         public virtual ICollection<WishListProduct> WishList { get; set; }
         public string MeetingLocation { get; set; }
         public virtual ICollection<ProfileImage> ProfileImages { get; set; }

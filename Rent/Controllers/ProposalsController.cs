@@ -179,35 +179,10 @@ namespace Rent.Controllers
         }
 
         // GET: Proposals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var proposal = await _context.Proposals
-                .Include(p => p.Buyer)
-                .Include(p => p.Owner)
-                .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (proposal == null)
-            {
-                return NotFound();
-            }
-
-            return View(proposal);
-        }
-
-        // POST: Proposals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var proposal = await _context.Proposals.FindAsync(id);
-            _context.Proposals.Remove(proposal);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            await proposalsService.DeleteProposal(id);
+            return RedirectToAction("OutgoingProposals", new { userName = User.Identity.Name });
         }
 
         private bool ProposalExists(int id)

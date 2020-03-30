@@ -13,7 +13,7 @@ namespace Rent.Repositories
         Task<int> AddProposal(Proposal proposal);
         Task UpdateProposalDetails(Proposal proposal);
         //void UpdateUserPassword(User user);
-        void DeleteProposal(int proposalId);
+        Task DeleteProposal(int proposalId);
         Task<IEnumerable<Proposal>> GetProposals();
         Task<IEnumerable<Proposal>> GetProposalsByUserId(string UserId);
 
@@ -38,7 +38,8 @@ namespace Rent.Repositories
         async public Task UpdateProposalDetails(Proposal proposal)
         {
             var checkProposal = await db.Proposals.FirstOrDefaultAsync(p => p.Id == proposal.Id);
-            if (checkProposal!=null)
+            if (checkProposal!=null && (checkProposal.ProposalStatus.StatusName != "Closed") &&
+                (checkProposal.ProposalStatus.StatusName != "Rejected"))
             {
                 checkProposal.ProposalMessage = proposal.ProposalMessage;
                 checkProposal.ProposedPrice = proposal.ProposedPrice;
@@ -48,7 +49,7 @@ namespace Rent.Repositories
             }
         }
 
-        async public void DeleteProposal(int proposalId)
+        async public Task DeleteProposal(int proposalId)
         {
             var proposal = await db.Proposals.FirstOrDefaultAsync(p => p.Id == proposalId);
             if (proposal != null)

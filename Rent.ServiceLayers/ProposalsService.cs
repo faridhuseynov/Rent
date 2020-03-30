@@ -14,7 +14,7 @@ namespace Rent.ServiceLayers
     {
         Task<int> InsertProposal(NewProposalViewModel newProposalViewModel);
         Task UpdateProposalDetails(EditProposalDetailsViewModel proposalDetailsViewModel);
-        void DeleteProposal(int ProposalID);
+        Task DeleteProposal(int ProposalID);
         IEnumerable<ProposalDetailsViewModel> GetProposals();
         IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
         Task<ProposalDetailsViewModel> GetProposalByProposalId(int ProposalID);
@@ -44,9 +44,9 @@ namespace Rent.ServiceLayers
             await proposalsRepository.UpdateProposalDetails(editedProposal);
         }
 
-        public void DeleteProposal(int ProposalId)
+        public async Task DeleteProposal(int ProposalId)
         {
-            proposalsRepository.DeleteProposal(ProposalId);
+            await proposalsRepository.DeleteProposal(ProposalId);
         }
 
         public IEnumerable<ProposalDetailsViewModel> GetProposals()

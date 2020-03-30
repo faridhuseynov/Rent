@@ -108,7 +108,7 @@ namespace Rent.Controllers
                 ViewBag.Wish = result.ToList().FirstOrDefault(
                     w => w.ProductId == Id && w.UserId == UserId);
                 return View(product);
-
+                
             }
             return RedirectToAction("Index", "Home");
         }

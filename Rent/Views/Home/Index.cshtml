@@ -20,15 +20,15 @@
 
                 @foreach (var product in Model)
                 {
-                <div class="card m-1" style="width: 20rem; overflow:hidden; white-space:nowrap;">
+                <div class="card m-1" style="width: 20rem;overflow:hidden; white-space:nowrap;">
                     @if (product.MainPhotoUrl == null)
                     {
-                            <img src="~/Images/Products/default-pro.jpg" 
+                            <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
                                  class="card-img-top" alt="..." />
                     }
                     else
                     {
-                            <img src="~/Images/Products/@product.MainPhotoUrl" 
+                            <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
                                  class="card-img-top" alt="...">
                     }
                 <div class="card-body">
