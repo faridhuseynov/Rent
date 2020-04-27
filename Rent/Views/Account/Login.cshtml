@@ -7,10 +7,31 @@
         <article class="card-body">
             <a asp-action="Register" class="float-right btn btn-outline-primary">Sign up</a>
             <h4 class="card-title mb-4 mt-1">Sign in</h4>
-            <p>
-                <a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
-                <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-            </p>
+            @*<a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>*@
+            @if (Model.ExternalLogins.Count > 0)
+            {
+                <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+
+                @foreach (var provider in Model.ExternalLogins)
+                {
+                    <p>
+                        @if (provider.DisplayName == "Google")
+                        {
+                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   Login via Google</button>
+                        }
+                        @if (provider.DisplayName == "Twitter")
+                        {
+                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</button>
+                        }
+                        @if (provider.DisplayName == "Facebook")
+                        {
+                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via Facebook</button>
+                        }
+                    </p>
+                }
+                </form>
+            }
             <hr>
             <form method="post" asp-action="Login">
                 <div class="form-group">

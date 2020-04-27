@@ -8,7 +8,7 @@ namespace Rent.Repositories
 {
     public class HubService : Hub
     {
-        public async Task GetMessageCount(string userId)
+        public async Task MessageCount(string userId)
         {
             await Clients.All.SendAsync("GetMessagesCount", userId);
         }

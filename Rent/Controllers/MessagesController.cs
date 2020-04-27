@@ -74,7 +74,9 @@ namespace Rent.Controllers
         {
             var userName = User.Identity.Name;
             var userId = await userManager.FindByNameAsync(userName);
-            return Ok(messageRepo.GetUserMessagesCount(userId.Id));
+            //delete the below and uncomment Ok(messageRepo....) --> this is for the SignalR
+            return Ok();
+            //return Ok(messageRepo.GetUserMessagesCount(userId.Id));
         }
     }
 }

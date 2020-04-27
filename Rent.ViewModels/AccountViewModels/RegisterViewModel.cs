@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -27,5 +28,8 @@ namespace Rent.ViewModels.AccountViewModels
         [Compare("Password",ErrorMessage ="İlkin şifrəylə təkrar şifrə uyğun gəlmir")]
         
         public string ConfirmPassword { get; set; }
+
+        public string ReturnUrl { get; set; }
+        public IList<AuthenticationScheme> ExternalRegisters { get; set; }
     }
 }

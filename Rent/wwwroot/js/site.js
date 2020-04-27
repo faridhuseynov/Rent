@@ -7,31 +7,38 @@
 $(() => {
     let connection = new signalR.HubConnectionBuilder().withUrl("/hubService").build();
 
-    connection.start()
-    connection.on("updateMessagesCount", function () {
-        loadData();
+    connection.on("updateMessagesCount", function (userId, messageCount) {
+        //loadData();
+        if (messageCount==0) {
+            $("#wishListCount").attr("hidden", true)
+
+        } else {
+            $("#wishListCount").removeAttr("hidden").text(result);
+
+        }
     })
+    connection.start()
 
     loadData();
 
-    function loadData() {
+    //function loadData() {
+    //    //connection.invoke("")
 
-
-        $.ajax({
-            url: '/Messages/GetMessagesCount',
-            method: 'GET',
-            success: function (result) {
-                if (result>0) {
-                    $("#wishListCount").removeAttr("hidden").text(result);
-                } else {
-                    $("#wishListCount").attr("hidden",true)
-                }
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-    }
+    //    $.ajax({
+    //        url: '/Messages/GetMessagesCount',
+    //        method: 'GET',
+    //        success: function (result) {
+    //            if (result>0) {
+    //                $("#wishListCount").removeAttr("hidden").text(result);
+    //            } else {
+    //                $("#wishListCount").attr("hidden",true)
+    //            }
+    //        },
+    //        error: function (err) {
+    //            console.log(err);
+    //        }
+    //    });
+    //}
 
 
 });

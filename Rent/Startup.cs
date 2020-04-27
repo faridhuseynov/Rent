@@ -64,6 +64,10 @@ namespace Rent
             });
             services.AddSession();
             services.AddSignalR();
+            services.AddAuthentication().AddGoogle(options => {
+                options.ClientId = "676285896082-juvia97abjs74vlsb5qet9akdo7a15vb.apps.googleusercontent.com";
+                options.ClientSecret = "ALjUjMKB327-ud6MRCM3_zEg";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
