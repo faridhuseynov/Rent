@@ -92,18 +92,22 @@
         $(".message").click(function (event) {
             event.preventDefault();
             var sender = $(event.target.parentNode.parentNode).find($("img")).attr("alt");
-            var rec = "farid";
+            var rec = "@User.Identity.Name";
             console.log(sender + " " + rec);
+            debugger;
             $.ajax({
-                URL: "/Messages/MessageThread/",
+                URL: "/Messages/MessageThread",
                 type: "POST",
                 data: {
                     recipient: rec,
                     sender: sender
                 },
                 success: function (response) {
-                    //console.log(response);
+                    console.log(response);
                     $(".msg_history").html(response);
+                },
+                error: function (error) {
+                    console.error(error);
                 }
             });
         });
@@ -129,7 +133,6 @@
                 </div>
             </div>
         </div>*@
-    //}
 @*else if (@Model.ElementAt(i).Sender.UserName == user) {
         $(".msg_history").append(
 

@@ -43,13 +43,13 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> MessageThread(string recipient, string sender)
+        public async Task<IEnumerable<Message>> MessageThread(string recipient, string sender)
         {
             ViewBag.Sender = sender;
             var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            return PartialView("_MessageThread", messages.Where(u=>(u.Recipient.UserName==recipient && u.Sender.UserName==sender)
-            || (u.Sender.UserName == recipient && u.Recipient.UserName == sender)));
+            return messages.Where(u=>(u.Recipient.UserName==recipient && u.Sender.UserName==sender)
+            || (u.Sender.UserName == recipient && u.Recipient.UserName == sender));
         }
         [HttpPost]
         public async Task Create(string recipientUserName, string content)

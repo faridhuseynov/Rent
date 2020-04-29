@@ -35,7 +35,7 @@
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
 
-            @if (Model.ExternalRegisters.Count > 0)
+            @if (Model.ExternalRegisters.Count > 0 && Model.ExternalRegisters!=null)
             {
                 <form method="post" asp-action="ExternalRegister" asp-route-returnUrl="@Model.ReturnUrl">
                     @foreach (var provider in Model.ExternalRegisters)
