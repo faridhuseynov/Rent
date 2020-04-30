@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Rent.DomainModels.Models;
+using Rent.ServiceLayers;
 using Rent.ViewModels.AccountViewModels;
 
 namespace Rent.Controllers
@@ -244,18 +245,35 @@ namespace Rent.Controllers
         }
 
 
-        
+        //IEnumerable<IFormFile>
         [HttpPost]
-        public async Task ChangeProfilePicture(IEnumerable<IFormFile> images)
+        public async Task<IActionResult> ChangeProfilePicture(IFormFile image)
         {
-            int count = 0;
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
-            foreach (var item in images)
+            string fileName = "";
+            if (ModelState.IsValid)
             {
-                ++count;
+                if (image != null)
+                {
+                    try
+                    {
+                        fileName = FileUploaderService.UploadUserPhoto(image);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest();
+                    }
+
+                    if (fileName != null)
+                    {
+                        userFromRepo.MainProfilePicture = fileName;
+                        await userManager.UpdateAsync(userFromRepo);
+                    }
+                }
+                //userFromRepo.MainProfilePicture = formData.Name;
+                //var pics = image;
             }
-            //userFromRepo.MainProfilePicture = formData.Name;
-            //var pics = image;
+            return RedirectToAction("AccountInfo");
         }
 
         [HttpPost]
