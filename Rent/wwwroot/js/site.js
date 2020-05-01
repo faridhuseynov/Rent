@@ -4,41 +4,41 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-$(() => {
-    let connection = new signalR.HubConnectionBuilder().withUrl("/hubService").build();
+//$(() => {
+//    let connection = new signalR.HubConnectionBuilder().withUrl("/hubService").build();
 
-    connection.on("updateMessagesCount", function (userId, messageCount) {
-        //loadData();
-        if (messageCount==0) {
-            $("#wishListCount").attr("hidden", true)
+//    connection.on("updateMessagesCount", function (userId, messageCount) {
+//        //loadData();
+//        if (messageCount==0) {
+//            $("#wishListCount").attr("hidden", true)
 
-        } else {
-            $("#wishListCount").removeAttr("hidden").text(result);
+//        } else {
+//            $("#wishListCount").removeAttr("hidden").text(result);
 
-        }
-    })
-    connection.start()
+//        }
+//    })
+//    connection.start()
 
-    loadData();
+//    loadData();
 
-    //function loadData() {
-    //    //connection.invoke("")
+//    //function loadData() {
+//    //    //connection.invoke("")
 
-    //    $.ajax({
-    //        url: '/Messages/GetMessagesCount',
-    //        method: 'GET',
-    //        success: function (result) {
-    //            if (result>0) {
-    //                $("#wishListCount").removeAttr("hidden").text(result);
-    //            } else {
-    //                $("#wishListCount").attr("hidden",true)
-    //            }
-    //        },
-    //        error: function (err) {
-    //            console.log(err);
-    //        }
-    //    });
-    //}
+//    //    $.ajax({
+//    //        url: '/Messages/GetMessagesCount',
+//    //        method: 'GET',
+//    //        success: function (result) {
+//    //            if (result>0) {
+//    //                $("#wishListCount").removeAttr("hidden").text(result);
+//    //            } else {
+//    //                $("#wishListCount").attr("hidden",true)
+//    //            }
+//    //        },
+//    //        error: function (err) {
+//    //            console.log(err);
+//    //        }
+//    //    });
+//    //}
 
 
-});
+//});

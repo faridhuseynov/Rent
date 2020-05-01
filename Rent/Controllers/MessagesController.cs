@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -42,14 +43,22 @@ namespace Rent.Controllers
             return View(messages.OrderByDescending(m=>m.MessageSent));
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IEnumerable<Message>> MessageThread(string recipient, string sender)
         {
             ViewBag.Sender = sender;
             var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
-            var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            return messages.Where(u=>(u.Recipient.UserName==recipient && u.Sender.UserName==sender)
-            || (u.Sender.UserName == recipient && u.Recipient.UserName == sender));
+            var messages = userFromRepo.MessagesSent.Where(r => r.Recipient.Name == recipient);
+            //var test = "";
+            //for (int i = 0; i < messages.Count; i++)
+            //{
+            //    test.Insert(0, messages.ElementAt(i).Content);
+            //}
+            //var result = JsonSerializer.Serialize(test);
+            //var messages = messageRepo.GetMessagesForUser(userFromRepo.Id).Result;
+            //var mes = messages.Where(u => (u.Recipient.UserName == recipient && u.Sender.UserName == sender)
+            // || (u.Sender.UserName == recipient && u.Recipient.UserName == sender));
+            return messages;
         }
         [HttpPost]
         public async Task Create(string recipientUserName, string content)

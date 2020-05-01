@@ -91,26 +91,39 @@
     <script>
         $(".message").click(function (event) {
             event.preventDefault();
-            var sender = $(event.target.parentNode.parentNode).find($("img")).attr("alt");
-            var rec = "@User.Identity.Name";
-            console.log(sender + " " + rec);
-            debugger;
+            var recipient = $(event.target.parentNode.parentNode).find($("img")).attr("alt");
+            var sender  = "@User.Identity.Name";
+            //debugger;
             $.ajax({
-                URL: "/Messages/MessageThread",
-                type: "POST",
+                url: "/Messages/MessageThread/",
+                method:"GET",
                 data: {
-                    recipient: rec,
-                    sender: sender
+                    recipient: recipient,
+                    sender:sender
                 },
                 success: function (response) {
                     console.log(response);
-                    $(".msg_history").html(response);
-                },
-                error: function (error) {
-                    console.error(error);
                 }
             });
         });
+        //    $.ajax({
+        //        URL: "Messages/MessageThread?recipient="+recipient+"&sender="+sender,
+        //        type: "GET",
+        //        //data: {
+        //        //    recipient: rec,
+        //        //    sender: sender
+        //        //},
+        //        success: function (response) {
+        //            debugger;
+        //            console.log(response);
+        //            console.log("ok");
+        //            //$(".msg_history").html(response);
+        //        },
+        //        error: function (error) {
+        //            console.error(error);
+        //        }
+        //    });
+        //});
     </script>
 
     }
