@@ -217,4 +217,5 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.c
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Shared\_ViewImports.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Users.cshtml.g.cs

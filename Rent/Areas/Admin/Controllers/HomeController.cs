@@ -26,7 +26,6 @@ namespace Rent.Areas.Admin.Controllers
                     IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository,
                     IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository)
         {
-            //_logger = logger;
             ps = productsService;
             cs = categoriesService;
             propsService = proposalsService;
@@ -41,6 +40,7 @@ namespace Rent.Areas.Admin.Controllers
             //SearchBarViewCompService.GetCategories(HttpContext.Session, categories.ToList());
             //productParams = new ProductParamsForFilter();
         }
+        [HttpGet]
         public IActionResult Index()
         {
             var users = userManager.Users.ToList();
@@ -51,6 +51,14 @@ namespace Rent.Areas.Admin.Controllers
             ViewBag.Rejected = proposals.Where(p => p.ProposalStatus.StatusName == "Rejected").Count();
             ViewBag.Successful = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").ToList();
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Users()
+        {
+            //here should be included all users except admin himself
+            var users = userManager.Users.ToList();            
+            return View(users);
         }
     }
 }
