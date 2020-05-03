@@ -334,6 +334,9 @@ namespace Rent.DomainModels.Migrations
                     b.Property<DateTime>("ProposedRentStartDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("ProposedTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BuyerId");

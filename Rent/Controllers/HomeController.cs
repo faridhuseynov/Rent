@@ -122,24 +122,28 @@ namespace Rent.Controllers
             if (product != null)
             {
                 var newProposal = new NewProposalViewModel();
-                if (proposalType==3)
+                newProposal.ProposedPrice = proposedPrice;
+                if (proposalType == 3)
                 {
                     // doesn't work properly, date is being sent without correction
                     newProposal.ProposedRentStartDate = rentStartDate;
-                    newProposal.ProposedRentEndDate = rentEndDate;
-                    if (newProposal.ProposedRentStartDate.Year.ToString()=="1")
+                    newProposal.ProposedRentEndDate = rentEndDate.AddDays(1);
+                    if (newProposal.ProposedRentStartDate.Year.ToString() == "1")
                     {
                         newProposal.ProposedRentStartDate = DateTime.Now;
-                        newProposal.ProposedRentStartDate=newProposal.ProposedRentStartDate.AddDays(1);
+                        newProposal.ProposedRentStartDate = newProposal.ProposedRentStartDate.AddDays(1);
                     }
                     if (newProposal.ProposedRentEndDate.Year.ToString() == "1")
                     {
                         newProposal.ProposedRentEndDate = newProposal.ProposedRentStartDate;
                         newProposal.ProposedRentEndDate = newProposal.ProposedRentEndDate.AddDays(product.MinLendDays);
                     }
+                    newProposal.ProposedTotalPrice = newProposal.ProposedPrice *
+                        Int64.Parse(TimeSpan.FromTicks(rentEndDate.AddDays(1).Ticks - rentStartDate.Ticks).TotalDays.ToString());
                 }
+                else
+                    newProposal.ProposedTotalPrice = newProposal.ProposedPrice;
                 newProposal.ProductId = Id;
-                newProposal.ProposedPrice = proposedPrice;
                 newProposal.OwnerId = product.UserId;
                 newProposal.BuyerId = _buyer.Id;
                 newProposal.ProposalTypeId = proposalType;

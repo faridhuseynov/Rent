@@ -114,7 +114,12 @@ namespace Rent
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
                 endpoints.MapHub<HubService>("/hubService");
+
+                endpoints.MapControllerRoute(
+                        name: "areas",
+                        pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
