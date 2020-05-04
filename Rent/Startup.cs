@@ -45,6 +45,7 @@ namespace Rent
 
             //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
@@ -122,6 +123,8 @@ namespace Rent
                 endpoints.MapHub<HubService>("/hubService");
 
             });
+
+            RentDbInitializer.SeedData(app).Wait();
         }
     }
 }
