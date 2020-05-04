@@ -4,13 +4,15 @@
     ViewData["Title"] = "Users";
 }
 
-<link href="~/css/ProfileStyleSheet.css" rel="stylesheet" />
+<link href="~/admin/css/ProfileStyleSheet.css" rel="stylesheet" />
 
 <div class="container">
     <div class="row profile">
         @foreach (var user in Model)
         {
+            @*<div class="col-md-3">*@
             <div class="col-md-3">
+
                 <div class="profile-sidebar">
                     <!-- SIDEBAR USERPIC -->
                     <div class="profile-userpic">
@@ -27,18 +29,57 @@
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name">
-                            @user.Name @user.Surname
+                            <a asp-area="" asp-controller="Account" asp-action="Profile" asp-route-userName="@user.UserName">@user.UserName</a>
                         </div>
-                        <div class="profile-usertitle-location">
-                            @user.Country, @user.City
-                        </div>
-                        <div class="profile-usertitle-location">
-                            @user.MeetingLocation
-                        </div>
-                        <div class="profile-usertitle-phone">
-                            <i class="fa fa-phone-square"></i>
-                            @user.PhoneNumber
-                        </div>
+                        @if (@user.Name == null && user.Surname == null)
+                        {
+                            <div class="profile-usertitle-name">
+                                ❌Name is not specified
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="profile-usertitle-name">
+                                @user.Name @user.Surname
+                            </div>
+                        }
+                        @if (@user.Country == null && @user.City == null)
+                        {
+                            <div class="profile-usertitle-location">
+                                ❌Country is not specified
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="profile-usertitle-location">
+                                @user.Country, @user.City
+                            </div>
+                        }
+                        @if (@user.MeetingLocation == null)
+                        {
+                            <div class="profile-usertitle-location">
+                                ❌Location is not specified
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="profile-usertitle-location">
+                                @user.MeetingLocation
+                            </div>
+                        }
+                        @if (user.PhoneNumber == null)
+                        {
+                            <div class="profile-usertitle-phone">
+                                ❌Phone number is not specified
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="profile-usertitle-phone">
+                                <i class="fa fa-phone-square"></i>
+                                @user.PhoneNumber
+                            </div>
+                        }
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR BUTTONS -->
