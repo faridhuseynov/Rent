@@ -165,6 +165,10 @@ namespace Rent.Controllers
             if (result!=false)
             {
                 await signInManager.SignInAsync(user, result);
+                if (await userManager.IsInRoleAsync(user,"Admin"))
+                {
+                    return RedirectToAction("Index", "Home", new { area = "Admin" });
+                }
                 return RedirectToAction("Index", "Home");
                 
             }
