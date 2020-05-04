@@ -30,10 +30,19 @@ namespace Rent
         {
             var connString = Configuration.GetConnectionString("DefaultConnection");
             services.AddControllersWithViews();
-            services.AddDbContext<AppDbContext>(options => 
+            services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connString);
             });
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+                });
+            });
+
             //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
@@ -63,6 +72,17 @@ namespace Rent
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
             });
             services.AddSession();
+            services.AddSignalR();
+            services.AddAuthentication()
+                .AddGoogle(options => {
+                options.ClientId = "676285896082-juvia97abjs74vlsb5qet9akdo7a15vb.apps.googleusercontent.com";
+                options.ClientSecret = "ALjUjMKB327-ud6MRCM3_zEg";
+            })
+                .AddFacebook(options => {
+                    options.AppId = "1615373298662814";
+                    options.AppSecret = "8e648210da50c6516c8371d13f54a7a5";
+            });
+
 
         }
 
@@ -83,14 +103,24 @@ namespace Rent
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
+
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                        name: "areas",
+                        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHub<HubService>("/hubService");
+
             });
         }
     }

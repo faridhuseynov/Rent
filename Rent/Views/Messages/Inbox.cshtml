@@ -31,15 +31,17 @@
                         if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
                             && (user!=Model.ElementAt(i).Sender.UserName))
                         {
-                            //user=Model.ElementAt(i).Sender.UserName;
-                            <a href="#">
+                            user = Model.ElementAt(i).Sender.UserName;
+                            <a href="#" class="msgArea">
                                 @if (i == 0)
                                 {
                                     <div class="chat_list active_chat">
                                         <div class="chat_people">
                                             <div class="chat_img">
-                                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                                     alt="@Model.ElementAt(i).Sender.UserName">
+                                                <a asp-controller="Account" asp-action="Profile" asp-route-username="@Model.ElementAt(i).Sender.UserName">
+                                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                                         alt="@Model.ElementAt(i).Sender.UserName">
+                                                </a>
                                             </div>
                                             <div class="chat_ib">
                                                 <h5>@Model.ElementAt(i).Sender.Name @Model.ElementAt(i).Sender.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
@@ -55,8 +57,10 @@
                                     <div class="chat_list">
                                         <div class="chat_people">
                                             <div class="chat_img">
-                                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                                     alt="@Model.ElementAt(i).Sender.UserName">
+                                                <a asp-controller="Account" asp-action="Profile" asp-route-username="@Model.ElementAt(i).Sender.UserName">
+                                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                                         alt="@Model.ElementAt(i).Sender.UserName">
+                                                </a>
                                             </div>
                                             <div class="chat_ib">
                                                 <h5>@Model.ElementAt(i).Sender.Name @Model.ElementAt(i).Sender.Surname <span class="chat_date">@Model.ElementAt(i).MessageSent</span></h5>
@@ -120,3 +124,5 @@
         </div>
     </div>
 </div>
+
+

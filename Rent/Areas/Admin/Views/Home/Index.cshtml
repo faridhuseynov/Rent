@@ -1,0 +1,120 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <h1 class="mt-4">Dashboard</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Dashboard</li>
+    </ol>
+    <div class="row">
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-primary text-white mb-4">
+                <div class="card-body">@ViewBag.Registered Registered User(s)</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-warning text-white mb-4">
+                <div class="card-body">@ViewBag.Proposals Total Proposal(s)</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-success text-white mb-4">
+                <div class="card-body">@ViewBag.Closed Closed Proposal(s)</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+            <div class="card bg-danger text-white mb-4">
+                <div class="card-body">@ViewBag.Rejected Rejected Proposal(s)</div>
+                <div class="card-footer d-flex align-items-center justify-content-between">
+                    <a class="small text-white stretched-link" href="#">View Details</a>
+                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
+                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
+                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+            </div>
+        </div>
+    </div>*@
+    <div class="card mb-4">
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Successful Deals</div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Buyer</th>
+                            <th>Owner</th>
+                            <th>Product</th>
+                            <th>Proposal Type</th>
+                            <th>Deal Price</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Buyer</th>
+                            <th>Owner</th>
+                            <th>Product</th>
+                            <th>Proposal Type</th>
+                            <th>Deal Price</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @foreach (var proposal in ViewBag.Successful)
+                        {
+                            
+                            <tr>
+                                
+                                 <td><a asp-area="" asp-controller="Account" asp-action="Profile" asp-route-username="@proposal.Buyer.UserName">@proposal.Buyer.UserName</a></td>
+                                <td><a asp-area="" asp-controller="Account" asp-action="Profile" asp-route-username="@proposal.Owner.UserName">@proposal.Owner.UserName</a></td>
+                                <td><a asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@proposal.Product.Id">@proposal.Product.ProductName</a></td>
+                                @if (@proposal.ProposalType.Type == "Sell")
+                                {
+                                    <td>Buy</td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        Rent: @proposal.ProposedPrice AZN/day
+                                        <br />Period: @proposal.ProposedRentStartDate - @proposal.ProposedRentEndDate
+                                    </td>
+                                }
+                                <td>@proposal.ProposedTotalPrice</td>
+                                @*<td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>*@
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

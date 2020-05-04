@@ -13,6 +13,7 @@ namespace Rent.ViewModels.ProposalViewModels
         [ForeignKey("ProductId")]
         public virtual Product Product { get; set; }
         public decimal ProposedPrice { get; set; }
+        public decimal ProposedTotalPrice { get; set; }
         public string OwnerId { get; set; }
         [ForeignKey("OwnerId")]
         public virtual User Owner { get; set; }

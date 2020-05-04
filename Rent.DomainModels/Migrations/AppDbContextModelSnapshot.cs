@@ -15,7 +15,7 @@ namespace Rent.DomainModels.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -284,15 +284,12 @@ namespace Rent.DomainModels.Migrations
                     b.Property<string>("PhotoUrl")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("ProfileImages");
                 });
@@ -336,6 +333,9 @@ namespace Rent.DomainModels.Migrations
 
                     b.Property<DateTime>("ProposedRentStartDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal>("ProposedTotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -615,7 +615,7 @@ namespace Rent.DomainModels.Migrations
                 {
                     b.HasOne("Rent.DomainModels.Models.User", "User")
                         .WithMany("ProfileImages")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Rent.DomainModels.Models.Proposal", b =>
