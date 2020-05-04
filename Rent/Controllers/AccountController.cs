@@ -116,10 +116,11 @@ namespace Rent.Controllers
                 return View();
             var user = new User()
             {
-                Name=newUser.Name,
-                Surname=newUser.Surname,
+                Name = newUser.Name,
+                Surname = newUser.Surname,
                 Email = newUser.Email,
-                UserName = newUser.Username
+                UserName = newUser.Username,
+                MainProfilePicture = "avatar.png"
             };
 
             var result = await userManager.CreateAsync(user, newUser.Password);
