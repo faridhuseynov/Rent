@@ -85,7 +85,16 @@
                     <!-- SIDEBAR BUTTONS -->
                     <div class="profile-userbuttons">
                         @*<button type="button" class="btn btn-success btn-sm">Follow</button>*@
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@user.UserName">Message</button>
+                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@user.UserName">Message</button>
+                        <input hidden id="userId" value="@user.Id"/>
+                        @if (user.IsUserBlocked == true)
+                        {
+                            <button type="button" id="unblockUser"  class="btn btn-info btn-sm">Unblock</button>
+                        }
+                        else
+                        {
+                            <button type="button" id="blockUser" class="btn btn-danger btn-sm">Block</button>
+                        }
                         @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for</button>*@
 
 
@@ -129,6 +138,9 @@
 
 @section Scripts{
     <script>
+        $("#blockUser").on("click", function () {
+            console.log($("#userId").val());
+        });
 
         $("#message-text").on("input", function () {
             if ($(this).val() != "") {

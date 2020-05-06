@@ -101,9 +101,9 @@ namespace Rent.Controllers
                         }
                         return View("Register");
                     }
-
-                        await userManager.AddLoginAsync(user, info);
-                        await signInManager.SignInAsync(user, isPersistent: false);
+                    await userManager.AddToRoleAsync(user, "User");
+                    await userManager.AddLoginAsync(user, info);
+                    await signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect(returnUrl);
                 }
             }
@@ -122,7 +122,8 @@ namespace Rent.Controllers
                 Surname = newUser.Surname,
                 Email = newUser.Email,
                 UserName = newUser.Username,
-                MainProfilePicture = "avatar.png"
+                MainProfilePicture = "avatar.png",
+                
             };
 
             var result = await userManager.CreateAsync(user, newUser.Password);
@@ -134,6 +135,7 @@ namespace Rent.Controllers
                 }
                 return View();
             }
+            await userManager.AddToRoleAsync(user, "User");
             await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }

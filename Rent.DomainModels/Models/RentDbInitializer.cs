@@ -30,6 +30,10 @@ namespace Rent.DomainModels.Models
                 {
                     await roleManager.CreateAsync(new IdentityRole { Name = "Admin" });
                 }
+                if (!await roleManager.RoleExistsAsync("User"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole { Name = "User" });
+                }
 
                 var user = await userManager.FindByNameAsync("admin@rent.com");
                 if (user == null)
