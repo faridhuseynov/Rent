@@ -86,50 +86,48 @@
                     <div class="profile-userbuttons">
                         @*<button type="button" class="btn btn-success btn-sm">Follow</button>*@
                         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@user.UserName">Message</button>
-                        <input hidden id="userId" value="@user.Id"/>
+                        @*<input hidden class="user-id" value="@user.Id" />*@
                         @if (user.IsUserBlocked == true)
                         {
-                            <button type="button" id="unblockUser"  class="btn btn-info btn-sm">Unblock</button>
+                            <button type="button" class="btn btn-info btn-sm unblock-user" onclick="blockUser('@user.Id')">Unblock</button>
                         }
                         else
                         {
-                            <button type="button" id="blockUser" class="btn btn-danger btn-sm">Block</button>
+                            <button type="button" class="btn btn-danger btn-sm block-user" onclick="blockUser('@user.Id')">Block</button>
                         }
-                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for</button>*@
-
-
-                        <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group" hidden>
-                                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                <input type="text" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Message:</label>
-                                                <textarea rows="5" class="form-control" id="message-text"></textarea>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         }
+
+        <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group" hidden>
+                                <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                <input type="text" class="form-control recipient-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Message:</label>
+                                <textarea rows="5" class="form-control message-text"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" id="close-message" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -138,11 +136,25 @@
 
 @section Scripts{
     <script>
-        $("#blockUser").on("click", function () {
-            console.log($("#userId").val());
-        });
-
-        $("#message-text").on("input", function () {
+        //$(".block-user").on("click", function () {
+        //    console.log($(".user-id").val());
+        //});
+        function blockUser(id) {
+            $.ajax({
+                url: "/Account/BlockUnblockUser/",
+                method: "POST",
+                data: {
+                    userId:id
+                },
+                success: function () {
+                    location.reload(true);
+                },
+                error: function () {
+                    console.log("Something went wrong");
+                }
+            })
+        }
+        $(".message-text").on("input", function () {
             if ($(this).val() != "") {
                 $("#send-message").removeAttr("disabled");
             } else {
@@ -150,10 +162,12 @@
 
             }
         })
-
+        $("#close-message").on("click", function () {
+            $(".message-text").val("");
+        })
         function sendMessage() {
-            var text = $("#message-text").val();
-            var recipientUserName = $("#recipient-name").val();
+            var text = $(".message-text").val();
+            var recipientUserName = $(".recipient-name").val();
             $.ajax({
                 type: "POST",
                 url: "/Messages/Create",
@@ -162,8 +176,9 @@
                     content: text
                 },
                 success: function () {
-                    $("#message-text").val("");
+                    $(".message-text").val("");
                     $("#messageModal").modal("toggle");
+                    $("#send-message").attr("disabled", true);
                 }
             });
         };

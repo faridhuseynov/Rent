@@ -17,7 +17,7 @@ namespace Rent.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        
+
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
@@ -77,7 +77,7 @@ namespace Rent.Controllers
 
             var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
-            
+
             if (signInResult.Succeeded)
             {
                 return LocalRedirect(returnUrl);
@@ -123,7 +123,7 @@ namespace Rent.Controllers
                 Email = newUser.Email,
                 UserName = newUser.Username,
                 MainProfilePicture = "avatar.png",
-                
+
             };
 
             var result = await userManager.CreateAsync(user, newUser.Password);
@@ -164,15 +164,15 @@ namespace Rent.Controllers
                 return View();
 
             var result = await userManager.CheckPasswordAsync(user, User.Password);
-            if (result!=false)
+            if (result != false && user.IsUserBlocked != true)
             {
                 await signInManager.SignInAsync(user, result);
-                if (await userManager.IsInRoleAsync(user,"Admin"))
+                if (await userManager.IsInRoleAsync(user, "Admin"))
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
                 return RedirectToAction("Index", "Home");
-                
+
             }
             return View();
         }
@@ -189,7 +189,7 @@ namespace Rent.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult>ExternalLoginCallback(string returnUrl=null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             returnUrl = returnUrl ?? Url.Content("/");
             LoginViewModel lvm = new LoginViewModel
@@ -197,46 +197,67 @@ namespace Rent.Controllers
                 ReturnUrl = returnUrl,
                 ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
             };
-            if (remoteError!=null)
+            if (remoteError != null)
             {
                 ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
                 return View("Login", lvm);
             }
 
             var info = await signInManager.GetExternalLoginInfoAsync();
-            if (info==null)
+            var user = new User();
+            if (info == null)
             {
                 ModelState.AddModelError(string.Empty, "Error loading external login information");
                 return View("Login", lvm);
             }
-
-            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            if (email != null)
+            {
+                user = await userManager.FindByEmailAsync(email);
+                if (user == null)
+                {
+                    ModelState.AddModelError(string.Empty, "User with this email not found in the system");
+                    return View("Login", lvm);
+                }
+                else if (user.IsUserBlocked)
+                {
+                    ModelState.AddModelError(string.Empty, "User is blocked");
+                    return View("Login", lvm);
+                }
+                else
+                {
+                    var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                 info.ProviderKey, isPersistent: false, bypassTwoFactor: false);
 
-            if (signInResult.Succeeded)
-            {
-                return LocalRedirect(returnUrl);
+                    if (signInResult.Succeeded)
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+                    else
+                    {
+                        await userManager.AddLoginAsync(user, info);
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        return LocalRedirect(returnUrl);
+                    }
+                }
             }
             else
             {
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                if (email!=null)
-                {
-                    var user = await userManager.FindByEmailAsync(email);
-                    if (user==null)
-                    {
-                        ModelState.AddModelError(string.Empty, "User with this email not found in the system");
-                        return View("Login", lvm);
-                    }
-                    await userManager.AddLoginAsync(user, info);
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
-                }
+                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
+                ViewBag.ErrorMessage = "Please contact support  on farid@gmail.com";
+                return View("Login");
             }
+        }
 
-            ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
-            ViewBag.ErrorMessage = "Please contact support  on farid@gmail.com";
-            return View("Login");
+        [HttpPost]
+        public async Task BlockUnblockUser(string userId)
+        {
+            var user = await userManager.FindByIdAsync(userId);
+            if ((user != null) && user.Name != User.Identity.Name && !(await userManager.IsInRoleAsync(user, "Admin")))
+            {
+                user.IsUserBlocked = !(user.IsUserBlocked);
+                await userManager.UpdateAsync(user);
+            }
         }
 
         [HttpGet]
@@ -313,7 +334,7 @@ namespace Rent.Controllers
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             if (ModelState.IsValid == true)
             {
-                userFromRepo.PasswordHash= userManager.PasswordHasher.HashPassword(userFromRepo, password);
+                userFromRepo.PasswordHash = userManager.PasswordHasher.HashPassword(userFromRepo, password);
                 await userManager.UpdateAsync(userFromRepo);
 
             }
