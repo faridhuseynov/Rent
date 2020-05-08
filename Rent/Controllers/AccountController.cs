@@ -164,7 +164,18 @@ namespace Rent.Controllers
                 return View();
 
             var result = await userManager.CheckPasswordAsync(user, User.Password);
-            if (result != false && user.IsUserBlocked != true)
+            //if (result != false && user.IsUserBlocked != true)
+            //{
+            //    await signInManager.SignInAsync(user, result);
+            //    if (await userManager.IsInRoleAsync(user, "Admin"))
+            //    {
+            //        return RedirectToAction("Index", "Home", new { area = "Admin" });
+            //    }
+            //    return RedirectToAction("Index", "Home");
+
+            //}
+
+            if (result != false)
             {
                 await signInManager.SignInAsync(user, result);
                 if (await userManager.IsInRoleAsync(user, "Admin"))
@@ -255,6 +266,16 @@ namespace Rent.Controllers
             var user = await userManager.FindByIdAsync(userId);
             if ((user != null) && user.Name != User.Identity.Name && !(await userManager.IsInRoleAsync(user, "Admin")))
             {
+                if (user.IsUserBlocked == true)
+                {
+                    user.LockoutEnabled = false;
+                    user.LockoutEnd = DateTime.Now;
+                }
+                else
+                {
+                    user.LockoutEnabled = true;
+                    user.LockoutEnd = DateTime.Now.AddYears(100);
+                }
                 user.IsUserBlocked = !(user.IsUserBlocked);
                 await userManager.UpdateAsync(user);
             }
