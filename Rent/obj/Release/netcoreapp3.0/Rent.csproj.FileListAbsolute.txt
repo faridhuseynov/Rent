@@ -219,3 +219,4 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Index.csh
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Users.cshtml.g.cs
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Views\Products\Blocked.cshtml.g.cs

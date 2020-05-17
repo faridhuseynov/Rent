@@ -1,0 +1,179 @@
+﻿@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+    <div class="container-fluid">
+        <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
+        <a class="btn btn-outline-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
+        <a class="btn btn-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
+
+        @if (!Model.Any())
+        {
+            <h3>Sizin block edilmiş məhsulunuz yoxdur...</h3>
+        }
+
+        else
+        {
+
+            @foreach (var item in ViewBag.Categories)
+            {
+                if (Model.Any(x => x.Category.Id == item.Id))
+                {
+                    <h3 class="mb-0 mt-5">@item.CategoryName</h3>
+                    <hr class="mt-0" />
+                    <div class="row">
+                        @foreach (var product in Model)
+                        {
+                            if (product.CategoryId == @item.Id)
+                            {
+                                <div class="card m-3" style="width: 20rem;">
+                                    <div class="shop">
+                                        @if (product.MainPhotoUrl == null)
+                                        {
+                                            <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                                        }                                <div class="card-body">
+    <input hidden value="@product.Id" />
+    <h5 class="card-title">@product.ProductName</h5>
+    <p class="card-text">@product.ProductDescription</p>
+    @if (product.Sell == true)
+    {
+        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+    }
+    else
+    {
+        <h6 class="text-success">Satış: <span>❌</span></h6>
+
+    }
+    @if (product.Lend == true)
+    {
+        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+    }
+    else
+    {
+        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+
+    }
+
+    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+    <a href="" class="btn btn-danger deleteButton">Sil</a>
+    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
+       data-productname="@product.ProductName" data-productid="@product.Id">Adminlə Əlaqə</a>
+
+    @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
+    @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
+
+</div>
+                                    </div>
+                                    <div class="shop-body">
+                                        @*<img style="width:5px; height:5px" class="card-img-overlay" src="~/Images/block.png" />*@
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                }
+            }
+            <!-- SIDEBAR BUTTONS -->
+            <div class="profile-userbuttons">
+                @*<a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-whatever="">Adminlə Əlaqə</a>*@
+                <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form>
+                                    <div class="form-group" hidden>
+                                        <input type="text" class="form-control" id="productName">
+                                        <input type="text" class="form-control" id="productId">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="message-text" class="col-form-label">Message:</label>
+                                        <textarea rows="5" class="form-control" id="message-text"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END SIDEBAR BUTTONS -->
+        }
+    </div>
+
+@section Scripts{
+    <script>
+        $(".deleteButton").click(function (event) {
+            event.preventDefault();
+            var productId = $(event.target.parentElement).find("input").val();
+            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            if (response == true) {
+                $.ajax({
+                    type: "GET",
+                    url: "/products/delete/",
+                    data: { id: productId },
+                    success: function () {
+                        location.reload(true);
+                    }
+                })
+            }
+        });
+
+        $("#message-text").on("input", function () {
+            if ($(this).val() != "") {
+                $("#send-message").removeAttr("disabled");
+            } else {
+                $("#send-message").attr("disabled", true);
+
+            }
+        });
+
+        function sendMessage() {
+            var text = $("#message-text").val();
+            var productName = $("#productName").val();
+            var productId = $("#productId").val();
+            var template = "Məhsul: " + productName + "\n" + "Müraciət səbəbi: Blocklanmış məhsul" + "\n" + "Məhsul ID: " + productId + "\n" + "Məhsul sahibinin messaji:" + text;
+            $.ajax({
+                type: "POST",
+                url: "/Messages/Create",
+                data: {
+                    recipientUserName: "admin@rent.com",
+                    content: template
+                },
+                success: function () {
+                    $("#message-text").val("");
+                    $("#messageModal").modal("toggle");
+                }
+            });
+        };
+                     
+        $('#messageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var productname = button.data('productname') // Extract info from data-* attributes
+            var productId = button.data('productid') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to Admin')
+            //modal.find('.modal-body input').find('#'+'recipient-name').val(username)
+            modal.find('#productName').val(productname)
+            modal.find('#productId').val(productId)
+            //$("#message-text").text("Məhsul: "+productname+"\n"+"Müraciət səbəbi: Blocklanmış məhsul"+"\n"+"Məhsul ID: "+productid);
+        })
+    </script>
+
+}

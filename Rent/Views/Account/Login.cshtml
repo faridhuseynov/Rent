@@ -9,7 +9,7 @@
             <h4 class="card-title mb-4 mt-1">Sign in</h4>
             @*<a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
                 <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>*@
-            @if (Model.ExternalLogins.Count > 0)
+            @if (Model.ExternalLogins!=null && Model.ExternalLogins.Count > 0)
             {
                 <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
 

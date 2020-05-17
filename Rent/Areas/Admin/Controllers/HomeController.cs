@@ -62,5 +62,17 @@ namespace Rent.Areas.Admin.Controllers
             var users = userManager.Users.ToList();            
             return View(users);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> BlockAndUnblockProduct(string userName, int productId)
+        {
+            var product =await ps.GetProductByProductID(productId);
+            if (product!=null)
+            {
+                product.Blocked = !(product.Blocked);
+                await ps.UpdateProductDetails(product);
+            }
+            return RedirectToAction("Profile", "Account", new {area="", userName = userName });
+        }
     }
 }

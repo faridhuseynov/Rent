@@ -15,6 +15,7 @@ namespace Rent.ViewModels.ProductViewModels
         public decimal LendPrice { get; set; }
         public int MinLendDays { get; set; }
         public string ProductDescription { get; set; }
+        public bool Blocked { get; set; }
 
         public string UserId { get; set; }
         [ForeignKey("UserId")]

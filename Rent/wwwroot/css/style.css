@@ -64,11 +64,14 @@ Table OF Contents
     background-color: #2B2D42;
 }
 
+.product-card {
+
+}
 
 body {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 400;
-  color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: #333;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -84,6 +87,7 @@ a {
     color: #D10024;
     font-weight: 500;
     -webkit-transition: 0.2s color;
+    margin:3px;
     transition: 0.2s color;
 }
 

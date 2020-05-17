@@ -5,195 +5,211 @@
 
 <link rel="stylesheet" href="~/css/ProfileStyleSheet.css" />
 
-    <div class="container">
-        <div class="row profile">
-            <div class="col-md-3">
-                <div class="profile-sidebar">
-                    <!-- SIDEBAR USERPIC -->
-                    <div class="profile-userpic">
-                        @if (Model.MainProfilePicture == null)
-                        {
-                            <img src="~/Images/Users/avatar.png" class="img-responsive" alt="">
-                        }
-                        else
-                        {
-                            <img src="~/Images/Users/@Model.MainProfilePicture" class="img-responsive" alt="">
-                        }
+<div class="container">
+    <div class="row profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+                <!-- SIDEBAR USERPIC -->
+                <div class="profile-userpic">
+                    @if (Model.MainProfilePicture == null)
+                    {
+                        <img src="~/Images/Users/avatar.png" class="img-responsive" alt="">
+                    }
+                    else
+                    {
+                        <img src="~/Images/Users/@Model.MainProfilePicture" class="img-responsive" alt="">
+                    }
+                </div>
+                <!-- END SIDEBAR USERPIC -->
+                <!-- SIDEBAR USER TITLE -->
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        @Model.Name @Model.Surname
                     </div>
-                    <!-- END SIDEBAR USERPIC -->
-                    <!-- SIDEBAR USER TITLE -->
-                    <div class="profile-usertitle">
-                        <div class="profile-usertitle-name">
-                            @Model.Name @Model.Surname
-                        </div>
-                        <div class="profile-usertitle-location">
-                            @Model.Country, @Model.City
-                        </div>        
-                        <div class="profile-usertitle-location">
-                            @Model.MeetingLocation
-                        </div>
-                        <div class="profile-usertitle-phone">
-                            <i class="fa fa-phone-square"></i>
-                            @Model.PhoneNumber
-                        </div>
+                    <div class="profile-usertitle-location">
+                        @Model.Country, @Model.City
                     </div>
-                    <!-- END SIDEBAR USER TITLE -->
-                    <!-- SIDEBAR BUTTONS -->
-                    <div class="profile-userbuttons">
-                        @*<button type="button" class="btn btn-success btn-sm">Follow</button>*@
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@Model.UserName">Message</button>
-                        @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for</button>*@
+                    <div class="profile-usertitle-location">
+                        @Model.MeetingLocation
+                    </div>
+                    <div class="profile-usertitle-phone">
+                        <i class="fa fa-phone-square"></i>
+                        @Model.PhoneNumber
+                    </div>
+                </div>
+                <!-- END SIDEBAR USER TITLE -->
+                <!-- SIDEBAR BUTTONS -->
+                <div class="profile-userbuttons">
+                    @*<button type="button" class="btn btn-success btn-sm">Follow</button>*@
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#messageModal" data-whatever="@Model.UserName">Message</button>
+                    @*<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Open modal for</button>*@
 
 
-                        <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <div class="form-group" hidden>
-                                                <label for="recipient-name" class="col-form-label">Recipient:</label>
-                                                <input type="text" class="form-control" id="recipient-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="message-text" class="col-form-label">Message:</label>
-                                                <textarea rows="5" class="form-control" id="message-text"></textarea>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
-                                    </div>
+                    <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form>
+                                        <div class="form-group" hidden>
+                                            <label for="recipient-name" class="col-form-label">Recipient:</label>
+                                            <input type="text" class="form-control" id="recipient-name">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="message-text" class="col-form-label">Message:</label>
+                                            <textarea rows="5" class="form-control" id="message-text"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- END SIDEBAR BUTTONS -->
-                    <!-- SIDEBAR MENU -->
-                    @*<div class="profile-usermenu">
-            <ul class="nav">
-                <li class="active">
-                    <a href="#">
-                        <i class="glyphicon glyphicon-home"></i>
-                        Overview
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-user"></i>
-                        Account Settings
-                    </a>
-                </li>
-                <li>
-                    <a href="#" target="_blank">
-                        <i class="glyphicon glyphicon-ok"></i>
-                        Tasks
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="glyphicon glyphicon-flag"></i>
-                        Help
-                    </a>
-                </li>
-            </ul>
-        </div>*@
-                    <!-- END MENU -->
                 </div>
+                <!-- END SIDEBAR BUTTONS -->
+                <!-- SIDEBAR MENU -->
+                @*<div class="profile-usermenu">
+                        <ul class="nav">
+                            <li class="active">
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-home"></i>
+                                    Overview
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                    Account Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" target="_blank">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                    Tasks
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="glyphicon glyphicon-flag"></i>
+                                    Help
+                                </a>
+                            </li>
+                        </ul>
+                    </div>*@
+                <!-- END MENU -->
             </div>
-            <div class="col-md-9">
-                <div class="profile-content">
-                    <div class="row" style="height:auto">
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <div class="row" style="height:auto">
 
-                        @foreach (var product in Model.Products)
+                    @foreach (var product in Model.Products)
+                    {
+                        @if (product.Blocked != true)
                         {
-                            <div class="card m-1" style="width: 20rem; overflow:hidden; white-space:nowrap;">
-                                @if (product.MainPhotoUrl == null)
-                                {
-                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+                        <div class="card m-1 product-card" style="width: 30rem; overflow:hidden; white-space:nowrap;">
 
+                            @if (product.MainPhotoUrl == null)
+                            {
+                                <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+
+                            }
+                            else
+                            {
+                                <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text">@product.ProductDescription</p>
+                                @if (product.Sell == true)
+                                {
+                                    <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
                                 }
                                 else
                                 {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                                    <h6 class="text-success">Satış: <span>❌</span></h6>
+
                                 }
-                                <div class="card-body">
-                                    <h5 class="card-title">@product.ProductName</h5>
-                                    <p class="card-text">@product.ProductDescription</p>
-                                    @if (product.Sell == true)
+                                @if (product.Lend == true)
+                                {
+                                    <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+
+                                }
+                                <a style="justify-content:flex-end" asp-area="" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                                @if (User.Identity.Name == "admin@rent.com")
+                                {
+                                    if (product.Blocked == true)
                                     {
-                                        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                        <a style="justify-content:flex-end" asp-area="Admin" asp-controller="Home" asp-action="BlockAndUnblockProduct" asp-route-productId="@product.Id" asp-route-userName="@product.User.UserName" class="btn btn-info"><i class="fa fa-unlock">Blockdan çıxar</i></a>
+
                                     }
                                     else
                                     {
-                                        <h6 class="text-success">Satış: <span>❌</span></h6>
-
+                                        <a style="justify-content:flex-end" asp-area="Admin" asp-controller="Home" asp-action="BlockAndUnblockProduct" asp-route-productId="@product.Id" asp-route-userName="@product.User.UserName" class="btn btn-danger"><i class="fa fa-lock"> Block et</i></a>
                                     }
-                                    @if (product.Lend == true)
-                                    {
-                                        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                                    }
-                                    else
-                                    {
-                                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
-
-                                    }
-                                    <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
-                                </div>
+                                }
                             </div>
+                        </div>
+                            }
                         }
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-@section Scripts{ 
-<script>
+@section Scripts{
+    <script>
 
-    $("#message-text").on("input", function () {
-        if ($(this).val() != "") {
-            $("#send-message").removeAttr("disabled");
-        } else {
-            $("#send-message").attr("disabled", true);
+        $("#message-text").on("input", function () {
+            if ($(this).val() != "") {
+                $("#send-message").removeAttr("disabled");
+            } else {
+                $("#send-message").attr("disabled", true);
 
-        }
-    })
-
-    function sendMessage() {
-        var text = $("#message-text").val();
-        var recipientUserName = $("#recipient-name").val();
-        $.ajax({
-            type: "POST",
-            url: "/Messages/Create",
-            data: {
-                recipientUserName: recipientUserName,
-                content: text
-            },
-            success: function () {
-                $("#message-text").val("");
-                $("#messageModal").modal("toggle");
             }
-        });
-    };
+        })
+
+        function sendMessage() {
+            var text = $("#message-text").val();
+            var recipientUserName = $("#recipient-name").val();
+            $.ajax({
+                type: "POST",
+                url: "/Messages/Create",
+                data: {
+                    recipientUserName: recipientUserName,
+                    content: text
+                },
+                success: function () {
+                    $("#message-text").val("");
+                    $("#messageModal").modal("toggle");
+                }
+            });
+        };
 
 
-    
 
-    $('#messageModal').on('show.bs.modal', function (event) {
-  var button = $(event.relatedTarget) // Button that triggered the modal
-  var recipient = button.data('whatever') // Extract info from data-* attributes
-  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-  var modal = $(this)
-  modal.find('.modal-title').text('New message to ' + recipient)
-  modal.find('.modal-body input').val(recipient)
-})
-</script>
+
+        $('#messageModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var recipient = button.data('whatever') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-title').text('New message to ' + recipient)
+            modal.find('.modal-body input').val(recipient)
+        })
+    </script>
 }

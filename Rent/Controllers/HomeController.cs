@@ -60,9 +60,9 @@ namespace Rent.Controllers
             ViewBag.PageNo = PageNo;
             ViewBag.Categories = categories;
             if (Id != 0)
-                products = ps.GetProducts().Where(x => x.CategoryId == Id);
+                products = ps.GetProducts().Where(p => p.CategoryId == Id && p.Blocked!=true);
             else
-                products = ps.GetProducts();
+                products = ps.GetProducts().Where(p=>p.Blocked!=true);
             if (!String.IsNullOrWhiteSpace(searchString))
             {
                 products = products.Where(p => p.ProductName.Contains(searchString)
@@ -99,7 +99,7 @@ namespace Rent.Controllers
                     UserId = userFromRepo.Id;
             }
             var product = await ps.GetProductByProductID(Id);
-            if (product != null)
+            if (product != null && product.Blocked!=true)
             {
                 ViewBag.ProposalTypes = proposalTypes;
                 //ViewBag.ProposalTypes = product.p;
@@ -119,7 +119,7 @@ namespace Rent.Controllers
             var product = await ps.GetProductByProductID(Id);
             var _buyer = await userManager.FindByNameAsync(buyer);
             int newPropId=0;
-            if (product != null)
+            if (product != null && product.Blocked!=true)
             {
                 var newProposal = new NewProposalViewModel();
                 newProposal.ProposedPrice = proposedPrice;

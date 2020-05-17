@@ -28,6 +28,7 @@ namespace Rent.DomainModels.Models
         public virtual ICollection<WishListProduct> WishList { get; set; }
         public virtual ICollection<Rate> Rates { get; set; }
         public double AverageRate { get; set; }
+        public bool Blocked { get; set; }
 
     }
 }

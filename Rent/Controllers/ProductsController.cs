@@ -38,7 +38,15 @@ namespace Rent.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var products = productsService.GetProducts().Where(u=>u.User.UserName== User.Identity.Name);
+            var products = productsService.GetProducts().Where(u=>u.User.UserName== User.Identity.Name).Where(p=>p.Blocked!=true);
+            ViewBag.Categories = await categoriesService.GetCategories();
+            return View(products);
+        }
+
+        // GET: Products/Blocked
+        public async Task<IActionResult> Blocked()
+        {
+            var products = productsService.GetProducts().Where(u => u.User.UserName == User.Identity.Name).Where(p => p.Blocked == true);
             ViewBag.Categories = await categoriesService.GetCategories();
             return View(products);
         }

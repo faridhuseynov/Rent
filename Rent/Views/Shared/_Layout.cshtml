@@ -45,22 +45,27 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <!-- Example split danger button -->
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-outline-danger">@User.Identity.Name</button>
-                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-controller="Account" asp-action="AccountInfo">Account</a>
-                                    <div class="dropdown-divider"></div>
-                                    <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Logout</a>
-                                </div>
+                            @if (User.Identity.Name == "admin@rent.com")
+                            {
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-info">Admin paneli</a>
+
+                            }
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-outline-danger">@User.Identity.Name</button>
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Account" asp-action="AccountInfo">Şəxsi hesab</a>
+                                <div class="dropdown-divider"></div>
+                                <a asp-controller="Account" asp-action="Logout" class="dropdown-item">Çıxış</a>
                             </div>
+                        </div>
                         }
                         else
                         {
-                            <a class="btn btn-success" asp-controller="Account" asp-action="Register">Register</a>
-                            <a class="btn btn-info ml-3" asp-controller="Account" asp-action="Login">Sign In</a>
+                            <a class="btn btn-success" asp-controller="Account" asp-action="Register">Qeydiyyat</a>
+                            <a class="btn btn-info ml-3" asp-controller="Account" asp-action="Login">Daxil ol</a>
                         }
                     </li>
                 </ul>
@@ -145,7 +150,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Əsas Səhifə</a>
                         </li>
                         @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
@@ -156,10 +161,10 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Proposals</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Təkliflər</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-userName="@User.Identity.Name">My Products</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-userName="@User.Identity.Name">Məhsullarım</a>
                             </li>
                         }
                     </ul>

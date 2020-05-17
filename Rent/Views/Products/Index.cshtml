@@ -4,7 +4,9 @@
     ViewData["Title"] = "Products";
 }
 <div class="container-fluid">
-    <a class="btn btn-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
+    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
+    <a class="btn btn-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
+    <a class="btn btn-outline-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
 
     @if (!Model.Any())
     {
@@ -13,6 +15,7 @@
 
     else
     {
+
         @foreach (var item in ViewBag.Categories)
         {
             if (Model.Any(x => x.Category.Id == item.Id))
