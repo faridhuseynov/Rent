@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
+
+@{
+    ViewData["Title"] = "Products";
+}
+<div class="container-fluid">
+    <a class="btn btn-outline-warning mb-4" asp-area="Admin" asp-controller="Home" asp-action="ActiveProducts">Aktiv məhsullar</a>
+    <a class="btn btn-danger mb-4" asp-area="Admin" asp-controller="Home" asp-action="BlockedProducts">Blok edilmiş məhsullar</a>
+
+    @if (!Model.Any())
+    {
+        <h3>Block edilmiş məhsul yoxdur...</h3>
+    }
+
+    else
+    {
+
+        @foreach (var item in ViewBag.Categories)
+        {
+            if (Model.Any(x => x.Category.Id == item.Id))
+            {
+                <h3 class="mb-0 mt-5">@item.CategoryName</h3>
+                <hr class="mt-0" />
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        if (product.CategoryId == @item.Id)
+                        {
+                            <div class="card m-3" style="width: 20rem;">
+                                @if (product.MainPhotoUrl == null)
+                                {
+                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+
+                                }
+                                else
+                                {
+                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                                }                                <div class="card-body">
+                                    <input hidden value="@product.Id" />
+                                    <h5 class="card-title">@product.ProductName</h5>
+                                    <p class="card-text">@product.ProductDescription</p>
+                                    @if (product.Sell == true)
+                                    {
+                                        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                    }
+                                    else
+                                    {
+                                        <h6 class="text-success">Satış: <span>❌</span></h6>
+
+                                    }
+                                    @if (product.Lend == true)
+                                    {
+                                        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                    }
+                                    else
+                                    {
+                                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+
+                                    }
+
+                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+                                    <a href="" class="btn btn-danger deleteButton">Sil</a>
+                                    @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+    }
+</div>
+
+@section Scripts{
+    <script>
+        $(".deleteButton").click(function (event) {
+            event.preventDefault();
+            var productId = $(event.target.parentElement).find("input").val();
+            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            if (response == true) {
+                $.ajax({
+                    type: "GET",
+                    url: "/products/delete/",
+                    data: { id: productId },
+                    success: function () {
+                        location.reload(true);
+                    }
+                })
+            }
+        });
+    </script>
+
+}
+

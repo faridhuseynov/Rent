@@ -47,10 +47,11 @@ namespace Rent.Areas.Admin.Controllers
         {
             var users = userManager.Users.ToList();
             var proposals = propsService.GetProposals();
+            var products = ps.GetProducts();
             ViewBag.Registered = users.Count;
             ViewBag.Proposals = proposals.Count();
             ViewBag.Closed = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").Count();
-            ViewBag.Rejected = proposals.Where(p => p.ProposalStatus.StatusName == "Rejected").Count();
+            ViewBag.BlockedProducts = products.Where(p => p.Blocked == true).Count();
             ViewBag.Successful = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").ToList();
             return View();
         }
@@ -73,6 +74,23 @@ namespace Rent.Areas.Admin.Controllers
                 await ps.UpdateProductDetails(product);
             }
             return RedirectToAction("Profile", "Account", new {area="", userName = userName });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ActiveProducts()
+        {
+            ViewBag.Categories = cs.GetCategories().Result;
+            var products = ps.GetProducts().Where(p => p.Blocked == false) ;
+            return View(products);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> BlockedProducts()
+        {
+            ViewBag.Categories = cs.GetCategories().Result;
+            var products = ps.GetProducts().Where(p=>p.Blocked==true);
+            return View(products);
         }
     }
 }
