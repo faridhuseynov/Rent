@@ -51,7 +51,7 @@ namespace Rent.Areas.Admin.Controllers
             ViewBag.Registered = users.Count;
             ViewBag.Proposals = proposals.Count();
             ViewBag.Closed = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").Count();
-            ViewBag.BlockedProducts = products.Where(p => p.Blocked == true).Count();
+            ViewBag.Products = products.Count();
             ViewBag.Successful = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").ToList();
             return View();
         }
