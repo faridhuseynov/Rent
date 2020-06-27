@@ -9,7 +9,7 @@
 
     @if (!Model.Any())
     {
-        <h3>Saytda əlavə edilmiş məhsul yoxdur...</h3>
+        <h3>Saytda əlavə edilmiş aktiv məhsul yoxdur...</h3>
     }
 
     else
@@ -90,6 +90,29 @@
                 })
             }
         });
+
+        $(".changeBlockButton").click(function (event) {
+            event.preventDefault();
+            let element = event.target.parentElement.parentElement;
+            //$(element).find(".lock").addClass("lockremove-animation");
+            //$(element).find(".lock-top").addClass("lockopen-animation");
+            var id = $(element).find(".card-body").find("input").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Home/BlockAndUnblockProduct",
+                data: {
+                    userName: "admin@rent.com",
+                    productId:id
+                },
+                success: function () {
+                    $(element).remove();
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        });
+
     </script>
 
 }

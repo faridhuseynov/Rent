@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Products";
 }
+
 <div class="container-fluid mt-5">
     <a class="btn btn-outline-warning mb-4" asp-area="Admin" asp-controller="Home" asp-action="ActiveProducts">Aktiv məhsullar</a>
     <a class="btn btn-danger mb-4" asp-area="Admin" asp-controller="Home" asp-action="BlockedProducts">Blok edilmiş məhsullar</a>
@@ -27,6 +28,15 @@
                         if (product.CategoryId == @item.Id)
                         {
                             <div class="prodcard card m-1">
+                                <div class="lock">
+
+                                    <div class="lock-top"></div>
+                                    <div class="lock-bottom"></div>
+                                    <div class="lock-center">
+                                        <div class="circle"></div>
+                                        <div class="triangle"></div>
+                                    </div>
+                                </div>
                                 @if (product.MainPhotoUrl == null)
                                 {
                                     <img src="~/Images/Products/default-pro.jpg" class="card-img-top responsive-image" alt="...">
@@ -35,7 +45,7 @@
                                 else
                                 {
                                     <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top responsive-image" alt="...">
-                                }                                
+                                }
                                 <div class="card-body">
                                     <input hidden value="@product.Id" />
                                     <h5 class="card-title">@product.ProductName</h5>
@@ -66,8 +76,10 @@
                                 </div>
                             </div>
                         }
+
                     }
                 </div>
+
             }
         }
     }
@@ -89,6 +101,28 @@
                     }
                 })
             }
+        });
+
+        $(".changeBlockButton").click(function (event) {
+            event.preventDefault();
+            let element = event.target.parentElement.parentElement;
+            $(element).find(".lock").addClass("lockremove-animation");
+            $(element).find(".lock-top").addClass("lockopen-animation");
+            var id = $(element).find(".card-body").find("input").val();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Home/BlockAndUnblockProduct",
+                data: {
+                    userName: "admin@rent.com",
+                    productId:id
+                },
+                success: setTimeout(function () {
+                    $(element).remove();
+                },2000),
+                error: function (err) {
+                    console.log(err);
+                }
+            })
         });
     </script>
 
