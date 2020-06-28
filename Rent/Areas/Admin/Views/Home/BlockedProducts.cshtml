@@ -93,11 +93,14 @@
             var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
             if (response == true) {
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "/products/delete/",
-                    data: { id: productId },
+                    data: { Id: productId },
                     success: function () {
                         location.reload(true);
+                    },
+                    error: function (err) {
+                        console.log(err);
                     }
                 })
             }

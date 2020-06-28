@@ -38,7 +38,7 @@ namespace Rent.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var products = productsService.GetProducts().Where(u=>u.User.UserName== User.Identity.Name).Where(p=>p.Blocked!=true);
+            var products = productsService.GetProducts().Where(u => u.User.UserName == User.Identity.Name).Where(p => p.Blocked != true);
             ViewBag.Categories = await categoriesService.GetCategories();
             return View(products);
         }
@@ -86,11 +86,11 @@ namespace Rent.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
-            string fileName="";
+            string fileName = "";
             var fileNames = new List<string>();
             if (ModelState.IsValid)
             {
-                if (images!=null)
+                if (images != null)
                 {
                     try
                     {
@@ -105,13 +105,13 @@ namespace Rent.Controllers
                         return BadRequest();
                     }
                 }
-                
 
-                var newProdId =  await productsService.InsertProduct(newProductViewModel);
 
-                if (newProdId>0)
+                var newProdId = await productsService.InsertProduct(newProductViewModel);
+
+                if (newProdId > 0)
                 {
-                    if (fileNames!=null)
+                    if (fileNames != null)
                     {
                         foreach (var filePath in fileNames)
                         {
@@ -153,8 +153,8 @@ namespace Rent.Controllers
         {
             if (ModelState.IsValid)
             {
-                var checkProduct =await productsService.GetProductByProductID(product.Id);
-                if (checkProduct!=null)
+                var checkProduct = await productsService.GetProductByProductID(product.Id);
+                if (checkProduct != null)
                 {
                     try
                     {
@@ -171,7 +171,7 @@ namespace Rent.Controllers
                             throw;
                         }
                     }
-                    if (images.Count()>0)
+                    if (images.Count() > 0)
                     {
                         string fileName = "";
                         var fileNames = new List<string>();
@@ -202,7 +202,7 @@ namespace Rent.Controllers
                         }
                     }
                 }
-               
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
@@ -210,31 +210,31 @@ namespace Rent.Controllers
             return View(product);
         }
 
-        // GET: Products/UserId/Delete/ProductId
-        [HttpGet]
+        // GET: Products/Delete/ProductId
+        [HttpPost]
         public async Task<IActionResult> Delete(int Id)
-        {                
+        {
             var product = await productsService.GetProductByProductID(Id);
-
-            if (product == null)
+            if (product != null && (product.User.UserName == User.Identity.Name || User.Identity.Name == "admin@rent.com"))
             {
-                return NotFound();
+                await productsService.DeleteProduct(product.Id);
+                return RedirectToAction("Index", "Products");
             }
-            await productsService.DeleteProduct(product.Id);
-            return RedirectToAction("Index","Products");
+            return NotFound();
         }
 
         [HttpPost]
         public async Task SetMainPhoto(int productId, string filename)
         {
-            if (productId>0 && !String.IsNullOrWhiteSpace(filename))
+            var product = await productsService.GetProductByProductID(productId);
+            if (product != null && !String.IsNullOrWhiteSpace(filename) && (product.User.UserName == User.Identity.Name || User.Identity.Name == "admin@rent.com"))
             {
-                await imagesRepository.SetMainPhoto(productId,filename);
+                await imagesRepository.SetMainPhoto(productId, filename);
             }
         }
 
         [HttpPost]
-        public async Task DeletePhoto (int photoId)
+        public async Task DeletePhoto(int photoId)
         {
             await imagesRepository.DeleteImage(photoId);
         }

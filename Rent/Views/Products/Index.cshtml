@@ -27,15 +27,17 @@
                     {
                         if (product.CategoryId == @item.Id)
                         {
-                            <div class="card m-3" style="width: 20rem;">
+                            <div class="card m-3" style="width: 23rem;overflow:hidden; white-space:nowrap;">
                                 @if (product.MainPhotoUrl == null)
                                 {
-                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+                                    <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
+                                         class="card-img-top" alt="...">
 
                                 }
                                 else
                                 {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
+                                    <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
+                                         class="card-img-top" alt="...">
                                 }                                <div class="card-body">
                                     <input hidden value="@product.Id" />
                                     <h5 class="card-title">@product.ProductName</h5>
@@ -80,9 +82,9 @@
             var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
             if (response == true) {
                 $.ajax({
-                    type: "GET",
-                    url: "/products/delete/",
-                    data: { id: productId },
+                    type: "POST",
+                    url: "/Products/Delete/",
+                    data: { Id: productId },
                     success: function () {
                         location.reload(true);
                     }

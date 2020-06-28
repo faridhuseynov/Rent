@@ -37,6 +37,16 @@ namespace Rent.DomainModels.Models
                 .WithMany(p => p.Products)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder.Entity<Product>()
+                .HasMany(r=>r.Rates)
+                .WithOne(p=>p.Product)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Proposals)
+                .WithOne(pr => pr.Product)
+                .OnDelete(DeleteBehavior.SetNull);
+
             modelBuilder.Entity<Proposal>()
                 .HasOne(p => p.Owner)
                 .WithMany(o => o.Proposals)
@@ -66,6 +76,7 @@ namespace Rent.DomainModels.Models
                 .HasOne(p => p.Product)
                 .WithMany(r => r.Rates)
                 .OnDelete(DeleteBehavior.NoAction);
+
 
             modelBuilder.Entity<Rate>()
                 .HasOne(u => u.User)

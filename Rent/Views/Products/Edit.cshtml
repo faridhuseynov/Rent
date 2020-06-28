@@ -130,7 +130,14 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    @if (User.Identity.Name == "admin@rent.com")
+    {
+        <a asp-area="Admin" asp-controller="Home" asp-action="ActiveProducts">Məhsullara qayıt</a>
+    }
+    else
+    {
+        <a asp-area="" asp-controller="Products" asp-action="Index">Back to List</a>
+    }
 </div>
 
 @section Scripts{
@@ -180,7 +187,7 @@
             }
         })
         function setMainPhoto(target) {
-            var filePath = $(target).parent().parent().find("img").attr("src").slice(8);
+            var filePath = $(target).parent().parent().find("img").attr("src").slice(17);
             $(".disabled").removeClass("disabled").addClass("btn-primary");
             $(target).removeClass("btn-primary").addClass("disabled btn-default");
             $.ajax({

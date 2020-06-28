@@ -3,117 +3,121 @@
 @{
     ViewData["Title"] = "Products";
 }
-    <div class="container-fluid">
-        <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
-        <a class="btn btn-outline-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
-        <a class="btn btn-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
+<div class="container-fluid">
+    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
+    <a class="btn btn-outline-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
+    <a class="btn btn-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
 
-        @if (!Model.Any())
+    @if (!Model.Any())
+    {
+        <h3>Sizin block edilmiş məhsulunuz yoxdur...</h3>
+    }
+
+    else
+    {
+
+        @foreach (var item in ViewBag.Categories)
         {
-            <h3>Sizin block edilmiş məhsulunuz yoxdur...</h3>
-        }
-
-        else
-        {
-
-            @foreach (var item in ViewBag.Categories)
+            if (Model.Any(x => x.Category.Id == item.Id))
             {
-                if (Model.Any(x => x.Category.Id == item.Id))
-                {
-                    <h3 class="mb-0 mt-5">@item.CategoryName</h3>
-                    <hr class="mt-0" />
-                    <div class="row">
-                        @foreach (var product in Model)
+                <h3 class="mb-0 mt-5">@item.CategoryName</h3>
+                <hr class="mt-0" />
+                <div class="row">
+                    @foreach (var product in Model)
+                    {
+                        if (product.CategoryId == @item.Id)
                         {
-                            if (product.CategoryId == @item.Id)
-                            {
-                                <div class="card m-3" style="width: 20rem;">
-                                    <div class="shop">
-                                        @if (product.MainPhotoUrl == null)
-                                        {
-                                            <img src="~/Images/Products/default-pro.jpg" class="card-img-top" alt="...">
+                            <div class="card m-3" style="width: 20rem;overflow:hidden; white-space:nowrap;">
+                                <div class="shop">
+                                    @if (product.MainPhotoUrl == null)
+                                    {
+                                        <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
+                                             class="card-img-top" alt="...">
 
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
+                                             class="card-img-top" alt="...">
+                                    }
+                                    <div class="card-body">
+                                        <input hidden value="@product.Id" />
+                                        <h5 class="card-title">@product.ProductName</h5>
+                                        <p class="card-text">@product.ProductDescription</p>
+                                        @if (product.Sell == true)
+                                        {
+                                            <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
                                         }
                                         else
                                         {
-                                            <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top" alt="...">
-                                        }                                <div class="card-body">
-    <input hidden value="@product.Id" />
-    <h5 class="card-title">@product.ProductName</h5>
-    <p class="card-text">@product.ProductDescription</p>
-    @if (product.Sell == true)
-    {
-        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
-    }
-    else
-    {
-        <h6 class="text-success">Satış: <span>❌</span></h6>
+                                            <h6 class="text-success">Satış: <span>❌</span></h6>
 
-    }
-    @if (product.Lend == true)
-    {
-        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-    }
-    else
-    {
-        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                                        }
+                                        @if (product.Lend == true)
+                                        {
+                                            <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                        }
+                                        else
+                                        {
+                                            <h6 class="text-warning">Kirayə: <span>❌</span></h6>
 
-    }
+                                        }
 
-    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
-    <a href="" class="btn btn-danger deleteButton">Sil</a>
-    <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
-       data-productname="@product.ProductName" data-productid="@product.Id">Adminlə Əlaqə</a>
+                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
+                                        <a href="" class="btn btn-danger deleteButton">Sil</a>
+                                        <div>
+                                            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
+                                               data-productname="@product.ProductName" data-productid="@product.Id">Adminlə Əlaqə</a>
+                                        </div>
+                                        @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
+                                        @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
 
-    @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
-    @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
-
-</div>
-                                    </div>
-                                    <div class="shop-body">
-                                        @*<img style="width:5px; height:5px" class="card-img-overlay" src="~/Images/block.png" />*@
                                     </div>
                                 </div>
-                            }
+                                <div class="shop-body">
+                                    @*<img style="width:5px; height:5px" class="card-img-overlay" src="~/Images/block.png" />*@
+                                </div>
+                            </div>
                         }
-                    </div>
-                }
+                    }
+                </div>
             }
-            <!-- SIDEBAR BUTTONS -->
-            <div class="profile-userbuttons">
-                @*<a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-whatever="">Adminlə Əlaqə</a>*@
-                <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form>
-                                    <div class="form-group" hidden>
-                                        <input type="text" class="form-control" id="productName">
-                                        <input type="text" class="form-control" id="productId">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="message-text" class="col-form-label">Message:</label>
-                                        <textarea rows="5" class="form-control" id="message-text"></textarea>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
-                            </div>
+        }
+        <!-- SIDEBAR BUTTONS -->
+        <div class="profile-userbuttons">
+            @*<a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-whatever="">Adminlə Əlaqə</a>*@
+            <div class="modal" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModal" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group" hidden>
+                                    <input type="text" class="form-control" id="productName">
+                                    <input type="text" class="form-control" id="productId">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Message:</label>
+                                    <textarea rows="5" class="form-control" id="message-text"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- END SIDEBAR BUTTONS -->
-        }
-    </div>
+        </div>
+        <!-- END SIDEBAR BUTTONS -->
+    }
+</div>
 
 @section Scripts{
     <script>
@@ -160,7 +164,7 @@
                 }
             });
         };
-                     
+
         $('#messageModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             var productname = button.data('productname') // Extract info from data-* attributes
