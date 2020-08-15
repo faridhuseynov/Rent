@@ -39,41 +39,42 @@
                                 </div>
                                 @if (product.MainPhotoUrl == null)
                                 {
-                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top responsive-image" alt="...">
+                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="...">
 
                                 }
                                 else
                                 {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top responsive-image" alt="...">
+                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
                                 }
-                                <div class="card-body">
-                                    <input hidden value="@product.Id" />
-                                    <h5 class="card-title">@product.ProductName</h5>
-                                    <p class="card-text prodcard-par">@product.ProductDescription</p>
-                                    @if (product.Sell == true)
-                                    {
-                                        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
-                                    }
-                                    else
-                                    {
-                                        <h6 class="text-success">Satış: <span>❌</span></h6>
+                            <div class="card-body">
+                                <input hidden value="@product.Id" />
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text prodcard-par"><b>Məhsul sahibi:</b> @product.User.UserName</p>
+                                <p class="card-text prodcard-par">@product.ProductDescription</p>
+                                @if (product.Sell == true)
+                                {
+                                    <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-success">Satış: <span>❌</span></h6>
 
-                                    }
-                                    @if (product.Lend == true)
-                                    {
-                                        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                                    }
-                                    else
-                                    {
-                                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                                }
+                                @if (product.Lend == true)
+                                {
+                                    <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-warning">Kirayə: <span>❌</span></h6>
 
-                                    }
+                                }
 
-                                    <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Dəyişdir</a>
-                                    <a href="" class="btn btn-danger deleteButton"><i class="fa fa-trash"></i> Sil</a>
-                                    <a href="" class="btn btn-success changeBlockButton"><i class="fa fa-unlock"></i> Blockdan çıxar</a>
-                                    @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
-                                </div>
+                                <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Dəyişdir</a>
+                                <a href="" class="btn btn-danger deleteButton"><i class="fa fa-trash"></i> Sil</a>
+                                <a href="" class="btn btn-success changeBlockButton"><i class="fa fa-unlock"></i> Blockdan çıxar</a>
+                                @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
+                            </div>
                             </div>
                         }
 

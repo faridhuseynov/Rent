@@ -29,16 +29,17 @@
                             <div class="prodcard card m-1">
                                 @if (product.MainPhotoUrl == null)
                                 {
-                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top responsive-image" alt="...">
+                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="...">
 
                                 }
                                 else
                                 {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top responsive-image" alt="...">
+                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
                                 }         
                             <div class="card-body">
                                 <input hidden value="@product.Id" />
                                 <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text prodcard-par"><b>Məhsul sahibi:</b> @product.User.UserName</p>
                                 <p class="card-text prodcard-par">@product.ProductDescription</p>
                                 @if (product.Sell == true)
                                 {

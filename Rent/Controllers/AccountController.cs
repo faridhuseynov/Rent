@@ -289,7 +289,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AccountInfo()
+        public async Task<IActionResult> AccountInfo(string userId)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             return View(userFromRepo);
@@ -298,7 +298,7 @@ namespace Rent.Controllers
 
         //IEnumerable<IFormFile>
         [HttpPost]
-        public async Task<IActionResult> ChangeProfilePicture(IFormFile image)
+        public async Task<IActionResult> ChangeProfilePicture(string image)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             string fileName = "";
@@ -325,6 +325,12 @@ namespace Rent.Controllers
                 //var pics = image;
             }
             return RedirectToAction("AccountInfo");
+        }
+
+        [HttpPost]
+        public string UpdateProfilePicture(IFormFile formData)
+        {
+            return "hello";
         }
 
         [HttpPost]

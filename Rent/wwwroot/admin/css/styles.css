@@ -112,6 +112,7 @@
     position: relative;
     z-index: 1;
     width: 24vw;
+    height:auto;
 }
 
 .prodcard-par {
@@ -119,6 +120,13 @@
     white-space: nowrap;
     text-overflow:ellipsis;
 }
+
+.card-photo {
+    height: 15vw;
+    object-fit: fill;
+    width: auto;
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;

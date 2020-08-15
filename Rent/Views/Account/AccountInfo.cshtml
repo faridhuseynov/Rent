@@ -15,22 +15,25 @@
 
                 </form>*@
             <div class="text-center">
-                @*@if (Model.MainProfilePicture == null)
-                    {
-                        <img src="~/Images/Users/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
-                    }
-                    else
-                    {
-                        <img  src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">
-                    }*@
-                <img id="profPic" src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">
+                @if (Model.MainProfilePicture == null)
+                {
+                    <img id="profPic" src="~/Images/Users/avatar.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                }
+                else
+                {
+                    <img id="profPic" src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">
+                }
+
+                @*<img id="profPic" src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">*@
                 <h6>Başqa profil şəkli seç...</h6>
-                <form enctype="multipart/form-data" asp-controller="Account" asp-action="ChangeProfilePicture">
-                    <input id="profilePhoto" name="image" type="file" class="text-center center-block file-upload" onchange="photoUpload()" />
+                <form enctype="multipart/form-data" method="post" asp-area="" asp-controller="Account" asp-action="ChangeProfilePicture">
+                    <input id="image" hidden name="image" type="file" class="text-center center-block custom-file-input" onchange="photoUpload()" />
+                    <p id="fileName" class="mt-3 mb-0" hidden></p>
+                    <button id="triggerInput" class="btn btn-outline-primary mt-4">Şəkil seç</button>
                     <button type="submit" class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>
                 </form>
                 @*<input id="profilePhoto" type="file" name="image" class="text-center center-block file-upload" onchange="photoUpload()"/>
-                    <button class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>*@
+        <button class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>*@
             </div></hr>
 
             <br>
@@ -520,7 +523,14 @@
             $("option[value='@Model.Country']").attr("selected", "selected");
         });
 
-        function photoUpload(event) {
+        $("#triggerInput").on("click", function () {
+            event.preventDefault();
+            $("#image").trigger("click");
+        });
+
+        function photoUpload() {
+            let fileName = $("#profilePhoto").val();
+            $("#fileName").removeAttr("hidden").text(fileName);
             $("#profPicUploadConfirm").removeAttr("disabled");
             $("#profPicUploadConfirm").removeClass("btn-light").addClass("btn-success");
         };
@@ -555,30 +565,55 @@
 
         function photoUploadConfirmed() {
             //event.preventDefault();
-            //var file = $("#profilePhoto")[0]["files"][0];
+            //var input = $("#profilePhoto");
+            //console.log(input);
+            //var files = input[0].files;
+            //console.log(files);
             //var formData = new FormData();
-            //formData.append("file", file);
-            //for (var k of formData.entries()) {
-            //    console.log(k);
+
+            //for (var i = 0; i != files.length; i++) {
+            //    formData.append("files", files[i]);
             //}
-            //$.ajax({
-            //    url: "/Account/ChangeProfilePicture",
-            //    type: "POST",
-            //    data: {
-            //        image:formData
-            //    },
-            //    processData: false,
-            //    contentType: false,
-            //    //cache: false,
-            //    success: function () {
-            //        console.log("Done");
-            //        $("#profilePhoto").val('');
-            //        $("#profPicUploadConfirm").attr("disabled", true);
-            //    },
-            //    error: function (errorMessage) {
-            //        console.log(errorMessage);
+            //console.log(formData);
+            //$.ajax(
+            //    {
+            //        url: "/Account/UpdateProfilePicture",
+            //        data: formData,
+            //        processData: false,
+            //        contentType: false,
+            //        type: "POST",
+            //        success: function (data) {
+            //            alert("Files Uploaded!");
+            //        }
             //    }
-            //});
+            //);
+
+            event.preventDefault();
+            var file = $("#image")[0]["files"][0];
+            console.log(file);
+            var formData = new FormData();
+            formData.append("file", file);
+            for (var k of formData.entries()) {
+                console.log(k);
+            }
+            $.ajax({
+                url: "/Account/ChangeProfilePicture",
+                type: "POST",
+                data: {
+                    image:formData
+                },
+                processData: false,
+                contentType: false,
+                //cache: false,
+                success: function () {
+                    console.log("Done");
+                    $("#profilePhoto").val('');
+                    $("#profPicUploadConfirm").attr("disabled", true);
+                },
+                error: function (errorMessage) {
+                    console.log(errorMessage);
+                }
+            });
         }
         $("#infoItem").click(function () {
             if ($("#infoItem").hasClass("active") != true) {

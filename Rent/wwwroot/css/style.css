@@ -60,6 +60,12 @@ Table OF Contents
     text-overflow:ellipsis;
 }
 
+.card-photo {
+    height:15vw;
+    object-fit:fill;
+    width:auto;
+}
+
 .responsive{
     max-width:100%;
     height:auto;
@@ -68,8 +74,9 @@ Table OF Contents
     background-color: #2B2D42;
 }
 
-.product-card {
-
+.file-upload {
+    color:transparent;
+    
 }
 
 body {
