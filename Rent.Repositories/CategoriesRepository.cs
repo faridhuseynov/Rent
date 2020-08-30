@@ -10,6 +10,7 @@ namespace Rent.Repositories
     public interface ICategoriesRepository
     {
         Task<IEnumerable<Category>> GetCategories();
+        Task<string> AddCategory(Category category);
 
     }
     public class CategoriesRepository : ICategoriesRepository
@@ -23,6 +24,12 @@ namespace Rent.Repositories
         {
             var categories = await db.Categories.ToListAsync();
             return categories;
+        }
+        public async Task<string> AddCategory(Category category)
+        {
+            await db.Categories.AddAsync(category);
+            await db.SaveChangesAsync();
+            return category.CategoryName;
         }
     }
 }

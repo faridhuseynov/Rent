@@ -296,9 +296,8 @@ namespace Rent.Controllers
         }
 
 
-        //IEnumerable<IFormFile>
-        [HttpPost]
-        public async Task<IActionResult> ChangeProfilePicture(string image)
+        [HttpPut]
+        public async Task<IActionResult> ChangeProfilePicture(Object image)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             string fileName = "";
@@ -308,7 +307,7 @@ namespace Rent.Controllers
                 {
                     try
                     {
-                        fileName = FileUploaderService.UploadUserPhoto(image);
+                        //fileName = FileUploaderService.UploadUserPhoto(image);
                     }
                     catch (Exception ex)
                     {
@@ -325,12 +324,6 @@ namespace Rent.Controllers
                 //var pics = image;
             }
             return RedirectToAction("AccountInfo");
-        }
-
-        [HttpPost]
-        public string UpdateProfilePicture(IFormFile formData)
-        {
-            return "hello";
         }
 
         [HttpPost]

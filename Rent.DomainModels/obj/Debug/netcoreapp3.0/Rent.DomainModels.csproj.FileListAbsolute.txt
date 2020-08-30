@@ -1,8 +1,9 @@
 D:\VS\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.deps.json
 D:\VS\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
 D:\VS\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
+D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csprojAssemblyReference.cache
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.AssemblyInfoInputs.cache
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.AssemblyInfo.cs
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.dll
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.pdb
-D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csprojAssemblyReference.cache
+D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csproj.CoreCompileInputs.cache

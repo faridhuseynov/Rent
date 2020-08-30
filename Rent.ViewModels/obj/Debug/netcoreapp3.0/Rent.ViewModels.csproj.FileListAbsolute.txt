@@ -9,3 +9,4 @@ D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.AssemblyInfo.
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CopyComplete
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.dll
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.pdb
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CoreCompileInputs.cache

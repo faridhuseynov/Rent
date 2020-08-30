@@ -564,56 +564,49 @@
         }
 
         function photoUploadConfirmed() {
-            //event.preventDefault();
-            //var input = $("#profilePhoto");
-            //console.log(input);
-            //var files = input[0].files;
-            //console.log(files);
-            //var formData = new FormData();
-
-            //for (var i = 0; i != files.length; i++) {
-            //    formData.append("files", files[i]);
-            //}
-            //console.log(formData);
-            //$.ajax(
-            //    {
-            //        url: "/Account/UpdateProfilePicture",
-            //        data: formData,
-            //        processData: false,
-            //        contentType: false,
-            //        type: "POST",
-            //        success: function (data) {
-            //            alert("Files Uploaded!");
-            //        }
-            //    }
-            //);
-
             event.preventDefault();
-            var file = $("#image")[0]["files"][0];
-            console.log(file);
-            var formData = new FormData();
-            formData.append("file", file);
-            for (var k of formData.entries()) {
-                console.log(k);
-            }
-            $.ajax({
-                url: "/Account/ChangeProfilePicture",
-                type: "POST",
-                data: {
-                    image:formData
-                },
-                processData: false,
-                contentType: false,
-                //cache: false,
-                success: function () {
-                    console.log("Done");
-                    $("#profilePhoto").val('');
-                    $("#profPicUploadConfirm").attr("disabled", true);
-                },
-                error: function (errorMessage) {
-                    console.log(errorMessage);
-                }
-            });
+            const formData = new FormData();
+            const fileField = document.querySelector('input[type="file"]');
+
+            formData.append('username', 'abc123');
+            formData.append('avatar', fileField.files[0]);
+
+            fetch('/Account/ChangeProfilePicture', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(result => {
+                    console.log('Success:', result);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            //var file = $("#image")[0]["files"][0];
+            //console.log(file);
+            //var formData = new FormData();
+            //formData.append("file", file);
+            //console.log(formData);
+            //for (var k of formData.entries()) {
+            //    console.log(k);
+            //}
+            //$.ajax({
+            //    traditional: true,
+            //    url: "/Account/ChangeProfilePicture",
+            //    type: "POST",
+            //    data: { "image": "hello" },
+            //    processData: false,
+            //    contentType: false,
+            //    //cache: false,
+            //    success: function () {
+            //        console.log("Done");
+            //        $("#profilePhoto").val('');
+            //        $("#profPicUploadConfirm").attr("disabled", true);
+            //    },
+            //    error: function (errorMessage) {
+            //        console.log(errorMessage);
+            //    }
+            //});
         }
         $("#infoItem").click(function () {
             if ($("#infoItem").hasClass("active") != true) {

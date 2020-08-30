@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
+using Rent.ViewModels.CategoryViewModels;
 
 namespace Rent.Areas.Admin.Controllers
 {
@@ -91,6 +92,18 @@ namespace Rent.Areas.Admin.Controllers
             ViewBag.Categories = cs.GetCategories().Result;
             var products = ps.GetProducts().Where(p=>p.Blocked==true);
             return View(products);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Categories()
+        {
+            return View(await cs.GetCategories());
+        }
+
+        [HttpPost]
+        public async Task AddCategory(string categoryName)
+        {
+            await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName });
         }
     }
 }
