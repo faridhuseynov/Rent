@@ -102,9 +102,9 @@ namespace Rent.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task AddCategory(string categoryName)
+        public async Task AddCategory(string categoryName, string categoryDescription)
         {
-            await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName });
+            await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName, CategoryDescription = categoryDescription });
         }
     }
 }

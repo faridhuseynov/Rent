@@ -1,12 +1,84 @@
 ﻿@model IEnumerable<Rent.ViewModels.CategoryViewModels.NewCategoryViewModel>
 
-@{ 
+@{
     ViewData["Title"] = "Categories";
 }
 
-<div class="container">
-    @foreach (var category in Model)
-    {
-        <p>category.CategoryName</p>
-    }
+<div class="container mt-3">
+    <div class="row m-3">
+        <button type="button" class="btn btn-default btn-primary category-add">
+            Add Category
+        </button>
+    </div>
+    <div class="row m-3">
+        <form hidden>
+            <div class="form-group">
+                <label for="categoryName">Name</label>
+                <input type="text" class="form-control" id="categoryName" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="categoryDescription">Description</label>
+                <textarea class="form-control" id="categoryDescription" rows="5" cols="60"></textarea>
+            </div>
+            <button class="btn btn-success confirm-add">Add</button>
+            <button class="btn btn-light cancel-add">Cancel</button>
+        </form>
+    </div>
+
+    <div class="row category-list">
+        @foreach (var category in Model)
+        {
+            <div class="card m-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@category.CategoryName</h5>
+                    <p class="card-text">@category.CategoryDescription</p>
+                </div>
+            </div>
+        }
+    </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(".category-add").on("click", function () {
+            $("form").removeAttr("hidden");
+        });
+
+        $(".confirm-add").click(function () {
+            event.preventDefault();
+            let catName = $("#categoryName").val();
+            let catDescr = $("#categoryDescription").val();
+            if (catName != "" && catDescr != "") {
+                $.ajax({
+                    url: "/Admin/Home/AddCategory",
+                    method: "POST",
+                    data: {
+                        "categoryName": catName,
+                        "categoryDescription": catDescr
+                    },
+                    success: function () {
+                        //newCategoryCancelled();
+                        //$(".category-list").append('<div class="card m-3" style="width: 18rem;">'+'< div class= "card-body" > ' +
+                        //    '<h5 class="card-title">' + catName + '</h5>' +
+                        //    '<p class="card-text">' + catDescr + '</p ></div></div >');
+                        location.reload();
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            }
+        });
+
+        function newCategoryCancelled() {
+            $("#categoryName").val("");
+            $("#categoryDescription").val("");
+            $("form").attr("hidden", true);
+        }
+
+        $(".cancel-add").click(function () {
+            event.preventDefault();
+            newCategoryCancelled();
+        })
+    </script>
+}
