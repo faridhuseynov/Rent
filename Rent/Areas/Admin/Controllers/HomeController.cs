@@ -90,14 +90,15 @@ namespace Rent.Areas.Admin.Controllers
         public async Task<IActionResult> BlockedProducts()
         {
             ViewBag.Categories = cs.GetCategories().Result;
-            var products = ps.GetProducts().Where(p=>p.Blocked==true);
+            var products =  ps.GetProducts().Where(p=>p.Blocked==true);
             return View(products);
         }
 
         [HttpGet]
         public async Task<IActionResult> Categories()
         {
-            return View(await cs.GetCategories());
+            var categories = await cs.GetCategoriesForReview();
+            return View(categories);
         }
 
         [HttpPost]

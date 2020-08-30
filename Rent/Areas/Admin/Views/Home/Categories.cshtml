@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Rent.ViewModels.CategoryViewModels.NewCategoryViewModel>
+
+@{ 
+    ViewData["Title"] = "Categories";
+}
+
+<div class="container">
+    @foreach (var category in Model)
+    {
+        <p>category.CategoryName</p>
+    }
+</div>

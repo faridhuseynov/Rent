@@ -231,3 +231,4 @@ D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.genruntimeconfig.cache
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\serviceDependencies.Rent20200830183036 - Web Deploy.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\Rent20200830183036 - Web Deploy\mssql1.arm.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\Rent20200830183036 - Web Deploy\profile.arm.json
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Categories.cshtml.g.cs

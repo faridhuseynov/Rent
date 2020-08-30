@@ -12,6 +12,7 @@ namespace Rent.ServiceLayers
     public interface ICategoriesService
     {
         Task<IEnumerable<Category>> GetCategories();
+        Task<IEnumerable<NewCategoryViewModel>> GetCategoriesForReview();
         Task<string> AddCategory(NewCategoryViewModel newCategoryViewModel);
     }
     public class CategoriesService : ICategoriesService
@@ -33,5 +34,15 @@ namespace Rent.ServiceLayers
             Category newCategory = mapper.Map<NewCategoryViewModel, Category>(newCategoryViewModel);
             return await cr.AddCategory(newCategory);
         }
+
+        public async Task<IEnumerable<NewCategoryViewModel>> GetCategoriesForReview()
+        {
+            var categoryList = await cr.GetCategories(); 
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Category, NewCategoryViewModel>(); cfg.IgnoreUnmapped(); });
+            IMapper mapper = config.CreateMapper();
+            var categories = mapper.Map<IEnumerable<Category>, IEnumerable<NewCategoryViewModel>>(categoryList);
+            return categories;
+        }
+
     }
 }
