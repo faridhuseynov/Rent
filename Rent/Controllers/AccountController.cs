@@ -159,11 +159,15 @@ namespace Rent.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
+            // think about adding errors while login failed
             var user = await userManager.FindByNameAsync(User.Username);
             if (user == null)
-                return View();
+                return RedirectToAction("Login");
+            
 
             var result = await userManager.CheckPasswordAsync(user, User.Password);
+            
+            
             //if (result != false && user.IsUserBlocked != true)
             //{
             //    await signInManager.SignInAsync(user, result);
@@ -182,9 +186,14 @@ namespace Rent.Controllers
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
+                if (!String.IsNullOrWhiteSpace(User.ReturnUrl))
+                {
+                    return RedirectToAction(User.ReturnUrl);
+                }
                 return RedirectToAction("Index", "Home");
 
             }
+            //result.Succeeded
             return View();
         }
 

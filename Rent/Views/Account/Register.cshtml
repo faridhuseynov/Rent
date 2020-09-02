@@ -35,7 +35,7 @@
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
 
-            @if (Model.ExternalRegisters.Count > 0 && Model.ExternalRegisters!=null)
+            @if (Model != null && Model.ExternalRegisters.Count > 0)
             {
                 <form method="post" asp-action="ExternalRegister" asp-route-returnUrl="@Model.ReturnUrl">
                     @foreach (var provider in Model.ExternalRegisters)
@@ -43,15 +43,15 @@
                         <p>
                             @if (provider.DisplayName == "Google")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   Login via Google</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   Sign up via Google</button>
                             }
                             @if (provider.DisplayName == "Twitter")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Sign up via Twitter</button>
                             }
                             @if (provider.DisplayName == "Facebook")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via Facebook</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Sign up via Facebook</button>
                             }
                         </p>
                     }
