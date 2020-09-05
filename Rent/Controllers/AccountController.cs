@@ -305,25 +305,27 @@ namespace Rent.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<IActionResult> ChangeProfilePicture(Object image)
+        [HttpPost]
+        public async Task<IActionResult> ChangeProfilePicture(IFormFile image)
         {
+
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             string fileName = "";
+            
             if (ModelState.IsValid)
             {
                 if (image != null)
                 {
                     try
                     {
-                        //fileName = FileUploaderService.UploadUserPhoto(image);
+                            fileName = FileUploaderService.UploadUserPhoto(image);
                     }
                     catch (Exception ex)
                     {
                         return BadRequest();
                     }
 
-                    if (fileName != null)
+                    if (fileName != null && fileName!="")
                     {
                         userFromRepo.MainProfilePicture = fileName;
                         await userManager.UpdateAsync(userFromRepo);

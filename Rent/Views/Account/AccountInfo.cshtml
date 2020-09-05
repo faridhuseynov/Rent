@@ -26,25 +26,15 @@
 
                 @*<img id="profPic" src="~/Images/Users/@Model.MainProfilePicture" class="avatar img-circle img-thumbnail" alt="avatar">*@
                 <h6>Başqa profil şəkli seç...</h6>
-                <form enctype="multipart/form-data" method="post" asp-area="" asp-controller="Account" asp-action="ChangeProfilePicture">
-                    <input id="image" hidden name="image" type="file" class="text-center center-block custom-file-input" onchange="photoUpload()" />
+                <form id="form" enctype="multipart/form-data" method="post" asp-area="" asp-controller="Account" asp-action="ChangeProfilePicture">
+                    <input id="image" hidden name="image" type="file" size="1" class="text-center center-block custom-file-input" onchange="photoUpload()" />
                     <p id="fileName" class="mt-3 mb-0" hidden></p>
                     <button id="triggerInput" class="btn btn-outline-primary mt-4">Şəkil seç</button>
                     <button type="submit" class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>
                 </form>
-                @*<input id="profilePhoto" type="file" name="image" class="text-center center-block file-upload" onchange="photoUpload()"/>
-        <button class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>*@
             </div></hr>
 
             <br>
-
-
-            @*<div class="panel panel-default">
-                    <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i></div>
-                    <div class="panel-body"><a href="http://bootnipets.com">bootnipets.com</a></div>
-                </div>*@
-
-
             <ul class="list-group">
                 <li class="list-group-item text-muted">Statistika <i class="fa fa-dashboard fa-1x"></i></li>
                 <li class="list-group-item text-right"><span class="pull-left"><strong>Məhsul</strong></span> @Model.Products.Count</li>
@@ -565,48 +555,26 @@
 
         function photoUploadConfirmed() {
             event.preventDefault();
-            const formData = new FormData();
-            const fileField = document.querySelector('input[type="file"]');
-
-            formData.append('username', 'abc123');
-            formData.append('avatar', fileField.files[0]);
-
-            fetch('/Account/ChangeProfilePicture', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => response.json())
-                .then(result => {
-                    console.log('Success:', result);
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            //var file = $("#image")[0]["files"][0];
-            //console.log(file);
-            //var formData = new FormData();
-            //formData.append("file", file);
-            //console.log(formData);
-            //for (var k of formData.entries()) {
-            //    console.log(k);
-            //}
-            //$.ajax({
-            //    traditional: true,
-            //    url: "/Account/ChangeProfilePicture",
-            //    type: "POST",
-            //    data: { "image": "hello" },
-            //    processData: false,
-            //    contentType: false,
-            //    //cache: false,
-            //    success: function () {
-            //        console.log("Done");
-            //        $("#profilePhoto").val('');
-            //        $("#profPicUploadConfirm").attr("disabled", true);
-            //    },
-            //    error: function (errorMessage) {
-            //        console.log(errorMessage);
-            //    }
-            //});
+            var files = $("#image")[0].files;
+            var formData = new FormData();
+            formData.append("file", files[0]);
+            console.log(files);
+            console.log(formData);
+            $.ajax({
+                type: "POST",
+                url: "/Account/ChangeProfilePicture",
+                data: { image: formData },
+                processData: false,
+                contentType: false,
+                success: function () {
+                    console.log("Done");
+                    $("#profilePhoto").val('');
+                    $("#profPicUploadConfirm").attr("disabled", true);
+                },
+                error: function (errorMessage) {
+                    console.log(errorMessage);
+                }
+            });
         }
         $("#infoItem").click(function () {
             if ($("#infoItem").hasClass("active") != true) {
