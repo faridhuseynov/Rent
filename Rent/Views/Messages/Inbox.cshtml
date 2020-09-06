@@ -79,74 +79,10 @@
             <div class="mesgs">
                 <div class="msg_history" id="msgHistory">
 
+                    @*being processed by the partial view*@
+
+
                 </div>
-                @*<div class="msg_history" id="msgHistory">
-                    @for (var i = Model.Count() - 1; i >= 0; i--)
-                    {
-                        <script id="template" type="x-tmpl-mustache">
-                            if (@Model.ElementAt(i).Recipient.UserName== {{ recipient }} && @Model.ElementAt(i).Sender.UserName== {{ sender }})
-                            {
-                            <div class="incoming_msg">
-                                <div class="incoming_msg_img">
-                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                         alt="@Model.ElementAt(i).Sender.UserName" />
-                                </div>
-                                <div class="received_msg">
-                                    <div class="received_withd_msg">
-                                        <p>
-                                            @Model.ElementAt(i).Content
-                                        </p>
-                                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                    </div>
-                                </div>
-                            </div>
-                            }else if (@Model.ElementAt(i).Recipient.UserName== {{ sender }} && @Model.ElementAt(i).Sender.UserName== {{ recipient }}) {
-                            <div class="incoming_msg">
-                                <div class="incoming_msg_img">
-                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                         alt="@Model.ElementAt(i).Sender.UserName" />
-                                </div>
-                                <div class="received_msg">
-                                    <div class="received_withd_msg">
-                                        <p>
-                                            @Model.ElementAt(i).Content
-                                        </p>
-                                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                    </div>
-                                </div>
-                            </div>
-                            }
-                        </script>*@
-                @*@if (Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
-                    {
-                        <div class="incoming_msg">
-                            <div class="incoming_msg_img">
-                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                     alt="@Model.ElementAt(i).Sender.UserName">
-                            </div>
-                            <div class="received_msg">
-                                <div class="received_withd_msg">
-                                    <p>
-                                        @Model.ElementAt(i).Content
-                                    </p>
-                                    <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="outgoing_msg">
-                            <div class="sent_msg">
-                                <p>
-                                    @Model.ElementAt(i).Content
-                                </p>
-                                <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                            </div>
-                        </div>
-                    }*@
-
-
                 <div class="type_msg">
                     <div class="input_msg_write">
                         <input type="text" class="write_msg" placeholder="Type a message" />
@@ -160,86 +96,27 @@
         </div>
     </div>
 </div>
-
 @section Scripts {
-
-    <script src="https://unpkg.com/mustache@latest"></script>
-    @*<script src="~/js/render.js"></script>*@
-    <script id="templateMessages" type="text/html">
-        {{#Messages}}
-        <div class="incoming_msg">
-            <div class="incoming_msg_img">
-                <img src="~/Images/Users/{{Sender.MainProfilePicture}}"
-                     alt="{{Sender.UserName}}" />
-            </div>
-            <div class="received_msg">
-                <div class="received_withd_msg">
-                    <p>
-                        {{Content}}
-                    </p>
-                    <span class="time_date">{{MessageSent}}</span>
-                </div>
-            </div>
-        </div>
-        @*<div class="incoming_msg">
-                <div class="incoming_msg_img">
-                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                         alt="@Model.ElementAt(i).Sender.UserName" />
-                </div>
-                <div class="received_msg">
-                    <div class="received_withd_msg">
-                        <p>
-                            @Model.ElementAt(i).Content
-                        </p>
-                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                    </div>
-                </div>
-            </div>*@
-        {{/Messages}}
-    </script>
-
     <script>
-    $(".chat_list").on("click", function (event) {
-    $(".active_chat").removeClass("active_chat");
-    $(event.currentTarget).addClass("active_chat");
-    var element = event.currentTarget;
-    //var sender = $(element).find("img").attr("alt");
-        var messages = @Model.ToList();
-        var templateWithData = Mustache.to_html($("#templateMessages").html(), { Messages:messages});
-    $("#msgHistory").empty();
-    $("#msgHistory").html('<h1>hello</h1>');
-    });
+        $(".chat_list").on("click", function (event) {
+            $(".active_chat").removeClass("active_chat");
+            $(event.currentTarget).addClass("active_chat");
+            var element = event.currentTarget;
+            var sender = $(element).find("img").attr("alt");
+            $.ajax({
+                url: "/Messages/_MessageThread",
+                method: "GET",
+                data: {
+                    recipient:"@User.Identity.Name",
+                    sender: sender
+                },
+                dataType:"html",
+                success: function (result) {
+                    $("#msgHistory").html(result);
+                    $("#msgHistory").scrollTop($("#msgHistory")[0].scrollHeight);
 
+                }
+            });
+        });
     </script>
-    @*renderPage();*@
-    @*@for (var i = Model.Count() - 1; i >= 0; i--) {
-        @if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name) && (Model.ElementAt(i).Sender.UserName == sender)) {
-                     <div class="incoming_msg">
-                         <div class="incoming_msg_img">
-                             <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                  alt="@Model.ElementAt(i).Sender.UserName">
-                         </div>
-                         <div class="received_msg">
-                             <div class="received_withd_msg">
-                                 <p>
-                                     @Model.ElementAt(i).Content
-                                 </p>
-                                 <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                             </div>
-                         </div>
-                     </div>
-        } else if ((Model.ElementAt(i).Recipient.UserName == "farid") && (Model.ElementAt(i).Sender.UserName == User.Identity.Name))
-        {
-                     <div class="outgoing_msg">
-                         <div class="sent_msg">
-                             <p>
-                                 @Model.ElementAt(i).Content
-                             </p>
-                             <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                         </div>
-                     </div>
-        });*@
-
-
-
 }

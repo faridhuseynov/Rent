@@ -331,8 +331,6 @@ namespace Rent.Controllers
                         await userManager.UpdateAsync(userFromRepo);
                     }
                 }
-                //userFromRepo.MainProfilePicture = formData.Name;
-                //var pics = image;
             }
             return RedirectToAction("AccountInfo");
         }

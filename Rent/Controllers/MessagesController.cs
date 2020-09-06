@@ -44,21 +44,14 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Message>> MessageThread(string recipient, string sender)
+        public async Task<IActionResult> _MessageThread(string recipient, string sender)
         {
             ViewBag.Sender = sender;
-            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
-            var messages = userFromRepo.MessagesSent.Where(r => r.Recipient.Name == recipient);
-            //var test = "";
-            //for (int i = 0; i < messages.Count; i++)
-            //{
-            //    test.Insert(0, messages.ElementAt(i).Content);
-            //}
-            //var result = JsonSerializer.Serialize(test);
-            //var messages = messageRepo.GetMessagesForUser(userFromRepo.Id).Result;
-            //var mes = messages.Where(u => (u.Recipient.UserName == recipient && u.Sender.UserName == sender)
-            // || (u.Sender.UserName == recipient && u.Recipient.UserName == sender));
-            return messages;
+            ViewBag.Recipient = recipient;
+            var userFromRepoSender = await userManager.FindByNameAsync(sender);
+            var userFromRepoRecipient = await userManager.FindByNameAsync(recipient);
+            var messages =await messageRepo.GetMessageThread(userFromRepoSender.Id, userFromRepoRecipient.Id);
+            return PartialView(messages);
         }
         [HttpPost]
         public async Task Create(string recipientUserName, string content)
