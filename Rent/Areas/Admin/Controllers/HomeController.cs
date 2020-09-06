@@ -80,7 +80,7 @@ namespace Rent.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> ActiveProducts()
         {
-            ViewBag.Categories = cs.GetCategories().Result;
+            ViewBag.Categories = await cs.GetCategories();
             var products = ps.GetProducts().Where(p => p.Blocked == false) ;
             return View(products);
         }
@@ -89,7 +89,7 @@ namespace Rent.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> BlockedProducts()
         {
-            ViewBag.Categories = cs.GetCategories().Result;
+            ViewBag.Categories = await cs.GetCategories();
             var products =  ps.GetProducts().Where(p=>p.Blocked==true);
             return View(products);
         }

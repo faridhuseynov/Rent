@@ -16,20 +16,20 @@
                         <div class="stylish-input-group">
                             <input type="text" class="search-bar" placeholder="Search">
                             @*<span class="input-group-addon">
-            <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-        </span>*@
+                                    <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                </span>*@
                             <button class="btn" type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
                         </div>
                     </div>
                 </div>
                 <div class="inbox_chat">
-                    @{ 
-                        string user="";
+                    @{
+                        string user = "";
                     }
                     @for (var i = 0; i < Model.Count(); i++)
                     {
                         if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
-                            && (user!=Model.ElementAt(i).Sender.UserName))
+                            && (user != Model.ElementAt(i).Sender.UserName))
                         {
                             user = Model.ElementAt(i).Sender.UserName;
                             <a href="#" class="msgArea">
@@ -77,40 +77,76 @@
                 </div>
             </div>
             <div class="mesgs">
-                <div class="msg_history">
-                    @*@for (var i = 0; i < Model.Count(); i++)
-                        {
-                            @if (Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
+                <div class="msg_history" id="msgHistory">
+
+                </div>
+                @*<div class="msg_history" id="msgHistory">
+                    @for (var i = Model.Count() - 1; i >= 0; i--)
+                    {
+                        <script id="template" type="x-tmpl-mustache">
+                            if (@Model.ElementAt(i).Recipient.UserName== {{ recipient }} && @Model.ElementAt(i).Sender.UserName== {{ sender }})
                             {
-                                <div class="incoming_msg">
-                                    <div class="incoming_msg_img">
-                                        <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
-                                             alt="@Model.ElementAt(i).Sender.UserName">
-                                    </div>
-                                    <div class="received_msg">
-                                        <div class="received_withd_msg">
-                                            <p>
-                                                @Model.ElementAt(i).Content
-                                            </p>
-                                            <span class="time_date">@Model.ElementAt(i).MessageSent</span>
-                                        </div>
-                                    </div>
+                            <div class="incoming_msg">
+                                <div class="incoming_msg_img">
+                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                         alt="@Model.ElementAt(i).Sender.UserName" />
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="outgoing_msg">
-                                    <div class="sent_msg">
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
                                         <p>
                                             @Model.ElementAt(i).Content
                                         </p>
                                         <span class="time_date">@Model.ElementAt(i).MessageSent</span>
                                     </div>
                                 </div>
+                            </div>
+                            }else if (@Model.ElementAt(i).Recipient.UserName== {{ sender }} && @Model.ElementAt(i).Sender.UserName== {{ recipient }}) {
+                            <div class="incoming_msg">
+                                <div class="incoming_msg_img">
+                                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                         alt="@Model.ElementAt(i).Sender.UserName" />
+                                </div>
+                                <div class="received_msg">
+                                    <div class="received_withd_msg">
+                                        <p>
+                                            @Model.ElementAt(i).Content
+                                        </p>
+                                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                                    </div>
+                                </div>
+                            </div>
                             }
+                        </script>*@
+                @*@if (Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
+                    {
+                        <div class="incoming_msg">
+                            <div class="incoming_msg_img">
+                                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                     alt="@Model.ElementAt(i).Sender.UserName">
+                            </div>
+                            <div class="received_msg">
+                                <div class="received_withd_msg">
+                                    <p>
+                                        @Model.ElementAt(i).Content
+                                    </p>
+                                    <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="outgoing_msg">
+                            <div class="sent_msg">
+                                <p>
+                                    @Model.ElementAt(i).Content
+                                </p>
+                                <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                            </div>
+                        </div>
+                    }*@
 
-                        }*@
-                </div>
+
                 <div class="type_msg">
                     <div class="input_msg_write">
                         <input type="text" class="write_msg" placeholder="Type a message" />
@@ -125,4 +161,85 @@
     </div>
 </div>
 
+@section Scripts {
 
+    <script src="https://unpkg.com/mustache@latest"></script>
+    @*<script src="~/js/render.js"></script>*@
+    <script id="templateMessages" type="text/html">
+        {{#Messages}}
+        <div class="incoming_msg">
+            <div class="incoming_msg_img">
+                <img src="~/Images/Users/{{Sender.MainProfilePicture}}"
+                     alt="{{Sender.UserName}}" />
+            </div>
+            <div class="received_msg">
+                <div class="received_withd_msg">
+                    <p>
+                        {{Content}}
+                    </p>
+                    <span class="time_date">{{MessageSent}}</span>
+                </div>
+            </div>
+        </div>
+        @*<div class="incoming_msg">
+                <div class="incoming_msg_img">
+                    <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                         alt="@Model.ElementAt(i).Sender.UserName" />
+                </div>
+                <div class="received_msg">
+                    <div class="received_withd_msg">
+                        <p>
+                            @Model.ElementAt(i).Content
+                        </p>
+                        <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                    </div>
+                </div>
+            </div>*@
+        {{/Messages}}
+    </script>
+
+    <script>
+    $(".chat_list").on("click", function (event) {
+    $(".active_chat").removeClass("active_chat");
+    $(event.currentTarget).addClass("active_chat");
+    var element = event.currentTarget;
+    //var sender = $(element).find("img").attr("alt");
+        var messages = @Model.ToList();
+        var templateWithData = Mustache.to_html($("#templateMessages").html(), { Messages:messages});
+    $("#msgHistory").empty();
+    $("#msgHistory").html('<h1>hello</h1>');
+    });
+
+    </script>
+    @*renderPage();*@
+    @*@for (var i = Model.Count() - 1; i >= 0; i--) {
+        @if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name) && (Model.ElementAt(i).Sender.UserName == sender)) {
+                     <div class="incoming_msg">
+                         <div class="incoming_msg_img">
+                             <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                                  alt="@Model.ElementAt(i).Sender.UserName">
+                         </div>
+                         <div class="received_msg">
+                             <div class="received_withd_msg">
+                                 <p>
+                                     @Model.ElementAt(i).Content
+                                 </p>
+                                 <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                             </div>
+                         </div>
+                     </div>
+        } else if ((Model.ElementAt(i).Recipient.UserName == "farid") && (Model.ElementAt(i).Sender.UserName == User.Identity.Name))
+        {
+                     <div class="outgoing_msg">
+                         <div class="sent_msg">
+                             <p>
+                                 @Model.ElementAt(i).Content
+                             </p>
+                             <span class="time_date">@Model.ElementAt(i).MessageSent</span>
+                         </div>
+                     </div>
+        });*@
+
+
+
+}

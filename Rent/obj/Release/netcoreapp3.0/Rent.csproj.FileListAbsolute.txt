@@ -167,7 +167,6 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Rent.ViewModels.pdb
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csprojAssemblyReference.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\staticwebassets\Rent.StaticWebAssets.Manifest.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\staticwebassets\Rent.StaticWebAssets.xml
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.RazorAssemblyInfo.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.RazorAssemblyInfo.cs
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.AssemblyInfoInputs.cache
@@ -226,9 +225,11 @@ D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\serviceDependencies.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\serviceDependencies.RentTest - Web Deploy.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\RentTest - Web Deploy\mssql1.arm.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\RentTest - Web Deploy\profile.arm.json
-D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CoreCompileInputs.cache
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.genruntimeconfig.cache
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\serviceDependencies.Rent20200830183036 - Web Deploy.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\Rent20200830183036 - Web Deploy\mssql1.arm.json
 D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Properties\ServiceDependencies\Rent20200830183036 - Web Deploy\profile.arm.json
 D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Razor\Areas\Admin\Views\Home\Categories.cshtml.g.cs
+D:\VS\Rent\Rent\bin\Release\netcoreapp3.0\Mustache.dll
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.csproj.CoreCompileInputs.cache
+D:\VS\Rent\Rent\obj\Release\netcoreapp3.0\Rent.MvcApplicationPartsAssemblyInfo.cache

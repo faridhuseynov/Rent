@@ -446,6 +446,10 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
+            "Mustache": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            },
             "bootstrap": {
               "target": "Package",
               "version": "[4.4.1, )"

@@ -29,7 +29,7 @@ namespace Rent.Controllers
         [HttpGet]
         public async Task<IActionResult> Inbox()
         {
-            var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
             return View(messages.OrderByDescending(m => m.MessageSent));
         }
@@ -47,7 +47,7 @@ namespace Rent.Controllers
         public async Task<IEnumerable<Message>> MessageThread(string recipient, string sender)
         {
             ViewBag.Sender = sender;
-            var userFromRepo = userManager.FindByNameAsync(User.Identity.Name).Result;
+            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             var messages = userFromRepo.MessagesSent.Where(r => r.Recipient.Name == recipient);
             //var test = "";
             //for (int i = 0; i < messages.Count; i++)

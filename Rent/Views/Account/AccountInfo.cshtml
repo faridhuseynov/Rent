@@ -557,13 +557,12 @@
             event.preventDefault();
             var files = $("#image")[0].files;
             var formData = new FormData();
-            formData.append("file", files[0]);
-            console.log(files);
-            console.log(formData);
+            formData.append("image", files[0]);
+            console.log(formData["image"]);
             $.ajax({
                 type: "POST",
                 url: "/Account/ChangeProfilePicture",
-                data: { image: formData },
+                data: { image: formData.image },
                 processData: false,
                 contentType: false,
                 success: function () {
