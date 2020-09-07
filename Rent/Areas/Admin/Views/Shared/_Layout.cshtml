@@ -47,14 +47,13 @@
                             Dashboard
                         </a>
                         @*<div class="sb-sidenav-menu-heading">Interface</div>*@
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                            İstifadəçilər
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        <a class="nav-link collapsed" asp-area="" asp-controller="Messages" asp-action="Inbox" >
+                            <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
+                            Mesajlar
                         </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                        @*<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="layout-static.html">Static Navigation</a><a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a></nav>
-                        </div>
+                        </div>*@
                         <a class="nav-link collapsed" asp-area="Admin" asp-controller="Home" asp-action="Categories">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                             Categories

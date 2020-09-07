@@ -98,11 +98,23 @@
 </div>
 @section Scripts {
     <script>
+        //on loading of the messages page, the first active username is obtained and getMessageThread function is called
+        $(document).ready(function () { 
+            var sender = $(".active_chat").find("img").attr("alt");
+            getMessageThread(sender);
+        });
+
+        //once other messagebox clicked it obtains the username and calls the getMessageThread function
         $(".chat_list").on("click", function (event) {
             $(".active_chat").removeClass("active_chat");
             $(event.currentTarget).addClass("active_chat");
             var element = event.currentTarget;
             var sender = $(element).find("img").attr("alt");
+            getMessageThread(sender);
+        });
+
+        //function receives the name of the sender and gets the thread with this user
+        function getMessageThread(sender) {
             $.ajax({
                 url: "/Messages/_MessageThread",
                 method: "GET",
@@ -117,6 +129,6 @@
 
                 }
             });
-        });
+        }
     </script>
 }
