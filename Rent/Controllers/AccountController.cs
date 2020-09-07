@@ -306,7 +306,7 @@ namespace Rent.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ChangeProfilePicture(IFormFile image)
+        public async Task<string> ChangeProfilePicture(IFormFile image)
         {
 
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
@@ -322,7 +322,7 @@ namespace Rent.Controllers
                     }
                     catch (Exception ex)
                     {
-                        return BadRequest();
+                        return ex.Message;
                     }
 
                     if (fileName != null && fileName!="")
@@ -332,7 +332,7 @@ namespace Rent.Controllers
                     }
                 }
             }
-            return RedirectToAction("AccountInfo");
+            return fileName;
         }
 
         [HttpPost]
