@@ -21,6 +21,10 @@
     else if ((Model.ElementAt(i).Recipient.UserName == ViewBag.Sender) && (Model.ElementAt(i).Sender.UserName == ViewBag.Recipient))
     {
         <div class="outgoing_msg">
+            <div class="outgoing_msg_img">
+                <img src="~/Images/Users/@Model.ElementAt(i).Sender.MainProfilePicture"
+                     alt="@Model.ElementAt(i).Sender.UserName">
+            </div>
             <div class="sent_msg">
                 <p>
                     @Model.ElementAt(i).Content

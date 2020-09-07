@@ -24,16 +24,21 @@
                 </div>
                 <div class="inbox_chat">
                     @{
-                        string user = "";
+                        string currentUser = "";
+                        bool first = false;
+                        List<string> users=new List<string>();
+
                     }
                     @for (var i = 0; i < Model.Count(); i++)
                     {
+                        currentUser = Model.ElementAt(i).Sender.UserName;
+                        users.Contains(currentUser);
                         if ((Model.ElementAt(i).Recipient.UserName == User.Identity.Name)
-                            && (user != Model.ElementAt(i).Sender.UserName))
+                            && (!(users.Contains(currentUser))))
                         {
-                            user = Model.ElementAt(i).Sender.UserName;
+                            users.Add(currentUser);
                             <a href="#" class="msgArea">
-                                @if (i == 0)
+                                @if (!first)
                                 {
                                     <div class="chat_list active_chat">
                                         <div class="chat_people">
@@ -51,6 +56,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    first = true;                                    
                                 }
                                 else
                                 {
@@ -85,7 +91,7 @@
                 </div>
                 <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Type a message" />
+                        <textarea type="text" rows="5" class="write_msg"  placeholder="Type a message"></textarea>
                         <button class="msg_send_btn" type="button">
                             <i class="fa fa-paper-plane-o"
                                aria-hidden="true"></i>
@@ -130,5 +136,27 @@
                 }
             });
         }
+
+        $(".msg_send_btn").on("click",function () {
+            var message = $(".write_msg").val();
+            var recipient = $(".active_chat").find("img").attr("alt");
+            if (message != "") {
+                $.ajax({
+                    url: "/Messages/Create",
+                    method: "POST",
+                    data: {
+                        recipientUserName: recipient,
+                        content: message
+                    },
+                    success: function () {
+                        location.reload();
+
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+        })
     </script>
 }

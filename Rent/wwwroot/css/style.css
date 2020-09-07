@@ -79,6 +79,11 @@ Table OF Contents
     
 }
 
+.write_msg {
+    width:100%;
+    margin-top:2px;
+}
+
 body {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
