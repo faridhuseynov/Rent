@@ -136,6 +136,8 @@ namespace Rent.Controllers
                 return View();
             }
             await userManager.AddToRoleAsync(user, "User");
+            var token = userManager.GenerateEmailConfirmationTokenAsync(user);
+            var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
             await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }

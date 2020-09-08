@@ -18,7 +18,7 @@ namespace Rent.ServiceLayers
         IEnumerable<ProposalDetailsViewModel> GetProposals();
         IEnumerable<ProposalDetailsViewModel> GetProposalsByUserId(string UserId);
         Task<ProposalDetailsViewModel> GetProposalByProposalId(int ProposalID);
-        Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate); 
+        Task AcceptOrRejectProposal(int proposalId, int statusId, DateTime responseDate);
     }
     public class ProposalsService:IProposalsService
     {

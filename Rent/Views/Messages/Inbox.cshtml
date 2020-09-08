@@ -5,9 +5,9 @@
 }
 <link href="~/css/messageStyleSheet.css" rel="stylesheet" />
 <div class="container">
-    <a class="btn btn-info" id="inbox" disabled>Inbox</a>
-    <a class="btn btn-info" id="outbox" asp-action="Outbox" asp-controller="Messages">Outbox</a>
-    <a class="btn btn-info" id="unread" asp-action="" asp-controller="">Unread</a>
+    <!--<a class="btn btn-info" id="inbox" disabled>Inbox</a>-->
+    @*<a class="btn btn-info" id="outbox" asp-action="Outbox" asp-controller="Messages">Outbox</a>
+    <a class="btn btn-info" id="unread" asp-action="" asp-controller="">Unread</a>*@
     <div class="messaging">
         <div class="inbox_msg">
             <div class="inbox_people">
@@ -149,7 +149,8 @@
                         content: message
                     },
                     success: function () {
-                        location.reload();
+                        $(".write_msg").val("");
+                        getMessageThread(recipient);
 
                     },
                     error: function (err) {

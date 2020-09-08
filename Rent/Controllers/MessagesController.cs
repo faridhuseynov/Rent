@@ -60,6 +60,7 @@ namespace Rent.Controllers
             var sender = await userManager.FindByNameAsync(User.Identity.Name);
             var date = new DateTime();
             date = DateTime.UtcNow;
+            var newMessage = new Message();
             if (recipient!=null && sender!=null)
             {
                 var message = new Message
