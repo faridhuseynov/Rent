@@ -27,15 +27,18 @@
                         if (product.CategoryId == @item.Id)
                         {
                             <div class="prodcard card m-1">
-                                @if (product.MainPhotoUrl == null)
-                                {
-                                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="...">
+                                <div class="product-image-block">
+                                    @if (product.MainPhotoUrl == null)
+                                    {
+                                        <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="...">
 
-                                }
-                                else
-                                {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
-                                }         
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
+                                    }
+                                <a href="" class="changeBlockButton"><i class="fa fa-lock fa-2x product-block"></i></a>
+</div>
                             <div class="card-body">
                                 <input hidden value="@product.Id" />
                                 <h5 class="card-title">@product.ProductName</h5>
@@ -62,7 +65,7 @@
 
                                 <a asp-area="" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"></i> Dəyişdir</a>
                                 <a href="" class="btn btn-danger deleteButton"><i class="fa fa-trash"></i> Sil</a>
-                                <a href="" class="btn btn-success changeBlockButton"><i class="fa fa-unlock"></i> Block et</a>
+                                @*<a href="" class="btn btn-success changeBlockButton"><i class="fa fa-unlock"></i> Block et</a>*@
                                 @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
                             </div>
                             </div>
@@ -94,9 +97,13 @@
 
         $(".changeBlockButton").click(function (event) {
             event.preventDefault();
-            let element = event.target.parentElement.parentElement;
+            let element = event.target.parentElement.parentElement.parentElement.parentElement;
+            console.log(element);
             //$(element).find(".lock").addClass("lockremove-animation");
             //$(element).find(".lock-top").addClass("lockopen-animation");
+
+
+
             var id = $(element).find(".card-body").find("input").val();
             $.ajax({
                 type: "POST",

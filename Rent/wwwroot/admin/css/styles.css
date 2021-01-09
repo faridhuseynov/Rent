@@ -17,6 +17,17 @@
 
 */
 
+.product-image-block {
+    position:relative;
+}
+
+.product-block {
+    position: absolute;
+    left: 270px;
+    top: 10px;
+    color:#edbd2d;
+}
+
 .lock-bottom {
     position: absolute;
     margin: 75px;
@@ -63,6 +74,10 @@
 
 .lock {
     margin:0px 0 0 80px;
+}
+
+.lock:hover {
+    cursor:pointer;
 }
 
 .lockopen-animation {
