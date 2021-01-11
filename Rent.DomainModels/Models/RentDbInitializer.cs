@@ -37,23 +37,23 @@ namespace Rent.DomainModels.Models
                     await roleManager.CreateAsync(new IdentityRole { Name = "User" });
                     
                 }
-                if(!await context.ProposalTypes.ContainsAsync(new ProposalType { Type = "Sell" }))
+                if (!await context.ProposalTypes.AnyAsync(p=>p.Type=="Sell"))
                 {
                     await context.ProposalTypes.AddAsync(new ProposalType { Type = "Sell" });
                 }
-                if(!await context.ProposalTypes.ContainsAsync(new ProposalType { Type = "Rent" }))
+                if(!await context.ProposalTypes.AnyAsync(p=>p.Type == "Rent"))
                 {
                     await context.ProposalTypes.AddAsync(new ProposalType { Type = "Rent" });
                 }    
-                if(!await context.ProposalStatuses.ContainsAsync(new ProposalStatus { StatusName = "Open" }))
+                if(!await context.ProposalStatuses.AnyAsync(s=>s.StatusName== "Open" ))
                 {
                     await context.ProposalStatuses.AddAsync(new ProposalStatus { StatusName = "Open" });
                 }
-                if (!await context.ProposalStatuses.ContainsAsync(new ProposalStatus { StatusName = "Closed" }))
+                if (!await context.ProposalStatuses.AnyAsync(s => s.StatusName == "Closed"))
                 {
                     await context.ProposalStatuses.AddAsync(new ProposalStatus { StatusName = "Closed" });
                 }
-                if (!await context.ProposalStatuses.ContainsAsync(new ProposalStatus { StatusName = "Rejected" }))
+                if (!await context.ProposalStatuses.AnyAsync(s => s.StatusName == "Rejected"))
                 {
                     await context.ProposalStatuses.AddAsync(new ProposalStatus { StatusName = "Rejected" });
                 }
