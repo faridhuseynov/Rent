@@ -1,0 +1,16 @@
+﻿@model IEnumerable<WishListProduct>
+
+@{
+    ViewData["Title"] = "Wishlist";
+    //Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wishlist</h2>
+
+@foreach (var product in Model)
+{
+    <p>@product.Product.ProductName</p>
+    <p>@product.Product.ProductDescription</p>
+    <p>@product.Product.User.Name</p>
+}
+

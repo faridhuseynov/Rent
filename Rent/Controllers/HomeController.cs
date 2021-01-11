@@ -203,6 +203,18 @@ namespace Rent.Controllers
 
         }
 
+        public async Task<IActionResult> Wishlist(string userName)
+        {
+            var user = await userManager.FindByNameAsync(userName);
+            if (user != null)
+            {
+                var products = user.WishList.ToList();
+                return View(products);
+            }
+
+            return BadRequest();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

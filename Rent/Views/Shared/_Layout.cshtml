@@ -108,7 +108,7 @@
                             @if (User.Identity.IsAuthenticated == true)
                             {
                                 <div>
-                                    <a href="#">
+                                    <a asp-area="" asp-controller="Home" asp-action="Wishlist" asp-route-userName="@User.Identity.Name">
                                         <i class="fa fa-heart"></i>
                                         <span>Your Wishlist</span>
                                         <div id="wishListCount" class="qty" hidden></div>
