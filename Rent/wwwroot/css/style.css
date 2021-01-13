@@ -54,6 +54,7 @@ Table OF Contents
 /*----------------------------*\
 	Typography
 \*----------------------------*/
+
 .card-text{
     white-space:nowrap;
     overflow:hidden;
@@ -64,6 +65,12 @@ Table OF Contents
     height:15vw;
     object-fit:fill;
     width:auto;
+    transition:transform 0.5s;
+}
+
+.card-photo:hover{
+    transform:scale(1.1);
+    opacity:0.5;
 }
 
 .responsive{
@@ -83,6 +90,37 @@ Table OF Contents
     width:100%;
     margin-top:2px;
 }
+
+/*for the heart on the wishlist product*/
+.wish-heart {
+    color:red;
+    position:absolute;
+    left:190px;
+    top:10px;
+}
+
+.wish-heart:hover {
+    cursor:pointer;
+}
+
+.favorite-product-removed {
+    animation-name: remove;
+    animation-duration: 2s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes remove {
+    0% {
+        opacity:1;
+    }
+
+    100% {
+        opacity: 0;
+        
+    }
+}
+
+
 
 body {
     font-family: 'Montserrat', sans-serif;
