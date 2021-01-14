@@ -12,25 +12,17 @@ namespace Rent.ViewComponents
 {
     public class SearchBarViewComponent:ViewComponent
     {
+        private readonly ICategoriesService cs;
+
+        public SearchBarViewComponent(ICategoriesService cs)
+        {
+            this.cs = cs;
+        }
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            //List<Category> categories =null;
-            //try
-            //{
-            //    var json = HttpContext.Session.GetString("categories");
-            //    categories = JsonConvert.DeserializeObject<List<Category>>(json);
-            //}
-            //catch (Exception)
-            //{
-
-            //}
-            //ViewBag.Categories = categories;
-            List<string> list = new List<string>();
-            list.Add("First");
-            list.Add("Second");
-            list.Add("Third");
-            ViewBag.Categories = list;
-            return View();
+            IEnumerable<Category> list;
+            list = await cs.GetCategories();
+            return View(list);
         }
     }
 }
