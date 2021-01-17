@@ -84,6 +84,7 @@ namespace Rent.Repositories
                 updatedProduct.MinLendDays = product.MinLendDays;
                 updatedProduct.CategoryId = product.CategoryId;
                 updatedProduct.Blocked = product.Blocked;
+                updatedProduct.TotalAmount = product.TotalAmount;
                 await db.SaveChangesAsync();
             }
         }

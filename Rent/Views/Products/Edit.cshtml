@@ -95,6 +95,11 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="TotalAmount" class="control-label">Say (Ədəd)</label>
+                <input asp-for="TotalAmount" class="form-control" id="totalAmountInput" min="1"/>
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SellPrice" class="control-label">Satış Qiyməti (AZN)</label>
                 <input asp-for="SellPrice" class="form-control" id="sellInput" />
                 <span asp-validation-for="SellPrice" class="text-danger"></span>

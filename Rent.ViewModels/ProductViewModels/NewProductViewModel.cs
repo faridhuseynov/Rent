@@ -17,6 +17,9 @@ namespace Rent.ViewModels.ProductViewModels
 
         public bool Sell { get; set; }
         public bool Lend { get; set; }
+        public int TotalAmount { get; set; }
+        public int AvailableCurrently { get; set; }
+
     }
 }
 

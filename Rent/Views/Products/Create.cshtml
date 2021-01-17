@@ -34,6 +34,11 @@
                 </label>
             </div>
             <div class="form-group">
+                <label asp-for="TotalAmount" class="control-label">Say (Ədəd)</label>
+                <input asp-for="TotalAmount" class="form-control" placeholder="1" min="1" id="countInput" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="SellPrice" class="control-label">Satış Qiyməti (AZN)</label>
                 <input asp-for="SellPrice" class="form-control" disabled id="sellInput" />
                 <span asp-validation-for="SellPrice" class="text-danger"></span>
@@ -47,7 +52,6 @@
                 <label asp-for="MinLendDays" class="control-label">Minimal Kirayə Müddəti (GÜN)</label>
                 <input asp-for="MinLendDays" min="1" class="form-control" disabled id="lendDaysInput" />
                 <span asp-validation-for="MinLendDays" class="text-danger"></span>
-
             </div>
             <div class="form-group" hidden>
                 <label asp-for="UserId" class="control-label"></label>
@@ -59,10 +63,10 @@
             </div>
             <div class="form-group">
                 <label class="control-label">Şəkil əlavə et</label>
-                    <div class="custom-file">
-                        <input class="custom-file-input" type="file" name="images" id="images" multiple="multiple">
-                        <label class="custom-file-label" for="images">File seç</label>
-                    </div>
+                <div class="custom-file">
+                    <input class="custom-file-input" type="file" name="images" id="images" multiple="multiple">
+                    <label class="custom-file-label" for="images">File seç</label>
+                </div>
             </div>
             <div class="form-group">
                 <input type="submit" value="Yarat" class="btn btn-default" />

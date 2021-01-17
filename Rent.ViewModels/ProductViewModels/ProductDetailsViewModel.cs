@@ -30,6 +30,7 @@ namespace Rent.ViewModels.ProductViewModels
         public virtual ICollection<Rate> Rates { get; set; }
         public double AverageRate { get; set; }
         public int AvailableCurrently { get; set; }
+        public int TotalAmount { get; set; }
 
     }
 }

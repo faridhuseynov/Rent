@@ -84,8 +84,9 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
+        public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,TotalAmount, ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
+            newProductViewModel.AvailableCurrently = newProductViewModel.TotalAmount;
             string fileName = "";
             var fileNames = new List<string>();
             if (ModelState.IsValid)
@@ -149,7 +150,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] ProductDetailsViewModel product)
+        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,TotalAmount,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] ProductDetailsViewModel product)
         {
             if (ModelState.IsValid)
             {
