@@ -29,6 +29,8 @@ namespace Rent.DomainModels.Models
         public virtual ICollection<Rate> Rates { get; set; }
         public double AverageRate { get; set; }
         public bool Blocked { get; set; }
+        public int TotalAmount { get; set; }
+        public int AvailableCurrently { get; set; }
 
     }
 }

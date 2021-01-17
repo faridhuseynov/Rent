@@ -65,11 +65,20 @@
                     <h3>Məhsulun sahibi: @Model.User.Name</h3>
                     <div>
                         <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
+                            @{
+                                int starCount = 0;
+                                while (starCount < Model.AverageRate)
+                                {
+                                    <i class="fa fa-star"></i>
+                                    ++starCount;
+                                }
+                                while (starCount < 5)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                    ++starCount;
+                                }
+
+                            }
                         </div>
                         <a class="review-link" href="#reviews">@Model.Rates.Count Review(s) | Add your review</a>
                     </div>
@@ -90,10 +99,13 @@
                     {
                         <div id="sellConditions">
                             <label>Satış qiyməti:</label>
-
                             <h3 class="product-price">@Model.SellPrice <span>AZN</span></h3>
                         </div>
                     }
+                <div>
+                    <h3 style="color:darkorange">In Stock: @Model.AvailableCurrently</h3>
+
+                </div>
                     <p>@Model.ProductDescription</p>
                     <form method="post">
                         <input hidden name="Id" value="@Model.Id" />
@@ -122,6 +134,12 @@
                                     <span class="qty-down">-</span>
                                 </div>
                                 <label id="priceType">azn</label>
+                                <div class="input-number">
+                                    <input type="number" name="ProposedAmount" id="proposedAmount" value="0" min="1">
+                                    <span class="qty-up">+</span>
+                                    <span class="qty-down">-</span>
+                                </div>
+                                <label id="priceType">ədəd</label>
                             </div>
                             @*add-to-cart-btn*@
                             @{
@@ -131,7 +149,7 @@
                                     check = true;
                                 }
 
-                                <button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
+                                <button style="margin-top:5px" asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
                                         class="@(check == true ? "add-to-cart-btn" : "btn btn - light disabled")">
                                     <i class="fa fa-shopping-cart"></i> send proposal
                                 </button>
