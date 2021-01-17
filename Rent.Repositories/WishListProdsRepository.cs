@@ -14,7 +14,9 @@ namespace Rent.Repositories
 
         Task DeleteProduct(WishListProduct wishListProduct);
 
-        Task<IEnumerable<WishListProduct>> GetWishListProducts();
+        Task<IEnumerable<WishListProduct>> GetAllWishListProducts();
+
+        Task<IEnumerable<WishListProduct>> GetWishListProducts(string userName);
     }
     public class WishListProdsRepository : IWishListProdsRepository
     {
@@ -36,9 +38,14 @@ namespace Rent.Repositories
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<WishListProduct>> GetWishListProducts()
+        public async Task<IEnumerable<WishListProduct>> GetAllWishListProducts()
         {
             return await dbContext.WishListProducts.ToListAsync();
+        }
+
+        public async Task<IEnumerable<WishListProduct>> GetWishListProducts(string userName)
+        {
+            return await dbContext.WishListProducts.Where(u=>u.User.UserName==userName).ToListAsync();
         }
 
     }

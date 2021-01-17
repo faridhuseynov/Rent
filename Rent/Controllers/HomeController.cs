@@ -104,7 +104,7 @@ namespace Rent.Controllers
                 ViewBag.ProposalTypes = proposalTypes;
                 //ViewBag.ProposalTypes = product.p;
 
-                var result = await wishListProdsRepository.GetWishListProducts();
+                var result = await wishListProdsRepository.GetAllWishListProducts();
                 ViewBag.Wish = result.ToList().FirstOrDefault(
                     w => w.ProductId == Id && w.UserId == UserId);
                 return View(product);
@@ -164,7 +164,7 @@ namespace Rent.Controllers
             var _buyer = await userManager.FindByNameAsync(buyer);
             if (_buyer != null)
             {
-                var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
+                var wishCheck =  wishListProdsRepository.GetAllWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
                 if (wishCheck == null)
                     await wishListProdsRepository.InsertProduct(new WishListProduct { ProductId = productId, UserId = _buyer.Id });
             }
@@ -177,7 +177,7 @@ namespace Rent.Controllers
             var _buyer = await userManager.FindByNameAsync(buyer);
             if (_buyer != null)
             {
-                var wishCheck = wishListProdsRepository.GetWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
+                var wishCheck = wishListProdsRepository.GetAllWishListProducts().Result.FirstOrDefault(w => w.ProductId == productId && w.UserId == _buyer.Id);
                 if (wishCheck != null)
                     await wishListProdsRepository.DeleteProduct(wishCheck);
             }

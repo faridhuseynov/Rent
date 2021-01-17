@@ -16,6 +16,7 @@ namespace Rent.Repositories
         Task<int> AddMessage(Message message);
         Task DeleteMessage(int messageId);
         Task<IEnumerable<Message>> GetMessagesForUser(string userId);
+        Task<int> GetUnreadInboxMessagesCount(string userId);
         Task<IEnumerable<Message>> GetMessageThread(string senderId, string recipientId);
         Task MarkMessageAsRead(int messageId);
         //int GetUserMessagesCount(string recipientId);
@@ -54,6 +55,10 @@ namespace Rent.Repositories
         public async Task<IEnumerable<Message>> GetMessagesForUser(string userId)
         {
             return db.Messages.Where(m => m.SenderId == userId || m.RecipientId == userId);
+        }
+        public async Task<int> GetUnreadInboxMessagesCount(string userId)
+        {
+            return await db.Messages.Where(m => m.Recipient.Id == userId && m.IsRead == false).CountAsync();
         }
 
         public async Task<IEnumerable<Message>> GetMessageThread(string userId, string recipientId)

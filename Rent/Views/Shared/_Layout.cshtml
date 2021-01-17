@@ -107,21 +107,9 @@
                             <!-- Wishlist -->
                             @if (User.Identity.IsAuthenticated == true)
                             {
-                                <div>
-                                    <a asp-area="" asp-controller="Home" asp-action="Wishlist" asp-route-userName="@User.Identity.Name">
-                                        <i class="fa fa-heart"></i>
-                                        <span>Your Wishlist</span>
-                                        <div id="wishListCount" class="qty"></div>
-                                    </a>
-                                </div>
-                                <div>
-                                    <a href="/messages/inbox">
-                                        <i class="fa fa-envelope"></i>
-                                        <span id="messagesTitle">Messages</span>
-                                        <div id="messsageListCount" class="qty" hidden></div>
-                                    </a>
-                                </div>
+                                @await Component.InvokeAsync("Wishlist", new { userName = User.Identity.Name });
 
+                                @await Component.InvokeAsync("Messages", new { userName = User.Identity.Name });
                             }
                             <!-- /Wishlist -->
                             <!-- Menu Toogle -->
