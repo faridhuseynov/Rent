@@ -41,6 +41,7 @@
                                 @if (!first)
                                 {
                                     <div class="chat_list active_chat">
+                                        <input id="activeUser" value="@Model.ElementAt(i).Sender.Id" hidden />
                                         <div class="chat_people">
                                             <div class="chat_img">
                                                 <a asp-controller="Account" asp-action="Profile" asp-route-username="@Model.ElementAt(i).Sender.UserName">
