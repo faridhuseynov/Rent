@@ -522,7 +522,9 @@ textarea.input {
 }
 
 .header-logo {
-  float: left;
+    align-items: flex-start;
+    display: flex;
+    float: left;
 }
 
 .header-logo .logo img {

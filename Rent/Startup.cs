@@ -13,6 +13,7 @@ using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
 using Microsoft.AspNetCore.Identity;
+using Rent.ServiceLayers.Hubs;
 
 namespace Rent
 {
@@ -120,7 +121,8 @@ namespace Rent
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                endpoints.MapHub<HubService>("/hubService");
+                //endpoints.MapHub<HubService>("/home/messages/inbox");
+                endpoints.MapHub<ChatServiceHub>("/chatHub");
 
             });
 

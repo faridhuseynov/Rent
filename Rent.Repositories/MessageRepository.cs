@@ -26,13 +26,11 @@ namespace Rent.Repositories
     {
         private readonly AppDbContext db;
         private readonly IConfiguration configuration;
-        private readonly IHubContext<HubService> hub;
         private readonly string connection;
-        public MessageRepository(AppDbContext dbContext, IConfiguration configuration, IHubContext<HubService> hub)
+        public MessageRepository(AppDbContext dbContext, IConfiguration configuration)
         {
             this.db = dbContext;
             this.configuration = configuration;
-            this.hub = hub;
             connection = this.configuration.GetConnectionString("DefaultConnection");
         }
 
@@ -77,43 +75,6 @@ namespace Rent.Repositories
                 message.IsRead = true;
                 await db.SaveChangesAsync();
             }
-        }
-        public void GetUserMessagesCount(string recipientId)
-        {
-            var messagesCount = "";
-
-            using (SqlConnection conn = new SqlConnection(connection))
-            {
-                conn.Open();
-
-                SqlDependency.Start(connection);
-                string command = $"select COUNT(RecipientId) as response from dbo.Messages where RecipientId Like '{recipientId}'";
-                using (SqlCommand cmd = new SqlCommand(command, conn))
-                {
-                    SqlDependency dependency = new SqlDependency(cmd);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            messagesCount = reader["response"].ToString();
-                        }
-                        reader.Close();
-                    }
-                    OnChangeEventHandler handler = new OnChangeEventHandler((sender, args) =>
-                     {
-                         //string userId = recipientId;
-                         //hub.Clients.User(recipientId).SendAsync("updateMessagesCount");
-                         dbChangeNotification(recipientId, messagesCount);
-                     });
-                    dependency.OnChange += handler;
-                }
-            }
-             int.Parse(messagesCount);
-        }
-        private void dbChangeNotification(string recipientId, string messageCount)
-        {
-            hub.Clients.User(recipientId).SendAsync("updateMessagesCount",recipientId,messageCount);
-            //hub.Invoke("MessageCount");
         }
     }
 }
