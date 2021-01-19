@@ -5,27 +5,34 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
+var otherUserId = $("#activeUser").val();
+var myId = $("#recipientUser").val();
 
-connection.on("ReceiveMessage", function (message) {
-    var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    var li = document.createElement("li");
-    li.textContent = msg;
+connection.on("ReceiveMessage", function (sender, message) {
+    if (sender == otherUserId) {
 
-    //var div = document.createElement(
-    //    <div class="incoming_msg">
-    //        <div class="received_msg">
-    //            <div class="received_withd_msg">
-    //                <p>
-    //                    hello
-    //                    </p>
-    //                <span class="time_date">2-Jan-2021</span>
-    //            </div>
-    //        </div>
-    //    </div>
-    //)
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var li = document.createElement("li");
+        li.textContent = msg;
 
-    document.getElementById("msgHistory").appendChild(li);
-    console.log(li);
+        //var div = document.createElement(
+        //    <div class="incoming_msg">
+        //        <div class="received_msg">
+        //            <div class="received_withd_msg">
+        //                <p>
+        //                    hello
+        //                    </p>
+        //                <span class="time_date">2-Jan-2021</span>
+        //            </div>
+        //        </div>
+        //    </div>
+        //)
+
+        document.getElementById("msgHistory").appendChild(li);
+        console.log(li);
+        $("#msgHistory").scrollTop($("#msgHistory")[0].scrollHeight);
+
+    }
 });
 
 connection.start().then(function () {
@@ -54,9 +61,8 @@ document.getElementById("sendButton").addEventListener("click", function (event)
                 console.log(err);
             }
         });
-        var recipientId = $("#activeUser").val();
-        console.log(recipientId);
-        connection.invoke("SendPrivateMessage", recipientId, message).catch(function (err) {
+        console.log(otherUserId);
+        connection.invoke("SendPrivateMessage", myId, otherUserId, message).catch(function (err) {
             return console.error(err.toString());
         });
         event.preventDefault();

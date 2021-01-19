@@ -8,10 +8,10 @@ namespace Rent.ServiceLayers.Hubs
 {
     public class ChatServiceHub:Hub
     {
-        public async Task SendPrivateMessage(string recipient, string message)
+        public async Task SendPrivateMessage(string sender, string recipient, string message)
         {
             //to be changed for only 2 people, currently sends to everybody
-            await Clients.All.SendAsync("ReceiveMessage", message);
+            await Clients.User(recipient).SendAsync("ReceiveMessage", sender, message);
         }
     }
 }
