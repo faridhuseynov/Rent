@@ -70,7 +70,8 @@ namespace Rent.Controllers
             }
             if (User.Identity.IsAuthenticated==true)
             {
-                products = products.Where(o => o.User.UserName != User.Identity.Name);
+                //products = products.Where(o => o.User.UserName != User.Identity.Name);
+                //ViewBag.MyProducts = products.Where(o => o.User.UserName == User.Identity.Name);
             }
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(products.Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             ViewBag.NoOfPages = NoOfPages;

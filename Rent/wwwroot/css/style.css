@@ -55,6 +55,24 @@ Table OF Contents
 	Typography
 \*----------------------------*/
 
+.own-product-label {
+    height:18px;
+    padding:0;
+    width:150px;
+    position:absolute;
+    left:-35px;
+    top:35px;
+    background-color:darkorange;
+    font-size:15px;
+    font-weight:bold;
+    color:white;
+    transform:rotate(-45deg);
+    text-align:center;
+    margin:0;
+    z-index:1;
+
+}
+
 .card-text{
     white-space:nowrap;
     overflow:hidden;
@@ -62,6 +80,7 @@ Table OF Contents
 }
 
 .card-photo {
+    position:relative;
     height:15vw;
     object-fit:fill;
     width:auto;

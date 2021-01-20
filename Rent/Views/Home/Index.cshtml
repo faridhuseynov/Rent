@@ -17,45 +17,88 @@
                 <p class="alert alert-success" id="successMessage">@TempData["Success"]</p>
             }
             <div class="row" style="height:auto">
-
                 @foreach (var product in Model)
                 {
-                    <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
-                        @if (product.MainPhotoUrl == null)
-                        {
-                            <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />
-                        }
-                        else
-                        {
-                            <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
-                        }
-                        <div class="card-body">
-                            <h5 class="card-title">@product.ProductName</h5>
-                            <p class="card-text">@product.ProductDescription</p>
-                            @if (product.Sell == true)
+                    if (User.Identity.IsAuthenticated == true && product.User.UserName == User.Identity.Name)
+                    {
+                        <div class="card m-1 own-product" style="width: 23rem;overflow:hidden; white-space:nowrap;">
+                            <div class="own-product-label">own product</div>
+                            @if (product.MainPhotoUrl == null)
                             {
-                                <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />
                             }
                             else
                             {
-                                <h6 class="text-success">Satış: <span>❌</span></h6>
+                                <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text">@product.ProductDescription</p>
+                                @if (product.Sell == true)
+                                {
+                                    <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-success">Satış: <span>❌</span></h6>
 
-                            }
-                            @if (product.Lend == true)
-                            {
-                                <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                            }
-                            else
-                            {
-                                <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                                }
+                                @if (product.Lend == true)
+                                {
+                                    <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-warning">Kirayə: <span>❌</span></h6>
 
-                            }
-                            <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.User.UserName"><h6>Məhsul sahibi: @product.User.UserName</h6></a>
-                            <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                                }
+                                <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.User.UserName"><h6>Məhsul sahibi: <u>@product.User.UserName</u></h6></a>
+                                <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary disabled"><i class="fa fa-edit"> Təklif göndər</i></a>
+                            </div>
                         </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
+                            @if (product.MainPhotoUrl == null)
+                            {
+                                <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />
+                            }
+                            else
+                            {
+                                <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="card-text">@product.ProductDescription</p>
+                                @if (product.Sell == true)
+                                {
+                                    <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-success">Satış: <span>❌</span></h6>
+
+                                }
+                                @if (product.Lend == true)
+                                {
+                                    <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                }
+                                else
+                                {
+                                    <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+
+                                }
+                                <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.User.UserName"><h6>Məhsul sahibi: @product.User.UserName</h6></a>
+                                <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                            </div>
+                        </div>
+                    }
+
+
                 }
             </div>
+
             <nav aria-label="...">
                 <ul class="pagination">
                     @if (@ViewBag.PageNo == 1)
@@ -109,17 +152,11 @@
                 </ul>
             </nav>
         </div>
-
     </div>
-</div>
 
-@section Scripts
+    @section Scripts
 {
-    <script>
+        <script>
 
-    </script>
-}
-
-
-
-
+        </script>
+    }
