@@ -43,6 +43,7 @@
                                     <div class="chat_list active_chat">
                                         <input id="activeUser" value="@Model.ElementAt(i).Sender.Id" hidden />
                                         <input id="recipientUser" value="@Model.ElementAt(i).Recipient.Id" hidden />
+                                        <input id="userName" value="@Model.ElementAt(i).Recipient.UserName" hidden />
                                         <div class="chat_people">
                                             <div class="chat_img">
                                                 <a asp-controller="Account" asp-action="Profile" asp-route-username="@Model.ElementAt(i).Sender.UserName">
@@ -89,8 +90,8 @@
 
                     @*being processed by the partial view*@
 
-
                 </div>
+
                 <div class="type_msg">
                     <div class="input_msg_write">
                         <textarea type="text" rows="5" class="write_msg" placeholder="Type a message"></textarea>
@@ -105,8 +106,6 @@
     </div>
 </div>
 @section Scripts {
-    <script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/chat.js"></script>
 
     <script>
         //on loading of the messages page, the first active username is obtained and getMessageThread function is called
@@ -164,4 +163,8 @@
         //    }
         //})
     </script>
+
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    @*<script src="~/js/chatTypingNotification.js"></script>*@
 }

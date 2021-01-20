@@ -11,7 +11,18 @@ namespace Rent.ServiceLayers.Hubs
         public async Task SendPrivateMessage(string sender, string recipient, string message)
         {
             //to be changed for only 2 people, currently sends to everybody
-            await Clients.User(recipient).SendAsync("ReceiveMessage", sender, message);
+            await Clients.All.SendAsync("ReceivePrivateMessage", recipient, sender, message);
         }
+
+
+        public async Task SendTypingNotification(string sender, string recipient)
+        {
+            await Clients.All.SendAsync("ReceiveTypingNotification", sender, recipient);
+        }
+
+        //public async Task SendTypingNotification(string sender, string recipient)
+        //{
+        //    await Clients.User(recipient).SendAsync("ReceiveTypingNotification", sender, recipient);
+        //}
     }
 }
