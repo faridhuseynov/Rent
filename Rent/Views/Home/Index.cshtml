@@ -19,9 +19,17 @@
             <div class="row" style="height:auto">
                 @foreach (var product in Model)
                 {
+                    //to check whether there is available in owner's stock
+                    var stockCheck = product.AvailableCurrently;
+
+
                     if (User.Identity.IsAuthenticated == true && product.User.UserName == User.Identity.Name)
                     {
-                        <div class="card m-1 own-product" style="width: 23rem;overflow:hidden; white-space:nowrap;">
+                        <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
+                            @if (product.AvailableCurrently == 0)
+                            {
+                                <div class="unavailable-product">SOLD OR RENTED</div>
+                            }
                             <div class="own-product-label">own product</div>
                             @if (product.MainPhotoUrl == null)
                             {
@@ -60,6 +68,10 @@
                     else
                     {
                         <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
+                            @if (product.AvailableCurrently == 0)
+                            {
+                                <div class="unavailable-product">SOLD OR RENTED</div>
+                            }
                             @if (product.MainPhotoUrl == null)
                             {
                                 <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />

@@ -85,7 +85,7 @@
                         </div>
                     }
                 <div>
-                    <h3 style="color:darkorange">In Stock: @Model.AvailableCurrently</h3>
+                    <h3 style="color:darkorange">In Stock: <span id="availableCount">@Model.AvailableCurrently</span></h3>
 
                 </div>
                     <p>@Model.ProductDescription</p>
@@ -112,14 +112,14 @@
                             <div class="qty-label">
                                 <div class="input-number">
                                     <input type="number" name="ProposedPrice" id="proposedPrice" value="0" min="1">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
+                                    <span id="priceUp" class="qty-up">+</span>
+                                    <span id="priceDown" class="qty-down">-</span>
                                 </div>
                                 <label id="priceType">azn</label>
                                 <div class="input-number">
-                                    <input type="number" name="ProposedAmount" id="proposedAmount" value="0" min="1">
-                                    <span class="qty-up">+</span>
-                                    <span class="qty-down">-</span>
+                                    <input type="number" name="ProposedAmount" id="proposedAmount" value="0" min="1" max="@Model.AvailableCurrently">
+                                    <span id="quantityUp"class="qty-up">+</span>
+                                    <span id="quantityDown"class="qty-down">-</span>
                                 </div>
                                 <label id="priceType">ədəd</label>
                             </div>
@@ -369,7 +369,10 @@
 
         $(document).ready(function () {
             proposalTypeChange();
-
+            var check = $("#availableCount").text();
+            check > 0 ? sendProposalCheck(true) : sendProposalCheck(false);
+            //sendProposalCheck();
+            
         });
 
 
@@ -444,15 +447,27 @@
 
         };
 
-        $(".qty-up").click(function () {
+        $("#priceUp").click(function () {
             var val = parseInt($('#proposedPrice').val()) + 1;
             $('#proposedPrice').val(val);
         });
 
-        $(".qty-down").click(function () {
+        $("#priceDown").click(function () {
             var val = parseInt($('#proposedPrice').val());
             if (val != 0)
                 $('#proposedPrice').val(val - 1);
+
+        });
+
+        $("#quantityUp").click(function () {
+            var val = parseInt($('#proposedAmount').val()) + 1;
+            $('#proposedAmount').val(val);
+        });
+
+        $("#quantityDown").click(function () {
+            var val = parseInt($('#proposedAmount').val());
+            if (val != 0)
+                $('#proposedAmount').val(val - 1);
 
         });
 

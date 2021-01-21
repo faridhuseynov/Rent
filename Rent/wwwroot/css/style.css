@@ -1,78 +1,3 @@
-/*
-Template Name: Electro - HTML Ecommerce Template
-Author: yaminncco
-
-Colors:
-	Body 		: #333
-	Headers 	: #2B2D42
-	Primary 	: #D10024
-	Dark 		: #15161D ##1E1F29
-	Grey 		: #E4E7ED #FBFBFC #8D99AE #B9BABC
-
-Fonts: Montserrat
-
-Table OF Contents
-------------------------------------
-1 > GENERAL
------- Typography
------- Buttons
------- Inputs
------- Sections
------- Breadcrumb
-2 > HEADER
------- Top header
------- Logo
------- Search
------- Cart
-3 > NAVIGATION
------- Main nav
------- Responsive Nav
-4 > CATEGORY SHOP
-5 > HOT DEAL
-6 > PRODUCT
------- Product
------- Widget product
------- Product slick
-7 > STORE PAGE
------- Aside
------- Store
-8 > PRODUCT DETAILS PAGE
------- Product view
------- Product details
------- Product tab
-9 > CHECKOUT PAGE
-10 > NEWSLETTER
-11 > FOOTER
-11 > SLICK STYLE
-12 > RESPONSIVE
-------------------------------------*/
-
-/*=========================================================
-	01 -> GENERAL
-===========================================================*/
-
-/*----------------------------*\
-	Typography
-\*----------------------------*/
-
-.own-product-label {
-    height:18px;
-    padding:0;
-    width:150px;
-    position:absolute;
-    left:-35px;
-    top:35px;
-    background-color:darkorange;
-    font-size:15px;
-    font-weight:bold;
-    color:white;
-    transform:rotate(-45deg);
-    text-align:center;
-    margin:0;
-    z-index:1;
-
-}
-
 .card-text{
     white-space:nowrap;
     overflow:hidden;
@@ -97,6 +22,38 @@ Table OF Contents
     max-width:100%;
 }
 
+.own-product-label {
+    height:18px;
+    padding:0;
+    width:150px;
+    position:absolute;
+    left:-35px;
+    top:35px;
+    background-color:darkorange;
+    font-size:15px;
+    font-weight:bold;
+    color:white;
+    transform:rotate(-45deg);
+    text-align:center;
+    margin:0;
+    z-index:1;
+}
+
+.unavailable-product {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 40px;
+    width:100%;
+    background-color: #ec4646;
+    color:white;
+    position:absolute;
+    top:140px;
+    opacity:0.7;
+    text-align: center;
+    border:solid 1px gray;
+    z-index:2;
+}
 .carousel-card{
     height:200px;
     width:auto;
