@@ -42,8 +42,8 @@
                 </div>
             }
             <div class="form-group">
-                <label asp-for="ProposedAmount" class="control-label">Ədəd <span style="color:darkslategrey">(In Stock: @Model.Product.AvailableCurrently)</span></label>
-                <input asp-for="ProposedAmount" class="form-control" min="1" max="@Model.Product.AvailableCurrently" />
+                <label asp-for="ProposedAmount" class="control-label">Ədəd <span style="color:darkslategrey">(In Stock: @(Model.Product.TotalAmount-Model.Product.CurrentlyRented))</span></label>
+                <input asp-for="ProposedAmount" class="form-control" min="1" max="@(Model.Product.TotalAmount-Model.Product.CurrentlyRented)" />
                 <span asp-validation-for="ProposedAmount" class="text-danger"></span>
             </div>
             <div class="form-group">

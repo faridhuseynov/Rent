@@ -20,13 +20,13 @@
                 @foreach (var product in Model)
                 {
                     //to check whether there is available in owner's stock
-                    var stockCheck = product.AvailableCurrently;
+                    var stockCheck = product.TotalAmount - product.CurrentlyRented;
 
 
                     if (User.Identity.IsAuthenticated == true && product.User.UserName == User.Identity.Name)
                     {
                         <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
-                            @if (product.AvailableCurrently == 0)
+                            @if (stockCheck == 0)
                             {
                                 <div class="unavailable-product">SOLD OR RENTED</div>
                             }
@@ -68,7 +68,7 @@
                     else
                     {
                         <div class="card m-1" style="width: 23rem;overflow:hidden; white-space:nowrap;">
-                            @if (product.AvailableCurrently == 0)
+                            @if (stockCheck == 0)
                             {
                                 <div class="unavailable-product">SOLD OR RENTED</div>
                             }

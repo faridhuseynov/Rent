@@ -191,7 +191,7 @@ namespace Rent.Controllers
             if (statusId==2)
             {
                var product = await productsService.GetProductByProductID(productId);
-                proposal.Product.AvailableCurrently = proposal.Product.AvailableCurrently - proposal.ProposedAmount;
+                proposal.Product.CurrentlyRented = proposal.Product.CurrentlyRented + proposal.ProposedAmount;
                 await productsService.UpdateProductDetails(product);
             }
             await proposalsService.AcceptOrRejectProposal(proposalId, statusId, responseDate);

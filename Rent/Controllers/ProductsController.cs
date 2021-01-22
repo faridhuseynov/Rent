@@ -86,7 +86,6 @@ namespace Rent.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,TotalAmount, ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
-            newProductViewModel.AvailableCurrently = newProductViewModel.TotalAmount;
             string fileName = "";
             var fileNames = new List<string>();
             if (ModelState.IsValid)
@@ -157,6 +156,7 @@ namespace Rent.Controllers
                 var checkProduct = await productsService.GetProductByProductID(product.Id);
                 if (checkProduct != null)
                 {
+                    
                     try
                     {
                         await productsService.UpdateProductDetails(product);

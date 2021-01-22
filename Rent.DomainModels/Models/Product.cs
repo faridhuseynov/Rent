@@ -30,7 +30,7 @@ namespace Rent.DomainModels.Models
         public double AverageRate { get; set; }
         public bool Blocked { get; set; }
         public int TotalAmount { get; set; }
-        public int AvailableCurrently { get; set; }
+        public int CurrentlyRented { get; set; }
 
     }
 }
