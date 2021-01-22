@@ -45,6 +45,7 @@ namespace Rent.Repositories
                 checkProposal.ProposedPrice = proposal.ProposedPrice;
                 checkProposal.ProposedRentStartDate = proposal.ProposedRentStartDate;
                 checkProposal.ProposedRentEndDate = proposal.ProposedRentEndDate;
+                checkProposal.ProposedAmount = proposal.ProposedAmount;
                 await db.SaveChangesAsync();
             }
         }

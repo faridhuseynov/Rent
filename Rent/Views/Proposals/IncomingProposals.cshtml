@@ -56,8 +56,8 @@
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
                         <label class="card-footer badge-info">Status: Açıq</label>
-                        <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2">Qəbul et</a>
-                        <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3">Rədd et</a>
+                        <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2" asp-route-productId="@item.ProductId">Qəbul et</a>
+                        <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3" asp-route-productId="@item.ProductId">Rədd et</a>
 
                     }
                     else if (item.ProposalStatus.StatusName == "Closed")

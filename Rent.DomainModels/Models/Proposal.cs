@@ -29,6 +29,7 @@ namespace Rent.DomainModels.Models
         public DateTime ProposedRentStartDate { get; set; }
         public DateTime ProposedRentEndDate { get; set; }
         public string ProposalMessage { get; set; }
+        public int ProposedAmount { get; set; }
 
 
     }

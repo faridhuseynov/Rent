@@ -42,6 +42,11 @@
                 </div>
             }
             <div class="form-group">
+                <label asp-for="ProposedAmount" class="control-label">Ədəd <span style="color:darkslategrey">(In Stock: @Model.Product.AvailableCurrently)</span></label>
+                <input asp-for="ProposedAmount" class="form-control" min="1" max="@Model.Product.AvailableCurrently" />
+                <span asp-validation-for="ProposedAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="ProposalMessage" class="control-label">Məhsul sahibinə təkliflə bağlı əlavə bilgi</label>
                 <textarea asp-for="ProposalMessage" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="ProposalMessage" class="text-danger"></span>

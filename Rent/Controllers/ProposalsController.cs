@@ -17,12 +17,15 @@ namespace Rent.Controllers
         private readonly AppDbContext _context;
         private readonly IProposalsService proposalsService;
         private readonly UserManager<User> userManager;
+        private readonly IProductsService productsService;
 
-        public ProposalsController(AppDbContext context,IProposalsService proposalsService, UserManager<User> userManager)
+        public ProposalsController(AppDbContext context,IProposalsService proposalsService, UserManager<User> userManager,
+            IProductsService productsService)
         {
             _context = context;
             this.proposalsService = proposalsService;
             this.userManager = userManager;
+            this.productsService = productsService;
         }
 
         // GET: Proposals
@@ -59,13 +62,6 @@ namespace Rent.Controllers
             //return View(await appDbContext.ToListAsync());
         }
 
-        public async Task<IActionResult> AcceptOrRejectProposal(int proposalId, int statusId)
-        {
-            var responseDate = new DateTime();
-            responseDate = DateTime.Now;
-            await proposalsService.AcceptOrRejectProposal(proposalId, statusId, responseDate);
-            return RedirectToAction("IncomingProposals", new { userName = User.Identity.Name });
-        }
         // GET: Proposals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -101,7 +97,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductId,ProposedPrice,OwnerId,BuyerId,ProposalStatus")] Proposal proposal)
+        public async Task<IActionResult> Create([Bind("Id,ProductId,ProposedPrice,OwnerId,BuyerId,ProposalStatus,ProposedAmount")] Proposal proposal)
         {
             if (ModelState.IsValid)
             {
@@ -138,7 +134,9 @@ namespace Rent.Controllers
                 ProposalType=proposal.ProposalType,
                 ProposalTypeId=proposal.ProposalTypeId,
                 Product =proposal.Product,
-                ProductId = proposal.ProductId
+                ProductId = proposal.ProductId,
+                ProposedAmount=proposal.ProposedAmount
+                
             };
             return View(proposalToEdit);
         }
@@ -183,6 +181,21 @@ namespace Rent.Controllers
         {
             await proposalsService.DeleteProposal(id);
             return RedirectToAction("OutgoingProposals", new { userName = User.Identity.Name });
+        }
+        public async Task<IActionResult> AcceptOrRejectProposal(int proposalId, int statusId, int productId)
+        {
+            var responseDate = new DateTime();
+            responseDate = DateTime.Now;
+            var proposal = await proposalsService.GetProposalByProposalId(proposalId);
+            //if the proposal is accepted the product.availableAmount should also be decreased
+            if (statusId==2)
+            {
+               var product = await productsService.GetProductByProductID(productId);
+                proposal.Product.AvailableCurrently = proposal.Product.AvailableCurrently - proposal.ProposedAmount;
+                await productsService.UpdateProductDetails(product);
+            }
+            await proposalsService.AcceptOrRejectProposal(proposalId, statusId, responseDate);
+            return RedirectToAction("IncomingProposals", new { userName = User.Identity.Name });
         }
 
         private bool ProposalExists(int id)

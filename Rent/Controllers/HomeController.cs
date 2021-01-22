@@ -115,7 +115,7 @@ namespace Rent.Controllers
         }
         [Authorize]
         public async Task<IActionResult> SendProposal(int Id, decimal proposedPrice,string proposalMessage,
-            string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate)
+            string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate, int proposedAmount)
         {
             var product = await ps.GetProductByProductID(Id);
             var _buyer = await userManager.FindByNameAsync(buyer);
@@ -152,6 +152,7 @@ namespace Rent.Controllers
                 //in the proposalstatus table the id = 1 is related to Open status
                 newProposal.ProposalStatusId = 1;
                 newProposal.ProposalMessage = proposalMessage;
+                newProposal.ProposedAmount = proposedAmount;
                 newPropId = await propsService.InsertProposal(newProposal);
             }
             if (newPropId > 0)
