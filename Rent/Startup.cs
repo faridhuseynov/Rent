@@ -123,6 +123,7 @@ namespace Rent
 
                 //endpoints.MapHub<HubService>("/home/messages/inbox");
                 endpoints.MapHub<ChatServiceHub>("/chatHub");
+                endpoints.MapHub<FavoriteCountServiceHub>("/wishlistCountHub");
 
             });
 
