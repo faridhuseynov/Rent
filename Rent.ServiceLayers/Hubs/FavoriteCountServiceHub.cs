@@ -10,12 +10,13 @@ namespace Rent.ServiceLayers.Hubs
     {
         public async Task IncreaseFavoriteCount(int currentCount)
         {
-            await Clients.All.SendAsync("ReceiveUpdatedCount", currentCount + 1);
+            await Clients.Caller.SendAsync("ReceiveUpdatedCount", currentCount + 1);
         }
 
         public async Task ReduceFavoriteCount(int currentCount)
         {
-            await Clients.All.SendAsync("ReceiveUpdatedCount", currentCount - 1);
+
+            await Clients.Caller.SendAsync("ReceiveUpdatedCount", currentCount - 1);
         }
     }
 }
