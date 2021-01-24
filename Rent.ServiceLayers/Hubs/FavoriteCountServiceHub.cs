@@ -15,8 +15,11 @@ namespace Rent.ServiceLayers.Hubs
 
         public async Task ReduceFavoriteCount(int currentCount)
         {
+            if (currentCount>0)
+            {
+                await Clients.Caller.SendAsync("ReceiveUpdatedCount", currentCount - 1);
 
-            await Clients.Caller.SendAsync("ReceiveUpdatedCount", currentCount - 1);
+            }
         }
     }
 }
