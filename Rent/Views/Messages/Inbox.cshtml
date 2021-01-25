@@ -41,8 +41,8 @@
                                 @if (!first)
                                 {
                                     <div class="chat_list active_chat">
-                                        <input id="activeUser" value="@Model.ElementAt(i).Sender.Id" hidden />
-                                        <input id="recipientUser" value="@Model.ElementAt(i).Recipient.Id" hidden />
+                                        <input id="activeUser" value="@Model.ElementAt(i).Sender.UserName" hidden />
+                                        @*<input id="recipientUser" value="@Model.ElementAt(i).Recipient.Id" hidden />*@
                                         <input id="userName" value="@Model.ElementAt(i).Recipient.UserName" hidden />
                                         <div class="chat_people">
                                             <div class="chat_img">

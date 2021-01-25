@@ -6,6 +6,7 @@ var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
 
+
 //// id for user with whom currently chatting, active user
 //var senderUserId = $("#activeUser").val();
 
@@ -13,16 +14,17 @@ document.getElementById("sendButton").disabled = true;
 //var myId = $("#recipientUser").val();
 
 // receive message
-connection.on("ReceivePrivateMessage", function (recipient, sender, message) {
+connection.on("ReceivePrivateMessage", function (message) {
 
-     //id for user with whom currently chatting, active user
-    var senderId = $("#activeUser").val();
+    // //id for user with whom currently chatting, active user
+    //var senderId = $("#activeUser").val();
 
-    // logged in user
-    var recipientId = $("#recipientUser").val();
+    //// logged in user
+    //var recipientId = $("#recipientUser").val();
 
-    if (recipient == recipientId && sender == senderId) {
+    //if (recipient == recipientId && sender == senderId) {
 
+    //}
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
         //var div = document.createElement(
@@ -43,7 +45,6 @@ connection.on("ReceivePrivateMessage", function (recipient, sender, message) {
         document.getElementById("msgHistory").appendChild(li);
         $("#msgHistory").scrollTop($("#msgHistory")[0].scrollHeight);
 
-    }
 });
 
 connection.start().then(function () {
@@ -75,16 +76,52 @@ document.getElementById("sendButton").addEventListener("click", function (event)
         });
 
         // id for user with whom currently chatting, active user
-        var recipientId = $("#activeUser").val();
+        var recipUserName = $("#activeUser").val();
+
+        $.ajax({
+            method: "GET",
+            url: "/Messages/GetConnection",
+            data: {
+                "userName": recipUserName
+            },
+            success: function (recipientConnectionId) {
+                if (recipientConnectionId != null) {
+                    connection.invoke("SendPrivateMessage", recipientConnectionId, message)
+                        .catch(function (err) {
+                            return console.error(err.toString());
+                        });
+                }
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        })
+
 
         // logged in user
         var senderId = $("#recipientUser").val();
 
-        connection.invoke("SendPrivateMessage", senderId, recipientId, message).catch(function (err) {
-            return console.error(err.toString());
-        });
         event.preventDefault();
     }
+});
+
+connection.on("UserConnected", function (connectionId) {
+    console.log(connectionId);
+    $.ajax({
+        method: "POST",
+        url: "/Messages/AddConnection",
+        data: {
+          "connectionId": connectionId,
+
+        },
+        success: function (result) {
+            console.log("user: "+result+" with id: ["+connectionId+"] added")
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+    //console.log(connectionId);
 });
 
  /*

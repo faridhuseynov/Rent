@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+using Rent.DomainModels.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,10 +10,16 @@ namespace Rent.ServiceLayers.Hubs
 {
     public class ChatServiceHub:Hub
     {
-        public async Task SendPrivateMessage(string sender, string recipient, string message)
+        //private readonly UserManager<User> userManager;
+
+        //public ChatServiceHub(UserManager<User> userManager)
+        //{
+        //    this.userManager = userManager;
+        //}
+        public async Task SendPrivateMessage(string recipientConnectionId, string message)
         {
             //to be changed for only 2 people, currently sends to everybody
-            await Clients.Client(recipient).SendAsync("ReceivePrivateMessage", message);
+            await Clients.Client(recipientConnectionId).SendAsync("ReceivePrivateMessage", message);
         }
 
         public async Task SendTypingNotification(string sender, string recipient)
@@ -21,7 +29,8 @@ namespace Rent.ServiceLayers.Hubs
 
         public override async Task OnConnectedAsync()
         {
-            await Clients.All.SendAsync("UserConnected", Context.ConnectionId);
+            //var user = Context.User;
+            await Clients.Caller.SendAsync("UserConnected", Context.ConnectionId);
             await base.OnConnectedAsync();
         }
 

@@ -3,23 +3,19 @@
 var connection = new signalR.HubConnectionBuilder().withUrl("/wishlistCountHub").build();
 
 var currentCount = parseInt(document.getElementById("wishListCount").value);
-console.log(currentCount);
 
 connection.start().then(function () {
-    console.log('wishlist connection started')
 }).catch(function (error) {
     return console.error(error.toString());
 });
 
 connection.on("ReceiveUpdatedCount", function (updatedCount) {
-    console.log(updatedCount);
     currentCount = updatedCount;
 
     //check with Sasha regarding the opacity set up
 
     var countElement = document.getElementById("wishListCount");
     countElement.value = updatedCount;
-    console.log(countElement);
     if (updatedCount==0) {
         countElement.style.opacity="0";
     } else {
@@ -30,7 +26,6 @@ connection.on("ReceiveUpdatedCount", function (updatedCount) {
 
 var wishListIcon = document.getElementById("wishlistIcon");
 if (wishListIcon) {
-    console.log('')
     document.getElementById("wishlistIcon").addEventListener("click", function (event) {
         console.log('test');
 
@@ -46,14 +41,11 @@ if (wishListIcon) {
         } else {
             connection.invoke("ReduceFavoriteCount", currentCount);
         }
-        console.log(event.target);
-        console.log(element);
     })
 }
 
 var wishHeart = document.getElementsByClassName("wish-heart"); 
 if (wishHeart) {
-    console.log(wishHeart);
     for (var i = 0; i < wishHeart.length; i++) {
         wishHeart[i].addEventListener("click", function () {
             connection.invoke("ReduceFavoriteCount", currentCount)

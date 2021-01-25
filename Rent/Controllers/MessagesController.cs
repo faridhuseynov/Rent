@@ -81,5 +81,29 @@ namespace Rent.Controllers
             return Ok();
             //return Ok(messageRepo.GetUserMessagesCount(userId.Id));
         }
+
+        [HttpPost]
+        public async Task<string> AddConnection(string connectionId)
+        {
+            var userName = User.Identity.Name;
+            var user = await userManager.FindByNameAsync(userName);
+            user.ConnectionId = connectionId;
+            await userManager.UpdateAsync(user);
+            return user.ConnectionId;
+        }
+
+        [HttpGet]
+        public async Task<string> GetConnection(string userName)
+        {
+            var user = await userManager.FindByNameAsync(userName);
+            if (user!=null)
+            {
+                if (!String.IsNullOrWhiteSpace(user.ConnectionId))
+                {
+                    return user.ConnectionId;
+                }
+            }
+            return null;
+        }
     }
 }

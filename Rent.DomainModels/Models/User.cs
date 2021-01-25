@@ -26,5 +26,6 @@ namespace Rent.DomainModels.Models
         public virtual ICollection<Message> MessagesReceived { get; set; }
         public virtual ICollection<Rate> Rates { get; set; }
         public bool IsUserBlocked { get; set; } = false;
+        public string ConnectionId { get; set; }
     }
 }
