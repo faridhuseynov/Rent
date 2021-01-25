@@ -1,17 +1,10 @@
 ﻿"use strict";
 
-//var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
 //Disable send button until connection is established
 document.getElementById("sendButton").disabled = true;
-
-
-//// id for user with whom currently chatting, active user
-//var senderUserId = $("#activeUser").val();
-
-//// logged in user
-//var myId = $("#recipientUser").val();
 
 // receive message
 connection.on("ReceivePrivateMessage", function (message) {
@@ -75,19 +68,20 @@ document.getElementById("sendButton").addEventListener("click", function (event)
             }
         });
 
-        // id for user with whom currently chatting, active user
+        // username for user with whom currently chatting, active user
         var recipUserName = $("#activeUser").val();
 
+        // get connectionId for this user
         $.ajax({
             method: "GET",
             url: "/Messages/GetConnection",
             data: {
                 "userName": recipUserName
             },
-            success: function (recipientConnectionId) {
-                if (recipientConnectionId != null) {
-                    connection.invoke("SendPrivateMessage", recipientConnectionId, message)
-                        .catch(function (err) {
+            success: function (recipient) {
+                if (recipient != null) {
+                    connection.invoke("SendPrivateMessage", recipient, message).catch(function (err) {
+                        console.log('test');
                             return console.error(err.toString());
                         });
                 }
@@ -106,7 +100,6 @@ document.getElementById("sendButton").addEventListener("click", function (event)
 });
 
 connection.on("UserConnected", function (connectionId) {
-    console.log(connectionId);
     $.ajax({
         method: "POST",
         url: "/Messages/AddConnection",
@@ -115,7 +108,7 @@ connection.on("UserConnected", function (connectionId) {
 
         },
         success: function (result) {
-            console.log("user: "+result+" with id: ["+connectionId+"] added")
+            //console.log("user: "+result+" with id: ["+connectionId+"] added")
         },
         error: function (error) {
             console.log(error);
