@@ -29,6 +29,8 @@ namespace Rent.DomainModels.Models
         public DbSet<ProfileImage> ProfileImages { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Rate> Rates { get; set; }
+        public DbSet<Subcagetory> Subcagetories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -86,6 +88,11 @@ namespace Rent.DomainModels.Models
             modelBuilder.Entity<User>()
                 .HasMany(r => r.Rates)
                 .WithOne(u => u.User)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(s => s.Subcagetories)
+                .WithOne(c => c.Category)
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
