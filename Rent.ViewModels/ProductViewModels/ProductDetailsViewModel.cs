@@ -21,8 +21,8 @@ namespace Rent.ViewModels.ProductViewModels
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
         //think about deleting the CategoryID!!!!!!!!!!!!!!!!!!!!!!!!!
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int SubcategoryId { get; set; }
+        public virtual Subcagetory Subcagetory { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
         public string MainPhotoUrl { get; set; }
         public bool Sell { get; set; }

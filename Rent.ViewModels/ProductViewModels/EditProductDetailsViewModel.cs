@@ -7,7 +7,7 @@ namespace Rent.ViewModels.ProductViewModels
     public class EditProductDetailsViewModel
     {
         public string ProductName { get; set; }
-        public int CategoryId { get; set; }
+        public int SubcategoryId { get; set; }
         public int TotalAmount { get; set; }
     }
 }

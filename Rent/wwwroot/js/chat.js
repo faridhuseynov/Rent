@@ -117,6 +117,25 @@ connection.on("UserConnected", function (connectionId) {
     //console.log(connectionId);
 });
 
+//window.onbeforeunload(function (event) {
+//    event.preventDefault();
+//})
+
+connection.on("UserDisconnected", function (connectionId) {
+    $.ajax({
+        method: "POST",
+        url: "/Messages/RemoveConnection",
+        data: {
+            "connectionId":connectionId
+        },
+        success: function () {
+            console.log("User disconnected");
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    })
+})
  /*
 
 

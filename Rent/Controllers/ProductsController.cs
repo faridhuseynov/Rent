@@ -60,7 +60,7 @@ namespace Rent.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Category)
+                .Include(p => p.Subcagetory)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)

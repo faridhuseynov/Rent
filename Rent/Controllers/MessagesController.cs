@@ -105,5 +105,14 @@ namespace Rent.Controllers
             }
             return null;
         }
+
+        [HttpPost]
+        public async Task RemoveConnection(string connectionId)
+        {
+            var userName = User.Identity.Name;
+            var user = await userManager.FindByNameAsync(userName);
+            user.ConnectionId = "";
+            await userManager.UpdateAsync(user);
+        }
     }
 }

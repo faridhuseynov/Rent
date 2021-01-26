@@ -18,14 +18,14 @@
 
         @foreach (var item in ViewBag.Categories)
         {
-            if (Model.Any(x => x.Category.Id == item.Id))
+            if (Model.Any(x => x.Subcagetory.Id == item.Id))
             {
                 <h3 class="mb-0 mt-5">@item.CategoryName</h3>
                 <hr class="mt-0" />
                 <div class="row">
                     @foreach (var product in Model)
                     {
-                        if (product.CategoryId == @item.Id)
+                        if (product.SubcategoryId == @item.Id)
                         {
                             <div class="prodcard card m-1">
                                 <div class="lock" onclick="unblockProduct(this)">

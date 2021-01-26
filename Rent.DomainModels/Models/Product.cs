@@ -18,8 +18,8 @@ namespace Rent.DomainModels.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        public int CategoryId { get; set; }
-        public virtual Category Category { get; set; }
+        public int SubcagetoryId { get; set; }
+        public virtual Subcagetory Subcagetory { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
         public string MainPhotoUrl { get; set; }
         public virtual ICollection<Proposal> Proposals { get; set; }

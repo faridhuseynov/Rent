@@ -32,7 +32,7 @@ namespace Rent.ServiceLayers.Hubs
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.All.SendAsync("UserDisconnected", Context.ConnectionId);
+            await Clients.Caller.SendAsync("UserDisconnected", Context.ConnectionId);
             await base.OnDisconnectedAsync(exception);
         }
 

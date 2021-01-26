@@ -60,13 +60,13 @@ namespace Rent.Controllers
             ViewBag.PageNo = PageNo;
             ViewBag.Categories = categories;
             if (Id != 0)
-                products = ps.GetProducts().Where(p => p.CategoryId == Id && p.Blocked!=true);
+                products = ps.GetProducts().Where(p => p.SubcategoryId == Id && p.Blocked!=true);
             else
                 products = ps.GetProducts().Where(p=>p.Blocked!=true);
             if (!String.IsNullOrWhiteSpace(searchString))
             {
                 products = products.Where(p => p.ProductName.Contains(searchString)
-                || p.ProductDescription.Contains(searchString)|| p.Category.CategoryName.Contains(searchString));
+                || p.ProductDescription.Contains(searchString)|| p.Subcagetory.SubategoryName.Contains(searchString));
             }
             if (User.Identity.IsAuthenticated==true)
             {
