@@ -10,7 +10,7 @@ namespace Rent.Repositories
     public interface ISubcategoriesRepository
     {
         Task<IEnumerable<Subcagetory>> GetSubcategories();
-        Task<string> AddSubcategory(Subcagetory subcagetory);
+        Task<int> AddSubcategory(Subcagetory subcagetory);
         Task RemoveSubcategory(int subcagetoryId);
     }
     public class SubcategoriesRepository : ISubcategoriesRepository
@@ -21,11 +21,11 @@ namespace Rent.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<string> AddSubcategory(Subcagetory subcagetory)
+        public async Task<int> AddSubcategory(Subcagetory subcagetory)
         {
             await dbContext.AddAsync(subcagetory);
             await dbContext.SaveChangesAsync();
-            return subcagetory.SubategoryName;
+            return subcagetory.Id;
         }
 
         public async Task<IEnumerable<Subcagetory>> GetSubcategories()

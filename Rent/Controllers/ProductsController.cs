@@ -74,7 +74,11 @@ namespace Rent.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
+            //subcategory should be here also
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            
+
+
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View();
         }
@@ -84,7 +88,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,TotalAmount, ProductDescription,UserId,CategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
+        public async Task<IActionResult> Create(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductPrice,TotalAmount, ProductDescription,UserId,SubcategoryId,Sell, Lend, MinLendDays, SellPrice, LendPrice")] NewProductViewModel newProductViewModel)
         {
             string fileName = "";
             var fileNames = new List<string>();
