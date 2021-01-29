@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Rent.ViewModels.CategoryViewModels.NewCategoryViewModel>
+﻿@model IEnumerable<Rent.ViewModels.CategoryViewModels.CategoryDetailsViewModel>
 
 @{
     ViewData["Title"] = "Categories";
@@ -30,8 +30,14 @@
         {
             <div class="card m-3" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">@category.CategoryName</h5>
-                    <p class="card-text">@category.CategoryDescription</p>
+                    <h5 class="card-title">
+                        @category.CategoryName
+                    <a class="btn btn-default btn-outline-info" asp-area="Admin" asp-controller="Home"
+                            asp-action="Category" asp-route-categoryId="@category.Id">
+                        Edit
+                    </a>
+                </h5>
+                <p class="card-text">@category.CategoryDescription</p>
                 </div>
             </div>
         }
@@ -80,5 +86,16 @@
             event.preventDefault();
             newCategoryCancelled();
         })
+
+        //function modifyCategory(event) {
+        //    var categoryId = event.id;
+        //    $.ajax({
+        //        method: "GET",
+        //        url: "/Admin/Home/Category",
+        //        data: {
+        //            "categoryId": categoryId
+        //        }
+        //    })
+        //}
     </script>
 }

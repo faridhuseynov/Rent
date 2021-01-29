@@ -11,7 +11,7 @@ namespace Rent.Repositories
     {
         Task<IEnumerable<Category>> GetCategories();
         Task<string> AddCategory(Category category);
-
+        Task<Category> GetCategoryById(int categoryId);
     }
     public class CategoriesRepository : ICategoriesRepository
     {
@@ -30,6 +30,12 @@ namespace Rent.Repositories
             await db.Categories.AddAsync(category);
             await db.SaveChangesAsync();
             return category.CategoryName;
+        }
+
+        public async Task<Category> GetCategoryById(int categoryId)
+        {
+            var category = await db.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
+            return category;
         }
     }
 }

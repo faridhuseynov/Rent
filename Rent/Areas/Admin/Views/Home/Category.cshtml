@@ -1,0 +1,22 @@
+﻿@model Rent.ViewModels.CategoryViewModels.CategoryDetailsViewModel
+
+@{
+    ViewData["Title"] = "Category#1";
+}
+
+<div class="container">
+        <h1>@Model.CategoryName</h1>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <label asp-for="CategoryDescription">Category description</label>
+                <textarea class="form-control" asp-for="CategoryDescription" rows="3"></textarea>
+            </div>
+        </div>
+        <div class="col">
+            <h2>@Model.CategoryDescription</h2>
+        </div>
+
+    </div>
+</div>
+

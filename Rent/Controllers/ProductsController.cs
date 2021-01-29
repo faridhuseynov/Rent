@@ -24,15 +24,18 @@ namespace Rent.Controllers
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<User> userManager;
         private readonly IImagesRepository imagesRepository;
+        private readonly ISubcategoriesService subcategoriesService;
 
         public ProductsController(AppDbContext context, IProductsService productsService,
-            ICategoriesService categoriesService, UserManager<User> userManager, IImagesRepository imagesRepository)
+            ICategoriesService categoriesService, UserManager<User> userManager,
+            IImagesRepository imagesRepository, ISubcategoriesService subcategoriesService)
         {
             _context = context;
             this.productsService = productsService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
             this.imagesRepository = imagesRepository;
+            this.subcategoriesService = subcategoriesService;
         }
 
         // GET: Products
@@ -76,7 +79,7 @@ namespace Rent.Controllers
         {
             //subcategory should be here also
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
-            
+            ViewData["SubcategoryId"] = new SelectList(subcategoriesService.GetSubcagetories().Result, "Id", "SubcategoryName");
 
 
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;

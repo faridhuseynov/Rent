@@ -12,8 +12,10 @@ namespace Rent.ServiceLayers
     public interface ICategoriesService
     {
         Task<IEnumerable<Category>> GetCategories();
-        Task<IEnumerable<NewCategoryViewModel>> GetCategoriesForReview();
+        Task<IEnumerable<CategoryDetailsViewModel>> GetCategoriesForReview();
         Task<string> AddCategory(NewCategoryViewModel newCategoryViewModel);
+
+        Task<CategoryDetailsViewModel> GetCategoryById(int categoryId);
     }
     public class CategoriesService : ICategoriesService
     {
@@ -35,14 +37,28 @@ namespace Rent.ServiceLayers
             return await cr.AddCategory(newCategory);
         }
 
-        public async Task<IEnumerable<NewCategoryViewModel>> GetCategoriesForReview()
+        public async Task<IEnumerable<CategoryDetailsViewModel>> GetCategoriesForReview()
         {
             var categoryList = await cr.GetCategories(); 
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Category, NewCategoryViewModel>(); cfg.IgnoreUnmapped(); });
+            var config = new MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<Category, CategoryDetailsViewModel>(); cfg.IgnoreUnmapped(); 
+            });
             IMapper mapper = config.CreateMapper();
-            var categories = mapper.Map<IEnumerable<Category>, IEnumerable<NewCategoryViewModel>>(categoryList);
+            var categories = mapper.Map<IEnumerable<Category>, IEnumerable<CategoryDetailsViewModel>>(categoryList);
             return categories;
         }
 
+        public async Task<CategoryDetailsViewModel> GetCategoryById(int categoryId)
+        {
+            var category = await cr.GetCategoryById(categoryId);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Category, CategoryDetailsViewModel>(); cfg.IgnoreUnmapped();
+            });
+            IMapper mapper = config.CreateMapper();
+            var categoryDetailViewModel = mapper.Map<Category, CategoryDetailsViewModel>(category);
+            return categoryDetailViewModel;
+        }
     }
 }

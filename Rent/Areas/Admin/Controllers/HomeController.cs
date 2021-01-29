@@ -94,6 +94,7 @@ namespace Rent.Areas.Admin.Controllers
             return View(products);
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Categories()
         {
@@ -106,5 +107,20 @@ namespace Rent.Areas.Admin.Controllers
         {
             await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName, CategoryDescription = categoryDescription });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Category(int categoryId)
+        {
+            var category = await cs.GetCategoryById(categoryId);
+            if (category!=null)
+            {
+                ViewBag.CategoryName = category.CategoryName;
+                return View(category);
+            }
+            return BadRequest();
+        }
+
+
+
     }
 }
