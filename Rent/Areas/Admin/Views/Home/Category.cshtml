@@ -5,18 +5,71 @@
 }
 
 <div class="container">
-        <h1>@Model.CategoryName</h1>
+    <h1>@Model.CategoryName</h1>
     <div class="row">
         <div class="col">
             <div class="form-group">
+                <input hidden id="category-id" value="@Model.Id" />
                 <label asp-for="CategoryDescription">Category description</label>
                 <textarea class="form-control" asp-for="CategoryDescription" rows="3"></textarea>
             </div>
         </div>
+
         <div class="col">
-            <h2>@Model.CategoryDescription</h2>
+            <div class="form-group">
+                <label>Subcategories</label>
+                <ul class="list-group" id="subcategory-list">
+                    @if (Model.Subcategories!=null)
+                    {
+                        @foreach (var subcategory in Model.Subcategories)
+                        {
+                            <li class="list-group-item" id="@subcategory.Id">
+                                @subcategory.SubcategoryName
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
         </div>
 
+        <div class="col">
+            <div class="form-group">
+                <label>Add new subcategory</label>
+                <div class="form-inline">
+                    <input class="form-control" id="new-sub-name" />
+                    <button onclick="addClicked()" type="button" class="btn btn-success ml-2">+</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+@section Scripts {
+<script>
+    function addClicked() {
+        var newSubName = $("#new-sub-name").val();
+        if (newSubName != "") {
+            var categoryId = $("#category-id").val();
+            var li = document.createElement("li");
+            li.classList = "list-group-item";
+            li.textContent = newSubName;
+            $.ajax({
+                method: "POST",
+                url: "/Admin/Home/AddSubcategory",
+                data: {
+                    "categoryId": categoryId,
+                    "subcategoryName":newSubName
+                },
+                success: function () {
+                    $("#new-sub-name").val("");
+                    $("#subcategory-list")[0].appendChild(li);
+                },
+                error: function (err) {
+                    console.log(err);
+                    alert("There was an error while adding the new subcategory. Please check & try again");
+                }
+            })
+        }
+    }
+</script>
+}

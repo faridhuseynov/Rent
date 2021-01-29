@@ -7,6 +7,7 @@ namespace Rent.ViewModels.SubcategoryViewModels
 {
     public class SubcategoryDetailsViewModel
     {
+        public int Id { get; set; }
         public string SubcategoryName { get; set; }
         public string SubcategoryDescription { get; set; }
         public int CategoryId { get; set; }
