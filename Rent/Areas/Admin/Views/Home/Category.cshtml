@@ -132,19 +132,22 @@
 
     function editClicked(id) {
         $("#div" + id).removeAttr("hidden");
-        console.log("test");
+        $("#label" + id).attr("hidden", true);
     }
 
     function confirmClicked(subcategoryId) {
         var newName = $("#input" + subcategoryId).val();
         $("#label" + subcategoryId).text(newName);
         $("#div" + subcategoryId).attr("hidden", true);
+        $("#label" + subcategoryId).removeAttr("hidden");
+
     }
 
     function rejectClicked(subcategoryId) {
         var oldName = $("#label" + subcategoryId).val();
         $("#input" + subcategoryId).val(oldName);
         $("#div" + subcategoryId).attr("hidden", true);
+        $("#label" + subcategoryId).removeAttr("hidden");
     }
 </script>
 }

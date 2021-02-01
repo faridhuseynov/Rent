@@ -12,7 +12,9 @@ namespace Rent.Repositories
         Task<IEnumerable<Subcategory>> GetSubcategories();
         Task<Subcategory> GetSubcategoryById(int subcategoryId);
         Task<int> AddSubcategory(Subcategory subcagetory);
+        Task UpdateSubcategory(Subcategory subcategory);
         Task RemoveSubcategory(int subcagetoryId);
+        
     }
     public class SubcategoriesRepository : ISubcategoriesRepository
     {
@@ -39,6 +41,16 @@ namespace Rent.Repositories
             var subcategory = await dbContext.Subcagetories
                 .FirstOrDefaultAsync(s => s.Id == subcategoryId);
             return subcategory;
+        }
+        public async Task UpdateSubcategory(Subcategory subcategory)
+        {
+            var subcat = await dbContext.Subcagetories
+                .FirstOrDefaultAsync(s => s.Id == subcategory.Id);
+            if (subcat!=null)
+            {
+                subcat.SubcategoryName = subcategory.SubcategoryName;
+                await dbContext.SaveChangesAsync();
+            }
         }
         public async Task RemoveSubcategory(int subcagetoryId)
         {
