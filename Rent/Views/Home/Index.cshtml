@@ -42,6 +42,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">@product.ProductName</h5>
                                 <p class="card-text">@product.ProductDescription</p>
+                                <p class="card-text">
+                                @product.Subcagetory.Category.CategoryName/@product.Subcagetory.SubcategoryName</p>
                                 @if (product.Sell == true)
                                 {
                                     <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
