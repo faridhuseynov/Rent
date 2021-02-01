@@ -2,6 +2,7 @@
 using Rent.DomainModels.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace Rent.Repositories
     {
         Task<IEnumerable<Subcategory>> GetSubcategories();
         Task<Subcategory> GetSubcategoryById(int subcategoryId);
+        Task<IEnumerable<Subcategory>> GetSubcategoriesByCategoryId(int categoryId);
         Task<int> AddSubcategory(Subcategory subcagetory);
         Task UpdateSubcategory(Subcategory subcategory);
         Task RemoveSubcategory(int subcagetoryId);
@@ -41,6 +43,13 @@ namespace Rent.Repositories
             var subcategory = await dbContext.Subcagetories
                 .FirstOrDefaultAsync(s => s.Id == subcategoryId);
             return subcategory;
+        }
+        public async Task<IEnumerable<Subcategory>> GetSubcategoriesByCategoryId(int categoryId)
+        {
+            var subcatList = await dbContext.Subcagetories
+                .Where(c => c.CategoryId == categoryId)
+                .ToListAsync();
+            return subcatList;
         }
         public async Task UpdateSubcategory(Subcategory subcategory)
         {

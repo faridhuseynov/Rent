@@ -13,6 +13,7 @@ using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
 using Rent.ViewModels.ProductViewModels;
+using Rent.ViewModels.SubcategoryViewModels;
 
 namespace Rent.Controllers
 {
@@ -77,15 +78,21 @@ namespace Rent.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            //subcategory should be here also
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
-            ViewData["SubcategoryId"] = new SelectList(subcategoriesService.GetSubcagetories().Result, "Id", "SubcategoryName");
+            var randomCatId = categoriesService.GetCategories().Result.First().Id;
+            ViewData["SubcategoryId"] = new SelectList(subcategoriesService.GetSubcategoriesByCategoryId(randomCatId).Result, "Id", "SubcategoryName");
 
 
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View();
         }
-
+        
+        [HttpGet]
+        public async Task<SelectList> GetUpdatedSubcategoryList(int categoryId)
+        {
+            var newList = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");
+            return newList;
+        }
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

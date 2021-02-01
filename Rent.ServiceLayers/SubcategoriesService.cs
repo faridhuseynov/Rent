@@ -13,6 +13,7 @@ namespace Rent.ServiceLayers
     {
         Task<IEnumerable<SubcategoryDetailsViewModel>> GetSubcagetories();
         Task<SubcategoryDetailsViewModel> GetSubcategoryById(int subcategoryId);
+        Task<IEnumerable<SubcategoryDetailsViewModel>> GetSubcategoriesByCategoryId(int categoryId);
         Task<int> InsertSubcategory(NewSubcategoryViewModel nsvm);
         Task UpdateSubcategory(EditSubcategoryViewModel esvm);
         Task DeleteSubcategory(int subcategoryId);
@@ -51,6 +52,20 @@ namespace Rent.ServiceLayers
             var sdvm = mapper.Map<Subcategory, SubcategoryDetailsViewModel>(subcategory);
             return sdvm;
         }
+
+        public async Task<IEnumerable<SubcategoryDetailsViewModel>> GetSubcategoriesByCategoryId(int categoryId)
+        {
+            var subcatList = await subcategoriesRepository.GetSubcategoriesByCategoryId(categoryId);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Subcategory, SubcategoryDetailsViewModel>();
+                cfg.IgnoreUnmapped();
+            });
+            IMapper mapper = config.CreateMapper();
+            var scDetVmList = mapper.Map<IEnumerable<Subcategory>,IEnumerable< SubcategoryDetailsViewModel>> (subcatList);
+            return scDetVmList;
+        }
+
 
         public async Task<int> InsertSubcategory(NewSubcategoryViewModel nsvm)
         {

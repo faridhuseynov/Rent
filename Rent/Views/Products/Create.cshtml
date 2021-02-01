@@ -58,7 +58,12 @@
                 <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
             </div>
             <div class="form-group">
-                <label asp-for="SubcategoryId" class="control-label">Kateqoriya</label>
+                <label class="control-label">Kateqoriya</label>
+                <select id="categList" onchange="categoryChanged()"
+                        class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubcategoryId" class="control-label">Subkateqoriya</label>
                 <select asp-for="SubcategoryId" class="form-control" asp-items="ViewBag.SubcategoryId"></select>
             </div>
             <div class="form-group">
@@ -114,5 +119,19 @@
                 $("#lendDaysInput").attr("disabled", true);
             }
         })
+
+        function categoryChanged() {
+            var categoryId = $("#categList option:selected").val();
+            $.ajax({
+                method: "GET",
+                url: "/Home/Products/GetUpdatedSubcategoryList",
+                data: {
+                    "categoryId": categoryId
+                },
+                success: function (result) {
+                    console.log(result);
+                }
+            });
+        }
     </script>
 }
