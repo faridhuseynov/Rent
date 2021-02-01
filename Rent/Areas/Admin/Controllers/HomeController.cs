@@ -112,6 +112,16 @@ namespace Rent.Areas.Admin.Controllers
             await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName, CategoryDescription = categoryDescription });
         }
 
+        [HttpDelete]
+        public async Task DeleteCategory(int categoryId)
+        {
+            var category = await cs.GetCategoryById(categoryId);
+            if (category != null)
+            {
+                await cs.RemoveCategory(categoryId);
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> Category(int categoryId)
         {

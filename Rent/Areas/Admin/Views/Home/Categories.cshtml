@@ -28,16 +28,20 @@
     <div class="row category-list">
         @foreach (var category in Model)
         {
-            <div class="card m-3" style="width: 18rem;">
+            <div class="card m-3" style="width: 18rem;" id="@category.Id">
                 <div class="card-body">
                     <h5 class="card-title">
                         @category.CategoryName
-                    <a class="btn btn-default btn-outline-info" asp-area="Admin" asp-controller="Home"
-                            asp-action="Category" asp-route-categoryId="@category.Id">
-                        Edit
-                    </a>
-                </h5>
-                <p class="card-text">@category.CategoryDescription</p>
+                        <a class="btn btn-default btn-outline-info" asp-area="Admin" asp-controller="Home"
+                           asp-action="Category" asp-route-categoryId="@category.Id">
+                            Edit
+                        </a>
+                        <a class="btn btn-default btn-outline-danger"
+                           onclick="deleteClicked(@category.Id)">
+                            Delete
+                        </a>
+                    </h5>
+                    <p class="card-text">@category.CategoryDescription</p>
                 </div>
             </div>
         }
@@ -87,6 +91,22 @@
             newCategoryCancelled();
         })
 
+        function deleteClicked(categoryId) {
+            var response = confirm("Are you sure you want to delete this category?");
+            if (response==true) {
+                $.ajax({
+                    method: "DELETE",
+                    url: "/Admin/Home/DeleteCategory",
+                    data: {
+                        "categoryId":categoryId
+                    },
+                    success: function () {
+                        $("#" + categoryId).remove();
+                    }
+                })
+
+            }
+        }
         //function modifyCategory(event) {
         //    var categoryId = event.id;
         //    $.ajax({
