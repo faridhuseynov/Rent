@@ -139,6 +139,17 @@ namespace Rent.Areas.Admin.Controllers
         }
 
         [HttpPost]
+        public async Task UpdateSubcategory(int subcategoryId, string subcategoryName)
+        {
+            var esvm = new EditSubcategoryViewModel
+            {
+                Id=subcategoryId,
+                SubcategoryName = subcategoryName
+            };
+            await subcategoriesService.UpdateSubcategory(esvm);
+        }
+
+        [HttpPost]
         public async Task RemoveSubcategory(int subcategoryId)
         {
             var subcategory = await subcategoriesService.GetSubcategoryById(subcategoryId);

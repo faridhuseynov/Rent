@@ -19,18 +19,18 @@
             <div class="form-group">
                 <label>Subcategories</label>
                 <ul class="list-group" id="subcategory-list">
-                    @if (Model.Subcategories!=null)
+                    @if (Model.Subcategories != null)
                     {
                         @foreach (var subcategory in Model.Subcategories)
                         {
-                            <li class="sub-list-item" 
+                            <li class="sub-list-item"
                                 id="@subcategory.Id">
                                 <label id=@("label"+subcategory.Id)>
                                     @subcategory.SubcategoryName
                                 </label>
                                 <div id=@("div"+subcategory.Id) hidden>
-                                    <input id=@("input"+@subcategory.Id) 
-                                           value="@subcategory.SubcategoryName"/>
+                                    <input id=@("input"+@subcategory.Id)
+                                           value="@subcategory.SubcategoryName" />
                                     <i class="fas fa-check sub-confirm"
                                        onclick="confirmClicked(@subcategory.Id)"></i>
                                     <i class="fas fa-times sub-reject"
@@ -64,90 +64,100 @@
 </div>
 
 @section Scripts {
-<script>
-    function addClicked() {
-        var newSubName = $("#new-sub-name").val();
-        if (newSubName != "") {
-            var categoryId = $("#category-id").val();
+    <script>
+        function addClicked() {
+            var newSubName = $("#new-sub-name").val();
+            if (newSubName != "") {
+                var categoryId = $("#category-id").val();
 
-            var li = document.createElement("li");
-            li.classList = "sub-list-item";
+                var li = document.createElement("li");
+                li.classList = "sub-list-item";
 
-            var iconDiv = document.createElement("div");
+                var iconDiv = document.createElement("div");
 
-            var editIcon = document.createElement("i");
-            editIcon.classList = "sub-edit fas fa-pen";
+                var editIcon = document.createElement("i");
+                editIcon.classList = "sub-edit fas fa-pen";
 
-            var trashIcon = document.createElement("i");
-            trashIcon.classList = "sub-trash fas fa-trash";
+                var trashIcon = document.createElement("i");
+                trashIcon.classList = "sub-trash fas fa-trash";
 
-           
 
+
+                $.ajax({
+                    method: "POST",
+                    url: "/Admin/Home/AddSubcategory",
+                    data: {
+                        "categoryId": categoryId,
+                        "subcategoryName": newSubName
+                    },
+                    success: function (newSubId) {
+                        if (newSubId > 0) {
+
+                            trashIcon.onclick = () => { (removeClicked(newSubId)) };
+
+                            console.log(trashIcon);
+
+                            iconDiv.appendChild(editIcon);
+                            iconDiv.appendChild(trashIcon);
+                            li.textContent = newSubName;
+                            li.appendChild(iconDiv);
+
+                            $("#new-sub-name").val("");
+                            $("#subcategory-list")[0].appendChild(li);
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err);
+                        alert("There was an error while adding the new subcategory. Please check & try again");
+                    }
+                })
+            }
+        }
+
+        function removeClicked(id) {
             $.ajax({
                 method: "POST",
-                url: "/Admin/Home/AddSubcategory",
+                url: "/admin/home/RemoveSubcategory",
                 data: {
-                    "categoryId": categoryId,
-                    "subcategoryName":newSubName
+                    "subcategoryId": id
                 },
-                success: function (newSubId) {
-                    if (newSubId > 0) {
-
-                        trashIcon.onclick = () => { (removeClicked(newSubId)) };
-
-                        console.log(trashIcon);
-
-                        iconDiv.appendChild(editIcon);
-                        iconDiv.appendChild(trashIcon);
-                        li.textContent = newSubName;
-                        li.appendChild(iconDiv);
-
-                        $("#new-sub-name").val("");
-                        $("#subcategory-list")[0].appendChild(li);
-                    }
+                success: function () {
+                    $("#" + id).remove();
                 },
-                error: function (err) {
-                    console.log(err);
-                    alert("There was an error while adding the new subcategory. Please check & try again");
+                error: function (error) {
+                    alert(error);
                 }
-            })
+            });
         }
-    }
 
-    function removeClicked(id) {
-        $.ajax({
-            method: "POST",
-            url: "/admin/home/RemoveSubcategory",
-            data: {
-                "subcategoryId": id
-            },
-            success: function () {
-                $("#" + id).remove();
-            },
-            error: function (error) {
-                alert(error);
-            }
-        });
-    }
+        function editClicked(id) {
+            $("#div" + id).removeAttr("hidden");
+            $("#label" + id).attr("hidden", true);
+        }
 
-    function editClicked(id) {
-        $("#div" + id).removeAttr("hidden");
-        $("#label" + id).attr("hidden", true);
-    }
+        function confirmClicked(subcategoryId) {
+            var newName = $("#input" + subcategoryId).val();
+            $.ajax({
+                method: "POST",
+                url: "/Admin/Home/UpdateSubcategory",
+                data: {
+                    "subcategoryId": subcategoryId,
+                    "subcategoryName": newName
+                },
+                success: function () {
+                    $("#label" + subcategoryId).text(newName);
+                    $("#div" + subcategoryId).attr("hidden", true);
+                    $("#label" + subcategoryId).removeAttr("hidden");
+                }
+            });
 
-    function confirmClicked(subcategoryId) {
-        var newName = $("#input" + subcategoryId).val();
-        $("#label" + subcategoryId).text(newName);
-        $("#div" + subcategoryId).attr("hidden", true);
-        $("#label" + subcategoryId).removeAttr("hidden");
+        }
 
-    }
-
-    function rejectClicked(subcategoryId) {
-        var oldName = $("#label" + subcategoryId).val();
-        $("#input" + subcategoryId).val(oldName);
-        $("#div" + subcategoryId).attr("hidden", true);
-        $("#label" + subcategoryId).removeAttr("hidden");
-    }
-</script>
+        function rejectClicked(subcategoryId) {
+            var oldName = $("#label" + subcategoryId).text().trim();
+            $("#input" + subcategoryId).val(oldName);
+            $("#div" + subcategoryId).attr("hidden", true);
+            $("#label" + subcategoryId).removeAttr("hidden");
+        }
+    </script>
 }
