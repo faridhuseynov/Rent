@@ -12,13 +12,20 @@
  */
 
 /*--------------------------------------------*/
+
+/*Subcategory icons*/
+/*Trash & Edit Pen at hover*/
+.sub-trash:hover, .sub-edit:hover {
+    cursor: pointer;
+    color:red;
+}
+
+
 /*
     Lock for blocked products
-
 */
-
 .product-image-block {
-    position:relative;
+    position: relative;
 }
 
 .product-block {

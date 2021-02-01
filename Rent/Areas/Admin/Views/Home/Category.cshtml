@@ -23,8 +23,14 @@
                     {
                         @foreach (var subcategory in Model.Subcategories)
                         {
-                            <li class="list-group-item" id="@subcategory.Id">
+                            <li class="list-group-item" 
+                                style="display:flex;justify-content:space-between"
+                                id="@subcategory.Id">
                                 @subcategory.SubcategoryName
+                                <div>
+                                    <i class="sub-edit fas fa-pen mr-2"></i>
+                                    <i class="sub-trash fas fa-trash" onclick="removeClicked(@subcategory.Id)"></i>
+                                </div>
                             </li>
                         }
                     }
@@ -70,6 +76,10 @@
                 }
             })
         }
+    }
+
+    function removeClicked(id) {
+        alert(id);
     }
 </script>
 }
