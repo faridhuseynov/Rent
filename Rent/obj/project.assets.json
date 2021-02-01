@@ -145,6 +145,9 @@
           "lib/netstandard1.5/Castle.Core.dll": {}
         }
       },
+      "d3/6.2.0": {
+        "type": "package"
+      },
       "jQuery/3.5.1": {
         "type": "package"
       },
@@ -3710,6 +3713,23 @@
         "lib/netstandard1.5/Castle.Core.dll",
         "lib/netstandard1.5/Castle.Core.xml",
         "readme.txt"
+      ]
+    },
+    "d3/6.2.0": {
+      "sha512": "O4MA83+x7LBctjFkwXmgNzoMqVqCyadU41uVQOCqmIGIu9aZdSBrnNSj6XXCplD11A4sXH/yGQhRa65awGfQIQ==",
+      "type": "package",
+      "path": "d3/6.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Scripts/d3/API.md",
+        "content/Scripts/d3/CHANGES.md",
+        "content/Scripts/d3/LICENSE",
+        "content/Scripts/d3/README.md",
+        "content/Scripts/d3/d3.js",
+        "content/Scripts/d3/d3.min.js",
+        "d3.6.2.0.nupkg.sha512",
+        "d3.nuspec"
       ]
     },
     "jQuery/3.5.1": {
@@ -10802,6 +10822,7 @@
       "Rent.DomainModels >= 1.0.0",
       "Rent.ServiceLayers >= 1.0.0",
       "bootstrap >= 4.5.2",
+      "d3 >= 6.2.0",
       "jQuery >= 3.5.1"
     ]
   },
@@ -10910,6 +10931,10 @@
           "bootstrap": {
             "target": "Package",
             "version": "[4.5.2, )"
+          },
+          "d3": {
+            "target": "Package",
+            "version": "[6.2.0, )"
           },
           "jQuery": {
             "target": "Package",

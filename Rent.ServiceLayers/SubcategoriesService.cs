@@ -26,9 +26,9 @@ namespace Rent.ServiceLayers
         }
         public async Task<int> InsertSubcategory(NewSubcategoryViewModel nsvm)
         {
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<NewSubcategoryViewModel, Subcagetory>(); cfg.IgnoreUnmapped(); });
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<NewSubcategoryViewModel, Subcategory>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
-            Subcagetory newSubcategory = mapper.Map<NewSubcategoryViewModel, Subcagetory>(nsvm);
+            Subcategory newSubcategory = mapper.Map<NewSubcategoryViewModel, Subcategory>(nsvm);
             return await subcategoriesRepository.AddSubcategory(newSubcategory);
         }
         public async Task DeleteSubcategory(int subcategoryId)
@@ -39,9 +39,9 @@ namespace Rent.ServiceLayers
         public async Task<IEnumerable<SubcategoryDetailsViewModel>> GetSubcagetories()
         {
             var subcategsList = await subcategoriesRepository.GetSubcategories();
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Subcagetory, SubcategoryDetailsViewModel>(); cfg.IgnoreUnmapped(); });
+            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Subcategory, SubcategoryDetailsViewModel>(); cfg.IgnoreUnmapped(); });
             IMapper mapper = config.CreateMapper();
-            var subcategories = mapper.Map<IEnumerable<Subcagetory>, IEnumerable<SubcategoryDetailsViewModel>>(subcategsList);
+            var subcategories = mapper.Map<IEnumerable<Subcategory>, IEnumerable<SubcategoryDetailsViewModel>>(subcategsList);
             return subcategories;
         }
     }

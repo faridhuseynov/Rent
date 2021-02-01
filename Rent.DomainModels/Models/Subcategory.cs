@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Rent.DomainModels.Models
 {
-    public class Subcagetory
+    public class Subcategory
     {
         public int Id { get; set; }
         public string SubcategoryName { get; set; }

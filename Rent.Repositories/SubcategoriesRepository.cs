@@ -9,8 +9,8 @@ namespace Rent.Repositories
 {
     public interface ISubcategoriesRepository
     {
-        Task<IEnumerable<Subcagetory>> GetSubcategories();
-        Task<int> AddSubcategory(Subcagetory subcagetory);
+        Task<IEnumerable<Subcategory>> GetSubcategories();
+        Task<int> AddSubcategory(Subcategory subcagetory);
         Task RemoveSubcategory(int subcagetoryId);
     }
     public class SubcategoriesRepository : ISubcategoriesRepository
@@ -21,14 +21,14 @@ namespace Rent.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<int> AddSubcategory(Subcagetory subcagetory)
+        public async Task<int> AddSubcategory(Subcategory subcagetory)
         {
             await dbContext.AddAsync(subcagetory);
             await dbContext.SaveChangesAsync();
             return subcagetory.Id;
         }
 
-        public async Task<IEnumerable<Subcagetory>> GetSubcategories()
+        public async Task<IEnumerable<Subcategory>> GetSubcategories()
         {
             var subcategories = await dbContext.Subcagetories.ToListAsync();
             return subcategories;

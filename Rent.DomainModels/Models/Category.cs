@@ -9,6 +9,6 @@ namespace Rent.DomainModels.Models
         public int Id { get; set; }
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
-        public virtual ICollection<Subcagetory> Subcagetories { get; set; }
+        public virtual ICollection<Subcategory> Subcategories { get; set; }
     }
 }

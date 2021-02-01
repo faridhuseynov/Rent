@@ -29,7 +29,7 @@ namespace Rent.DomainModels.Models
         public DbSet<ProfileImage> ProfileImages { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Rate> Rates { get; set; }
-        public DbSet<Subcagetory> Subcagetories { get; set; }
+        public DbSet<Subcategory> Subcagetories { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -91,7 +91,7 @@ namespace Rent.DomainModels.Models
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Category>()
-                .HasMany(s => s.Subcagetories)
+                .HasMany(s => s.Subcategories)
                 .WithOne(c => c.Category)
                 .OnDelete(DeleteBehavior.Cascade);
 

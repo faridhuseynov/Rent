@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Rent.DomainModels.Models;
 
 namespace Rent.DomainModels.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210201143056_FixedTypoInCategoryModel")]
+    partial class FixedTypoInCategoryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -428,7 +430,7 @@ namespace Rent.DomainModels.Migrations
                     b.ToTable("Rates");
                 });
 
-            modelBuilder.Entity("Rent.DomainModels.Models.Subcategory", b =>
+            modelBuilder.Entity("Rent.DomainModels.Models.Subcagetory", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -634,7 +636,7 @@ namespace Rent.DomainModels.Migrations
 
             modelBuilder.Entity("Rent.DomainModels.Models.Product", b =>
                 {
-                    b.HasOne("Rent.DomainModels.Models.Subcategory", "Subcagetory")
+                    b.HasOne("Rent.DomainModels.Models.Subcagetory", "Subcagetory")
                         .WithMany("Products")
                         .HasForeignKey("SubcagetoryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -706,7 +708,7 @@ namespace Rent.DomainModels.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Rent.DomainModels.Models.Subcategory", b =>
+            modelBuilder.Entity("Rent.DomainModels.Models.Subcagetory", b =>
                 {
                     b.HasOne("Rent.DomainModels.Models.Category", "Category")
                         .WithMany("Subcategories")
