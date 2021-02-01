@@ -140,10 +140,10 @@ namespace Rent.Areas.Admin.Controllers
         [HttpPost]
         public async Task RemoveSubcategory(int subcategoryId)
         {
-            var subcategory = await subcategoriesService.GetSubcagetoryById(subcategoryId);
+            var subcategory = await subcategoriesService.GetSubcategoryById(subcategoryId);
             if (subcategory!=null)
             {
-                subcategoriesService.DeleteSubcategory(subcategory.Id);
+                await subcategoriesService.DeleteSubcategory(subcategory.Id);
             }
         }
     }

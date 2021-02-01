@@ -79,7 +79,19 @@
     }
 
     function removeClicked(id) {
-        alert(id);
+        $.ajax({
+            method: "POST",
+            url: "/admin/home/RemoveSubcategory",
+            data: {
+                "subcategoryId": id
+            },
+            success: function () {
+                $("#" + id).remove();
+            },
+            error: function (error) {
+                alert(error);
+            }
+        });
     }
 </script>
 }
