@@ -15,12 +15,35 @@
 
 /*Subcategory icons*/
 /*Trash & Edit Pen at hover*/
+.sub-list-item {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.sub-edit {
+    margin-right: 2px;
+}
+
 .sub-trash:hover, .sub-edit:hover {
     cursor: pointer;
     color:red;
 }
 
+.sub-confirm {
+    color:green;
+}
 
+.sub-reject {
+    color:red;
+}
+
+.sub-confirm:hover, .sub-reject:hover {
+    cursor:pointer;
+}
 /*
     Lock for blocked products
 */

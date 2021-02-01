@@ -125,7 +125,7 @@ namespace Rent.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task AddSubcategory(int categoryId, string subcategoryName)
+        public async Task<int> AddSubcategory(int categoryId, string subcategoryName)
         {
             if (!String.IsNullOrWhiteSpace(subcategoryName))
             {
@@ -133,8 +133,9 @@ namespace Rent.Areas.Admin.Controllers
                     CategoryId = categoryId,
                     SubcategoryName = subcategoryName                
                 };
-                await subcategoriesService.InsertSubcategory(newSubCategory);
+                return await subcategoriesService.InsertSubcategory(newSubCategory);
             }
+            return -1;
         }
 
         [HttpPost]
