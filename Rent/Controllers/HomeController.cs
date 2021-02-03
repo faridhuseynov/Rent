@@ -66,7 +66,7 @@ namespace Rent.Controllers
             if (!String.IsNullOrWhiteSpace(searchString))
             {
                 products = products.Where(p => p.ProductName.Contains(searchString)
-                || p.ProductDescription.Contains(searchString)|| p.Subcagetory.SubcategoryName.Contains(searchString));
+                || p.ProductDescription.Contains(searchString)|| p.Subcategory.SubcategoryName.Contains(searchString));
             }
             if (User.Identity.IsAuthenticated==true)
             {

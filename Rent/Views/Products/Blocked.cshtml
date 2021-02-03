@@ -18,7 +18,7 @@
 
         @foreach (var item in ViewBag.Categories)
         {
-            if (Model.Any(x => x.Subcagetory.Id == item.Id))
+            if (Model.Any(x => x.Subcategory.Id == item.Id))
             {
                 <h3 class="mb-0 mt-5">@item.CategoryName</h3>
                 <hr class="mt-0" />

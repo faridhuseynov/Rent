@@ -63,6 +63,7 @@
                         class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
+                @*<partial name="_UpdateSubcategoryList" for="SubcategoryId" view-data="<List<string>>(ViewBag.SubcategoryId)" />*@
                 <label asp-for="SubcategoryId" class="control-label">Subkateqoriya</label>
                 <select id="subcategList" asp-for="SubcategoryId" class="form-control"
                         asp-items="ViewBag.SubcategoryId"></select>
@@ -88,16 +89,6 @@
 
 @section Scripts{
     <script>
-
-        var subCats = $("#subcategList");
-        for (var i = 0; i < subCats[0].length; i++) {
-            console.log(subCats[0][i]);
-        }
-        console.log(@ViewBag.SubcategoryId);
-        console.log(subCats);
-        var option = document.createElement("option");
-        console.log(option);
-        //console.log(subCats[0][0].value +": "+ subCats[0][0].text);
 
         $('#images').on('change', function () {
             var files = $(this)[0].files;
@@ -134,8 +125,6 @@
 
         function categoryChanged() {
             var categoryId = $("#categList option:selected").val();
-            console.log(categoryId);
-            console.log('in function');
             $.ajax({
                 method: "GET",
                 url: "/Products/UpdatedSubcategoryList",
@@ -143,7 +132,21 @@
                     "categoryId": categoryId
                 },
                 success: function (result) {
-                    console.log(result);
+                    var subCats = $("#subcategList");
+                    var count = subCats[0].length;
+                    console.log(count);
+                    for (var i = 0; i < count; i++) {
+                        //every time you delete the option the next one comes in front and
+                        //becomes the element at the index [0][0]
+                        subCats[0][0].remove();
+                    }
+                    var option;
+                    for (var i = 0; i < result.length; i++) {
+                        option = document.createElement("option");
+                        option.value = result[i].value;
+                        option.text = result[i].text;
+                        subCats[0].appendChild(option);                    
+                    }
                 },
                 error: function (error) {
                     console.log(error);

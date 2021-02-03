@@ -64,7 +64,7 @@ namespace Rent.Controllers
             }
 
             var product = await _context.Products
-                .Include(p => p.Subcagetory)
+                .Include(p => p.Subcategory)
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (product == null)
@@ -80,8 +80,8 @@ namespace Rent.Controllers
         {
             ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
             var randomCatId = categoriesService.GetCategories().Result.First().Id;
-            ViewData["SubcategoryId"] = new SelectList(subcategoriesService.GetSubcategoriesByCategoryId(randomCatId).Result, "Id", "SubcategoryName");
-
+            
+            ViewData["SubcategoryId"] = new SelectList(subcategoriesService.GetSubcategoriesByCategoryId(randomCatId).Result,"Id","SubcategoryName");
 
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View();
@@ -90,8 +90,6 @@ namespace Rent.Controllers
         [HttpGet]
         public async Task<SelectList> UpdatedSubcategoryList(int categoryId)
         {
-            //ViewData["SubcategoryId"] = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");  
-            //return PartialView();
             var subCategoriesListItems = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");
             return subCategoriesListItems;
         }
