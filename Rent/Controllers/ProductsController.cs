@@ -88,11 +88,15 @@ namespace Rent.Controllers
         }
         
         [HttpGet]
-        public async Task<SelectList> GetUpdatedSubcategoryList(int categoryId)
+        public async Task<SelectList> UpdatedSubcategoryList(int categoryId)
         {
-            var newList = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");
-            return newList;
+            //ViewData["SubcategoryId"] = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");  
+            //return PartialView();
+            var subCategoriesListItems = new SelectList(await subcategoriesService.GetSubcategoriesByCategoryId(categoryId), "Id", "SubcategoryName");
+            return subCategoriesListItems;
         }
+
+
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.

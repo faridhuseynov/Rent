@@ -64,7 +64,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="SubcategoryId" class="control-label">Subkateqoriya</label>
-                <select asp-for="SubcategoryId" class="form-control" asp-items="ViewBag.SubcategoryId"></select>
+                <select id="subcategList" asp-for="SubcategoryId" class="form-control"
+                        asp-items="ViewBag.SubcategoryId"></select>
             </div>
             <div class="form-group">
                 <label class="control-label">Şəkil əlavə et</label>
@@ -87,6 +88,17 @@
 
 @section Scripts{
     <script>
+
+        var subCats = $("#subcategList");
+        for (var i = 0; i < subCats[0].length; i++) {
+            console.log(subCats[0][i]);
+        }
+        console.log(@ViewBag.SubcategoryId);
+        console.log(subCats);
+        var option = document.createElement("option");
+        console.log(option);
+        //console.log(subCats[0][0].value +": "+ subCats[0][0].text);
+
         $('#images').on('change', function () {
             var files = $(this)[0].files;
             if (files.length > 1) {
@@ -122,14 +134,19 @@
 
         function categoryChanged() {
             var categoryId = $("#categList option:selected").val();
+            console.log(categoryId);
+            console.log('in function');
             $.ajax({
                 method: "GET",
-                url: "/Home/Products/GetUpdatedSubcategoryList",
+                url: "/Products/UpdatedSubcategoryList",
                 data: {
                     "categoryId": categoryId
                 },
                 success: function (result) {
                     console.log(result);
+                },
+                error: function (error) {
+                    console.log(error);
                 }
             });
         }
