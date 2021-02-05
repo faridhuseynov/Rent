@@ -112,11 +112,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="Subcategory.CategoryId" class="control-label">Category</label>
-                <select asp-for="Subcategory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select id="categoryList" asp-for="Subcategory.CategoryId"
+                        class="form-control" asp-items="ViewBag.CategoryId"
+                        onchange="categoryChanged()"></select>
             </div>
             <div class="form-group">
                 <label asp-for="SubcategoryId" class="control-label">Subcategory</label>
-                <select asp-for="SubcategoryId" class="form-control" asp-items="ViewBag.SubcategoryId"></select>
+                <select id="subcategoryList" asp-for="SubcategoryId" class="form-control"
+                        asp-items="ViewBag.SubcategoryId"></select>
             </div>
             <div class="form-group">
                 <label class="control-label">Şəkil əlavə et</label>
@@ -223,5 +226,33 @@
                 })
             }
         };
+
+        function categoryChanged() {
+            var newCategoryId = $("#categoryList option:selected").val();
+            $.ajax({
+                method: "GET",
+                url: "/Products/UpdatedSubcategoryList",
+                data: {
+                    "categoryId":newCategoryId
+                },
+                success: function (result) {
+                    var subcategoryList = $("#subcategoryList");
+                    var subcategoryListLength = subcategoryList[0].length;
+                    for (var i = 0; i < subcategoryListLength; i++) {
+                        subcategoryList[0][0].remove();
+                    }
+                    
+                    for (var i = 0; i < result.length; i++) {
+                    var option = document.createElement("option");
+                        option.value = result[i].value;
+                        option.text = result[i].text;
+                        subcategoryList[0].appendChild(option);
+                    }                    
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            })
+        }
     </script>
 }
