@@ -133,7 +133,7 @@ namespace Rent.Controllers
                 {
                     ModelState.AddModelError(item.Code, item.Description);
                 }
-                return View();
+                return View(newUser.ReturnUrl);
             }
             await userManager.AddToRoleAsync(user, "User");
             var token = userManager.GenerateEmailConfirmationTokenAsync(user);

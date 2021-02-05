@@ -68,7 +68,6 @@ namespace Rent
                 options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
 

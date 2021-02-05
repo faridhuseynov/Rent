@@ -33,7 +33,6 @@
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title mt-3 text-center">Create Account</h4>
-            <p class="text-center">Get started with your free account</p>
 
             @if (Model != null && Model.ExternalRegisters.Count > 0)
             {
@@ -66,6 +65,7 @@
                         <span class="input-group-text"> <i class="fa fa-user"></i> </span>
                     </div>
                 </div>
+                <input asp-for="ReturnUrl" value="@Model.ReturnUrl" hidden/>
                 <div class="form-group input-group">
                     <input name="Name" asp-for="Name" class="form-control" placeholder="Name" type="text">
                     <span asp-validation-for="Name" class="text-danger"></span>

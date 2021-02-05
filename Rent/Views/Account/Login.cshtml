@@ -5,7 +5,7 @@
 <div class="container col-6 ">
     <div class="card">
         <article class="card-body">
-            <a asp-action="Register" class="float-right btn btn-outline-primary">Sign up</a>
+            <a asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl" class="float-right btn btn-outline-primary">Sign up</a>
             <h4 class="card-title mb-4 mt-1">Sign in</h4>
             @*<a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
                 <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>*@
