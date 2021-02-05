@@ -115,7 +115,10 @@ namespace Rent.Controllers
         public async Task<IActionResult> Register(RegisterViewModel newUser)
         {
             if (!ModelState.IsValid)
-                return View();
+            {
+                newUser.ExternalRegisters = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                return View("Register", newUser);
+            }
             var user = new User()
             {
                 Name = newUser.Name,
