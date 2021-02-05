@@ -12,7 +12,7 @@ namespace Rent.ServiceLayers
     public interface IProductsService
     {
         Task<int> InsertProduct(NewProductViewModel newProductViewModel);
-        Task UpdateProductDetails(ProductDetailsViewModel productDetailsViewModel);
+        Task UpdateProductDetails(EditProductDetailsViewModel editedProductDetailsViewModel);
         Task DeleteProduct(int ProductID);
         IEnumerable<ProductDetailsViewModel> GetProducts();
         Task<ProductDetailsViewModel> GetProductByProductID(int ProductID);
@@ -43,11 +43,17 @@ namespace Rent.ServiceLayers
               await pr.DeleteProduct(ProductID);
         }
 
-        public async Task UpdateProductDetails(ProductDetailsViewModel editedProductDetailsViewModel)
+        public async Task UpdateProductDetails(EditProductDetailsViewModel editedProductDetailsViewModel)
         {
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<ProductDetailsViewModel, Product>(); cfg.IgnoreUnmapped(); });
+            var config = new MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<EditProductDetailsViewModel, Product>();
+                cfg.IgnoreUnmapped();
+            });
+
             IMapper mapper = config.CreateMapper();
-            Product product = mapper.Map<ProductDetailsViewModel, Product>(editedProductDetailsViewModel);
+            Product product = mapper.Map<EditProductDetailsViewModel, Product>
+                                (editedProductDetailsViewModel);
             await pr.UpdateProductDetails(product);
         }
 
