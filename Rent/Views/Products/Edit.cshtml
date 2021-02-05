@@ -91,7 +91,7 @@
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label">Say (Ədəd)</label>
                 <input asp-for="TotalAmount" class="form-control" id="totalAmountInput"
-                       min="@(Model.CurrentlyRented==0?1:Model.CurrentlyRented)"  />
+                       min="@(Model.CurrentlyRented==0?1:Model.CurrentlyRented)" />
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -111,7 +111,11 @@
 
             </div>
             <div class="form-group">
-                <label asp-for="SubcategoryId" class="control-label">Kateqoriya</label>
+                <label asp-for="Subcategory.CategoryId" class="control-label">Category</label>
+                <select asp-for="Subcategory.CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubcategoryId" class="control-label">Subcategory</label>
                 <select asp-for="SubcategoryId" class="form-control" asp-items="ViewBag.SubcategoryId"></select>
             </div>
             <div class="form-group">

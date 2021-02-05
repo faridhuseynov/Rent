@@ -155,7 +155,11 @@ namespace Rent.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(categoriesService.GetCategories().Result, "Id", "CategoryName");
+            ViewData["CategoryId"] = new SelectList(categoriesService.
+                GetCategories().Result, "Id", "CategoryName");
+            ViewData["SubcategoryId"] = new SelectList(subcategoriesService
+                .GetSubcategoriesByCategoryId(product.Subcategory.CategoryId).Result,
+                "Id", "SubcategoryName");
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View(product);
         }
