@@ -150,7 +150,7 @@ namespace Rent.Controllers
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var product = await productsService.GetProductByProductID(id);
+            var product = await productsService.GetProductToUpdate(id);
             if (product == null)
             {
                 return NotFound();
@@ -158,7 +158,7 @@ namespace Rent.Controllers
             ViewData["CategoryId"] = new SelectList(categoriesService.
                 GetCategories().Result, "Id", "CategoryName");
             ViewData["SubcategoryId"] = new SelectList(subcategoriesService
-                .GetSubcategoriesByCategoryId(product.Subcategory.CategoryId).Result,
+                .GetSubcategoriesByCategoryId(product.CategoryId).Result,
                 "Id", "SubcategoryName");
             ViewData["UserId"] = userManager.FindByNameAsync(User.Identity.Name).Result.Id;
             return View(product);
@@ -169,7 +169,7 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,TotalAmount,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] EditProductDetailsViewModel product)
+        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,TotalAmount,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId,SubcategoryId")] EditProductDetailsViewModel product)
         {
             if (ModelState.IsValid)
             {
