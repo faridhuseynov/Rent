@@ -15,7 +15,8 @@ namespace Rent.ServiceLayers
         Task UpdateProductDetails(EditProductDetailsViewModel editedProductDetailsViewModel);
         Task DeleteProduct(int ProductID);
         IEnumerable<ProductDetailsViewModel> GetProducts();
-        Task<ProductDetailsViewModel> GetProductByProductID(int ProductID);
+        Task<ProductDetailsViewModel> GetProductByProductID(int productId);
+        Task<EditProductDetailsViewModel> GetProductToUpdate(int productId)
         Task<int> GetLastAddedProductId();
         Task UpdateRating(int productId);
         Task UpdateProductBlockStatus(int productId);
@@ -67,13 +68,30 @@ namespace Rent.ServiceLayers
             return products;
         }
 
-        public async Task<ProductDetailsViewModel> GetProductByProductID(int ProductID)
+        public async Task<ProductDetailsViewModel> GetProductByProductID(int productId)
         {
-            var productFromRepo = await pr.GetProductByProductID(ProductID);
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<Product, ProductDetailsViewModel>(); cfg.IgnoreUnmapped(); });
+            var productFromRepo = await pr.GetProductByProductID(productId);
+            var config = new MapperConfiguration(cfg => 
+            {
+                cfg.CreateMap<Product, ProductDetailsViewModel>();
+                cfg.IgnoreUnmapped();
+            });
             IMapper mapper = config.CreateMapper();
             var product = mapper.Map<Product, ProductDetailsViewModel>(productFromRepo);
             return  product;
+        }
+
+        public async Task<EditProductDetailsViewModel> GetProductToUpdate(int productId)
+        {
+            var productFromRepo = await pr.GetProductByProductID(productId);
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<Product, EditProductDetailsViewModel>();
+                cfg.IgnoreUnmapped();
+            });
+            IMapper mapper = config.CreateMapper();
+            var edvm = mapper.Map<Product, EditProductDetailsViewModel>(productFromRepo);
+            return edvm;
         }
 
         public async Task<int> GetLastAddedProductId()

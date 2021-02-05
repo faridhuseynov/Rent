@@ -169,11 +169,11 @@ namespace Rent.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,TotalAmount,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] ProductDetailsViewModel product)
+        public async Task<IActionResult> Edit(IEnumerable<IFormFile> images, [Bind("Id,ProductName,ProductDescription,TotalAmount,Sell,Lend, SellPrice, LendPrice, MinLendDays, CategoryId")] EditProductDetailsViewModel product)
         {
             if (ModelState.IsValid)
             {
-                var checkProduct = await productsService.GetProductByProductID(product.Id);
+                var checkProduct = await productsService.GetProductToUpdate(product.Id);
                 if (checkProduct != null)
                 {
                     

@@ -190,7 +190,7 @@ namespace Rent.Controllers
             //if the proposal is accepted the product.availableAmount should also be decreased
             if (statusId==2)
             {
-               var product = await productsService.GetProductByProductID(productId);
+               var product = await productsService.GetProductToUpdate(productId);
                 proposal.Product.CurrentlyRented = proposal.Product.CurrentlyRented + proposal.ProposedAmount;
                 await productsService.UpdateProductDetails(product);
             }
