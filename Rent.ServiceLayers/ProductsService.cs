@@ -16,7 +16,7 @@ namespace Rent.ServiceLayers
         Task DeleteProduct(int ProductID);
         IEnumerable<ProductDetailsViewModel> GetProducts();
         Task<ProductDetailsViewModel> GetProductByProductID(int productId);
-        Task<EditProductDetailsViewModel> GetProductToUpdate(int productId)
+        Task<EditProductDetailsViewModel> GetProductToUpdate(int productId);
         Task<int> GetLastAddedProductId();
         Task UpdateRating(int productId);
         Task UpdateProductBlockStatus(int productId);
