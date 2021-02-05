@@ -20,7 +20,7 @@ namespace Rent.ViewModels.ProductViewModels
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public virtual User User { get; set; }
-        //think about deleting the CategoryID!!!!!!!!!!!!!!!!!!!!!!!!!
+        public int CategoryId { get; set; }
         public int SubcategoryId { get; set; }
         public virtual Subcategory Subcategory { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }

@@ -17,6 +17,7 @@ namespace Rent.Repositories
         Task<Product> GetProductByProductID(int productId);
         Task<int> GetLatestProductID();
         Task UpdateRating(int productId);
+        Task UpdateProductBlockStatus(int productId);
     }
     public class ProductsRepository : IProductsRepository
     {
@@ -83,7 +84,7 @@ namespace Rent.Repositories
                 updatedProduct.LendPrice = product.LendPrice;
                 updatedProduct.MinLendDays = product.MinLendDays;
                 updatedProduct.SubcategoryId = product.SubcategoryId;
-                updatedProduct.Subcategory.CategoryId = product.Subcategory.CategoryId;
+                updatedProduct.CategoryId = product.CategoryId;
                 updatedProduct.Blocked = product.Blocked;
                 updatedProduct.TotalAmount = product.TotalAmount;
                 await db.SaveChangesAsync();
@@ -104,7 +105,15 @@ namespace Rent.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
+        public async Task UpdateProductBlockStatus(int productId)
+        {
+            var product = await db.Products.FirstOrDefaultAsync(p => p.Id == productId);
+            if (product!=null)
+            {
+                product.Blocked = !(product.Blocked);
+                await db.SaveChangesAsync();
+            }
+        }
         //public void UpdateUserPassword(User user)
         //{
         //    throw new NotImplementedException();

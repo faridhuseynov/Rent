@@ -9,6 +9,7 @@ using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
 using Rent.ViewModels.CategoryViewModels;
+using Rent.ViewModels.ProductViewModels;
 using Rent.ViewModels.SubcategoryViewModels;
 
 namespace Rent.Areas.Admin.Controllers
@@ -72,11 +73,11 @@ namespace Rent.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> BlockAndUnblockProduct(string userName, int productId)
         {
-            var product =await ps.GetProductByProductID(productId);
-            if (product!=null && userName=="admin@rent.com")
+            var product = await ps.GetProductByProductID(productId);
+            if (product != null && userName == "admin@rent.com")
             {
-                product.Blocked = !(product.Blocked);
-                await ps.UpdateProductDetails(product);
+                await ps.UpdateProductBlockStatus(product.Id);
+
             }
             return RedirectToAction("Profile", "Account", new {area="", userName = userName });
         }
