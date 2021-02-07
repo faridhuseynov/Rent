@@ -11,7 +11,8 @@ namespace Rent.Repositories
     {
         Task<IEnumerable<Category>> GetCategories();
         Task<string> AddCategory(Category category);
-        Task<Category> GetCategoryById(int categoryId);
+        Task UpdateCategory(Category category);
+        Task<Category> GetCategoryById(int categoryId);        
         Task DeleteCategory(Category category);
     }
     public class CategoriesRepository : ICategoriesRepository
@@ -32,7 +33,15 @@ namespace Rent.Repositories
             await db.SaveChangesAsync();
             return category.CategoryName;
         }
-
+        public async Task UpdateCategory(Category category)
+        {
+            var categoryFromRepo = await db.Categories.FirstOrDefaultAsync(c => c.Id == category.Id);
+            if (categoryFromRepo!=null)
+            {
+                categoryFromRepo.CategoryDescription = category.CategoryDescription;
+                await db.SaveChangesAsync();
+            }
+        }
         public async Task<Category> GetCategoryById(int categoryId)
         {
             var category = await db.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);

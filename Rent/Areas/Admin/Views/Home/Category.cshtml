@@ -11,7 +11,8 @@
             <div class="form-group">
                 <input hidden id="category-id" value="@Model.Id" />
                 <label asp-for="CategoryDescription">Category description</label>
-                <textarea class="form-control" asp-for="CategoryDescription" rows="3"></textarea>
+                <textarea id="category-description" class="form-control" asp-for="CategoryDescription" rows="3"></textarea>
+                <button onclick="updateCategory()" class="btn btn-default btn-success mt-2">Save</button>
             </div>
         </div>
 
@@ -157,6 +158,11 @@
             $("#input" + subcategoryId).val(oldName);
             $("#div" + subcategoryId).attr("hidden", true);
             $("#label" + subcategoryId).removeAttr("hidden");
+        }
+
+        function updateCategory() {
+            var newDescription = $("#category-description").val();
+            console.log(newDescription);
         }
     </script>
 }

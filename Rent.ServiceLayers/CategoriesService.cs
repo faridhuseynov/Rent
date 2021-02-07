@@ -14,6 +14,7 @@ namespace Rent.ServiceLayers
         Task<IEnumerable<Category>> GetCategories();
         Task<IEnumerable<CategoryDetailsViewModel>> GetCategoriesForReview();
         Task<string> AddCategory(NewCategoryViewModel newCategoryViewModel);
+        Task UpdateCategory(EditCategoryViewModel ecvm);
         Task<CategoryDetailsViewModel> GetCategoryById(int categoryId);
         Task RemoveCategory(int categoryId);
     }
@@ -31,12 +32,26 @@ namespace Rent.ServiceLayers
 
         public async Task<string> AddCategory(NewCategoryViewModel newCategoryViewModel)
         {
-            var config = new MapperConfiguration(cfg => { cfg.CreateMap<NewCategoryViewModel, Category>(); cfg.IgnoreUnmapped(); });
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<NewCategoryViewModel, Category>(); cfg.IgnoreUnmapped(); 
+            });
             IMapper mapper = config.CreateMapper();
             Category newCategory = mapper.Map<NewCategoryViewModel, Category>(newCategoryViewModel);
             return await cr.AddCategory(newCategory);
         }
 
+        public async Task UpdateCategory(EditCategoryViewModel ecvm)
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<EditCategoryViewModel, Category>();
+                cfg.IgnoreUnmapped();
+            });
+            IMapper mapper = config.CreateMapper();
+            Category category = mapper.Map<EditCategoryViewModel, Category>(ecvm);
+            await cr.UpdateCategory(category);
+        }
         public async Task<IEnumerable<CategoryDetailsViewModel>> GetCategoriesForReview()
         {
             var categoryList = await cr.GetCategories(); 
