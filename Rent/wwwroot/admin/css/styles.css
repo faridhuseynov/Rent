@@ -13,6 +13,20 @@
 
 /*--------------------------------------------*/
 
+/*Category name div*/
+
+.category-name-block{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.category-name-block i:hover{
+    cursor:pointer;
+    background-color:yellow;
+    color:red;
+}
+
 /*Subcategory icons*/
 /*Trash & Edit Pen at hover*/
 .sub-list-item {

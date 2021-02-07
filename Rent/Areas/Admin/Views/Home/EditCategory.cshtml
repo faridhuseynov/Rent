@@ -1,18 +1,29 @@
-﻿@model Rent.ViewModels.CategoryViewModels.CategoryDetailsViewModel
+﻿@model Rent.ViewModels.CategoryViewModels.EditCategoryViewModel
 
 @{
     ViewData["Title"] = "Category#1";
 }
 
 <div class="container">
-    <h1>@Model.CategoryName</h1>
+    <div class="category-name-block">
+        <h1 id="h1-category-name">@Model.CategoryName</h1>
+        <div class="mt-2" id="div-category-name" hidden>
+            <input id="input-category-name"
+                   value="@Model.CategoryName" />
+            <i class="fas fa-check  sub-confirm"
+               onclick="categoryNameConfirmClicked()"></i>
+            <i class="fas fa-times sub-reject"
+               onclick="categoryNameRejectClicked()"></i>
+        </div>
+        <i onclick="categoryNameChangeClicked()" class="fas fa-edit sub-edit ml-2"></i>
+    </div>
     <div class="row">
         <div class="col">
             <div class="form-group">
                 <input hidden id="category-id" value="@Model.Id" />
                 <label asp-for="CategoryDescription">Category description</label>
                 <textarea id="category-description" class="form-control" asp-for="CategoryDescription" rows="3"></textarea>
-                <button onclick="updateCategory()" class="btn btn-default btn-success mt-2">Save</button>
+                <button onclick="updateCategory(@Model.Id)" class="btn btn-default btn-success mt-2">Save</button>
             </div>
         </div>
 
@@ -160,9 +171,54 @@
             $("#label" + subcategoryId).removeAttr("hidden");
         }
 
-        function updateCategory() {
+
+
+
+
+
+        function categoryNameChangeClicked() {
+
+            $("#div-category-name").removeAttr("hidden");
+            $("#h1-category-name").attr("hidden", true);
+        }
+
+        function categoryNameConfirmClicked() {
+            var newName = $("#input-category-name").val();
+            $("#h1-category-name").text(newName);
+            $("#div-category-name").attr("hidden", true);
+            $("#h1-category-name").removeAttr("hidden");
+        }
+
+        
+        function categoryNameRejectClicked() {
+            var oldName = $("#h1-category-name").text();
+            $("#input-category-name").val(oldName);
+            $("#div-category-name").attr("hidden", true);
+            $("#h1-category-name").removeAttr("hidden");
+        }
+        
+
+
+        function updateCategory(categoryId) {
             var newDescription = $("#category-description").val();
+            var newName = $("#h1-category-name").text();
             console.log(newDescription);
+
+            $.ajax({
+                method: "POST",
+                url: "/Admin/Home/UpdateCategory",
+                data: {
+                    "categoryId": categoryId,
+                    "newDescription": newDescription,
+                    "newName": newName
+                },
+                success: function () {
+                    window.location.href = '/Admin/Home/Categories';
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
     </script>
 }

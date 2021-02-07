@@ -113,10 +113,23 @@ namespace Rent.Areas.Admin.Controllers
             await cs.AddCategory(new NewCategoryViewModel { CategoryName = categoryName, CategoryDescription = categoryDescription });
         }
 
+        [HttpPost]
+        public async Task UpdateCategory(int categoryId, string newDescription, string newName)
+        {
+            var category = await cs.GetCategoryToEdit(categoryId);
+            if (category!=null)
+            {
+                category.Id = categoryId;
+                category.CategoryName = newName;
+                category.CategoryDescription = newDescription;
+                await cs.UpdateCategory(category);
+            }
+        }
+
         [HttpDelete]
         public async Task DeleteCategory(int categoryId)
         {
-            var category = await cs.GetCategoryById(categoryId);
+            var category = await cs.GetCategoryToEdit(categoryId);
             if (category != null)
             {
                 await cs.RemoveCategory(categoryId);
@@ -124,9 +137,10 @@ namespace Rent.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Category(int categoryId)
+        public async Task<IActionResult> EditCategory(int categoryId)
         {
-            var category = await cs.GetCategoryById(categoryId);
+            var category = await cs.GetCategoryToEdit(categoryId);
+
             if (category!=null)
             {
                 ViewBag.CategoryName = category.CategoryName;

@@ -38,6 +38,7 @@ namespace Rent.Repositories
             var categoryFromRepo = await db.Categories.FirstOrDefaultAsync(c => c.Id == category.Id);
             if (categoryFromRepo!=null)
             {
+                categoryFromRepo.CategoryName = category.CategoryName;
                 categoryFromRepo.CategoryDescription = category.CategoryDescription;
                 await db.SaveChangesAsync();
             }
