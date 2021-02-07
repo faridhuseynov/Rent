@@ -10,11 +10,18 @@ namespace Rent.ServiceLayers.Hubs
 {
     public class ChatServiceHub:Hub
     {
-        public async Task SendPrivateMessage(string recipient, string message)
+        private readonly IDictionary<string, IList<string>> userConnectionIdSet;
+
+        public ChatServiceHub(IDictionary<string, IList<string>> userConnectionIdSet)
+        {
+            this.userConnectionIdSet = userConnectionIdSet;
+        }
+        public async Task SendPrivateMessage(string recipientConnectionId, string message)
         {
             //to be changed for only 2 people, currently sends to everybody
-            //await Clients.Client(recipientConnectionId).SendAsync("ReceivePrivateMessage", message);
-            await Clients.All.SendAsync("ReceivePrivateMessage",message);
+            await Clients.Client(recipientConnectionId)
+                .SendAsync("ReceivePrivateMessage", message);
+            //await Clients.All.SendAsync("ReceivePrivateMessage",message);
         }
 
 
@@ -26,14 +33,23 @@ namespace Rent.ServiceLayers.Hubs
 
         public override async Task OnConnectedAsync()
         {
+            var userName = Context.User.Identity.Name;
+            if (!userConnectionIdSet.ContainsKey(userName))
+            {
+                userConnectionIdSet.Add(userName, new List<string>());
+            }
+            userConnectionIdSet[userName].Add(Context.ConnectionId);
             await Clients.Caller.SendAsync("UserConnected", Context.ConnectionId);
             await base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-            await Clients.Caller.SendAsync("UserDisconnected", Context.ConnectionId);
-            await base.OnDisconnectedAsync(exception);
+            //var userName = Context.User.Identity.Name;
+            //var connectionId = Context.ConnectionId;
+            //userConnectionIdSet[userName].Remove(connectionId);
+            //await Clients.Caller.SendAsync("UserDisconnected", Context.ConnectionId);
+            //await base.OnDisconnectedAsync(exception);
         }
 
         //public async Task SendTypingNotification(string sender, string recipient)

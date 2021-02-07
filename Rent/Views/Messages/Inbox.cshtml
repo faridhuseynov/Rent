@@ -111,7 +111,9 @@
         //on loading of the messages page, the first active username is obtained and getMessageThread function is called
         $(document).ready(function () {
             var sender = $(".active_chat").find("img").attr("alt");
-            getMessageThread(sender);
+            console.log(document);
+            console.log(sender);
+            //getMessageThread(sender);
         });
 
         //once other messagebox clicked it obtains the username and calls the getMessageThread function
@@ -125,6 +127,7 @@
 
         //function receives the name of the sender and gets the thread with this user
         function getMessageThread(sender) {
+            console.log("test");
             $.ajax({
                 url: "/Messages/_MessageThread",
                 method: "GET",

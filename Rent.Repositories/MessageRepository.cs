@@ -52,7 +52,7 @@ namespace Rent.Repositories
         }
         public async Task<IEnumerable<Message>> GetMessagesForUser(string userId)
         {
-            return db.Messages.Where(m => m.SenderId == userId || m.RecipientId == userId);
+            return db.Messages.Where(m => m.SenderId == userId || m.RecipientId == userId).ToList();
         }
         public async Task<int> GetUnreadInboxMessagesCount(string userId)
         {

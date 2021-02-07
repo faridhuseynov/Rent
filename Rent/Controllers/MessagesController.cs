@@ -31,7 +31,8 @@ namespace Rent.Controllers
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            return View(messages.OrderByDescending(m => m.MessageSent));
+            var sortedMessageList = messages.OrderByDescending(m => m.MessageSent);
+            return View(sortedMessageList);
         }
 
         // GET: Messages
@@ -46,12 +47,16 @@ namespace Rent.Controllers
         [HttpGet]
         public async Task<IActionResult> _MessageThread(string recipient, string sender)
         {
-            ViewBag.Sender = sender;
-            ViewBag.Recipient = recipient;
-            var userFromRepoSender = await userManager.FindByNameAsync(sender);
-            var userFromRepoRecipient = await userManager.FindByNameAsync(recipient);
-            var messages =await messageRepo.GetMessageThread(userFromRepoSender.Id, userFromRepoRecipient.Id);
-            return PartialView(messages);
+            if (recipient!=null && sender!=null)
+            {
+                ViewBag.Sender = sender;
+                ViewBag.Recipient = recipient;
+                var userFromRepoSender = await userManager.FindByNameAsync(sender);
+                var userFromRepoRecipient = await userManager.FindByNameAsync(recipient);
+                var messages =await messageRepo.GetMessageThread(userFromRepoSender.Id, userFromRepoRecipient.Id);
+                return PartialView(messages);
+            }
+            return BadRequest();
         }
         [HttpPost]
         public async Task Create(string recipientUserName, string content)

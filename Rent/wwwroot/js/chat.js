@@ -1,5 +1,5 @@
 ﻿"use strict";
-
+console.log("on chat page");
 
 var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
@@ -9,29 +9,7 @@ document.getElementById("sendButton").disabled = true;
 // receive message
 connection.on("ReceivePrivateMessage", function (message) {
 
-    // //id for user with whom currently chatting, active user
-    //var senderId = $("#activeUser").val();
-
-    //// logged in user
-    //var recipientId = $("#recipientUser").val();
-
-    //if (recipient == recipientId && sender == senderId) {
-
-    //}
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-
-        //var div = document.createElement(
-        //    <div class="incoming_msg">
-        //        <div class="received_msg">
-        //            <div class="received_withd_msg">
-        //                <p>
-        //                    hello
-        //                    </p>
-        //                <span class="time_date">2-Jan-2021</span>
-        //            </div>
-        //        </div>
-        //    </div>
-        //)
 
         var li = document.createElement("li");
         li.textContent = msg;
