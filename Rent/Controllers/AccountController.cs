@@ -167,24 +167,11 @@ namespace Rent.Controllers
                 return View("Login",User);
             // think about adding errors while login failed
             var user = await userManager.FindByNameAsync(User.Username);
-            if (user == null)
+            if (user == null || user.IsUserBlocked==true)
                 return RedirectToAction("Login");
-            
 
             var result = await userManager.CheckPasswordAsync(user, User.Password);
-            
-            
-            //if (result != false && user.IsUserBlocked != true)
-            //{
-            //    await signInManager.SignInAsync(user, result);
-            //    if (await userManager.IsInRoleAsync(user, "Admin"))
-            //    {
-            //        return RedirectToAction("Index", "Home", new { area = "Admin" });
-            //    }
-            //    return RedirectToAction("Index", "Home");
-
-            //}
-
+         
             if (result != false)
             {
                 await signInManager.SignInAsync(user, result);
