@@ -99,7 +99,7 @@ namespace Rent.Controllers
                         {
                             ModelState.AddModelError(item.Code, item.Description);
                         }
-                        return View("Register");
+                        return View("Register",rvm);
                     }
                     await userManager.AddToRoleAsync(user, "User");
                     await userManager.AddLoginAsync(user, info);
