@@ -45,7 +45,8 @@ namespace Rent
             });
 
             //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
-            services.AddIdentity<User, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
 
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
@@ -73,6 +74,13 @@ namespace Rent
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+            });
+
+            //this part of configuration added to immediately sign off the user in case 
+            //the admin has blocked him. Check the AccountController for the rest of code
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.Zero;
             });
             services.AddSession();
             services.AddSignalR();

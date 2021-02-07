@@ -280,7 +280,11 @@ namespace Rent.Controllers
                     user.LockoutEnd = DateTime.Now.AddYears(100);
                 }
                 user.IsUserBlocked = !(user.IsUserBlocked);
-                await userManager.UpdateAsync(user);
+                if (user.IsUserBlocked)
+                {
+                    await userManager.UpdateSecurityStampAsync(user);
+                }
+                    await userManager.UpdateAsync(user);
             }
         }
 
