@@ -162,8 +162,9 @@ namespace Rent.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel User)
         {
+            User.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (!ModelState.IsValid)
-                return View();
+                return View("Login",User);
             // think about adding errors while login failed
             var user = await userManager.FindByNameAsync(User.Username);
             if (user == null)
@@ -191,7 +192,8 @@ namespace Rent.Controllers
                 {
                     return RedirectToAction("Index", "Home", new { area = "Admin" });
                 }
-                if (!String.IsNullOrWhiteSpace(User.ReturnUrl))
+                if (!String.IsNullOrWhiteSpace(User.ReturnUrl) &&
+                    User.ReturnUrl != "/Home/SendProposal")
                 {
                     return RedirectToAction(User.ReturnUrl);
                 }
@@ -199,7 +201,7 @@ namespace Rent.Controllers
 
             }
             //result.Succeeded
-            return View();
+            return View("Login");
         }
 
         [AllowAnonymous]
