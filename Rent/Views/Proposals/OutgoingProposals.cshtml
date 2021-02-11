@@ -54,6 +54,8 @@
                     <p class="card-text">
                         Göndərilib: @item.ProposalAdded.ToString("dd/M/yyyy")
                     </p>
+                <div class="proposal-status-block">
+
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
                         <label class="card-footer badge-info">Status: Açıq</label>
@@ -68,6 +70,7 @@
                     {
                         <label class="card-footer badge-danger">Status: @item.ProposalClosed.ToString("dd/M/yyyy")-də Imtina edilib</label>
                     }
+                </div>
                 </div>
             </div>
         }

@@ -109,7 +109,6 @@ namespace Rent.Controllers
         {
             var product = await ps.GetProductByProductID(Id);
             var propType = await proposalTypesService.GetProposalType(proposalType);
-            //var proposal = await proposalTypesRepository.GetProposalTypes().Result.FirstOrDefault(p => p.Id == proposalType);
             var _buyer = await userManager.FindByNameAsync(buyer);
             int newPropId=0;
             if (product != null && product.Blocked!=true)

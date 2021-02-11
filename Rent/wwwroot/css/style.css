@@ -119,6 +119,12 @@
     }
 }
 
+/*for the status block of the proposal in incoming and outgoing proposals view*/
+.proposal-status-block {
+    display:flex;
+    justify-content: flex-start;
+    align-items:baseline;
+}
 
 
 body {
