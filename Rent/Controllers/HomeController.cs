@@ -118,13 +118,14 @@ namespace Rent.Controllers
             string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate, int proposedAmount)
         {
             var product = await ps.GetProductByProductID(Id);
+            //var proposal = await proposalTypesRepository.GetProposalTypes().Result.FirstOrDefault(p => p.Id == proposalType);
             var _buyer = await userManager.FindByNameAsync(buyer);
             int newPropId=0;
             if (product != null && product.Blocked!=true)
             {
                 var newProposal = new NewProposalViewModel();
                 newProposal.ProposedPrice = proposedPrice;
-                if (proposalType == 3)
+                if (proposalType == 2)
                 {
                     // doesn't work properly, date is being sent without correction
                     newProposal.ProposedRentStartDate = rentStartDate;
