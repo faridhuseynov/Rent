@@ -10,6 +10,7 @@ namespace Rent.Repositories
     public interface IProposalTypesRepository
     {
         Task<IEnumerable<ProposalType>> GetProposalTypes();
+        Task<ProposalType> GetProposalTypeAsync(int proposalTypeId);
     }
     public class ProposalTypesRepository : IProposalTypesRepository
     {
@@ -22,6 +23,13 @@ namespace Rent.Repositories
         {
             var proposalTypes = await db.ProposalTypes.ToListAsync();
             return proposalTypes;
+        }
+
+        public async Task<ProposalType> GetProposalTypeAsync(int proposalTypeId)
+        {
+            var proposalType = await db.ProposalTypes
+                                    .FirstOrDefaultAsync(pt => pt.Id == proposalTypeId);
+            return proposalType;
         }
     }
 }
