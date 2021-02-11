@@ -380,7 +380,7 @@
             //check > 0 ? sendProposalCheck(true) : sendProposalCheck(false);
             //sendProposalCheck();
             //sendProposalCheck(false);
-            
+
         });
 
         function proposalTypeChange() {
@@ -484,11 +484,12 @@
                     data: {
                         productid: "@Model.Id",
                         buyer: "@User.Identity.Name"
+                    },
+                    success: function () {
+                        var element = $("#wishListCount");
+                        var value = parseInt(element.val()) + 1;
+                        $(element).val(value).attr("hidden", false);
                     }
-                    @*success: function () {
-                        console.log(@ViewBag.WishCount);
-                        $("#wishListCount").removeAttr("hidden").text(@ViewBag.WishCount);
-                    }*@
                 });
             }
 
@@ -500,11 +501,17 @@
                     data: {
                         productid: "@Model.Id",
                             buyer: "@User.Identity.Name"
+                    },
+                    success: function () {
+                        var element = $("#wishListCount");
+                        var value = parseInt(element.val()) - 1;
+                        $(element).val(value);
+                        if (value == 0) {
+                            $(element).attr("hidden", true);
+                        }
+
+
                     }
-                    @*success: function () {
-                        if (@ViewBag.WishCount== 0) {
-                             $("#wishListCount").attr("hidden",true).text(@ViewBag.WishCount);
-                        }*@
                    });
 
             }

@@ -11,15 +11,15 @@
         @foreach (var product in Model)
         {
             <div class="card m-3" style="width: 23rem;overflow:hidden; white-space:nowrap;">
-             <input hidden class="product-id" value="@product.ProductId" />
+                <input hidden class="product-id" value="@product.ProductId" />
                 @if (product.Product.MainPhotoUrl == null)
-                    {
-                        <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />
-                    }
-                    else
-                    {
-                        <img src="~/Images/Products/@product.Product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
-                    }
+                {
+                    <img src="~/Images/Products/default-pro.jpg" class="card-img-top card-photo" alt="..." />
+                }
+                else
+                {
+                    <img src="~/Images/Products/@product.Product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
+                }
                 <i onclick="removeFromWishList(this)" class="fa fa-2x fa-heart wish-heart"></i>
                 <div class="card-body">
                     <h5 class="card-title">@product.Product.ProductName</h5>
@@ -52,7 +52,7 @@
 
 @section Scripts {
 
-<script>
+    <script>
     function removeFromWishList(event) {
         var element = event.parentElement;
         var id = $(element).find(".product-id").val();
@@ -69,15 +69,17 @@
             success: function () {
                 setTimeout(()=>{
                     $(element).remove();
+                    var wishLabel = $("#wishListCount");
+                    var value = parseInt(wishLabel.val()) - 1;
+                    $(wishLabel).val(value);
+                    if (value == 0) {
+                        $(wishLabel).attr("hidden", true);
+                    }
                 }, 2000);
             }
         })
-        
+
     }
-
-
-
-</script>
-
+    </script>
 }
 
