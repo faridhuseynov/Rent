@@ -12,6 +12,7 @@ using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
 using Rent.ViewModels.ProductViewModels;
+using Rent.ViewModels.ProposalTypeViewModels;
 using Rent.ViewModels.ProposalViewModels;
 
 namespace Rent.Controllers
@@ -23,18 +24,18 @@ namespace Rent.Controllers
         ICategoriesService cs;
         IProposalsService propsService;
         private readonly UserManager<User> userManager;
-        private readonly IProposalTypesRepository proposalTypesRepository;
+        private readonly IProposalTypesService proposalTypesService;
         private readonly IWishListProdsRepository wishListProdsRepository;
         private readonly IRatingsRepository ratingsRepository;
         IEnumerable<Category> categories;
-        IEnumerable<ProposalType> proposalTypes;
+        IEnumerable<ProposalTypeDetailsViewModel> proposalTypes;
         int NoOfRecordsPerPage = 6;
         int NoOfPages;
         int NoOfRecordsToSkip;
         //ProductParamsForFilter productParams;
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
-            IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository,
+            IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesService proposalTypesService,
             IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository)
         {
             _logger = logger;
@@ -42,15 +43,12 @@ namespace Rent.Controllers
             cs = categoriesService;
             propsService = proposalsService;
             this.userManager = userManager;
-            this.proposalTypesRepository = proposalTypesRepository;
+            this.proposalTypesService = proposalTypesService;
             this.wishListProdsRepository = wishListProdsRepository;
             this.ratingsRepository = ratingsRepository;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
-            proposalTypes = new List<ProposalType>();
-            proposalTypes = proposalTypesRepository.GetProposalTypes().Result;
-            //SearchBarViewCompService.GetCategories(HttpContext.Session, categories.ToList());
-            //productParams = new ProductParamsForFilter();
+            proposalTypes = proposalTypesService.GetProposalTypes().Result;
         }
 
         public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
@@ -76,16 +74,9 @@ namespace Rent.Controllers
             NoOfPages = Convert.ToInt32(Math.Ceiling(Convert.ToDouble(products.Count() / Convert.ToDouble(NoOfRecordsPerPage))));
             ViewBag.NoOfPages = NoOfPages;
             products = products.Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
-            //products = ps.GetProducts().Skip(NoOfRecordsToSkip).Take(NoOfRecordsPerPage);
-            ViewBag.CategoryId = Id;
-            //if (User.Identity.IsAuthenticated)
-            //{
 
-            //    var userFromRepo = userManager.FindByNameAsync(User.Identity.Name);
-            //    var wishList = wishListProdsRepository.GetWishListProducts().Result;
-            //    ViewBag.WishCount = wishList.ToList().
-            //    Where(w => w.UserId == userFromRepo.Result.Id).Count();
-            //}
+            ViewBag.CategoryId = Id;
+
             return View(products);
         }
 
@@ -103,7 +94,6 @@ namespace Rent.Controllers
             if (product != null && product.Blocked!=true)
             {
                 ViewBag.ProposalTypes = proposalTypes;
-                //ViewBag.ProposalTypes = product.p;
 
                 var result = await wishListProdsRepository.GetAllWishListProducts();
                 ViewBag.Wish = result.ToList().FirstOrDefault(
@@ -118,6 +108,7 @@ namespace Rent.Controllers
             string buyer, int proposalType, DateTime rentStartDate, DateTime rentEndDate, int proposedAmount)
         {
             var product = await ps.GetProductByProductID(Id);
+            var propType = await proposalTypesService.GetProposalType(proposalType);
             //var proposal = await proposalTypesRepository.GetProposalTypes().Result.FirstOrDefault(p => p.Id == proposalType);
             var _buyer = await userManager.FindByNameAsync(buyer);
             int newPropId=0;
@@ -125,7 +116,7 @@ namespace Rent.Controllers
             {
                 var newProposal = new NewProposalViewModel();
                 newProposal.ProposedPrice = proposedPrice;
-                if (proposalType == 2)
+                if (propType.Type.ToLower() == "rent")
                 {
                     // doesn't work properly, date is being sent without correction
                     newProposal.ProposedRentStartDate = rentStartDate;
