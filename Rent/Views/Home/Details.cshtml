@@ -44,7 +44,26 @@
             <div class="col-md-5">
                 <div class="product-details">
                     <h2 class="product-name">@Model.ProductName</h2>
-                    <h3>Məhsulun sahibi: @Model.User.Name</h3>
+                    @{ 
+                        var name =
+                            (Model.User.Name == null
+                            ?
+                            Model.User.UserName
+                            :
+                            (Model.User.Name + " " + Model.User.Surname)
+                            );
+                        //if (Model.User.Name == null) {
+                        //    name = Model.User.UserName;
+                        //}
+                        //else
+                        //{
+                        // name = Model.User.Name + " " + Model.User.Surname;
+                        //}
+                        //var name = Model.User.Name + Model.User.Surname;
+                    }
+                <h3>
+                    Məhsulun sahibi:@name
+                </h3>
                     <div>
                         <div class="product-rating">
                             @{
@@ -126,10 +145,6 @@
                             @*add-to-cart-btn*@
                             @{
                                 var check = false;
-                                if (Model.Sell == true)
-                                {
-                                    check = true;
-                                }
 
                                 <button style="margin-top:5px" asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
                                         class="@(check == true ? "add-to-cart-btn" : "btn btn-light disabled")">
@@ -368,13 +383,71 @@
     <script>
 
         $(document).ready(function () {
-            proposalTypeChange();
-            var check = $("#availableCount").text();
-            check > 0 ? sendProposalCheck(true) : sendProposalCheck(false);
+            //proposalTypeChange();
+            //var check = $("#availableCount").text();
+            //check > 0 ? sendProposalCheck(true) : sendProposalCheck(false);
             //sendProposalCheck();
+            //sendProposalCheck(false);
             
         });
 
+        function proposalTypeChange() {
+            var check = $("#propType option:selected").text();
+
+            if (check == "Almaq") {
+                //console.log(document.getElementById("priceType").textContent);
+                $("#priceType").text("azn");
+                $(".date").attr("hidden", true);
+                $("#rentConditions").attr("hidden", true);
+                $("#sellConditions").removeAttr("hidden");
+
+
+            }
+            else {
+
+                $("#priceType").text("azn/gün");
+                $(".date").removeAttr("hidden");
+                $("#rentConditions").removeAttr("hidden");
+                $("#sellConditions").attr("hidden", true);
+            }
+        }
+
+        function checkDate() {
+            var startDate = (new Date($("#dp1").val())).getTime();
+            var endDate = (new Date($("#dp2").val())).getTime() + 86400000;
+            var minLendDays = $("#minLendDays").text().split("")[0] * 24 * 3600 * 1000;
+            var check = true;
+            if (startDate < Date.now()) {
+                $("#dp1ErrorSpan").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp1ErrorSpan").attr("hidden", true);
+            }
+            if (startDate >= endDate) {
+                $("#dp2ErrorSpan1").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp2ErrorSpan1").attr("hidden", true);
+            }
+            if (endDate - startDate < minLendDays) { // to check if difference is less than minLendDays
+                $("#dp2ErrorSpan2").removeAttr("hidden");
+                check = false;
+            } else {
+                $("#dp2ErrorSpan2").attr("hidden", true);
+            }
+
+            sendProposalCheck(check);
+        }
+
+        function sendProposalCheck(check) {
+            if (check == true) {
+                $("#sendProposalButton").removeClass("disabled btn btn-light").addClass("add-to-cart-btn");
+                console.log("yes");
+            } else {
+                $("#sendProposalButton").addClass("disabled btn btn-light").removeClass("add-to-cart-btn");
+                console.log("no");
+            }
+        }
 
         $(".carouselImages").on("click", function (event) {
             event.preventDefault();
@@ -471,67 +544,7 @@
 
         });
 
-        function proposalTypeChange() {
-                    var check = $("#propType option:selected").text();
 
-                if (check=="Almaq") {
-                    //console.log(document.getElementById("priceType").textContent);
-                    $("#priceType").text("azn");
-                    $(".date").attr("hidden", true);
-                    $("#rentConditions").attr("hidden", true);
-                    $("#sellConditions").removeAttr("hidden");
-
-
-                }
-                else {
-
-                    $("#priceType").text("azn/gün");
-                    $(".date").removeAttr("hidden");
-                    $("#rentConditions").removeAttr("hidden");
-                    $("#sellConditions").attr("hidden", true);
-                }
-        }
-
-        function checkDate() {
-            var startDate = (new Date($("#dp1").val())).getTime();
-            var endDate = (new Date($("#dp2").val())).getTime() + 86400000;
-            var minLendDays = $("#minLendDays").text().split("")[0] * 24 * 3600 * 1000;
-            var check = true;
-            if (startDate < Date.now()) {
-                $("#dp1ErrorSpan").removeAttr("hidden");
-                check = false;
-            } else {
-                $("#dp1ErrorSpan").attr("hidden", true);
-            }
-            if (startDate >= endDate) {
-                $("#dp2ErrorSpan1").removeAttr("hidden");
-                check = false;
-            } else {
-                $("#dp2ErrorSpan1").attr("hidden", true);
-            }
-            if (endDate - startDate < minLendDays) { // to check if difference is less than minLendDays
-                $("#dp2ErrorSpan2").removeAttr("hidden");
-                check = false;
-            } else {
-                $("#dp2ErrorSpan2").attr("hidden", true);
-            }
-
-            sendProposalCheck(check);
-        }
-
-        //<button asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
-        //        class="btn btn-light disabled" >
-        //    <i class="fa fa-shopping-cart"></i> send proposal
-        //</button>
-        function sendProposalCheck(check) {
-            if (check == true) {
-                $("#sendProposalButton").removeClass("disabled btn btn-light").addClass("add-to-cart-btn");
-                console.log("yes");
-            } else {
-                $("#sendProposalButton").addClass("disabled btn btn-light").removeClass("add-to-cart-btn");
-                console.log("no");
-            }
-        }
 
         $("#description").click(function (event) {
             $("#review").removeClass("active");
@@ -548,42 +561,3 @@
         });
     </script>
 }
-
-
-@*<li>
-        <div class="review-heading">
-            <h5 class="name">John</h5>
-            <p class="date">27 DEC 2018, 8:0 PM</p>
-            <div class="review-rating">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star-o empty"></i>
-            </div>
-        </div>
-        <div class="review-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-        </div>
-    </li>*@
-<!--below is for the non-registered users-->
-@*@if (User.Identity.IsAuthenticated == false)
-    {
-        <input class="input" type="text" placeholder="Your Name">
-        <input class="input" type="email" placeholder="Your Email">
-
-    }*@
-
-@*<li>
-    <div class="rating-stars">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-    </div>
-    <div class="rating-progress">
-        <div style="width: 80%;"></div>
-    </div>
-    <span class="sum">@Model.Rates.Where(r => r.Note == 5).Count()</span>
-</li>*@
