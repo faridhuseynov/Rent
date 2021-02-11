@@ -375,7 +375,7 @@
     <script>
 
         $(document).ready(function () {
-            //proposalTypeChange();
+            proposalTypeChange();
             //var check = $("#availableCount").text();
             //check > 0 ? sendProposalCheck(true) : sendProposalCheck(false);
             //sendProposalCheck();
@@ -392,15 +392,17 @@
                 $(".date").attr("hidden", true);
                 $("#rentConditions").attr("hidden", true);
                 $("#sellConditions").removeAttr("hidden");
+                sendProposalCheck(true);
 
 
             }
             else {
-
+                sendProposalCheck(false);
                 $("#priceType").text("azn/gün");
                 $(".date").removeAttr("hidden");
                 $("#rentConditions").removeAttr("hidden");
                 $("#sellConditions").attr("hidden", true);
+                checkDate();
             }
         }
 
@@ -409,13 +411,13 @@
             var endDate = (new Date($("#dp2").val())).getTime() + 86400000;
             var minLendDays = $("#minLendDays").text().split("")[0] * 24 * 3600 * 1000;
             var check = true;
-            if (startDate < Date.now()) {
+            if (isNaN(startDate) || startDate < Date.now()) {
                 $("#dp1ErrorSpan").removeAttr("hidden");
                 check = false;
             } else {
                 $("#dp1ErrorSpan").attr("hidden", true);
             }
-            if (startDate >= endDate) {
+            if (startDate >= endDate || isNaN(endDate)) {
                 $("#dp2ErrorSpan1").removeAttr("hidden");
                 check = false;
             } else {
@@ -434,10 +436,8 @@
         function sendProposalCheck(check) {
             if (check == true) {
                 $("#sendProposalButton").removeClass("disabled btn btn-light").addClass("add-to-cart-btn");
-                console.log("yes");
             } else {
                 $("#sendProposalButton").addClass("disabled btn btn-light").removeClass("add-to-cart-btn");
-                console.log("no");
             }
         }
 
