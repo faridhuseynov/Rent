@@ -27,7 +27,6 @@ connection.on("ReceiveUpdatedCount", function (updatedCount) {
 var wishListIcon = document.getElementById("wishlistIcon");
 if (wishListIcon) {
     document.getElementById("wishlistIcon").addEventListener("click", function (event) {
-        console.log('test');
 
         // worth to note that once the heart button clicked it first will change the class
         // and then the event will be checked whether it has the fa-heart-o class or not
