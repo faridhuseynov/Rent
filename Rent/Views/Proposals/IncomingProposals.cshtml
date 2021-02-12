@@ -58,8 +58,18 @@
                     @if (item.ProposalStatus.StatusName == "Open")
                     {
                         <label class="card-footer badge-info">Status: Açıq</label>
-                        <a class="btn btn-success" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2" asp-route-productId="@item.ProductId">Qəbul et</a>
-                        <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3" asp-route-productId="@item.ProductId">Rədd et</a>
+                        {
+                            //if in any other proposal was accepted for this product the stock
+                            //amount has to be checked. If not enough, disable the accept button
+                            var latestStockCheck =
+                                (item.Product.TotalAmount - item.Product.CurrentlyRented)<(item.ProposedAmount)
+                                ? false
+                                : true;
+                        <a class="btn btn-success @(latestStockCheck ? "":"disabled"  )" 
+                           asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2" asp-route-productId="@item.ProductId">Qəbul et</a>
+                        <a class="btn btn-danger"  asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3" asp-route-productId="@item.ProductId">Rədd et</a>
+                        }
+
 
                     }
                     else if (item.ProposalStatus.StatusName == "Closed")

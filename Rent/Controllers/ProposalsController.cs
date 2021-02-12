@@ -193,7 +193,9 @@ namespace Rent.Controllers
                var product = await productsService.GetProductToUpdate(productId);
                 proposal.Product.CurrentlyRented = proposal.Product.CurrentlyRented + proposal.ProposedAmount;
                 await productsService.UpdateProductDetails(product);
+
             }
+
             await proposalsService.AcceptOrRejectProposal(proposalId, statusId, responseDate);
             return RedirectToAction("IncomingProposals", new { userName = User.Identity.Name });
         }
