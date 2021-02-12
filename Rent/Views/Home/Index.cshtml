@@ -82,30 +82,33 @@
                             {
                                 <img src="~/Images/Products/@product.MainPhotoUrl" class="card-img-top card-photo" alt="...">
                             }
-                            <div class="card-body">
-                                <h5 class="card-title">@product.ProductName</h5>
-                                <p class="card-text">@product.ProductDescription</p>
-                                @if (product.Sell == true)
-                                {
-                                    <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
-                                }
-                                else
-                                {
-                                    <h6 class="text-success">Satış: <span>❌</span></h6>
+                        <div class="card-body">
+                            <h5 class="card-title">@product.ProductName</h5>
+                            <p class="card-text">@product.ProductDescription</p>
+                            <p class="card-text">
+                                @product.Subcategory.Category.CategoryName/@product.Subcategory.SubcategoryName
+                            </p>
+                            @if (product.Sell == true)
+                            {
+                                <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                            }
+                            else
+                            {
+                                <h6 class="text-success">Satış: <span>❌</span></h6>
 
-                                }
-                                @if (product.Lend == true)
-                                {
-                                    <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
-                                }
-                                else
-                                {
-                                    <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                            }
+                            @if (product.Lend == true)
+                            {
+                                <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                            }
+                            else
+                            {
+                                <h6 class="text-warning">Kirayə: <span>❌</span></h6>
 
-                                }
-                                <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.User.UserName"><h6>Məhsul sahibi: @product.User.UserName</h6></a>
-                                <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
-                            </div>
+                            }
+                            <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.User.UserName"><h6>Məhsul sahibi: @product.User.UserName</h6></a>
+                            <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                        </div>
                         </div>
                     }
 
