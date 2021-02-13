@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
 using Rent.DomainModels.Models;
 using System;
@@ -8,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace Rent.ServiceLayers.Hubs
 {
-    public class ChatServiceHub:Hub
+    [Authorize(AuthenticationSchemes = "Bearer")]
+    public class ChatServiceHub : Hub
     {
         private readonly IDictionary<string, IList<string>> userConnectionIdSet;
 
