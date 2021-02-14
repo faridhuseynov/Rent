@@ -393,6 +393,22 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "IdentityServer4.AccessTokenValidation": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
+            "JavaScriptEngineSwitcher.Extensions.MsDependencyInjection": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "JavaScriptEngineSwitcher.V8": {
+              "target": "Package",
+              "version": "[3.10.0, )"
+            },
+            "JavaScriptEngineSwitcher.V8.Native.win-x64": {
+              "target": "Package",
+              "version": "[3.10.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.Facebook": {
               "target": "Package",
               "version": "[3.1.8, )"
@@ -446,6 +462,10 @@
             "Mustache": {
               "target": "Package",
               "version": "[1.0.1, )"
+            },
+            "React.AspNet": {
+              "target": "Package",
+              "version": "[5.2.11, )"
             },
             "bootstrap": {
               "target": "Package",

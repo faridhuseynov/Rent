@@ -43,4 +43,3 @@ namespace Rent.DomainModels.Models.HubModels
         }
     }
 }
-}

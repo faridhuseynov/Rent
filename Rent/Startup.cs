@@ -14,6 +14,16 @@ using Rent.Repositories;
 using Rent.ServiceLayers;
 using Microsoft.AspNetCore.Identity;
 using Rent.ServiceLayers.Hubs;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Http;
+using JavaScriptEngineSwitcher.V8;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using React.AspNet;
 
 namespace Rent
 {
@@ -30,6 +40,14 @@ namespace Rent
         public void ConfigureServices(IServiceCollection services)
         {
             var connString = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+
+            // Make sure a JS engine is registered, or you will get an error!
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName)
+              .AddV8();
+           
             services.AddControllersWithViews();
             services.AddDbContext<AppDbContext>(options =>
             {
@@ -96,6 +114,58 @@ namespace Rent
             });
 
 
+
+
+
+
+
+
+            //bearer jwt token part
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidIssuer = "https://localhost:44318/",
+                ValidAudience = "dataEventRecords",
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("dataEventRecordsSecret")),
+                NameClaimType = "name",
+                RoleClaimType = "role",
+            };
+
+
+            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler
+            {
+                InboundClaimTypeMap = new Dictionary<string, string>()
+            };
+
+            services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.Authority = "https://localhost:44318/";
+                options.Audience = "dataEventRecords";
+                options.IncludeErrorDetails = true;
+                options.SaveToken = true;
+                options.SecurityTokenValidators.Clear();
+                options.SecurityTokenValidators.Add(jwtSecurityTokenHandler);
+                options.TokenValidationParameters = tokenValidationParameters;
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        if ((context.Request.Path.Value.StartsWith("/loo")) || (context.Request.Path.Value.StartsWith("/usersdm"))
+                            && context.Request.Query.TryGetValue("token", out StringValues token)
+                        )
+                        {
+                            context.Token = token;
+                        }
+
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        var te = context.Exception;
+                        return Task.CompletedTask;
+                    }
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,6 +182,29 @@ namespace Rent
                 //app.UseHsts();
             }
             //app.UseHttpsRedirection();
+
+            // Initialise ReactJS.NET. Must be before static files.
+            app.UseReact(config =>
+            {
+                // If you want to use server-side rendering of React components,
+                // add all the necessary JavaScript files here. This includes
+                // your components as well as all of their dependencies.
+                // See http://reactjs.net/ for more information. Example:
+                //config
+                //  .AddScript("~/js/First.jsx")
+                //  .AddScript("~/js/Second.jsx");
+
+                // If you use an external build too (for example, Babel, Webpack,
+                // Browserify or Gulp), you can improve performance by disabling
+                // ReactJS.NET's version of Babel and loading the pre-transpiled
+                // scripts. Example:
+                //config
+                //  .SetLoadBabel(false)
+                //  .AddScriptWithoutTransform("~/js/bundle.server.js");
+            });
+
+
+
             app.UseStaticFiles();
             app.UseSession();
             app.UseRouting();
@@ -133,7 +226,7 @@ namespace Rent
 
                 //endpoints.MapHub<HubService>("/home/messages/inbox");
                 endpoints.MapHub<ChatServiceHub>("/chatHub");
-                endpoints.MapHub<FavoriteCountServiceHub>("/wishlistCountHub");
+                //endpoints.MapHub<FavoriteCountServiceHub>("/wishlistCountHub");
 
             });
 
