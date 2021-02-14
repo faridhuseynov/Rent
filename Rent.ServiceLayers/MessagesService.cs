@@ -39,7 +39,15 @@ namespace Rent.ServiceLayers
             var messages = await messageRepository.GetMessagesForUser(userId);
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<Message, MessageReviewViewModel>();
+                cfg.CreateMap<Message, MessageReviewViewModel>()
+                .ForMember(destination=>destination.RecipientUsername,map=>map.MapFrom(
+                    source=>source.Recipient.UserName))
+                .ForMember(destination=> destination.RecipientMainPhotoUrl,map=>map.MapFrom(
+                    source=>source.Recipient.MainProfilePicture))
+                .ForMember(destination=>destination.SenderUsername,map=>map.MapFrom(
+                    source=>source.Sender.UserName))
+                .ForMember(destination=>destination.SenderMainPhotoUrl,map=>map.MapFrom(
+                    source=>source.Sender.MainProfilePicture));
                 cfg.IgnoreUnmapped();
             });
             IMapper mapper = config.CreateMapper();
