@@ -47,8 +47,13 @@ namespace Rent
             // Make sure a JS engine is registered, or you will get an error!
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName)
               .AddV8();
-           
-            services.AddControllersWithViews();
+
+            //services.AddControllersWithViews();
+            
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(connString);

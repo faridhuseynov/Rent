@@ -27,13 +27,21 @@ namespace Rent.Controllers
 
         // GET: Messages
         [HttpGet]
-        public async Task<IActionResult> Inbox()
+        public IActionResult Inbox()
         {
-            var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
-            var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
-            var sortedMessageList = messages.OrderByDescending(m => m.MessageSent);
-            return View(sortedMessageList);
+
+            return View();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetMessages()
+        {
+            var userFromRepo = await  userManager.FindByNameAsync(User.Identity.Name);
+            var messages = await messageRepo.GetMessagesForUser(userFromRepo.Id);
+            var sortedMessageList = messages.OrderByDescending(m => m.MessageSent).ToList();
+            return Json(sortedMessageList);
+        }
+
 
         // GET: Messages
         [HttpGet]
