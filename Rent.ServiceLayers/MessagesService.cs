@@ -11,7 +11,7 @@ namespace Rent.ServiceLayers
 {
     public interface IMessagesService
     {
-        Task AddNewMessage(NewMessageViewModel newMessage);
+        Task<int> AddNewMessage(NewMessageViewModel newMessage);
         Task<IEnumerable<MessageReviewViewModel>> GetMessagesForUserByUserId(string userId);
     }
     public class MessagesService : IMessagesService

@@ -22,8 +22,8 @@
             url: "/Messages/GetMessages",
             success: function (result) {
                 console.log("no error");
-                var jsonResult = JSON.parse(result);
-                console.log(jsonResult);
+                //var jsonResult = JSON.parse(result);
+                console.log(result);
             },
             error: function (error) {
                 console.log("error fired");
