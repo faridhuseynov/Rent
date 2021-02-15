@@ -3,7 +3,7 @@
         super(props);
         this.state = {
             messagesList: [],
-
+            currentUser:""
         };
     }
 
@@ -13,8 +13,10 @@
         xhr.onload = () => {
             const data = JSON.parse(xhr.responseText);
             console.log(data);
-            this.setState({ messagesList: data });
-            console.log(this.state.messagesList);
+            this.setState({
+                messagesList: data.sortedMessages,
+                currentUser:data.currentUser
+            });
         };
         xhr.send();
         //$.ajax({
