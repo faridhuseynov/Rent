@@ -40,7 +40,7 @@
     render() {
         return (
             <div className="messaging">
-                <UsersBox messages={ this.state.messagesList}/>
+                <UsersBox messages={this.state.messagesList} />
             </div>
         );
     }
@@ -58,7 +58,10 @@ const UsersBox = props => {
                         <button className="btn" type="button"> <i className="fa fa-search" aria-hidden="true"></i> </button>
                         <div className="inbox_chat">
                             {props.messages.map(message => {
-                                return <UserBox key={ message.id } content={message.content} />
+                                return <UserBox key={message.id} content={message.content}
+                                    photo={message.senderMainPhotoUrl} name={message.senderUsername}
+                                    date={message.messageSent}
+                                />
                             })
                             }
 
@@ -66,9 +69,8 @@ const UsersBox = props => {
                     </div>
                 </div>
             </div>
-
         </div>
-        );
+    );
 }
 
 //const UserSearchBox = props => {
@@ -79,7 +81,22 @@ const UsersBox = props => {
 
 const UserBox = props => {
     return (
-        <div>{props.content}</div>
+        <div className="chat_list">
+            <div className="chat_people">
+                <div className="chat_img">
+                    
+                    <a>
+                        <img src={"/Images/Users/"+props.photo} alt="" />
+                    </a>
+                </div>
+                <div className="chat_ib">
+                    <h5>{props.name} <span className="chat_date">{props.date}</span></h5>
+                        <p>
+                            {props.content}
+                        </p>
+                    </div>
+            </div>
+        </div>
     );
 }
 ReactDOM.render(<App />, document.getElementById('root'));
