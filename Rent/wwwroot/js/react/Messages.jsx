@@ -42,12 +42,12 @@
     render() {
         return (
             <div className="messaging">
-                <UsersBox messages={this.state.messagesList} />
+                <UsersBox messages={this.state.messagesList}
+                    currentUser={this.state.currentUser} />
             </div>
         );
     }
 }
-
 
 const UsersBox = props => {
     return (
@@ -60,8 +60,14 @@ const UsersBox = props => {
                         <button className="btn" type="button"> <i className="fa fa-search" aria-hidden="true"></i> </button>
                         <div className="inbox_chat">
                             {props.messages.map(message => {
+                                var username =
+                                    (props.currentUser == message.senderUsername
+                                        ? message.recipientUsername : message.senderUsername);
+                                var photo =
+                                    (props.currentUser == message.senderUsername
+                                        ? message.recipientMainPhotoUrl : message.senderMainPhotoUrl);
                                 return <UserBox key={message.id} content={message.content}
-                                    photo={message.senderMainPhotoUrl} name={message.senderUsername}
+                                    photo={photo} name={username}
                                     date={message.messageSent}
                                 />
                             })
