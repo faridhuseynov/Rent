@@ -3,7 +3,7 @@
         super(props);
         this.state = {
             messagesList: [],
-            currentUser:""
+            currentUser: ""
         };
     }
 
@@ -15,7 +15,7 @@
             console.log(data);
             this.setState({
                 messagesList: data.sortedMessages,
-                currentUser:data.currentUser
+                currentUser: data.currentUser
             });
         };
         xhr.send();
@@ -50,6 +50,7 @@
 }
 
 const UsersBox = props => {
+    var previousUser = "";
     return (
         <div className="inbox_msg">
             <div className="headind_srch">
@@ -66,10 +67,13 @@ const UsersBox = props => {
                                 var photo =
                                     (props.currentUser == message.senderUsername
                                         ? message.recipientMainPhotoUrl : message.senderMainPhotoUrl);
-                                return <UserBox key={message.id} content={message.content}
-                                    photo={photo} name={username}
-                                    date={message.messageSent}
-                                />
+                                if (previousUser != username) {
+                                    previousUser = username;
+                                    return <UserBox key={message.id} content={message.content}
+                                        photo={photo} name={username}
+                                        date={message.messageSent}
+                                    />
+                                }
                             })
                             }
 
@@ -92,17 +96,17 @@ const UserBox = props => {
         <div className="chat_list">
             <div className="chat_people">
                 <div className="chat_img">
-                    
+
                     <a>
-                        <img src={"/Images/Users/"+props.photo} alt="" />
+                        <img src={"/Images/Users/" + props.photo} alt="" />
                     </a>
                 </div>
                 <div className="chat_ib">
                     <h5>{props.name} <span className="chat_date">{props.date}</span></h5>
-                        <p>
-                            {props.content}
-                        </p>
-                    </div>
+                    <p>
+                        {props.content}
+                    </p>
+                </div>
             </div>
         </div>
     );
