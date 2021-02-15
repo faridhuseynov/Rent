@@ -20,5 +20,6 @@ namespace Rent.ViewModels.MessageViewModel
         public bool IsRead { get; set; }
         public DateTime? DateRead { get; set; }
         public DateTime MessageSent { get; set; }
+        public string CurrentUsername { get; set; }
     }
 }
