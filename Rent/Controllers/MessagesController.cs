@@ -41,11 +41,16 @@ namespace Rent.Controllers
             var userFromRepo = await  userManager.FindByNameAsync(User.Identity.Name);
             var messages = await messagesService.GetMessagesForUserByUserId(userFromRepo.Id);
             var sortedMessageList = messages.OrderByDescending(m => m.MessageSent);
+            var result = new MessageSetupFileViewModel
+            {
+                CurrentUser = User.Identity.Name,
+                SortedMessages = sortedMessageList
+            };
             //var response =new Array{ 
             //    caller:User.Identity.Name,
             //    sortedMessageList
             //}
-            return Json(sortedMessageList);
+            return Json(result);
         }
 
 
