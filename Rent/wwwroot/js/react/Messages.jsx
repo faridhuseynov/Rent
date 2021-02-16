@@ -3,10 +3,15 @@
         super(props);
         this.state = {
             messagesList: [],
-            currentUser: ""
+            currentUser: "",
+            activeUser:"",
+            activeMessageThread:[]
         };
     }
 
+    activeMessageThreadHandler(event) {
+        console.log(event);
+    }
     componentDidMount() {
         const xhr = new XMLHttpRequest();
         xhr.open('get', "/Messages/GetMessages", true);
@@ -42,8 +47,14 @@
     render() {
         return (
             <div className="messaging">
-                <UsersBox messages={this.state.messagesList}
-                    currentUser={this.state.currentUser} />
+                <div className="inbox_msg">
+                    <UsersBox messages={this.state.messagesList}
+                        currentUser={this.state.currentUser}
+                        newUserClicked={ this.activeMessageThreadHandler }/>
+                    <div className="mesgs">
+                        here are messages
+                    </div>
+                </div>
             </div>
         );
     }
@@ -52,7 +63,7 @@
 const UsersBox = props => {
     var previousUser = "";
     return (
-        <div className="inbox_msg">
+
             <div className="headind_srch">
                 <div className="srch_bar">
                     <div className="stylish-input-group">
@@ -71,15 +82,36 @@ const UsersBox = props => {
                                     previousUser = username;
                                     return <UserBox key={message.id} content={message.content}
                                         photo={photo} name={username}
-                                        date={message.messageSent}
+                                        userBoxClicked={props.newUserClicked}
+                                        //date={message.messageSent}
                                     />
                                 }
                             })
                             }
-
                         </div>
                     </div>
                 </div>
+        </div>
+    );
+}
+
+
+
+const newMessage = props => {
+    return (
+        //<div class="msg_history" id="msgHistory">
+
+        //    @*being processed by the partial view*@
+
+        //    </div>
+
+        <div class="type_msg">
+            <div class="input_msg_write">
+                <textarea type="text" rows="5" class="write_msg" placeholder="Type a message"></textarea>
+                <button class="msg_send_btn" type="button" id="sendButton">
+                    <i class="fa fa-paper-plane-o"
+                        aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     );
@@ -93,22 +125,22 @@ const UsersBox = props => {
 
 const UserBox = props => {
     return (
-        <div className="chat_list">
-            <div className="chat_people">
-                <div className="chat_img">
+        <a onClick={()=> props.userBoxClicked(props.name)}>
+            <div className="chat_list">
+                <div className="chat_people">
+                    <div className="chat_img">
 
-                    <a>
                         <img src={"/Images/Users/" + props.photo} alt="" />
-                    </a>
-                </div>
-                <div className="chat_ib">
-                    <h5>{props.name} <span className="chat_date">{props.date}</span></h5>
-                    <p>
-                        {props.content}
-                    </p>
+                    </div>
+                    <div className="chat_ib">
+                        <h5>{props.name} <span className="chat_date">{props.date}</span></h5>
+                        <p>
+                            {props.content}
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+        </a>
     );
 }
 ReactDOM.render(<App />, document.getElementById('root'));
