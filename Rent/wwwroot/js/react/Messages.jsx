@@ -11,14 +11,11 @@
     }
 
     activeMessageThreadHandler(userName) {
-        console.log(userName);
         var messages = [this.state.currentUser,
             ...this.state.messagesList];
-        console.log(messages);
         var sortedMessages = messages.filter
             (m => m.senderUsername == userName || m.recipientUsername == userName)
             .reverse();
-        console.log(sortedMessages);
         this.setState({
             activeMessageThread: sortedMessages
         });
@@ -38,7 +35,6 @@
                     var user =
                         (this.state.currentUser == data.sortedMessages[0].senderUsername
                             ? data.sortedMessages[0].recipientUsername : data.sortedMessages[0].senderUsername);
-                    console.log(user);
                     this.setState({
                         activeUser: user
                     })
@@ -151,10 +147,11 @@ const ChatMessage = props => {
             <div className={classes.message}>
                 <div className={classes.msg}>
                     <p>
-                        {console.log(props.message.content)}
                         {props.message.content}
                     </p>
-                    <span className="time_date">{props.message.messageSent}</span>
+                    <span className="time_date">
+                        {(new Date(props.message.messageSent)).toLocaleString()}
+                    </span>
                 </div>
             </div>
         </div>
