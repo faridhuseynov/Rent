@@ -7,10 +7,21 @@
             activeUser:"",
             activeMessageThread:[]
         };
+        this.activeMessageThreadHandler = this.activeMessageThreadHandler.bind(this)
     }
 
-    activeMessageThreadHandler(event) {
-        console.log(event);
+    activeMessageThreadHandler(userName) {
+        console.log(userName);
+        var messages = [this.state.currentUser,
+            ...this.state.messagesList];
+        console.log(messages);
+        var sortedMessages = messages.filter
+            (m => m.senderUsername == userName || m.recipientUsername == userName)
+            .reverse();
+        console.log(sortedMessages);
+        this.setState({
+            activeMessageThread: sortedMessages
+        });
     }
     componentDidMount() {
         const xhr = new XMLHttpRequest();
@@ -21,6 +32,17 @@
             this.setState({
                 messagesList: data.sortedMessages,
                 currentUser: data.currentUser
+            }, () => {
+                    //this still doesn't work
+                if (data.sortedMessages != null) {
+                    var user =
+                        (this.state.currentUser == data.sortedMessages[0].senderUsername
+                            ? data.sortedMessages[0].recipientUsername : data.sortedMessages[0].senderUsername);
+                    console.log(user);
+                    this.setState({
+                        activeUser: user
+                    })
+                }
             });
         };
         xhr.send();
@@ -50,10 +72,9 @@
                 <div className="inbox_msg">
                     <UsersBox messages={this.state.messagesList}
                         currentUser={this.state.currentUser}
-                        newUserClicked={ this.activeMessageThreadHandler }/>
-                    <div className="mesgs">
-                        here are messages
-                    </div>
+                        newUserClicked={this.activeMessageThreadHandler}/>
+                    <ChatBox messages={this.state.activeMessageThread}
+                        user={this.state.currentUser} />
                 </div>
             </div>
         );
@@ -95,7 +116,50 @@ const UsersBox = props => {
     );
 }
 
+const ChatBox = props => {
+    return (
+        <div className="mesgs">
+            {props.messages.map(msg => {
+                return <ChatMessage key={msg.id} message={msg} caller={props.user}/>
+            })}
+        </div>
+    );
+}
+const ChatMessage = props => {
+    var receivedMessageClasses = {
+        msgBlock: "incoming_msg",
+        imgBlock: "incoming_msg_img",
+        message: "received_msg",
+        msg: "received_withd_msg"
+    }
 
+    var sentMessageClasses = {
+        msgBlock: "outgoing_msg",
+        imgBlock: "outgoing_msg_img",
+        message: "sent_msg",
+        msg: "sent_withd_msg"
+    }
+    var classes = (props.message.senderUsername == props.caller
+        ? sentMessageClasses
+        : receivedMessageClasses);
+    return (
+        <div className={classes.msgBlock}>
+            <div className={classes.imgBlock}>
+                <img src={"/Images/Users/"+props.message.senderMainPhotoUrl}
+                    alt="" />
+            </div>
+            <div className={classes.message}>
+                <div className={classes.msg}>
+                    <p>
+                        {console.log(props.message.content)}
+                        {props.message.content}
+                    </p>
+                    <span className="time_date">{props.message.messageSent}</span>
+                </div>
+            </div>
+        </div>
+        );
+}
 
 const newMessage = props => {
     return (
