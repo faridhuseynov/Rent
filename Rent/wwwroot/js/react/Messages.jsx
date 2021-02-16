@@ -5,19 +5,21 @@
             messagesList: [],
             currentUser: "",
             activeUser:"",
-            activeMessageThread:[]
+            activeMessageThread: [],
+            activeMessageIndex:"0"
         };
         this.activeMessageThreadHandler = this.activeMessageThreadHandler.bind(this)
     }
 
-    activeMessageThreadHandler(userName) {
+    activeMessageThreadHandler(userName, messageIndex) {
         var messages = [this.state.currentUser,
             ...this.state.messagesList];
         var sortedMessages = messages.filter
             (m => m.senderUsername == userName || m.recipientUsername == userName)
             .reverse();
         this.setState({
-            activeMessageThread: sortedMessages
+            activeMessageThread: sortedMessages,
+            activeMessageIndex:messageIndex
         });
     }
     componentDidMount() {
@@ -67,7 +69,7 @@
             <div className="messaging">
                 <div className="inbox_msg">
                     <UsersBox messages={this.state.messagesList}
-                        currentUser={this.state.currentUser}
+                        currentUser={this.state.currentUser} activeIndex={this.state.activeMessageIndex}
                         newUserClicked={this.activeMessageThreadHandler}/>
                     <ChatBox messages={this.state.activeMessageThread}
                         user={this.state.currentUser} />
@@ -88,7 +90,7 @@ const UsersBox = props => {
 
                         <button className="btn" type="button"> <i className="fa fa-search" aria-hidden="true"></i> </button>
                         <div className="inbox_chat">
-                            {props.messages.map(message => {
+                            {props.messages.map((message,i) => {
                                 var username =
                                     (props.currentUser == message.senderUsername
                                         ? message.recipientUsername : message.senderUsername);
@@ -98,7 +100,7 @@ const UsersBox = props => {
                                 if (previousUser != username) {
                                     previousUser = username;
                                     return <UserBox key={message.id} content={message.content}
-                                        photo={photo} name={username}
+                                        photo={photo} name={username} index={i} active={props.activeIndex}
                                         userBoxClicked={props.newUserClicked}
                                         //date={message.messageSent}
                                     />
@@ -166,11 +168,11 @@ const newMessage = props => {
 
         //    </div>
 
-        <div class="type_msg">
-            <div class="input_msg_write">
-                <textarea type="text" rows="5" class="write_msg" placeholder="Type a message"></textarea>
-                <button class="msg_send_btn" type="button" id="sendButton">
-                    <i class="fa fa-paper-plane-o"
+        <div className="type_msg">
+            <div className="input_msg_write">
+                <textarea type="text" rows="5" className="write_msg" placeholder="Type a message"></textarea>
+                <button className="msg_send_btn" type="button" id="sendButton">
+                    <i className="fa fa-paper-plane-o"
                         aria-hidden="true"></i>
                 </button>
             </div>
@@ -186,11 +188,10 @@ const newMessage = props => {
 
 const UserBox = props => {
     return (
-        <a onClick={()=> props.userBoxClicked(props.name)}>
-            <div className="chat_list">
+        <a onClick={() => props.userBoxClicked(props.name,props.index)}>
+            <div className={(props.index == props.active ? "chat_list active_chat" : "chat_list")}>
                 <div className="chat_people">
                     <div className="chat_img">
-
                         <img src={"/Images/Users/" + props.photo} alt="" />
                     </div>
                     <div className="chat_ib">
