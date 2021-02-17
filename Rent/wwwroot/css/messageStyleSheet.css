@@ -130,6 +130,9 @@ img {
     height: 550px;
     overflow-y: scroll;
 }
+inbox-view-block {
+/*    display:flex;
+*/}
 
 .active_chat {
     background: #ebebeb;
@@ -174,9 +177,12 @@ img {
 }
 
 .mesgs {
-    float: left;
+    /*    float: left;
     padding: 30px 15px 0 25px;
     width: 60%;
+*/
+    height:80%;
+    padding: 30px 15px 0 25px;
 }
 
 .sent_msg p {
@@ -211,6 +217,7 @@ img {
 .type_msg {
     border-top: 1px solid #c4c4c4;
     position: relative;
+    margin-right:3px;
 }
 
 .msg_send_btn {

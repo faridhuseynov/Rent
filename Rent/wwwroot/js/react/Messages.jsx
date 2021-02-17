@@ -74,7 +74,7 @@
                     <UsersBox messages={this.state.messagesList}
                         currentUser={this.state.currentUser} activeIndex={this.state.activeMessageIndex}
                         newUserClicked={this.activeMessageThreadHandler} />
-                    <div>
+                    <div className="inbox-view-block">
                         <ChatBox messages={this.state.activeMessageThread}
                             user={this.state.currentUser} />
                         <NewMessage />
@@ -172,7 +172,7 @@ const NewMessage = props => {
                 <textarea type="text" rows="5" className="write_msg" placeholder="Type a message"></textarea>
                 <button className="msg_send_btn" type="button" id="sendButton">
                     <i className="fa fa-paper-plane-o"
-                        aria-hidden="true">text here</i>
+                        aria-hidden="true"></i>
                 </button>
             </div>
         </div>
