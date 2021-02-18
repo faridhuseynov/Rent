@@ -50,8 +50,7 @@ img {
 }
 
 .headind_srch {
-    width:50%;
-    padding: 10px 29px 10px 20px;
+    width:40%;
     overflow: hidden;
     border-bottom: 1px solid #c4c4c4;
 }
@@ -130,9 +129,12 @@ img {
     height: 550px;
     overflow-y: scroll;
 }
-inbox-view-block {
-/*    display:flex;
-*/}
+
+.inbox-view-block {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
 
 .active_chat {
     background: #ebebeb;
@@ -181,8 +183,9 @@ inbox-view-block {
     padding: 30px 15px 0 25px;
     width: 60%;
 */
-    height:80%;
+    height: 80%;
     padding: 30px 15px 0 25px;
+    overflow-y: scroll;
 }
 
 .sent_msg p {
