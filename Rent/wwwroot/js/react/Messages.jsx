@@ -6,22 +6,14 @@
             currentUser: "",
             activeUser: "",
             activeMessageThread: [],
-            activeMessageIndex: "0"
+            activeMessageIndex: "0",
+            newMessage:""
         };
-        this.activeMessageThreadHandler = this.activeMessageThreadHandler.bind(this)
+        this.activeMessageThreadHandler = this.activeMessageThreadHandler.bind(this);
+        this.messageSendHandler = this.messageSendHandler.bind(this);
+        this.messageTypeHandler = this.messageTypeHandler.bind(this);
     }
 
-    activeMessageThreadHandler(userName, messageIndex) {
-        var messages = [this.state.currentUser,
-        ...this.state.messagesList];
-        var sortedMessages = messages.filter
-            (m => m.senderUsername == userName || m.recipientUsername == userName)
-            .reverse();
-        this.setState({
-            activeMessageThread: sortedMessages,
-            activeMessageIndex: messageIndex
-        });
-    }
     componentDidMount() {
         const xhr = new XMLHttpRequest();
         xhr.open('get', "/Messages/GetMessages", true);
@@ -32,7 +24,7 @@
                 messagesList: data.sortedMessages,
                 currentUser: data.currentUser
             }, () => {
-                    //to get the first message thread in the inbox
+                //to get the first message thread in the inbox
                 if (data.sortedMessages != null) {
                     var user =
                         (this.state.currentUser == data.sortedMessages[0].senderUsername
@@ -67,6 +59,41 @@
         //    }, () => console.log(this.state.messagesList));
         //console.log(this.state.messagesList);
     }
+
+    activeMessageThreadHandler(userName, messageIndex) {
+        var messages = [this.state.currentUser,
+        ...this.state.messagesList];
+        var sortedMessages = messages.filter
+            (m => m.senderUsername == userName || m.recipientUsername == userName)
+            .reverse();
+        this.setState({
+            activeMessageThread: sortedMessages,
+            activeMessageIndex: messageIndex
+        });
+    }
+
+    messageSendHandler() {
+        var message = this.state.newMessage;
+        var sender = this.state.currentUser;
+        var messages = [...this.state.activeMessageThread];
+        var newMessage = {
+            "senderUsername": sender,
+            "content": message
+        };
+        messages.push(newMessage);
+        this.setState({
+            activeMessageThread: [...messages]
+        });
+
+        console.log(message, sender, messages);
+    }
+
+    messageTypeHandler(event) {
+        var message = event.target.value;
+        this.setState({
+            newMessage:message
+        })
+    }
     render() {
         return (
             <div className="messaging">
@@ -77,7 +104,9 @@
                     <div className="inbox-view-block">
                         <ChatBox messages={this.state.activeMessageThread}
                             user={this.state.currentUser} />
-                        <NewMessage />
+                        <NewMessage addmessage={this.messageSendHandler}
+                            message={this.state.newMessage} messageTyped={this.messageTypeHandler}
+                            messageSend={this.messageSendHandler}/>
                     </div>
                 </div>
             </div>
@@ -169,8 +198,11 @@ const NewMessage = props => {
     return (
         <div className="type_msg">
             <div className="input_msg_write">
-                <textarea type="text" rows="5" className="write_msg" placeholder="Type a message"></textarea>
-                <button className="msg_send_btn" type="button" id="sendButton">
+                <textarea value={props.message} type="text" rows="5" className="write_msg"
+                    onChange={props.messageTyped}
+                    placeholder="Type a message"></textarea>
+                <button className="msg_send_btn" type="button" id="sendButton"
+                    onClick={props.messageSend}>
                     <i className="fa fa-paper-plane-o"
                         aria-hidden="true"></i>
                 </button>
