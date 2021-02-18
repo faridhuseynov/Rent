@@ -76,18 +76,19 @@
         var message = this.state.newMessage;
         var sender = this.state.currentUser;
         var messages = [...this.state.activeMessageThread];
+        var dateSent = Date.now();
         var newMessage = {
             "senderUsername": sender,
-            "content": message
+            "content": message,
+            "messageSent":dateSent
         };
         messages.push(newMessage);
         this.setState({
-            activeMessageThread: [...messages]
+            activeMessageThread: [...messages],
+            newMessage:""
         });
-
-        console.log(message, sender, messages);
     }
-
+        
     messageTypeHandler(event) {
         var message = event.target.value;
         this.setState({
