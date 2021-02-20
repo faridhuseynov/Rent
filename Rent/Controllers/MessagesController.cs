@@ -46,10 +46,6 @@ namespace Rent.Controllers
                 CurrentUser = User.Identity.Name,
                 SortedMessages = sortedMessageList
             };
-            //var response =new Array{ 
-            //    caller:User.Identity.Name,
-            //    sortedMessageList
-            //}
             return Json(result);
         }
 

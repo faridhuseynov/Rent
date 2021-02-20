@@ -1,4 +1,9 @@
-﻿class App extends React.Component {
+﻿import { HubConnection } from '../../js/signalr/dist/';
+import UsersBox from './UsersBox.jsx';
+import ChatBox from './ChatBox.jsx';
+import NewMessage from './NewMessage.jsx';
+
+class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -100,7 +105,8 @@
             <div className="messaging">
                 <div className="inbox_msg">
                     <UsersBox messages={this.state.messagesList}
-                        currentUser={this.state.currentUser} activeIndex={this.state.activeMessageIndex}
+                        currentUser={this.state.currentUser}
+                        activeIndex={this.state.activeMessageIndex}
                         newUserClicked={this.activeMessageThreadHandler} />
                     <div className="inbox-view-block">
                         <ChatBox messages={this.state.activeMessageThread}
@@ -115,122 +121,6 @@
     }
 }
 
-const UsersBox = props => {
-    var previousUser = "";
-    return (
-
-        <div className="headind_srch">
-            <div className="srch_bar">
-                <div className="stylish-input-group">
-                    <input type="text" className="search-bar" placeholder="Search" />
-
-                    <button className="btn" type="button"> <i className="fa fa-search" aria-hidden="true"></i> </button>
-                    <div className="inbox_chat">
-                        {props.messages.map((message, i) => {
-                            var username =
-                                (props.currentUser == message.senderUsername
-                                    ? message.recipientUsername : message.senderUsername);
-                            var photo =
-                                (props.currentUser == message.senderUsername
-                                    ? message.recipientMainPhotoUrl : message.senderMainPhotoUrl);
-                            if (previousUser != username) {
-                                previousUser = username;
-                                return <UserBox key={message.id} content={message.content}
-                                    photo={photo} name={username} index={i} active={props.activeIndex}
-                                    userBoxClicked={props.newUserClicked}
-                                />
-                            }
-                        })
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-const ChatBox = props => {
-    return (
-        <div className="mesgs">
-            {props.messages.map(msg => {
-                return <ChatMessage key={msg.id} message={msg} caller={props.user} />
-            })}
-        </div>
-    );
-}
-const ChatMessage = props => {
-    var receivedMessageClasses = {
-        msgBlock: "incoming_msg",
-        imgBlock: "incoming_msg_img",
-        message: "received_msg",
-        msg: "received_withd_msg"
-    }
-
-    var sentMessageClasses = {
-        msgBlock: "outgoing_msg",
-        imgBlock: "outgoing_msg_img",
-        message: "sent_msg",
-        msg: "sent_withd_msg"
-    }
-    var classes = (props.message.senderUsername == props.caller
-        ? sentMessageClasses
-        : receivedMessageClasses);
-    return (
-        <div className={classes.msgBlock}>
-            <div className={classes.imgBlock}>
-                <img src={"/Images/Users/" + props.message.senderMainPhotoUrl}
-                    alt="" />
-            </div>
-            <div className={classes.message}>
-                <div className={classes.msg}>
-                    <p>
-                        {props.message.content}
-                    </p>
-                    <span className="time_date">
-                        {(new Date(props.message.messageSent)).toLocaleString()}
-                    </span>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-const NewMessage = props => {
-    return (
-        <div className="type_msg">
-            <div className="input_msg_write">
-                <textarea value={props.message} type="text" rows="5" className="write_msg"
-                    onChange={props.messageTyped}
-                    placeholder="Type a message"></textarea>
-                <button className="msg_send_btn" type="button" id="sendButton"
-                    onClick={props.messageSend}>
-                    <i className="fa fa-paper-plane-o"
-                        aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    );
-}
-
-const UserBox = props => {
-    return (
-        <a onClick={() => props.userBoxClicked(props.name, props.index)}>
-            <div className={(props.index == props.active ? "chat_list active_chat" : "chat_list")}>
-                <div className="chat_people">
-                    <div className="chat_img">
-                        <img src={"/Images/Users/" + props.photo} alt="" />
-                    </div>
-                    <div className="chat_ib">
-                        <h5>{props.name} <span className="chat_date">{props.date}</span></h5>
-                        <p>
-                            {props.content}
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </a>
-    );
-}
 ReactDOM.render(<App />, document.getElementById('root'));
 
 
