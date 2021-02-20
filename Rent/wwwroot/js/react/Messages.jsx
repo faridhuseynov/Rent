@@ -1,9 +1,8 @@
-﻿import { HubConnection } from '../../js/signalr/dist/';
-import UsersBox from './UsersBox.jsx';
+﻿import UsersBox from './UsersBox.jsx';
 import ChatBox from './ChatBox.jsx';
 import NewMessage from './NewMessage.jsx';
 
-class App extends React.Component {
+class Messages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -121,6 +120,6 @@ class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Messages />, document.getElementById('root'));
 
 
