@@ -1,4 +1,7 @@
-﻿import UsersBox from './UsersBox.jsx';
+﻿import * as signalR from '../signalr/dist/browser/signalr.js';
+//import {ILogger} from '../signalr/dist/esm/ILogger.js';
+//import {HubConnection } from '../signalr/dist/esm/HubConnection.js';
+import UsersBox from './UsersBox.jsx';
 import ChatBox from './ChatBox.jsx';
 import NewMessage from './NewMessage.jsx';
 
@@ -18,6 +21,7 @@ class Messages extends React.Component {
         this.messageTypeHandler = this.messageTypeHandler.bind(this);
     }
 
+    
     componentDidMount() {
         const xhr = new XMLHttpRequest();
         xhr.open('get', "/Messages/GetMessages", true);
