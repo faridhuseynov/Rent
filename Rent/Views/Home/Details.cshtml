@@ -1,4 +1,5 @@
-﻿@model ProductDetailsViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model ProductDetailsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -54,7 +55,7 @@
                             );
                     }
                 <h3>
-                    Məhsulun sahibi:@name
+                    @localizer["OwnerText"]:@name
                 </h3>
                     <div>
                         <div class="product-rating">
@@ -73,30 +74,30 @@
 
                             }
                         </div>
-                        <a class="review-link" href="#reviews">@Model.Rates.Count Review(s) | Add your review</a>
+                        <a class="review-link" href="#reviews">@Model.Rates.Count @localizer["ReviewAmountLink"] | @localizer["AddReviewLink"]</a>
                     </div>
                     @if (Model.Lend == true)
                     {
                         <div id="rentConditions" hidden>
                             <div>
-                                <label>Kirayə qiyməti:</label>
-                                <h3 class="product-price">@Model.LendPrice <span>AZN/gün</span></h3>
+                                <label>@localizer["RentPriceText"]:</label>
+                                <h3 class="product-price">@Model.LendPrice <span>@localizer["RentRateText"]</span></h3>
                             </div>
                             <div>
-                                <label>Minimum kirayə müddəti:</label>
-                                <h3 id="minLendDays" class="product-price">@Model.MinLendDays <span>gün</span></h3>
+                                <label>@localizer["RentDurationLabel"]:</label>
+                                <h3 id="minLendDays" class="product-price">@Model.MinLendDays <span>@localizer["RentDurationText"]</span></h3>
                             </div>
                         </div>
                     }
-                    @if (Model.Sell == true)
-                    {
+                                    @if (Model.Sell == true)
+                                    {
                         <div id="sellConditions">
-                            <label>Satış qiyməti:</label>
+                            <label>@localizer["PurchasePriceText"]:</label>
                             <h3 class="product-price">@Model.SellPrice <span>AZN</span></h3>
                         </div>
                     }
                 <div>
-                    <h3 style="color:darkorange">In Stock: <span id="availableCount">@(Model.TotalAmount-Model.CurrentlyRented)</span></h3>
+                    <h3 style="color:darkorange">@localizer["StockStatusText"]: <span id="availableCount">@(Model.TotalAmount-Model.CurrentlyRented)</span></h3>
 
                 </div>
                     <p>@Model.ProductDescription</p>
@@ -107,17 +108,17 @@
                             <div class="input-number mb-3">
                                 <select name="proposalType" id="propType" class="input-select" onclick="proposalTypeChange()">
                                     @foreach (var item in ViewBag.ProposalTypes)
-                                    {
-                                        if (item.Type == "Sell" && Model.Sell == true)
-                                        {
+                            {
+                                if (item.Type == "Sell" && Model.Sell == true)
+                                {
                                             <option value="@item.Id">Almaq</option>
 
                                         }
-                                        else if (item.Type == "Rent" && Model.Lend == true)
-                                        {
+                                else if (item.Type == "Rent" && Model.Lend == true)
+                                {
                                             <option value="@item.Id">Kiralamaq</option>
                                         }
-                                    }
+                            }
                                 </select>
                             </div>
                             <div class="qty-label">
@@ -132,7 +133,7 @@
                                     <span id="quantityUp"class="qty-up">+</span>
                                     <span id="quantityDown"class="qty-down">-</span>
                                 </div>
-                                <label id="priceType">ədəd</label>
+                                <label id="priceType">@localizer["QuantityLabelText"]</label>
                             </div>
                             @*add-to-cart-btn*@
                             @{
@@ -140,7 +141,7 @@
 
                                 <button style="margin-top:5px" asp-controller="Home" asp-action="SendProposal" id="sendProposalButton"
                                         class="@(check == true ? "add-to-cart-btn" : "btn btn-light disabled")">
-                                    <i class="fa fa-shopping-cart"></i> send proposal
+                                    <i class="fa fa-shopping-cart"></i> @localizer["ProposalButtonText"]
                                 </button>
                             }
                         </div>
@@ -159,22 +160,22 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="proposalMessage">Məhsul sahibinə təkliflə bağlı əlavə bilgi</label>
+                            <label for="proposalMessage">@localizer["NoteToSeller"]</label>
                             <textarea class="form-control" name="proposalMessage"  placeholder="" rows="5"></textarea>
                         </div>
                     </form>
 
                     <ul class="product-btns">
-                        <li><a href="" id="wishlistIcon" onclick="wishClicked(this)"><i class="@(ViewBag.Wish != null? "fa fa-heart":"fa fa-heart-o")"></i> add to wishlist</a></li>
+                        <li><a href="" id="wishlistIcon" onclick="wishClicked(this)"><i class="@(ViewBag.Wish != null? "fa fa-heart":"fa fa-heart-o")"></i> @localizer["WishtlistIconText"]</a></li>
                     </ul>
 
                     <ul class="product-links">
-                        <li>Category:</li>
+                        <li>@localizer["CategoryLabelText"]:</li>
                         <li><a href="#">@Model.Subcategory.SubcategoryName</a></li>
                     </ul>
 
                     <ul class="product-links">
-                        <li>Share:</li>
+                        <li>@localizer["ShareLabelText"]:</li>
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                         <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                         <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
@@ -190,7 +191,7 @@
                     <!-- product tab nav -->
                     <ul class="tab-nav">
                         @*<li id="description"><a data-toggle="tab" >Description</a></li>*@
-                        <li class="active" id="review"><a data-toggle="tab">Reviews</a></li>
+                        <li class="active" id="review"><a data-toggle="tab">@localizer["ReviewsLink"]</a></li>
                     </ul>
                     <!-- /product tab nav -->
                     <!-- product tab content -->
@@ -341,9 +342,9 @@
                                 <div class="col-md-3">
                                     <div id="review-form">
                                         <form class="review-form">
-                                            <textarea class="input" id="newReview" placeholder="Your Review"></textarea>
+                                            <textarea class="input" id="newReview" placeholder="@localizer["UserReviewPlaceholder"]"></textarea>
                                             <div class="input-rating">
-                                                <span>Your Rating: </span>
+                                                <span>@localizer["UserReviewRating"]: </span>
                                                 <div class="stars" id="rateBar">
                                                     <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
                                                     <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
@@ -352,7 +353,7 @@
                                                     <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
                                                 </div>
                                             </div>
-                                            <button class="btn disabled" id="postNewRate">Submit</button>
+                                            <button class="btn disabled" id="postNewRate">@localizer["SubmitButtonText"]</button>
                                         </form>
                                     </div>
                                 </div>
