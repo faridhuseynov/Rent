@@ -27,6 +27,7 @@ using React.AspNet;
 using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using Microsoft.Extensions.Options;
 
 namespace Rent
 {
@@ -245,6 +246,9 @@ namespace Rent
             //    .AddSupportedUICultures(supportedCultures);
 
             //app.UseRequestLocalization(localizationOptions);
+
+            app.UseRequestLocalization(app.ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

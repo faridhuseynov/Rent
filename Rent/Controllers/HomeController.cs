@@ -54,11 +54,11 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
-        public IActionResult CultureManagement(string culture)
+        public IActionResult CultureManagement(string culture, string returnUrl)
         {
             Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
                 new CookieOptions { Expires = DateTimeOffset.Now.AddDays(1) });
-            return RedirectToAction("Index");
+            return Redirect(returnUrl);
         }
 
         public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
