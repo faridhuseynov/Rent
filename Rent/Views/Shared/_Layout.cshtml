@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -47,7 +48,7 @@
                             <!-- Example split danger button -->
                             @if (User.Identity.Name == "admin@rent.com")
                             {
-                                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-info">Admin paneli</a>
+                                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-info">@localizer["AdminPanelLink"]</a>
 
                             }
                             <div class="btn-group">
@@ -56,16 +57,20 @@
                                     <span class="sr-only">Toggle Dropdown</span>
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">Şəxsi hesab</a>
+                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">
+                                        @localizer["UserAccountLink"]
+                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">Çıxış</a>
+                                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">
+                                        @localizer["UserLogoutLink"]
+                                    </a>
                                 </div>
                             </div>
                         }
                         else
                         {
-                            <a class="btn btn-success" asp-controller="Account" asp-action="Register">Qeydiyyat</a>
-                            <a class="btn btn-info ml-3" asp-controller="Account" asp-action="Login">Daxil ol</a>
+                            <a class="btn btn-success" asp-controller="Account" asp-action="Register">@localizer["RegisterButtonText"]</a>
+                            <a class="btn btn-info ml-3" asp-controller="Account" asp-action="Login">@localizer["LoginButtonText"]</a>
                         }
                     </li>
                 </ul>
@@ -130,7 +135,7 @@
         </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rent</a>
+                @*<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Rent</a>*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -138,7 +143,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Əsas Səhifə</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@localizer["HomeLink"]</a>
                         </li>
                         @*<li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Details">Details</a>
@@ -149,10 +154,14 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Təkliflər</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Proposals" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">
+                                    @localizer["ProposalsLink"]
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-userName="@User.Identity.Name">Məhsullarım</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index" asp-route-userName="@User.Identity.Name">
+                                    @localizer["ProductsLink"]
+                                </a>
                             </li>
                         }
                     </ul>

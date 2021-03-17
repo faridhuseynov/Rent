@@ -1,9 +1,10 @@
-﻿@model int
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model int
 
 <div>
     <a href="/messages/inbox">
         <i class="fa fa-envelope"></i>
-        <span id="messagesTitle">Messages</span>
+        <span id="messagesTitle">@localizer["MessagesIconLabel"]</span>
         <div id="messsageListCount" class="qty">@Model</div>
     </a>
 </div>

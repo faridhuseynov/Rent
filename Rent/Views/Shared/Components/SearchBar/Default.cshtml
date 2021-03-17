@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Category>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<Category>
 <form method="post">
     <select class="input-select">
         @{
@@ -11,5 +12,5 @@
         }
     </select>
     <input class="input" placeholder="Search here" name="searchString">
-    <button class="search-btn" asp-controller="Home" asp-action="Index">Search</button>
+    <button class="search-btn" asp-controller="Home" asp-action="Index">@localizer["SearchButtonText"]</button>
 </form>
