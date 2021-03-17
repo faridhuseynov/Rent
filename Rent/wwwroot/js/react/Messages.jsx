@@ -1,6 +1,6 @@
 ﻿import * as signalR from '../signalr/dist/browser/signalr.js';
 //import {ILogger} from '../signalr/dist/esm/ILogger.js';
-//import {HubConnection } from '../signalr/dist/esm/HubConnection.js';
+//import { HubConnection } from '';
 import UsersBox from './UsersBox.jsx';
 import ChatBox from './ChatBox.jsx';
 import NewMessage from './NewMessage.jsx';

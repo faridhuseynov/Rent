@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
@@ -49,6 +51,14 @@ namespace Rent.Controllers
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
             proposalTypes = proposalTypesService.GetProposalTypes().Result;
+        }
+
+        [HttpPost]
+        public IActionResult CultureManagement(string culture)
+        {
+            Response.Cookies.Append(CookieRequestCultureProvider.DefaultCookieName, CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                new CookieOptions { Expires = DateTimeOffset.Now.AddDays(1) });
+            return RedirectToAction("Index");
         }
 
         public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")

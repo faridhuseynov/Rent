@@ -24,6 +24,9 @@ using Microsoft.AspNetCore.Http;
 using JavaScriptEngineSwitcher.V8;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using React.AspNet;
+using Microsoft.AspNetCore.Mvc.Razor;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace Rent
 {
@@ -49,7 +52,23 @@ namespace Rent
               .AddV8();
 
             //services.AddControllersWithViews();
-            
+            services.AddLocalization(opt => { 
+                opt.ResourcesPath = "Resources"; 
+            });
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
+
+            services.Configure<RequestLocalizationOptions>(opt =>
+            {
+                var supportedCultures = new List<CultureInfo>
+                {
+                    new CultureInfo("en"),
+                    new CultureInfo("az")
+                };
+                opt.DefaultRequestCulture = new RequestCulture("en");
+                opt.SupportedCultures = supportedCultures;
+                opt.SupportedUICultures = supportedCultures;
+            });
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -220,6 +239,12 @@ namespace Rent
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //var supportedCultures = new[] { "en", "az" };
+            //var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[0])
+            //    .AddSupportedCultures(supportedCultures)
+            //    .AddSupportedUICultures(supportedCultures);
+
+            //app.UseRequestLocalization(localizationOptions);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
