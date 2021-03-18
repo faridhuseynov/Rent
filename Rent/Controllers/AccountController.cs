@@ -136,7 +136,8 @@ namespace Rent.Controllers
                 {
                     ModelState.AddModelError(item.Code, item.Description);
                 }
-                return View(newUser.ReturnUrl);
+                newUser.ExternalRegisters = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                return View("Register", newUser);
             }
             await userManager.AddToRoleAsync(user, "User");
 
