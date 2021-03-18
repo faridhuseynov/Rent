@@ -120,8 +120,14 @@
   <data name="AddReviewLink" xml:space="preserve">
     <value>Yeni dəyərləndirmə</value>
   </data>
+  <data name="BuyOptionText" xml:space="preserve">
+    <value>Almaq</value>
+  </data>
   <data name="CategoryLabelText" xml:space="preserve">
     <value>KATEQORİYA</value>
+  </data>
+  <data name="MinimalRentPeriodError" xml:space="preserve">
+    <value>Minimum gün kira müddəti</value>
   </data>
   <data name="NoteToSeller" xml:space="preserve">
     <value>Məhsul sahibinə təkliflə bağlı əlavə bilgi</value>
@@ -144,11 +150,20 @@
   <data name="RentDurationText" xml:space="preserve">
     <value>gün</value>
   </data>
+  <data name="RentEndDateError" xml:space="preserve">
+    <value>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</value>
+  </data>
+  <data name="RentOptionText" xml:space="preserve">
+    <value>Kiralamaq</value>
+  </data>
   <data name="RentPriceText" xml:space="preserve">
     <value>Kirayə qiyməti</value>
   </data>
   <data name="RentRateText" xml:space="preserve">
     <value>AZN/gün</value>
+  </data>
+  <data name="RentStartDateError" xml:space="preserve">
+    <value>Başlanğıc tarixi ən tez sabahdan başlamalıdır</value>
   </data>
   <data name="ReviewAmountLink" xml:space="preserve">
     <value>Dəyərləndirmə(lər)</value>

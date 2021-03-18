@@ -108,17 +108,17 @@
                             <div class="input-number mb-3">
                                 <select name="proposalType" id="propType" class="input-select" onclick="proposalTypeChange()">
                                     @foreach (var item in ViewBag.ProposalTypes)
-                            {
-                                if (item.Type == "Sell" && Model.Sell == true)
-                                {
-                                            <option value="@item.Id">Almaq</option>
+                                    {
+                                        if (item.Type == "Sell" && Model.Sell == true)
+                                        {
+                                            <option value="@item.Id">@localizer["BuyOptionText"]</option>
 
                                         }
-                                else if (item.Type == "Rent" && Model.Lend == true)
-                                {
-                                            <option value="@item.Id">Kiralamaq</option>
+                                        else if (item.Type == "Rent" && Model.Lend == true)
+                                        {
+                                            <option value="@item.Id">@localizer["RentOptionText"]</option>
                                         }
-                            }
+                                    }
                                 </select>
                             </div>
                             <div class="qty-label">
@@ -133,7 +133,8 @@
                                     <span id="quantityUp"class="qty-up">+</span>
                                     <span id="quantityDown"class="qty-down">-</span>
                                 </div>
-                                <label id="priceType">@localizer["QuantityLabelText"]</label>
+                                @*<label id="priceType">@localizer["QuantityLabelText"]</label>*@
+                                <label>@localizer["QuantityLabelText"]</label>
                             </div>
                             @*add-to-cart-btn*@
                             @{
@@ -150,13 +151,13 @@
                             <div class="form-group">
                                 <label>Başlanğıc</label>
                                 <input id="dp1" name="rentStartDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
-                                <label class="text-danger" id="dp1ErrorSpan" hidden>Başlanğıc tarixi ən tez sabahdan başlamalıdır</label>
+                                <label class="text-danger" id="dp1ErrorSpan" hidden>@localizer["RentStartDateError"]</label>
                             </div>
                             <div class="form-group">
                                 <label>Son</label>
                                 <input id="dp2" name="rentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
-                                <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
-                                <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.MinLendDays gündür</label>
+                                <label class="text-danger" id="dp2ErrorSpan1" hidden>@localizer["RentEndDateError"]</label>
+                                <label class="text-danger" id="dp2ErrorSpan2" hidden>@localizer["MinimalRentPeriodError"]: @Model.MinLendDays </label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -387,7 +388,7 @@
         function proposalTypeChange() {
             var check = $("#propType option:selected").text();
 
-            if (check == "Almaq") {
+            if (check == "Almaq" || check == "Buy") {
                 //console.log(document.getElementById("priceType").textContent);
                 $("#priceType").text("azn");
                 $(".date").attr("hidden", true);
@@ -399,7 +400,8 @@
             }
             else {
                 sendProposalCheck(false);
-                $("#priceType").text("azn/gün");
+                var rateText = "@localizer["RentRateText"]";
+                $("#priceType").text(rateText);
                 $(".date").removeAttr("hidden");
                 $("#rentConditions").removeAttr("hidden");
                 $("#sellConditions").attr("hidden", true);

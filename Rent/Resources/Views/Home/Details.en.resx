@@ -120,8 +120,14 @@
   <data name="AddReviewLink" xml:space="preserve">
     <value>Add your review</value>
   </data>
+  <data name="BuyOptionText" xml:space="preserve">
+    <value>Buy</value>
+  </data>
   <data name="CategoryLabelText" xml:space="preserve">
     <value>CATEGORY</value>
+  </data>
+  <data name="MinimalRentPeriodError" xml:space="preserve">
+    <value>Minimum renting days</value>
   </data>
   <data name="NoteToSeller" xml:space="preserve">
     <value>Additional note for owner</value>
@@ -144,11 +150,20 @@
   <data name="RentDurationText" xml:space="preserve">
     <value>day(s)</value>
   </data>
+  <data name="RentEndDateError" xml:space="preserve">
+    <value>Rent ending date should be later than beginning date</value>
+  </data>
+  <data name="RentOptionText" xml:space="preserve">
+    <value>Rent</value>
+  </data>
   <data name="RentPriceText" xml:space="preserve">
     <value>Rent price</value>
   </data>
   <data name="RentRateText" xml:space="preserve">
     <value>AZN/day</value>
+  </data>
+  <data name="RentStartDateError" xml:space="preserve">
+    <value>Earliest rent date should start from tomorrow</value>
   </data>
   <data name="ReviewAmountLink" xml:space="preserve">
     <value>Review(s)</value>
