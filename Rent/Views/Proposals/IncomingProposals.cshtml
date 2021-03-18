@@ -32,8 +32,8 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
-                <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Owner.UserName">
-                    <h6 class="label label-info">Təklif göndərən: @item.Owner.UserName</h6>
+                <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Buyer.UserName">
+                    <h6 class="label label-info">Təklif göndərən: @item.Buyer.UserName</h6>
                 </a>
                 <p class="card-text">
                     Təklif: @item.ProposedPrice
@@ -50,6 +50,9 @@
                         Kirayə: @item.ProposedRentStartDate.ToString("dd/M/yyyy") - @item.ProposedRentEndDate.ToString("dd/M/yyyy")
                     </p>
                 }
+                    <p class="card-text">
+                        Ədəd: @item.ProposedAmount
+                    </p>
                     </p>
                     @if (item.ProposalMessage != null)
                     {
@@ -71,9 +74,9 @@
                         @if (item.ProposalStatus.StatusName == "Open")
                         {
                             <label class="card-footer badge-info">Status: Açıq</label>
-                                <a class="btn btn-success @(latestStockCheck ? "":"disabled"  )"
-                                   asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2" asp-route-productId="@item.ProductId">Qəbul et</a>
-                                <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3" asp-route-productId="@item.ProductId">Rədd et</a>
+                            <a class="btn btn-success @(latestStockCheck ? "":"disabled"  )"
+                               asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="2" asp-route-productId="@item.ProductId">Qəbul et</a>
+                            <a class="btn btn-danger" asp-controller="Proposals" asp-action="AcceptOrRejectProposal" asp-route-proposalId="@item.Id" asp-route-statusId="3" asp-route-productId="@item.ProductId">Rədd et</a>
                         }
                         else if (item.ProposalStatus.StatusName == "Closed")
                         {
