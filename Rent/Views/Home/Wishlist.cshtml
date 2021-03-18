@@ -1,4 +1,5 @@
-﻿@model IEnumerable<WishListProduct>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<WishListProduct>
 
 @{
     ViewData["Title"] = "Wishlist";
@@ -24,26 +25,29 @@
                 <div class="card-body">
                     <h5 class="card-title">@product.Product.ProductName</h5>
                     <p class="card-text">@product.Product.ProductDescription</p>
+                    <p class="card-text">
+                        @product.Product.Subcategory.Category.CategoryName/@product.Product.Subcategory.SubcategoryName
+                    </p>
                     @if (product.Product.Sell == true)
                     {
-                        <h6 class="text-success">Satış: @product.Product.SellPrice <span>AZN</span></h6>
+                        <h6 class="text-success">@localizer["BuyDescription"]: @product.Product.SellPrice <span>AZN</span></h6>
                     }
                     else
                     {
-                        <h6 class="text-success">Satış: <span>❌</span></h6>
+                        <h6 class="text-success">@localizer["BuyDescription"]: <span>❌</span></h6>
 
                     }
                     @if (product.Product.Lend == true)
                     {
-                        <h6 class="text-warning">Kirayə: @product.Product.LendPrice <span>AZN/gun</span></h6>
+                        <h6 class="text-warning">@localizer["RentDescription"]: @product.Product.LendPrice <span>AZN/gun</span></h6>
                     }
                     else
                     {
-                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                        <h6 class="text-warning">@localizer["RentDescription"]: <span>❌</span></h6>
 
                     }
-                    <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.Product.User.UserName"><h6>Məhsul sahibi: @product.Product.User.UserName</h6></a>
-                    <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Product.Id" class="btn btn-primary"><i class="fa fa-edit"> Təklif göndər</i></a>
+                    <a asp-action="Profile" asp-controller="Account" asp-route-username="@product.Product.User.UserName"><h6>@localizer["ProductOwnerDescription"]: <u>@product.Product.User.UserName</u></h6></a>
+                    <a style="justify-content:flex-end" asp-controller="Home" asp-action="Details" asp-route-id="@product.Product.Id" class="btn btn-primary"><i class="fa fa-edit"> @localizer["ToDetailsButtonDescription"]</i></a>
                 </div>
             </div>
         }
