@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Rent.DomainModels.Models;
@@ -29,6 +30,7 @@ namespace Rent.Controllers
         private readonly IProposalTypesService proposalTypesService;
         private readonly IWishListProdsRepository wishListProdsRepository;
         private readonly IRatingsRepository ratingsRepository;
+        private readonly IHtmlLocalizer<HomeController> localizer;
         IEnumerable<Category> categories;
         IEnumerable<ProposalTypeDetailsViewModel> proposalTypes;
         int NoOfRecordsPerPage = 6;
@@ -38,7 +40,7 @@ namespace Rent.Controllers
 
         public HomeController(ILogger<HomeController> logger, IProductsService productsService, ICategoriesService categoriesService,
             IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesService proposalTypesService,
-            IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository)
+            IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository, IHtmlLocalizer<HomeController> localizer)
         {
             _logger = logger;
             ps = productsService;
@@ -48,6 +50,7 @@ namespace Rent.Controllers
             this.proposalTypesService = proposalTypesService;
             this.wishListProdsRepository = wishListProdsRepository;
             this.ratingsRepository = ratingsRepository;
+            this.localizer = localizer;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
             proposalTypes = proposalTypesService.GetProposalTypes().Result;
@@ -157,7 +160,10 @@ namespace Rent.Controllers
                 newPropId = await propsService.InsertProposal(newProposal);
             }
             if (newPropId > 0)
-                TempData["Success"] = "Təklif uğurla göndərilmişdir";
+            {
+                var result = localizer["SuccessfullProposalMessage"].Value;
+                TempData["Success"] =result;
+            }
             return RedirectToAction("Index", "Home");
         }
 
