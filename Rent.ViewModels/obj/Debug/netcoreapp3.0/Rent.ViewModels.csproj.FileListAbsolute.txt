@@ -17,3 +17,5 @@ D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.
 D:\VS\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.LoginViewModel.az.resources
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.en.resources
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.az.resources

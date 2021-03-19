@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Remove="Resources\Views\Account\Login.en.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.5.2" />
     <PackageReference Include="d3" Version="6.2.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
@@ -56,6 +60,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Resources\Views\Account\Login.en.resx" />
     <None Include="wwwroot\admin\assets\demo\chart-area-demo.js" />
     <None Include="wwwroot\admin\assets\demo\chart-bar-demo.js" />
     <None Include="wwwroot\admin\assets\demo\chart-pie-demo.js" />

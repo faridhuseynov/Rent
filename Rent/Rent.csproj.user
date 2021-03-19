@@ -22,4 +22,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>
   </PropertyGroup>
+  <ItemGroup>
+    <None Update="Resources\Views\Account\Login.en.resx">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

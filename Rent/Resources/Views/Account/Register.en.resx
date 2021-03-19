@@ -117,35 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmPasswordRequired" xml:space="preserve">
-    <value>Confirm password is required</value>
+  <data name="RegisterConfirmPasswordPlaceholder" xml:space="preserve">
+    <value>Repeat Password</value>
   </data>
-  <data name="EmailFormatMessage" xml:space="preserve">
-    <value>Email should be in proper format</value>
+  <data name="RegisterNamePlaceholder" xml:space="preserve">
+    <value>Name</value>
   </data>
-  <data name="EmailRequiredMessage" xml:space="preserve">
-    <value>Email is required</value>
+  <data name="RegisterPasswordPlaceholder" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="NameRequiredMessage" xml:space="preserve">
-    <value>Name is required</value>
+  <data name="RegisterSurnamePlaceholder" xml:space="preserve">
+    <value>Surname</value>
   </data>
-  <data name="PasswordFormatError" xml:space="preserve">
-    <value>Password should confirm below format:
-	- must be at least 8 &amp; max 20 characters long
-	- must contain at least 1 lowercase letter
-	- must contain at least 1 uppercase letter
-	- must contain at least 1 special symbol</value>
-  </data>
-  <data name="PasswordMatchError" xml:space="preserve">
-    <value>Passwords should match</value>
-  </data>
-  <data name="PasswordRequiredMessage" xml:space="preserve">
-    <value>Password is required</value>
-  </data>
-  <data name="SurnameRequiredMessage" xml:space="preserve">
-    <value>Surname is required</value>
-  </data>
-  <data name="UsernameRequiredMessage" xml:space="preserve">
-    <value>Username is required</value>
+  <data name="RegisterUsernamePlaceholder" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>
