@@ -14,3 +14,5 @@ D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.csproj.
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.dll
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.pdb
 D:\VS\Rent\Rent.ServiceLayers\obj\Debug\netcoreapp3.0\Rent.ServiceLayers.csproj.CoreCompileInputs.cache
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.dll
+D:\VS\Rent\Rent.ServiceLayers\bin\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll

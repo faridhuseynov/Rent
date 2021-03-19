@@ -10,3 +10,10 @@ D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CopyCo
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.dll
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.pdb
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CoreCompileInputs.cache
+D:\VS\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.dll
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.LoginViewModel.en.resources
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.GenerateResource.cache
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.dll
+D:\VS\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.LoginViewModel.az.resources
+D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
