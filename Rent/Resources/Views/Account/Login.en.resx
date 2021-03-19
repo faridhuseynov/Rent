@@ -117,10 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FacebookSignInText" xml:space="preserve">
+    <value>Login via Facebook</value>
+  </data>
+  <data name="ForgotPasswordText" xml:space="preserve">
+    <value>Forgot password?</value>
+  </data>
+  <data name="GoogleSignInText" xml:space="preserve">
+    <value>Login via Google</value>
+  </data>
+  <data name="LoginButtonText" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="LoginPasswordPlaceholder" xml:space="preserve">
     <value>Password</value>
   </data>
   <data name="LoginUsernamePlaceholder" xml:space="preserve">
     <value>Username</value>
+  </data>
+  <data name="SignInLabel" xml:space="preserve">
+    <value>Sign in</value>
+  </data>
+  <data name="SignUpLinkText" xml:space="preserve">
+    <value>Sign up</value>
   </data>
 </root>
