@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RegisterConfirmPasswordPlaceholder1" xml:space="preserve">
+  <data name="CreateAccountHeadline" xml:space="preserve">
+    <value>Hesab Yarat</value>
+  </data>
+  <data name="FacebookSignUpText" xml:space="preserve">
+    <value>Facebook vasitəsilə hesab aç</value>
+  </data>
+  <data name="GoogleSignUpText" xml:space="preserve">
+    <value>Google vasitəsilə hesab aç</value>
+  </data>
+  <data name="HaveAccountText" xml:space="preserve">
+    <value>Hesabın var?</value>
+  </data>
+  <data name="OrText" xml:space="preserve">
+    <value>VƏ YA</value>
+  </data>
+  <data name="RegisterConfirmPasswordPlaceholder" xml:space="preserve">
     <value>Şifrəni təkrarla</value>
   </data>
   <data name="RegisterEmailPlaceholder" xml:space="preserve">

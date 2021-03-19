@@ -33,7 +33,7 @@
 <div class="container">
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            <h4 class="card-title mt-3 text-center">@localizer["CreateAccountHeadline"]</h4>
 
             @if (Model != null && Model.ExternalRegisters.Count > 0)
             {
@@ -43,22 +43,22 @@
                         <p>
                             @if (provider.DisplayName == "Google")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>Sign up via Google</button>
+                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i> @localizer["GoogleSignUpText"]</button>
                             }
                             @if (provider.DisplayName == "Twitter")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>Sign up via Twitter</button>
+                        <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i> @localizer["CreateAccountHeadline"]</button>
                             }
                             @if (provider.DisplayName == "Facebook")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>Sign up via Facebook</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i> @localizer["FacebookSignUpText"]</button>
                             }
                         </p>
                     }
                 </form>
             }
             <p class="divider-text">
-                <span class="bg-light">OR</span>
+                <span class="bg-light">@localizer["OrText"]</span>
             </p>
             <form method="post" asp-action="Register">
                 <div class="form-group input-group">
@@ -117,7 +117,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">@localizer["RegisterSubmitButtonText"]</button>
                 </div>
-                <p class="text-center">Have an account? <a asp-controller="Account" asp-action="Login">@localizer["RegisterLoginButtonText"]</a> </p>
+                <p class="text-center">@localizer["HaveAccountText"]<a asp-controller="Account" asp-action="Login">@localizer["RegisterLoginButtonText"]</a> </p>
             </form>
         </article>
     </div>
