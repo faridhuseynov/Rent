@@ -120,11 +120,20 @@
   <data name="RegisterConfirmPasswordPlaceholder" xml:space="preserve">
     <value>Repeat Password</value>
   </data>
+  <data name="RegisterEmailPlaceholder" xml:space="preserve">
+    <value>Email address</value>
+  </data>
+  <data name="RegisterLoginButtonText" xml:space="preserve">
+    <value>Log In</value>
+  </data>
   <data name="RegisterNamePlaceholder" xml:space="preserve">
     <value>Name</value>
   </data>
   <data name="RegisterPasswordPlaceholder" xml:space="preserve">
-    <value>Password</value>
+    <value>Create password</value>
+  </data>
+  <data name="RegisterSubmitButtonText" xml:space="preserve">
+    <value>Create Account</value>
   </data>
   <data name="RegisterSurnamePlaceholder" xml:space="preserve">
     <value>Surname</value>

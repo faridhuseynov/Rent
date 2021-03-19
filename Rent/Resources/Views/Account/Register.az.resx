@@ -117,14 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RegisterConfirmPasswordPlaceholder" xml:space="preserve">
-    <value>Təkrar şifrə</value>
+  <data name="RegisterConfirmPasswordPlaceholder1" xml:space="preserve">
+    <value>Şifrəni təkrarla</value>
+  </data>
+  <data name="RegisterEmailPlaceholder" xml:space="preserve">
+    <value>Email adresi</value>
+  </data>
+  <data name="RegisterLoginButtonText" xml:space="preserve">
+    <value>Daxil ol</value>
   </data>
   <data name="RegisterNamePlaceholder" xml:space="preserve">
     <value>Ad</value>
   </data>
   <data name="RegisterPasswordPlaceholder" xml:space="preserve">
-    <value>Şifrə</value>
+    <value>Şifrə yarat</value>
+  </data>
+  <data name="RegisterSubmitButtonText" xml:space="preserve">
+    <value>Hesab yarat</value>
   </data>
   <data name="RegisterSurnamePlaceholder" xml:space="preserve">
     <value>Soyad</value>
