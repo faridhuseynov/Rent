@@ -1,15 +1,3 @@
-D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.deps.json
-D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.dll
-D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.pdb
-D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
-D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csprojAssemblyReference.cache
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.AssemblyInfoInputs.cache
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.AssemblyInfo.cs
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csproj.CopyComplete
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.dll
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.pdb
-D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csproj.CoreCompileInputs.cache
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.deps.json
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.dll
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.pdb
@@ -22,3 +10,15 @@ C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\obj\De
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csproj.CopyComplete
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.dll
 C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.pdb
+D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.deps.json
+D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.dll
+D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.Repositories.pdb
+D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
+D:\VS\Rent\Rent.Repositories\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csprojAssemblyReference.cache
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.AssemblyInfoInputs.cache
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.AssemblyInfo.cs
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csproj.CoreCompileInputs.cache
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.csproj.CopyComplete
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.dll
+D:\VS\Rent\Rent.Repositories\obj\Debug\netcoreapp3.0\Rent.Repositories.pdb

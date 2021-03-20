@@ -153,8 +153,17 @@
   <data name="EmailPlaceholder" xml:space="preserve">
     <value>test@test.com</value>
   </data>
+  <data name="GenderFemaleOption" xml:space="preserve">
+    <value>Qadın</value>
+  </data>
   <data name="GenderLabel" xml:space="preserve">
     <value>Cinsiyyət</value>
+  </data>
+  <data name="GenderMaleOption" xml:space="preserve">
+    <value>Kişi</value>
+  </data>
+  <data name="GenderOtherOption" xml:space="preserve">
+    <value>Digər</value>
   </data>
   <data name="NameLabel" xml:space="preserve">
     <value>Ad</value>
