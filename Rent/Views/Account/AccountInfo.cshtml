@@ -1,5 +1,4 @@
-﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
-@model Rent.DomainModels.Models.User
+﻿@model Rent.DomainModels.Models.User
 
 @{
     //ViewData["Title"] = "ViewProfile";
@@ -29,17 +28,17 @@
                 <form id="form" enctype="multipart/form-data" method="post" asp-area="" asp-controller="Account" asp-action="ChangeProfilePicture">
                     <input id="image" hidden name="image" type="file" size="1" class="text-center center-block custom-file-input" onchange="photoUpload()" />
                     <p id="fileName" class="mt-3 mb-0" hidden></p>
-                    <button id="triggerInput" class="btn btn-outline-primary mt-4">@localizer["ChoosePhotoText"]</button>
-                    <button type="submit" class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">@localizer["ConfirmPhotoText"]</button>
+                    <button id="triggerInput" class="btn btn-outline-primary mt-4">Şəkil seç</button>
+                    <button type="submit" class="btn btn-light mt-4" id="profPicUploadConfirm" disabled onclick="photoUploadConfirmed()">Şəkli təsdiqlə</button>
                 </form>
             </div></hr>
 
             <br>
             <ul class="list-group">
-                <li class="list-group-item text-muted">@localizer["StatisticsHeader"] <i class="fa fa-dashboard fa-1x"></i></li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>@localizer["StatisticsProductText"]</strong></span> @Model.Products.Count</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>@localizer["StatProdIncProposal"]</strong></span> @Model.Proposals.Where(r => r.OwnerId == Model.Id).Count()</li>
-                <li class="list-group-item text-right"><span class="pull-left"><strong>@localizer["StatProdOutProposal"]</strong></span> @Model.Proposals.Where(s => s.BuyerId == Model.Id).Count()</li>
+                <li class="list-group-item text-muted">Statistika <i class="fa fa-dashboard fa-1x"></i></li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Məhsul</strong></span> @Model.Products.Count</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Gələn təklif</strong></span> @Model.Proposals.Where(r => r.OwnerId == Model.Id).Count()</li>
+                <li class="list-group-item text-right"><span class="pull-left"><strong>Göndərilən təklif</strong></span> @Model.Proposals.Where(s => s.BuyerId == Model.Id).Count()</li>
                 @*<li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>*@
             </ul>
 
@@ -53,8 +52,8 @@
         </div><!--/col-3-->
         <div class="col-sm-9">
             <ul class="nav nav-tabs">
-                <li class="active" id="infoItem"><a data-toggle="tab" href="#home">@localizer["PersonalInfoLinkText"]</a></li>
-                <li id="passwordItem"><a data-toggle="tab" href="#changePassword">@localizer["ChangePasswordLinkText"]</a></li>
+                <li class="active" id="infoItem"><a data-toggle="tab" href="#home">Şəxsi Məlumatlar</a></li>
+                <li id="passwordItem"><a data-toggle="tab" href="#changePassword">Şifrəni dəyiş</a></li>
             </ul>
 
 
@@ -64,47 +63,45 @@
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="first_name"><h4>@localizer["NameLabel"]</h4></label>
-                                <input type="text" class="form-control" asp-for="@Model.Name" placeholder="@localizer["NamePlaceholder"]">
+                                <label for="first_name"><h4>Ad</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.Name" placeholder="Ad">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="last_name"><h4>@localizer["SurnameLabel"]</h4></label>
-                                <input type="text" class="form-control" asp-for="@Model.Surname"
-                                       placeholder="@localizer["SurnamePlaceholder"]">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <label for="phone"><h4>@localizer["PhoneLabel"]</h4></label>
-                                <input type="text" class="form-control" asp-for="@Model.PhoneNumber" placeholder="@localizer["PhonePlaceholder"]">
+                                <label for="last_name"><h4>Soyad</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.Surname" placeholder="Soyad">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="email"><h4>@localizer["EmailLabel"]</h4></label>
-                                <input type="email" class="form-control" asp-for="@Model.Email" 
-                                       placeholder="@localizer["EmailPlaceholder"]">
+                                <label for="phone"><h4>Mob Telefon</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.PhoneNumber" placeholder="+994XX XXX XX XX">
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="gender"><h4>@localizer["GenderLabel"]</h4></label>
+                                <label for="email"><h4>Email</h4></label>
+                                <input type="email" class="form-control" asp-for="@Model.Email" placeholder="you@email.com">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="gender"><h4>Cinsiyyət</h4></label>
                                 <select class="form-control form-control-sm" asp-for="@Model.Gender">
-                                    <option value="M">@localizer["GenderMaleOption"]</option>
-                                    <option value="F">@localizer["GenderFemaleOption"]</option>
-                                    <option value="O">@localizer["GenderOtherOption"]</option>
+                                    <option value="M">Kişi</option>
+                                    <option value="F">Qadın</option>
+                                    <option value="O">Digər</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="location"><h4>@localizer["CountryLabel"]</h4></label>
+                                <label for="location"><h4>Ölkə</h4></label>
                                 <select class="form-control form-control-sm" id="citySelection" asp-for="@Model.Country">
                                     <option value="AF">Afghanistan</option>
                                     <option value="AX">Åland Islands</option>
@@ -361,8 +358,8 @@
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="location"><h4>@localizer["CityLabel"]</h4></label>
-                                <input type="text" class="form-control" asp-for="@Model.City" placeholder="@localizer["CityLabel"]" title="enter a location">
+                                <label for="location"><h4>Şəhər</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.City" placeholder="Şəhər" title="enter a location">
                                 @*<select>
                                         <option value="Baku">Bakı</option>
                                         <option value="Ganja">Gəncə</option>
@@ -444,8 +441,8 @@
 
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <label for="location"><h4>@localizer["AddressLabel"]</h4></label>
-                                <input type="text" class="form-control" asp-for="@Model.MeetingLocation" placeholder="@localizer["AddressPlaceholder"]" title="enter a location">
+                                <label for="location"><h4>Adress</h4></label>
+                                <input type="text" class="form-control" asp-for="@Model.MeetingLocation" placeholder="Küçə, ev, mənzil" title="enter a location">
                             </div>
                         </div>
 
@@ -453,7 +450,7 @@
                             <div class="col-xs-12">
                                 <br>
                                 @*<button id="profDetailsSave" class="btn btn-lg btn-light" type="submit" disabled><span class="glyphicon glyphicon-ok"></span> Məlumatları yadda saxla</button>*@
-                                <button id="profDetailsSave" class="btn btn-lg btn-light" type="submit" disabled>@localizer["SaveButtonText"]</button>
+                                <button id="profDetailsSave" class="btn btn-lg btn-light" type="submit" disabled>Məlumatları yadda saxla</button>
 
                             </div>
                         </div>
@@ -472,18 +469,18 @@
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="password"><h4>@localizer["NewPasswordLabel"]</h4></label>
+                                <label for="password"><h4>Yeni şifrə</h4></label>
                                 <input type="password" class="form-control" name="password" id="password"
-                                       onchange="passwordCheck()" placeholder="@localizer["NewPasswordPlaceholder"]">
+                                       onchange="passwordCheck()" placeholder="Şifrəni daxil et">
                             </div>
                         </div>
                         <div class="form-group">
 
                             <div class="col-xs-6">
-                                <label for="confirmPassword"><h4>@localizer["ConfirmPasswordLabel"]</h4></label>
+                                <label for="confirmPassword"><h4>Şifrəni təsdiq et</h4></label>
                                 <input type="password" class="form-control" name="confirmPassword"
                                        onchange="passwordCheck()" id="confirmPassword"
-                                       placeholder="@localizer["ConfirmPasswordPlaceholder"]">
+                                       placeholder="Şifrəni təkrarla">
                             </div>
 
                             <div class="form-group">
@@ -496,7 +493,7 @@
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <br>
-                                <button id="passwordSave" class="btn btn-lg btn-light" type="submit" disabled><i class="icon-ok-sign"></i> @localizer["SaveButtonText"]</button>
+                                <button id="passwordSave" class="btn btn-lg btn-light" type="submit" disabled><i class="icon-ok-sign"></i> Şifrəni dəyiş</button>
                             </div>
                         </div>
                     </form>
@@ -538,11 +535,11 @@
                 $('#message').html('');
                 passwordChanged(false);
             }else if ((password == confirmPassword)) {
-                $('#message').html('@localizer["PasswordsMatchMessage"]').css('color', 'green');
+                $('#message').html('Şifrələr uyğundur').css('color', 'green');
                 passwordChanged(true);
             }
             else {
-                $('#message').html('@localizer["PasswordsUnmatchMessage"]').css('color', 'red');
+                $('#message').html('Şifrələr uyğun gəlmir').css('color', 'red');
                 passwordChanged(false);
             }
         };
