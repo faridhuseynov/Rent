@@ -8,25 +8,24 @@ namespace Rent.ViewModels.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required (ErrorMessage ="Ad xanası mütləq doldurulmalıdır")]
+        [Required (ErrorMessage = "NameRequiredMessage")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Soyad xanası mütləq doldurulmalıdır")]
+        [Required(ErrorMessage = "SurnameRequiredMessage")]
         public string Surname { get; set; }
 
-        [Required(ErrorMessage = "İstifadəçi adı xanası mütləq doldurulmalıdır")]
+        [Required(ErrorMessage = "UsernameRequiredMessage")]
         public string Username { get; set; }
 
-        [Required (ErrorMessage ="Email adresi mütləqdir")]
-        [EmailAddress (ErrorMessage ="Email adresi düzgün formatda deyil")]
+        [Required (ErrorMessage = "EmailRequiredMessage")]
+        [EmailAddress (ErrorMessage = "EmailFormatMessage")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Şifrə mütləqdir")]
+        [Required(ErrorMessage = "PasswordRequiredMessage")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage ="Şifrəni təkrarlamanız mütləqdir")]
-        [Compare("Password",ErrorMessage ="İlkin şifrəylə təkrar şifrə uyğun gəlmir")]
-        
+        [Required(ErrorMessage = "ConfirmPasswordRequired")]
+        [Compare("Password",ErrorMessage = "PasswordMatchError")]
         public string ConfirmPassword { get; set; }
 
         public string ReturnUrl { get; set; }

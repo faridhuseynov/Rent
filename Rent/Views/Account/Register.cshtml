@@ -1,4 +1,5 @@
-﻿@model Rent.ViewModels.AccountViewModels.RegisterViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Rent.ViewModels.AccountViewModels.RegisterViewModel
 @{
     ViewData["Title"] = "Register";
 }
@@ -32,7 +33,7 @@
 <div class="container">
     <div class="card bg-light">
         <article class="card-body mx-auto" style="max-width: 400px;">
-            <h4 class="card-title mt-3 text-center">Create Account</h4>
+            <h4 class="card-title mt-3 text-center">@localizer["CreateAccountHeadline"]</h4>
 
             @if (Model != null && Model.ExternalRegisters.Count > 0)
             {
@@ -42,22 +43,22 @@
                         <p>
                             @if (provider.DisplayName == "Google")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   Sign up via Google</button>
+                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i> @localizer["GoogleSignUpText"]</button>
                             }
                             @if (provider.DisplayName == "Twitter")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Sign up via Twitter</button>
+                        <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i> @localizer["CreateAccountHeadline"]</button>
                             }
                             @if (provider.DisplayName == "Facebook")
                             {
-                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Sign up via Facebook</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i> @localizer["FacebookSignUpText"]</button>
                             }
                         </p>
                     }
                 </form>
             }
             <p class="divider-text">
-                <span class="bg-light">OR</span>
+                <span class="bg-light">@localizer["OrText"]</span>
             </p>
             <form method="post" asp-action="Register">
                 <div class="form-group input-group">
@@ -67,16 +68,16 @@
                 </div>
                 <input asp-for="ReturnUrl" value="@Model.ReturnUrl" hidden/>
                 <div class="form-group input-group">
-                    <input name="Name" asp-for="Name" class="form-control" placeholder="Name" type="text">
+                    <input name="Name" asp-for="Name" class="form-control" placeholder="@localizer["RegisterNamePlaceholder"]" type="text">
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group input-group">
-                    <input name="Surname" asp-for="Surname" class="form-control" placeholder="Surname" type="text">
+                    <input name="Surname" asp-for="Surname" class="form-control" placeholder="@localizer["RegisterSurnamePlaceholder"]" type="text">
                     <span asp-validation-for="Surname" class="text-danger"></span>
 
                 </div>
                 <div class="form-group input-group">
-                    <input name="Username" asp-for="Username" class="form-control" placeholder="Username" type="text">
+                    <input name="Username" asp-for="Username" class="form-control" placeholder="@localizer["RegisterUsernamePlaceholder"]" type="text">
                     <span asp-validation-for="Username" class="text-danger"></span>
 
                 </div>
@@ -84,7 +85,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                     </div>
-                    <input name="Email" asp-for="Email" class="form-control" placeholder="Email address" type="email">
+                    <input name="Email" asp-for="Email" class="form-control" placeholder="@localizer["RegisterEmailPlaceholder"]" type="email">
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 @*<div class="form-group input-group">
@@ -103,20 +104,20 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input name="Password" asp-for="Password" class="form-control" placeholder="Create password" type="password">
+                    <input name="Password" asp-for="Password" class="form-control" placeholder="@localizer["RegisterPasswordPlaceholder"]" type="password">
                     <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
                 <div class="form-group input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                     </div>
-                    <input name="ConfirmPassword" asp-for="ConfirmPassword" class="form-control" placeholder="Repeat password" type="password">
+                    <input name="ConfirmPassword" asp-for="ConfirmPassword" class="form-control" placeholder="@localizer["RegisterConfirmPasswordPlaceholder"]" type="password">
                     <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
+                    <button type="submit" class="btn btn-primary btn-block">@localizer["RegisterSubmitButtonText"]</button>
                 </div>
-                <p class="text-center">Have an account? <a asp-controller="Account" asp-action="Login">Log In</a> </p>
+                <p class="text-center">@localizer["HaveAccountText"]<a asp-controller="Account" asp-action="Login">@localizer["RegisterLoginButtonText"]</a> </p>
             </form>
         </article>
     </div>

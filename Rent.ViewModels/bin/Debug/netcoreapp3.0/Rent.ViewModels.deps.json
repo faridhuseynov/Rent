@@ -12,6 +12,14 @@
         },
         "runtime": {
           "Rent.ViewModels.dll": {}
+        },
+        "resources": {
+          "az/Rent.ViewModels.resources.dll": {
+            "locale": "az"
+          },
+          "en/Rent.ViewModels.resources.dll": {
+            "locale": "en"
+          }
         }
       },
       "Castle.Core/4.4.0": {
