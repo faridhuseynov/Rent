@@ -7,3 +7,12 @@ D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.AssemblyI
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.dll
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.pdb
 D:\VS\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csproj.CoreCompileInputs.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.deps.json
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csprojAssemblyReference.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.AssemblyInfoInputs.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.AssemblyInfo.cs
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.csproj.CoreCompileInputs.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.DomainModels\obj\Debug\netcoreapp3.0\Rent.DomainModels.pdb

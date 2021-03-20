@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {}
+    "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {}
   },
   "projects": {
-    "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
+    "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj",
+        "projectUniqueName": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj",
         "projectName": "Rent.DomainModels",
-        "projectPath": "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj",
-        "packagesPath": "C:\\Users\\FH189\\.nuget\\packages\\",
-        "outputPath": "D:\\VS\\Rent\\Rent.DomainModels\\obj\\",
+        "projectPath": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj",
+        "packagesPath": "C:\\Users\\husf32\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\FH189\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\husf32\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -95,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

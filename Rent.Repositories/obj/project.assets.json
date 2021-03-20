@@ -8456,23 +8456,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\FH189\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\husf32\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\VS\\Rent\\Rent.Repositories\\Rent.Repositories.csproj",
+      "projectUniqueName": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.Repositories\\Rent.Repositories.csproj",
       "projectName": "Rent.Repositories",
-      "projectPath": "D:\\VS\\Rent\\Rent.Repositories\\Rent.Repositories.csproj",
-      "packagesPath": "C:\\Users\\FH189\\.nuget\\packages\\",
-      "outputPath": "D:\\VS\\Rent\\Rent.Repositories\\obj\\",
+      "projectPath": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.Repositories\\Rent.Repositories.csproj",
+      "packagesPath": "C:\\Users\\husf32\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.Repositories\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\FH189\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\husf32\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8485,8 +8481,8 @@
       "frameworks": {
         "netcoreapp3.0": {
           "projectReferences": {
-            "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
-              "projectPath": "D:\\VS\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj"
+            "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj": {
+              "projectPath": "C:\\Users\\husf32\\OneDrive - BP\\Desktop\\FreeCodeCamp\\Rent\\Rent.DomainModels\\Rent.DomainModels.csproj"
             }
           }
         }
@@ -8538,7 +8534,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.407\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

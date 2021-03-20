@@ -19,3 +19,24 @@ D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.Acc
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.en.resources
 D:\VS\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.az.resources
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\Rent.ViewModels.deps.json
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\Rent.ViewModels.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\Rent.ViewModels.pdb
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\bin\Debug\netcoreapp3.0\Rent.DomainModels.pdb
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csprojAssemblyReference.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.LoginViewModel.az.resources
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.LoginViewModel.en.resources
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.az.resources
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.Resources.AccountViewModels.RegisterViewModel.en.resources
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.GenerateResource.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.AssemblyInfoInputs.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.AssemblyInfo.cs
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\az\Rent.ViewModels.resources.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\en\Rent.ViewModels.resources.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.csproj.CopyComplete
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.dll
+C:\Users\husf32\OneDrive - BP\Desktop\FreeCodeCamp\Rent\Rent.ViewModels\obj\Debug\netcoreapp3.0\Rent.ViewModels.pdb
