@@ -73,11 +73,11 @@
                         }
                         else if (item.ProposalStatus.StatusName == "Closed")
                         {
-                    <label class="card-footer badge-success">@localizer["AcceptedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
+                            <label class="card-footer badge-success">@localizer["AcceptedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
                         }
                         else
                         {
-                    <label class="card-footer badge-danger">@localizer["RejectedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
+                            <label class="card-footer badge-danger">@localizer["RejectedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
                         }
                     </div>
                 </div>
@@ -85,17 +85,17 @@
         }
 </div>
 
-@section Scripts{ 
-<script>
-    $(".deleteButton").on("click", function (event) {
-        var response = confirm("Təklifi silmək istədiyinizdən əminsinizmi?")
-        if (response==true) {
-            return true;
-        } else {
-            return false;
-        }
-        
-    });
+@section Scripts{
+    <script>
+        $(".deleteButton").on("click", function (event) {
+            var response = confirm("Təklifi silmək istədiyinizdən əminsinizmi?")
+            if (response == true) {
+                return true;
+            } else {
+                return false;
+            }
 
-</script>
+        });
+
+    </script>
 }

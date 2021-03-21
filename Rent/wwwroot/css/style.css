@@ -12,6 +12,11 @@
     transition:transform 0.5s;
 }
 
+.card-img-top {
+/*    height:100%;
+*/    object-fit:contain;
+}
+
 .card-photo:hover{
     transform:scale(1.1);
     opacity:0.5;
