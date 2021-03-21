@@ -123,6 +123,9 @@
   <data name="OwnProductDescription" xml:space="preserve">
     <value>öz məhsulum</value>
   </data>
+  <data name="PageTabName" xml:space="preserve">
+    <value>Məhsullar</value>
+  </data>
   <data name="PaginationNext" xml:space="preserve">
     <value>Növbəti</value>
   </data>
