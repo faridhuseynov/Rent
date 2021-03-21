@@ -11,7 +11,9 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
             <input type="hidden" asp-for="Id" />
             @if (Model.ProposalType.Type == "Rent")
             {
@@ -28,9 +30,10 @@
                     </div>
                     <div class="form-group">
                         <label>@localizer["RentEndLabel"]</label>
-                        <input id="dp2" asp-for="ProposedRentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
+                        <input id="dp2" asp-for="ProposedRentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il" />
                         <label class="text-danger" id="dp2ErrorSpan1" hidden>@localizer["RentEndLessStartError"]</label>
-                        <label class="text-danger" id="dp2ErrorSpan2" hidden>@localizer["RentMinLendDaysError"]</label>
+                        <label class="text-danger" id="dp2ErrorSpan2" hidden>@localizer["RentMinLendDaysError",Model.Product.MinLendDays]</label>
+
                     </div>
                 </div>
             }
@@ -92,9 +95,9 @@
             }
 
             if (check == false) {
-                $("#saveButton").addClass("disabled");
+                $("#saveButton").attr("disabled",true);
             } else {
-                $("#saveButton").removeClass("disabled");
+                $("#saveButton").removeAttr("disabled");
             }
         }
     </script>
