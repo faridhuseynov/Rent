@@ -126,6 +126,9 @@
   <data name="DateText" xml:space="preserve">
     <value>Göndərilib</value>
   </data>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Sil</value>
+  </data>
   <data name="EditButtonText" xml:space="preserve">
     <value>Dəyiş</value>
   </data>
@@ -158,9 +161,6 @@
   </data>
   <data name="QuantityText" xml:space="preserve">
     <value>Ədəd</value>
-  </data>
-  <data name="RejectButtonText" xml:space="preserve">
-    <value>Rədd et</value>
   </data>
   <data name="RejectedStatusText" xml:space="preserve">
     <value>Status: {0}-da rədd edilib</value>
