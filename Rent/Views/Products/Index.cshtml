@@ -30,13 +30,13 @@
                             <div class="card m-3" style="width: 23rem;overflow:hidden; white-space:nowrap;">
                                 @if (product.MainPhotoUrl == null)
                                 {
-                                    <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
+                                    <img src="~/Images/Products/default-pro.jpg"
                                          class="card-img-top" alt="...">
 
                                 }
                                 else
                                 {
-                                    <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
+                                    <img src="~/Images/Products/@product.MainPhotoUrl"
                                          class="card-img-top" alt="...">
                                 }                                <div class="card-body">
                                     <input hidden value="@product.Id" />

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Rent.ViewModels.ProposalViewModels.ProposalDetailsViewModel>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<Rent.ViewModels.ProposalViewModels.ProposalDetailsViewModel>
 
 @{
     ViewData["Title"] = "Göndərilən Təkliflər";
@@ -6,10 +7,10 @@
 
 <div class="container-fluid">
     <div class="row mb-3">
-        <a class="btn btn-info" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">Gələn Təkliflər</a>
-        <a class="btn btn-info ml-3" asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">Göndərilən Təkliflər</a>
+        <a class="btn btn-info" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">@localizer["InboxText"]</a>
+        <a class="btn btn-info ml-3" asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">@localizer["OutboxText"]</a>
     </div>
-    <h3>Göndərilən təklif sayı: @Model.Count()</h3>
+    <h3>@localizer["OutboxCountText", Model.Count()]</h3>
     @foreach (var item in Model)
     {
         //review the option of  using jumbotron-fluid class
@@ -25,66 +26,58 @@
                         : true;
                     if (!latestStockCheck && item.ProposalStatus.StatusName.ToLower() == "open")
                     {
-                        <div class='unavailable-product'>NOT ENOUGH IN STOCK</div>
+                        <div class='unavailable-product'>@localizer["StockUnavailableText"]</div>
                     }
                 }
                 <img src="~/Images/Products/@item.Product.MainPhotoUrl" class="card-img-top" alt="...">
             </div>
             <div class="card-body">
-                <h5 class="card-title">Məhsul: @item.Product.ProductName</h5>
+                <h5 class="card-title">@localizer["ProductLabel"] @item.Product.ProductName</h5>
                 <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Product.User">
-                    <h6 class="label label-info">Məhsulun sahibi: @item.Product.User</h6>
+                    <h6 class="label label-info">@localizer["ProductOwnerText"] @item.Product.User</h6>
                 </a>
                 <p class="card-text">
                     Təklif: @item.ProposedPrice
                     @if (item.ProposalType.Type == "Sell")
                     {
                         <span>AZN</span>
-                        <span class="label label-success">Alış</span>
+                        <span class="label label-success">@localizer["ProposalBuyTypeText"]</span>
                     }
                     else
                     {
-                        <span>AZN/GÜN</span>
+                        <span>@localizer["RentRateText"]</span>
                         <span class="label label-warning">Kirayə</span>
                     <p class="card-text">
-                        Kirayə müddəti: @item.ProposedRentStartDate.ToString("dd/M/yyyy") - @item.ProposedRentEndDate.ToString("dd/M/yyyy")
+                        @localizer["RentPeriodText", item.ProposedRentStartDate.ToString("dd/MM/yyyy"), item.ProposedRentEndDate.ToString("dd/MM/yyyy")]
                     </p>
 
                 }
                     <p class="card-text">
-                        Ədəd: @item.ProposedAmount
+                        @localizer["QuantityText"]: @item.ProposedAmount
                     </p>
-                    @if (item.ProposalMessage != null)
-                    {
-                        <p class="card-text">
-                            Əlavə: @item.ProposalMessage
-                        </p>
-                    }
-                    else
-                    {
-                        <p class="card-text">
-                            Əlavə: ❌
-                        </p>
-                    }
-                    </p>
+
                     <p class="card-text">
-                        Göndərilib: @item.ProposalAdded.ToString("dd/M/yyyy")
+                        @localizer["AdditionalNoteText"]: @(item.ProposalMessage!=null?item.ProposalMessage: "❌")
+                    </p>
+
+                    <p class="card-text">
+                        @localizer["DateText"]: @item.ProposalAdded.ToString("dd/MM/yyyy")
                     </p>
                     <div class="proposal-status-block">
 
                         @if (item.ProposalStatus.StatusName == "Open")
                         {
-                            <label class="card-footer badge-info">Status: Açıq</label>
-                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Dəyiş</a>
-                            <a class="btn btn-danger deleteButton" asp-action="Delete" asp-route-id="@item.Id">Sil</a>
+                            <label class="card-footer badge-info">@localizer["OpenStatusLabelText"]</label>
+                            <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">@localizer["EditButtonText"]</a>
+                            <a class="btn btn-danger deleteButton" asp-action="Delete" asp-route-id="@item.Id">@localizer["DeleteButtonText"]</a>
                         }
                         else if (item.ProposalStatus.StatusName == "Closed")
                         {
-                            <label class="card-footer badge-success">Status: @item.ProposalClosed.ToString("dd/M/yyyy")-də Razılıq verilib</label>
+                            <label class="card-footer badge-success">@localizer["AcceptedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
                         }
                         else
                         {
-                            <label class="card-footer badge-danger">Status: @item.ProposalClosed.ToString("dd/M/yyyy")-də Imtina edilib</label>
+                            <label class="card-footer badge-danger">@localizer["RejectedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
                         }
                     </div>
                 </div>
@@ -92,17 +85,17 @@
         }
 </div>
 
-@section Scripts{ 
-<script>
-    $(".deleteButton").on("click", function (event) {
-        var response = confirm("Təklifi silmək istədiyinizdən əminsinizmi?")
-        if (response==true) {
-            return true;
-        } else {
-            return false;
-        }
-        
-    });
+@section Scripts{
+    <script>
+        $(".deleteButton").on("click", function (event) {
+            var response = confirm("Təklifi silmək istədiyinizdən əminsinizmi?")
+            if (response == true) {
+                return true;
+            } else {
+                return false;
+            }
 
-</script>
+        });
+
+    </script>
 }

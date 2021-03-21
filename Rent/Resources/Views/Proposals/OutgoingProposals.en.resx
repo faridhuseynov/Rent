@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptButtonText" xml:space="preserve">
-    <value>Accept</value>
-  </data>
   <data name="AcceptedStatusText" xml:space="preserve">
     <value>Status: Accepted on {0}</value>
   </data>
@@ -129,8 +126,11 @@
   <data name="DateText" xml:space="preserve">
     <value>Sent</value>
   </data>
-  <data name="InboxCountText" xml:space="preserve">
-    <value>Total received proposals: {0}</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Edit</value>
   </data>
   <data name="InboxText" xml:space="preserve">
     <value>Received Proposals</value>
@@ -139,7 +139,7 @@
     <value>Status: Open</value>
   </data>
   <data name="OutboxCountText" xml:space="preserve">
-    <value>Total sent proposals</value>
+    <value>Total sent proposals: {0}</value>
   </data>
   <data name="OutboxText" xml:space="preserve">
     <value>Sent Proposals</value>
@@ -147,11 +147,11 @@
   <data name="ProductLabel" xml:space="preserve">
     <value>Product</value>
   </data>
+  <data name="ProductOwnerText" xml:space="preserve">
+    <value>Owner:</value>
+  </data>
   <data name="ProposalBuyTypeText" xml:space="preserve">
     <value>Buy</value>
-  </data>
-  <data name="ProposalOwnerText" xml:space="preserve">
-    <value>Proposal sent by</value>
   </data>
   <data name="ProposalPriceText" xml:space="preserve">
     <value>Proposal</value>
@@ -161,9 +161,6 @@
   </data>
   <data name="QuantityText" xml:space="preserve">
     <value>Quantity</value>
-  </data>
-  <data name="RejectButtonText" xml:space="preserve">
-    <value>Reject</value>
   </data>
   <data name="RejectedStatusText" xml:space="preserve">
     <value>Status: Rejected on {0}</value>
