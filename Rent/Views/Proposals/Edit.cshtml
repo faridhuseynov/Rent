@@ -1,66 +1,71 @@
-﻿@model Rent.ViewModels.ProposalViewModels.EditProposalDetailsViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Rent.ViewModels.ProposalViewModels.EditProposalDetailsViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Təklifi dəyişmək</h2>
+<h2>@localizer["EditHeadline"]</h2>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+
+            </div>
             <input type="hidden" asp-for="Id" />
             @if (Model.ProposalType.Type == "Rent")
             {
                 <div class="form-group">
-                    <label asp-for="ProposedPrice" class="control-label">Təklif edilən məbləğ (AZN/gün)</label>
-                    <input asp-for="ProposedPrice" class="form-control" min="1" />
+                    <label asp-for="ProposedPrice" class="control-label">@localizer["ProposedRentPriceLabel"]</label>
+                    <input asp-for="ProposedPrice" class="form-control" min="1" placeholder="@localizer["propPirceInputPlaceholder"]" />
                     <span asp-validation-for="ProposedPrice" class="text-danger"></span>
                 </div>
                 <div class="date">
                     <div class="form-group">
-                        <label>Başlanğıc</label>
+                        <label>@localizer["RentStartLabel"]</label>
                         <input id="dp1" asp-for="ProposedRentStartDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
-                        <label class="text-danger" id="dp1ErrorSpan" hidden>Başlanğıc tarixi ən tez sabahdan başlamalıdır</label>
+                        <label class="text-danger" id="dp1ErrorSpan" hidden>@localizer["RentStartErrorText"]</label>
                     </div>
                     <div class="form-group">
-                        <label>Son</label>
-                        <input id="dp2" asp-for="ProposedRentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il">
-                        <label class="text-danger" id="dp2ErrorSpan1" hidden>Bitmə tarixi başlanğıc tarixinnən sonra olmalıdır</label>
-                        <label class="text-danger" id="dp2ErrorSpan2" hidden>Ən az kira müddəti @Model.Product.MinLendDays gündür</label>
+                        <label>@localizer["RentEndLabel"]</label>
+                        <input id="dp2" asp-for="ProposedRentEndDate" onchange="checkDate()" type="date" class="form-control clickable input-md" placeholder="&#xf133;  ay/gün/il" />
+                        <label class="text-danger" id="dp2ErrorSpan1" hidden>@localizer["RentEndLessStartError"]</label>
+                        <label class="text-danger" id="dp2ErrorSpan2" hidden>@localizer["RentMinLendDaysError",Model.Product.MinLendDays]</label>
+
                     </div>
                 </div>
             }
             else
             {
                 <div class="form-group">
-                    <label asp-for="ProposedPrice" class="control-label">Təklif edilən məbləğ (AZN)</label>
+                    <label asp-for="ProposedPrice" class="control-label">@localizer["ProposedBuyPriceLabel"]</label>
                     <input asp-for="ProposedPrice" class="form-control" />
                     <span asp-validation-for="ProposedPrice" class="text-danger"></span>
                 </div>
             }
             <div class="form-group">
-                <label asp-for="ProposedAmount" class="control-label">Ədəd <span style="color:darkslategrey">(In Stock: @(Model.Product.TotalAmount-Model.Product.CurrentlyRented))</span></label>
-                <input asp-for="ProposedAmount" class="form-control" min="1" max="@(Model.Product.TotalAmount-Model.Product.CurrentlyRented)" />
+                @*<label asp-for="ProposedAmount" class="control-label">@localizer["QuantityLabel", (Model.Product.TotalAmount - Model.Product.CurrentlyRented)]</label>
+                    <input asp-for="ProposedAmount" class="form-control" min="1" max="@(Model.Product.TotalAmount-Model.Product.CurrentlyRented)" />*@
+                <label asp-for="ProposedAmount" class="control-label">@localizer["QuantityLabel", (Model.Product.TotalAmount - Model.Product.CurrentlyRented)]</label>
+                <input asp-for="ProposedAmount" class="form-control" min="1" max="@Model.ProposedAmount" />
                 <span asp-validation-for="ProposedAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProposalMessage" class="control-label">Məhsul sahibinə təkliflə bağlı əlavə bilgi</label>
+                <label asp-for="ProposalMessage" class="control-label">testing</label>
                 <textarea asp-for="ProposalMessage" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="ProposalMessage" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <input id="saveButton" type="submit" value="Yadda saxla" class="btn btn-default" />
+                <input id="saveButton" type="submit" value="@localizer["SaveButtonText"]" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">Geri dön</a>
+    <a asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">@localizer["BackButtonText"]</a>
 </div>
 
 @section Scripts{
@@ -90,11 +95,9 @@
             }
 
             if (check == false) {
-                $("#saveButton").addClass("disabled");
+                $("#saveButton").attr("disabled",true);
             } else {
-                $("#saveButton").removeClass("disabled");
-
-
+                $("#saveButton").removeAttr("disabled");
             }
         }
     </script>

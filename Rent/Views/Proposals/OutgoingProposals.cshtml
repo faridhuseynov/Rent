@@ -37,7 +37,7 @@
                     <h6 class="label label-info">@localizer["ProductOwnerText"] @item.Product.User</h6>
                 </a>
                 <p class="card-text">
-                    Təklif: @item.ProposedPrice
+                    @localizer["ProposalPriceText"]: @item.ProposedPrice
                     @if (item.ProposalType.Type == "Sell")
                     {
                         <span>AZN</span>
@@ -46,7 +46,7 @@
                     else
                     {
                         <span>@localizer["RentRateText"]</span>
-                        <span class="label label-warning">Kirayə</span>
+                        <span class="label label-warning">@localizer["ProposalRentTypeText"]</span>
                     <p class="card-text">
                         @localizer["RentPeriodText", item.ProposedRentStartDate.ToString("dd/MM/yyyy"), item.ProposedRentEndDate.ToString("dd/MM/yyyy")]
                     </p>

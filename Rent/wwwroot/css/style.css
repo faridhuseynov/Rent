@@ -12,6 +12,12 @@
     transition:transform 0.5s;
 }
 
+.card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
 .card-img-top {
 /*    height:100%;
 */    object-fit:contain;
