@@ -117,64 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AcceptButtonText" xml:space="preserve">
-    <value>Accept</value>
-  </data>
   <data name="AcceptedStatusText" xml:space="preserve">
-    <value>Status: Accepted on {0}</value>
+    <value>Status: {0}-da qəbul edilib</value>
   </data>
   <data name="AdditionalNoteText" xml:space="preserve">
-    <value>Note</value>
+    <value>Əlavə</value>
   </data>
   <data name="DateText" xml:space="preserve">
-    <value>Sent</value>
+    <value>Göndərilib</value>
   </data>
-  <data name="InboxCountText" xml:space="preserve">
-    <value>Total received proposals: {0}</value>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Dəyiş</value>
   </data>
   <data name="InboxText" xml:space="preserve">
-    <value>Received Proposals</value>
+    <value>Gələn Təkliflər</value>
   </data>
   <data name="OpenStatusLabelText" xml:space="preserve">
-    <value>Status: Open</value>
+    <value>Status: Açıq</value>
   </data>
   <data name="OutboxCountText" xml:space="preserve">
-    <value>Total sent proposals</value>
+    <value>Göndərilən təklif sayı: {0}</value>
   </data>
   <data name="OutboxText" xml:space="preserve">
-    <value>Sent Proposals</value>
+    <value>Göndərilən Təkliflər</value>
   </data>
   <data name="ProductLabel" xml:space="preserve">
-    <value>Product</value>
+    <value>Məhsul</value>
+  </data>
+  <data name="ProductOwnerText" xml:space="preserve">
+    <value>Məhsulun sahibi:</value>
   </data>
   <data name="ProposalBuyTypeText" xml:space="preserve">
-    <value>Buy</value>
-  </data>
-  <data name="ProposalOwnerText" xml:space="preserve">
-    <value>Proposal sent by</value>
+    <value>Alış</value>
   </data>
   <data name="ProposalPriceText" xml:space="preserve">
-    <value>Proposal</value>
+    <value>Təklif</value>
   </data>
   <data name="ProposalRentTypeText" xml:space="preserve">
-    <value>Rent</value>
+    <value>Kirayə</value>
   </data>
   <data name="QuantityText" xml:space="preserve">
-    <value>Quantity</value>
+    <value>Ədəd</value>
   </data>
   <data name="RejectButtonText" xml:space="preserve">
-    <value>Reject</value>
+    <value>Rədd et</value>
   </data>
   <data name="RejectedStatusText" xml:space="preserve">
-    <value>Status: Rejected on {0}</value>
+    <value>Status: {0}-da rədd edilib</value>
   </data>
   <data name="RentPeriodText" xml:space="preserve">
-    <value>Rent period: {0} - {1}</value>
+    <value>Kirayə müddəti: {0} - {1}</value>
   </data>
   <data name="RentRateText" xml:space="preserve">
-    <value>AZN/day</value>
+    <value>AZN/gün</value>
   </data>
   <data name="StockUnavailableText" xml:space="preserve">
-    <value>NOT ENOUGH IN STOCK</value>
+    <value>Mövcud say təklif sayınnan azdır</value>
   </data>
 </root>
