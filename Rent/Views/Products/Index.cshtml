@@ -81,7 +81,7 @@
         $(".deleteButton").click(function (event) {
             event.preventDefault();
             var productId = $(event.target.parentElement).find("input").val();
-            var response = window.confirm(@localizer["DeleteConfirmationText"]);
+            var response = window.confirm("@localizer["DeleteConfirmationText"]");
             if (response == true) {
                 $.ajax({
                     type: "POST",
