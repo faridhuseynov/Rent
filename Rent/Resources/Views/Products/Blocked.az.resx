@@ -148,11 +148,13 @@
     <value>Mesaj: </value>
   </data>
   <data name="MessageTemplateProdId" xml:space="preserve">
-    <value>Səbəb: Bloklanmış Məhsul
-Id: </value>
+    <value>Id: </value>
   </data>
   <data name="MessageTemplateProdName" xml:space="preserve">
     <value>Məhsul: </value>
+  </data>
+  <data name="NewMessageToAdminLabel" xml:space="preserve">
+    <value>Adminə yeni mesaj</value>
   </data>
   <data name="NoProductsText" xml:space="preserve">
     <value>Sizin blok edilmiş məhsulunuz yoxdur...</value>

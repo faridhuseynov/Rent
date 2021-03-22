@@ -148,11 +148,13 @@
     <value>Owner's message: </value>
   </data>
   <data name="MessageTemplateProdId" xml:space="preserve">
-    <value>Reason: Blocked Product
-ProductId: </value>
+    <value>ProductId: </value>
   </data>
   <data name="MessageTemplateProdName" xml:space="preserve">
     <value>Product: </value>
+  </data>
+  <data name="NewMessageToAdminLabel" xml:space="preserve">
+    <value>New message for Admin</value>
   </data>
   <data name="NoProductsText" xml:space="preserve">
     <value>You don't have any blocked product...</value>
