@@ -63,12 +63,13 @@
 */
 .product-image-block {
     position: relative;
+    object-fit:scale-down;
 }
 
 .product-block {
     position: absolute;
-    left: 270px;
-    top: 10px;
+    left:90%;
+    top: 5%;
     color:#edbd2d;
 }
 
