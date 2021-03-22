@@ -43,7 +43,7 @@ namespace Rent.Controllers
         public async Task<IActionResult> Index()
         {
             var products = productsService.GetProducts().Where(u => u.User.UserName == User.Identity.Name).Where(p => p.Blocked != true);
-            ViewBag.Subcategories = await subcategoriesService.GetSubcagetories();
+            ViewBag.Categories = await categoriesService.GetCategoriesForReview();
             return View(products);
         }
 
