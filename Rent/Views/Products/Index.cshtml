@@ -32,13 +32,13 @@
                                 @if (product.MainPhotoUrl == null)
                                 {
                                     <img src="~/Images/Products/default-pro.jpg"
-                                         class="card-img-top" alt="...">
+                                         class="card-img-top card-product-img" alt="...">
 
                                 }
                                 else
                                 {
                                     <img src="~/Images/Products/@product.MainPhotoUrl"
-                                         class="card-img-top" alt="...">
+                                         class="card-img-top card-product-img" alt="...">
                                 }                                <div class="card-body">
                                     <input hidden value="@product.Id" />
                                     <h5 class="card-title">@product.ProductName</h5>
@@ -63,8 +63,8 @@
 
                                     }
 
-                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">@localizer["EditButtonText"]</a>
-                                    <a href="" class="btn btn-danger deleteButton">@localizer["DeleteButtonText"]</a>
+                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary card-product-button">@localizer["EditButtonText"]</a>
+                                    <a href="" class="btn btn-danger deleteButton card-product-button">@localizer["DeleteButtonText"]</a>
                                     @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
                                 </div>
                             </div>

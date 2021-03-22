@@ -20,7 +20,16 @@
 
 .card-img-top {
 /*    height:100%;
-*/    object-fit:contain;
+*/    object-fit:scale-down;
+}
+
+.card-product-button{
+    width:50%;
+    margin:0;
+}
+
+.card-product-img{
+    height:100%;
 }
 
 .card-photo:hover{
