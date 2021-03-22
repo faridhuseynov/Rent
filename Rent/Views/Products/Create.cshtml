@@ -1,10 +1,11 @@
-﻿@model Rent.ViewModels.ProductViewModels.NewProductViewModel
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model Rent.ViewModels.ProductViewModels.NewProductViewModel
 
 @{
-    ViewData["Title"] = "Yeni Məhsul";
+    ViewData["Title"] = localizer["NewProductLabel"];
 }
 
-<h2>Yeni məhsul</h2>
+<h2>@localizer["NewProductLabel"]</h2>
 
 <hr />
 <div class="row">
@@ -12,44 +13,44 @@
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProductName" class="control-label">Məhsulun adı</label>
+                <label asp-for="ProductName" class="control-label">@localizer["ProductNameText"]</label>
                 <input asp-for="ProductName" class="form-control" />
                 <span asp-validation-for="ProductName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProductDescription" class="control-label">Məhsul haqqında</label>
+                <label asp-for="ProductDescription" class="control-label">@localizer["ProductDescriptionText"]</label>
                 <textarea rows="5" asp-for="ProductDescription" class="form-control"></textarea>
                 <span asp-validation-for="ProductDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input class="form-check-input" asp-for="Sell" type="checkbox" id="sellCheck">
                 <label class="ml-4 form-check-label" asp-for="Sell" for="sellCheck">
-                    Satmaq
+                    @localizer["SellLabel"]
                 </label>
             </div>
             <div class="form-group">
                 <input class="form-check-input" asp-for="Lend" type="checkbox" id="lendCheck">
                 <label class="ml-4 form-check-label" asp-for="Lend" for="lendCheck">
-                    Kirayə vermək
+                    @localizer["LendLabel"]
                 </label>
             </div>
             <div class="form-group">
-                <label asp-for="TotalAmount" class="control-label">Say (Ədəd)</label>
+                <label asp-for="TotalAmount" class="control-label">@localizer["QuantityLabel"]</label>
                 <input asp-for="TotalAmount" class="form-control" placeholder="Minimum 1" min="1" id="countInput" />
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SellPrice" class="control-label">Satış Qiyməti (AZN)</label>
+                <label asp-for="SellPrice" class="control-label">@localizer["SellPriceText"]</label>
                 <input asp-for="SellPrice" class="form-control" disabled id="sellInput" />
                 <span asp-validation-for="SellPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LendPrice" class="control-label">Kirayə Qiyməti (AZN/GÜN)</label>
+                <label asp-for="LendPrice" class="control-label">@localizer["LendPriceText"]</label>
                 <input asp-for="LendPrice" class="form-control" disabled id="lendInput" />
                 <span asp-validation-for="LendPrice" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MinLendDays" class="control-label">Minimal Kirayə Müddəti (GÜN)</label>
+                <label asp-for="MinLendDays" class="control-label">@localizer["MinimumRentPeriodLabel"]</label>
                 <input asp-for="MinLendDays" min="1" class="form-control" disabled id="lendDaysInput" />
                 <span asp-validation-for="MinLendDays" class="text-danger"></span>
             </div>
@@ -58,32 +59,32 @@
                 <input asp-for="UserId" class="form-control" value="@ViewBag.UserId" />
             </div>
             <div class="form-group">
-                <label asp-for="CategoryId" class="control-label">Kateqoriya</label>
+                <label asp-for="CategoryId" class="control-label">@localizer["CategoryLabel"]</label>
                 <select asp-for="CategoryId" id="categList" onchange="categoryChanged()"
                         class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 @*<partial name="_UpdateSubcategoryList" for="SubcategoryId" view-data="<List<string>>(ViewBag.SubcategoryId)" />*@
-                <label asp-for="SubcategoryId" class="control-label">Subkateqoriya</label>
+                <label asp-for="SubcategoryId" class="control-label">@localizer["SubcategoryLabel"]</label>
                 <select id="subcategList" asp-for="SubcategoryId" class="form-control"
                         asp-items="ViewBag.SubcategoryId"></select>
             </div>
             <div class="form-group">
-                <label class="control-label">Şəkil əlavə et</label>
+                <label class="control-label">@localizer["AddPictureLabel"]</label>
                 <div class="custom-file">
                     <input class="custom-file-input" type="file" name="images" id="images" multiple="multiple">
-                    <label class="custom-file-label" for="images">File seç</label>
+                    <label class="custom-file-label" for="images">@localizer["AddPictureInputText"]</label>
                 </div>
             </div>
             <div class="form-group">
-                <input type="submit" value="Yarat" class="btn btn-default" />
+                <input type="submit" value="@localizer["CreateButtonText"]" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@localizer["BackLinkText"]</a>
 </div>
 
 
@@ -93,7 +94,7 @@
         $('#images').on('change', function () {
             var files = $(this)[0].files;
             if (files.length > 1) {
-                $(this).next('.custom-file-label').html(files.length + " files selected")
+                $(this).next('.custom-file-label').html(files.length + " @localizer["SelectedFilesText"]")
             } else {
                 var filename = $(this).val();
                 $(this).next('.custom-file-label').html(filename);
