@@ -121,7 +121,7 @@
     <value>Aktiv məhsullar</value>
   </data>
   <data name="AdminContactButtonText" xml:space="preserve">
-    <value>Contact with admin (Adminlə Əlaqə)</value>
+    <value>Adminlə Əlaqə</value>
   </data>
   <data name="BlockedProductsButtonText" xml:space="preserve">
     <value>Bloklanmış məhsullar</value>
@@ -141,6 +141,21 @@
   <data name="EditButtonText" xml:space="preserve">
     <value>Dəyiş</value>
   </data>
+  <data name="MessageModalCloseButtonText" xml:space="preserve">
+    <value>Bağla</value>
+  </data>
+  <data name="MessageTemplateContent" xml:space="preserve">
+    <value>Mesaj: </value>
+  </data>
+  <data name="MessageTemplateProdId" xml:space="preserve">
+    <value>Id: </value>
+  </data>
+  <data name="MessageTemplateProdName" xml:space="preserve">
+    <value>Məhsul: </value>
+  </data>
+  <data name="NewMessageToAdminLabel" xml:space="preserve">
+    <value>Adminə yeni mesaj</value>
+  </data>
   <data name="NoProductsText" xml:space="preserve">
     <value>Sizin blok edilmiş məhsulunuz yoxdur...</value>
   </data>
@@ -152,6 +167,9 @@
   </data>
   <data name="RentRateText" xml:space="preserve">
     <value>AZN/gün</value>
+  </data>
+  <data name="SendMessageModalButtonText" xml:space="preserve">
+    <value>Göndər</value>
   </data>
   <data name="SubcategoryText" xml:space="preserve">
     <value>Subkateqoriya</value>

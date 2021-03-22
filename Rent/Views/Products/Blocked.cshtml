@@ -19,31 +19,31 @@
 
         @foreach (var item in ViewBag.Categories)
         {
-            if (Model.Any(x => x.Subcategory.Id == item.Id))
+            if (Model.Any(x => x.CategoryId == item.Id))
             {
                 <h3 class="mb-0 mt-5">@item.CategoryName</h3>
                 <hr class="mt-0" />
                 <div class="row">
                     @foreach (var product in Model)
                     {
-                        if (product.SubcategoryId == @item.Id)
+                        if (product.CategoryId == @item.Id)
                         {
-                            <div class="card m-3" style="width: 20rem;overflow:hidden; white-space:nowrap;">
+                            <div class="card m-3">
                                 <div class="shop">
                                     @if (product.MainPhotoUrl == null)
                                     {
-                                        <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
+                                        <img src="~/Images/Products/default-pro.jpg"
                                              class="card-img-top" alt="...">
 
                                     }
                                     else
                                     {
-                                        <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
+                                        <img src="~/Images/Products/@product.MainPhotoUrl"
                                              class="card-img-top" alt="...">
                                     }
                                     <div class="card-body">
-                                        <input hidden value="@product.Id" />
-                                        <h5 class="card-title">@product.ProductName</h5>
+                                        <input id="productId" hidden value="@product.Id" />
+                                        <h5 class="card-title" id="productName">@product.ProductName</h5>
                                         <p class="card-text">@product.ProductDescription</p>
                                         @if (product.Sell == true)
                                         {
@@ -64,10 +64,10 @@
 
                                         }
 
-                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">@localizer["EditButtonText"]</a>
-                                        <a href="" class="btn btn-danger deleteButton">@localizer["DeleteButtonText"]</a>
+                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary card-product-button">@localizer["EditButtonText"]</a>
+                                        <a href="" class="btn btn-danger deleteButton card-product-button">@localizer["DeleteButtonText"]</a>
                                         <div>
-                                            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
+                                            <a href="" type="button" class="btn btn-success card-product-contact-button" data-toggle="modal" data-target="#messageModal" data-username="admin"
                                                data-productname="@product.ProductName" data-productid="@product.Id">@localizer["AdminContactButtonText"]</a>
                                         </div>
                                         @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
@@ -91,26 +91,21 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">@localizer["NewMessageToAdminLabel"]</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form>
-                                <div class="form-group" hidden>
-                                    <input type="text" class="form-control" id="productName">
-                                    <input type="text" class="form-control" id="productId">
-                                </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Message:</label>
                                     <textarea rows="5" class="form-control" id="message-text"></textarea>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@localizer["MessageModalCloseButtonText"]</button>
+                            <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">@localizer["SendMessageModalButtonText"]</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +120,7 @@
         $(".deleteButton").click(function (event) {
             event.preventDefault();
             var productId = $(event.target.parentElement).find("input").val();
-            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            var response = window.confirm("@localizer["DeleteConfirmationText"]");
             if (response == true) {
                 $.ajax({
                     type: "GET",
@@ -140,6 +135,7 @@
 
         $("#message-text").on("input", function () {
             if ($(this).val() != "") {
+                console.log("test");
                 $("#send-message").removeAttr("disabled");
             } else {
                 $("#send-message").attr("disabled", true);
@@ -149,9 +145,9 @@
 
         function sendMessage() {
             var text = $("#message-text").val();
-            var productName = $("#productName").val();
+            var productName = $("#productName").text();
             var productId = $("#productId").val();
-            var template = "Məhsul: " + productName + "\n" + "Müraciət səbəbi: Blocklanmış məhsul" + "\n" + "Məhsul ID: " + productId + "\n" + "Məhsul sahibinin messaji:" + text;
+            var template = "@localizer["MessageTemplateProdName"] "+ productName + "\n" + "@localizer["MessageTemplateProdId"] " + productId + "\n" + "@localizer["MessageTemplateContent"]" + text;
             $.ajax({
                 type: "POST",
                 url: "/Messages/Create",
@@ -166,19 +162,19 @@
             });
         };
 
-        $('#messageModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Button that triggered the modal
-            var productname = button.data('productname') // Extract info from data-* attributes
-            var productId = button.data('productid') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-            var modal = $(this)
-            modal.find('.modal-title').text('New message to Admin')
-            //modal.find('.modal-body input').find('#'+'recipient-name').val(username)
-            modal.find('#productName').val(productname)
-            modal.find('#productId').val(productId)
-            //$("#message-text").text("Məhsul: "+productname+"\n"+"Müraciət səbəbi: Blocklanmış məhsul"+"\n"+"Məhsul ID: "+productid);
-        })
     </script>
 
 }
+        @*//$('#messageModal').on('show.bs.modal', function (event) {
+        //    var button = $(event.relatedTarget) // Button that triggered the modal
+        //    var productname = button.data('productname') // Extract info from data-* attributes
+        //    var productId = button.data('productid') // Extract info from data-* attributes
+        //    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        //    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        //    var modal = $(this)
+        //    modal.find('.modal-title').text('New message to dmin')
+        //    //modal.find('.modal-body input').find('#'+'recipient-name').val(username)
+        //    modal.find('#productName').val(productname)
+        //    modal.find('#productId').val(productId)
+        //    //$("#message-text").text("Məhsul: "+productname+"\n"+"Müraciət səbəbi: Blocklanmış məhsul"+"\n"+"Məhsul ID: "+productid);
+        //})*@
