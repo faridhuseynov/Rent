@@ -118,7 +118,10 @@
 }
 
 .lock {
-    margin:0px 0 0 80px;
+    /*margin:0px 0 0 80px;*/
+    position:absolute;
+    left:25%;
+    top:10%;
 }
 
 .lock:hover {
