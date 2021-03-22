@@ -1,16 +1,17 @@
-﻿@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = localizer["ProductsPageLabel"];
 }
 <div class="container-fluid">
-    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
-    <a class="btn btn-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
-    <a class="btn btn-outline-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
+    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">@localizer["ProductAddButtonText"] <i class="fa fa-plus-circle"></i></a>
+    <a class="btn btn-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">@localizer["ActiveProducstButtonText"]</a>
+    <a class="btn btn-outline-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">@localizer["BlockedProductsButtonText"]</a>
 
     @if (!Model.Any())
     {
-        <h3>Sizin əlavə edilmiş məhsulunuz yoxdur...</h3>
+        <h3>@localizer["NoProductsText"]</h3>
     }
 
     else
@@ -20,7 +21,7 @@
         {
             if (Model.Any(x => x.Subcategory.Id == item.Id))
             {
-                <h3 class="mb-0 mt-5">@item.Category.CategoryName / @item.SubcategoryName</h3>
+                <h3 class="mb-0 mt-5">@item.Category.CategoryName</h3>
                 <hr class="mt-0" />
                 <div class="row">
                     @foreach (var product in Model)
@@ -42,27 +43,28 @@
                                     <input hidden value="@product.Id" />
                                     <h5 class="card-title">@product.ProductName</h5>
                                     <p class="card-text">@product.ProductDescription</p>
+                                    <p class="card-text">@localizer["SubcategoryText"]: @product.Subcategory.SubcategoryName</p>
                                     @if (product.Sell == true)
                                     {
-                                        <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                        <h6 class="text-success">@localizer["BuyLabel"]: @product.SellPrice <span>AZN</span></h6>
                                     }
                                     else
                                     {
-                                        <h6 class="text-success">Satış: <span>❌</span></h6>
+                                        <h6 class="text-success">@localizer["BuyLabel"]: <span>❌</span></h6>
 
                                     }
                                     @if (product.Lend == true)
                                     {
-                                        <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                        <h6 class="text-warning">@localizer["RentLabel"]: @product.LendPrice <span>@localizer["RentRateText"]</span></h6>
                                     }
                                     else
                                     {
-                                        <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                                        <h6 class="text-warning">@localizer["RentLabel"]: <span>❌</span></h6>
 
                                     }
 
-                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
-                                    <a href="" class="btn btn-danger deleteButton">Sil</a>
+                                    <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">@localizer["EditButtonText"]</a>
+                                    <a href="" class="btn btn-danger deleteButton">@localizer["DeleteButtonText"]</a>
                                     @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
                                 </div>
                             </div>
@@ -79,7 +81,7 @@
         $(".deleteButton").click(function (event) {
             event.preventDefault();
             var productId = $(event.target.parentElement).find("input").val();
-            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            var response = window.confirm(@localizer["DeleteConfirmationText"]);
             if (response == true) {
                 $.ajax({
                     type: "POST",
