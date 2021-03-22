@@ -117,34 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuyDescription" xml:space="preserve">
-    <value>Alış</value>
+  <data name="AddPictureInputText" xml:space="preserve">
+    <value>Choose file</value>
   </data>
-  <data name="OwnProductDescription" xml:space="preserve">
-    <value>öz məhsulum</value>
+  <data name="AddPictureLabel" xml:space="preserve">
+    <value>Add picture</value>
   </data>
-  <data name="PageTabName" xml:space="preserve">
-    <value>Məhsullar</value>
+  <data name="BackLinkText" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="PaginationNext" xml:space="preserve">
-    <value>Növbəti</value>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Category</value>
   </data>
-  <data name="PaginationPrevious" xml:space="preserve">
-    <value>Əvvəlki</value>
+  <data name="CreateButtonText" xml:space="preserve">
+    <value>Create</value>
   </data>
-  <data name="ProductOwnerDescription" xml:space="preserve">
-    <value>Məhsulun sahibi</value>
+  <data name="LendLabel" xml:space="preserve">
+    <value>Lend</value>
   </data>
-  <data name="RatePriceDescription" xml:space="preserve">
-    <value>AZN/gün</value>
+  <data name="LendPriceText" xml:space="preserve">
+    <value>Lend (AZN/day)</value>
   </data>
-  <data name="RentDescription" xml:space="preserve">
-    <value>Kirayə</value>
+  <data name="MinimumRentPeriodLabel" xml:space="preserve">
+    <value>Minimum rent period (DAY)</value>
   </data>
-  <data name="ToDetailsButtonDescription" xml:space="preserve">
-    <value>Detallar</value>
+  <data name="NewProductLabel" xml:space="preserve">
+    <value>New Product</value>
   </data>
-  <data name="UnavailableProductLabelDescription" xml:space="preserve">
-    <value>SATILIB/KİRALANIB</value>
+  <data name="ProductDescriptionText" xml:space="preserve">
+    <value>Product description</value>
+  </data>
+  <data name="ProductNameText" xml:space="preserve">
+    <value>Product name</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Quantity (amount)</value>
+  </data>
+  <data name="SelectedFilesText" xml:space="preserve">
+    <value>files selected</value>
+  </data>
+  <data name="SellLabel" xml:space="preserve">
+    <value>Sell</value>
+  </data>
+  <data name="SellPriceText" xml:space="preserve">
+    <value>Selling Price (AZN)</value>
+  </data>
+  <data name="SubcategoryLabel" xml:space="preserve">
+    <value>Subcategory</value>
   </data>
 </root>

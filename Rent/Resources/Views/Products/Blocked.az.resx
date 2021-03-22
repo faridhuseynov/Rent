@@ -117,34 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuyDescription" xml:space="preserve">
-    <value>Alış</value>
+  <data name="ActiveProducstButtonText" xml:space="preserve">
+    <value>Aktiv məhsullar</value>
   </data>
-  <data name="OwnProductDescription" xml:space="preserve">
-    <value>öz məhsulum</value>
+  <data name="AdminContactButtonText" xml:space="preserve">
+    <value>Contact with admin (Adminlə Əlaqə)</value>
   </data>
-  <data name="PageTabName" xml:space="preserve">
-    <value>Məhsullar</value>
+  <data name="BlockedProductsButtonText" xml:space="preserve">
+    <value>Bloklanmış məhsullar</value>
   </data>
-  <data name="PaginationNext" xml:space="preserve">
-    <value>Növbəti</value>
+  <data name="BlockedProductsPageLabel" xml:space="preserve">
+    <value>Bloklanmış Məhsullar</value>
   </data>
-  <data name="PaginationPrevious" xml:space="preserve">
-    <value>Əvvəlki</value>
+  <data name="BuyLabel" xml:space="preserve">
+    <value>Alış:</value>
   </data>
-  <data name="ProductOwnerDescription" xml:space="preserve">
-    <value>Məhsulun sahibi</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="RatePriceDescription" xml:space="preserve">
+  <data name="DeleteConfirmationText" xml:space="preserve">
+    <value>Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?</value>
+  </data>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Dəyiş</value>
+  </data>
+  <data name="NoProductsText" xml:space="preserve">
+    <value>Sizin blok edilmiş məhsulunuz yoxdur...</value>
+  </data>
+  <data name="ProductAddButtonText" xml:space="preserve">
+    <value>Məhsul əlavə et</value>
+  </data>
+  <data name="RentLabel" xml:space="preserve">
+    <value>Kirayə:</value>
+  </data>
+  <data name="RentRateText" xml:space="preserve">
     <value>AZN/gün</value>
   </data>
-  <data name="RentDescription" xml:space="preserve">
-    <value>Kirayə</value>
-  </data>
-  <data name="ToDetailsButtonDescription" xml:space="preserve">
-    <value>Detallar</value>
-  </data>
-  <data name="UnavailableProductLabelDescription" xml:space="preserve">
-    <value>SATILIB/KİRALANIB</value>
+  <data name="SubcategoryText" xml:space="preserve">
+    <value>Subkateqoriya</value>
   </data>
 </root>

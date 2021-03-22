@@ -117,34 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuyDescription" xml:space="preserve">
-    <value>Alış</value>
+  <data name="ActiveProducstButtonText" xml:space="preserve">
+    <value>Active products</value>
   </data>
-  <data name="OwnProductDescription" xml:space="preserve">
-    <value>öz məhsulum</value>
+  <data name="AdminContactButtonText" xml:space="preserve">
+    <value>Contact with admin (Adminlə Əlaqə)</value>
   </data>
-  <data name="PageTabName" xml:space="preserve">
-    <value>Məhsullar</value>
+  <data name="BlockedProductsButtonText" xml:space="preserve">
+    <value>Blocked products</value>
   </data>
-  <data name="PaginationNext" xml:space="preserve">
-    <value>Növbəti</value>
+  <data name="BlockedProductsPageLabel" xml:space="preserve">
+    <value>Blocked Products</value>
   </data>
-  <data name="PaginationPrevious" xml:space="preserve">
-    <value>Əvvəlki</value>
+  <data name="BuyLabel" xml:space="preserve">
+    <value>Buy</value>
   </data>
-  <data name="ProductOwnerDescription" xml:space="preserve">
-    <value>Məhsulun sahibi</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="RatePriceDescription" xml:space="preserve">
-    <value>AZN/gün</value>
+  <data name="DeleteConfirmationText" xml:space="preserve">
+    <value>Are you sure you want to delete the selected product?</value>
   </data>
-  <data name="RentDescription" xml:space="preserve">
-    <value>Kirayə</value>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="ToDetailsButtonDescription" xml:space="preserve">
-    <value>Detallar</value>
+  <data name="NoProductsText" xml:space="preserve">
+    <value>You don't have any blocked product...</value>
   </data>
-  <data name="UnavailableProductLabelDescription" xml:space="preserve">
-    <value>SATILIB/KİRALANIB</value>
+  <data name="ProductAddButtonText" xml:space="preserve">
+    <value>Add product</value>
+  </data>
+  <data name="RentLabel" xml:space="preserve">
+    <value>Rent</value>
+  </data>
+  <data name="RentRateText" xml:space="preserve">
+    <value>AZN/day</value>
+  </data>
+  <data name="SubcategoryText" xml:space="preserve">
+    <value>Subcategory</value>
   </data>
 </root>

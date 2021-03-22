@@ -14,15 +14,13 @@ namespace Rent.Controllers
 {
     public class ProposalsController : Controller
     {
-        private readonly AppDbContext _context;
         private readonly IProposalsService proposalsService;
         private readonly UserManager<User> userManager;
         private readonly IProductsService productsService;
 
-        public ProposalsController(AppDbContext context,IProposalsService proposalsService, UserManager<User> userManager,
+        public ProposalsController(IProposalsService proposalsService, UserManager<User> userManager,
             IProductsService productsService)
         {
-            _context = context;
             this.proposalsService = proposalsService;
             this.userManager = userManager;
             this.productsService = productsService;
@@ -62,56 +60,7 @@ namespace Rent.Controllers
             //return View(await appDbContext.ToListAsync());
         }
 
-        // GET: Proposals/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var proposal = await _context.Proposals
-                .Include(p => p.Buyer)
-                .Include(p => p.Owner)
-                .Include(p => p.Product)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (proposal == null)
-            {
-                return NotFound();
-            }
-
-            return View(proposal);
-        }
-
-        // GET: Proposals/Create
-        public IActionResult Create()
-        {
-            ViewData["BuyerId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id");
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
-            return View();
-        }
-
-        // POST: Proposals/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductId,ProposedPrice,OwnerId,BuyerId,ProposalStatus,ProposedAmount")] Proposal proposal)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(proposal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BuyerId"] = new SelectList(_context.Users, "Id", "Id", proposal.BuyerId);
-            ViewData["OwnerId"] = new SelectList(_context.Users, "Id", "Id", proposal.OwnerId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", proposal.ProductId);
-            return View(proposal);
-        }
-
-        // GET: Proposals/Edit/5
+          // GET: Proposals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)

@@ -117,34 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BuyDescription" xml:space="preserve">
-    <value>Alış</value>
+  <data name="AddPictureInputText" xml:space="preserve">
+    <value>File seç</value>
   </data>
-  <data name="OwnProductDescription" xml:space="preserve">
-    <value>öz məhsulum</value>
+  <data name="AddPictureLabel" xml:space="preserve">
+    <value>Şəkil əlavə et</value>
   </data>
-  <data name="PageTabName" xml:space="preserve">
-    <value>Məhsullar</value>
+  <data name="BackLinkText" xml:space="preserve">
+    <value>Geri</value>
   </data>
-  <data name="PaginationNext" xml:space="preserve">
-    <value>Növbəti</value>
+  <data name="CategoryLabel" xml:space="preserve">
+    <value>Kateqoriya</value>
   </data>
-  <data name="PaginationPrevious" xml:space="preserve">
-    <value>Əvvəlki</value>
+  <data name="ChooseMainPhotoText" xml:space="preserve">
+    <value>Əsas şəkil seç</value>
   </data>
-  <data name="ProductOwnerDescription" xml:space="preserve">
-    <value>Məhsulun sahibi</value>
+  <data name="DeletePhotoText" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="RatePriceDescription" xml:space="preserve">
-    <value>AZN/gün</value>
+  <data name="EditProductLabel" xml:space="preserve">
+    <value>Məhsulu dəyiş</value>
   </data>
-  <data name="RentDescription" xml:space="preserve">
-    <value>Kirayə</value>
+  <data name="LendLabel" xml:space="preserve">
+    <value>Kirayə vermək</value>
   </data>
-  <data name="ToDetailsButtonDescription" xml:space="preserve">
-    <value>Detallar</value>
+  <data name="LendPriceText" xml:space="preserve">
+    <value>Kirayə Qiyməti (AZN/GÜN)</value>
   </data>
-  <data name="UnavailableProductLabelDescription" xml:space="preserve">
-    <value>SATILIB/KİRALANIB</value>
+  <data name="MainPhotoDeleteText" xml:space="preserve">
+    <value>Şəkil silinməzdən əvvəl yeni əsas şəkil seçilməlidir</value>
+  </data>
+  <data name="MinimumRentPeriodLabel" xml:space="preserve">
+    <value>Minimal Kirayə Müddəti (GÜN)</value>
+  </data>
+  <data name="ProductDescriptionText" xml:space="preserve">
+    <value>Məhsul haqqında</value>
+  </data>
+  <data name="ProductNameText" xml:space="preserve">
+    <value>Məhsulun adı</value>
+  </data>
+  <data name="QuantityLabel" xml:space="preserve">
+    <value>Say (Ədəd)</value>
+  </data>
+  <data name="SaveButtonText" xml:space="preserve">
+    <value>Yadda saxla</value>
+  </data>
+  <data name="SelectedFilesText" xml:space="preserve">
+    <value>fayl seçilib</value>
+  </data>
+  <data name="SellLabel" xml:space="preserve">
+    <value>Satmaq</value>
+  </data>
+  <data name="SellPriceText" xml:space="preserve">
+    <value>Satış Qiyməti (AZN)</value>
+  </data>
+  <data name="SubcategoryLabel" xml:space="preserve">
+    <value>Subkateqoriya</value>
   </data>
 </root>
