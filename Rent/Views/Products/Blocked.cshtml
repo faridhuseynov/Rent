@@ -19,26 +19,26 @@
 
         @foreach (var item in ViewBag.Categories)
         {
-            if (Model.Any(x => x.Subcategory.Id == item.Id))
+            if (Model.Any(x => x.CategoryId == item.Id))
             {
                 <h3 class="mb-0 mt-5">@item.CategoryName</h3>
                 <hr class="mt-0" />
                 <div class="row">
                     @foreach (var product in Model)
                     {
-                        if (product.SubcategoryId == @item.Id)
+                        if (product.CategoryId == @item.Id)
                         {
-                            <div class="card m-3" style="width: 20rem;overflow:hidden; white-space:nowrap;">
+                            <div class="card m-3">
                                 <div class="shop">
                                     @if (product.MainPhotoUrl == null)
                                     {
-                                        <img src="~/Images/Products/default-pro.jpg" style="height:15vw; object-fit: cover"
+                                        <img src="~/Images/Products/default-pro.jpg"
                                              class="card-img-top" alt="...">
 
                                     }
                                     else
                                     {
-                                        <img src="~/Images/Products/@product.MainPhotoUrl" style="height:15vw; object-fit: cover"
+                                        <img src="~/Images/Products/@product.MainPhotoUrl"
                                              class="card-img-top" alt="...">
                                     }
                                     <div class="card-body">
@@ -64,10 +64,10 @@
 
                                         }
 
-                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">@localizer["EditButtonText"]</a>
-                                        <a href="" class="btn btn-danger deleteButton">@localizer["DeleteButtonText"]</a>
+                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary card-product-button">@localizer["EditButtonText"]</a>
+                                        <a href="" class="btn btn-danger deleteButton card-product-button">@localizer["DeleteButtonText"]</a>
                                         <div>
-                                            <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
+                                            <a href="" type="button" class="btn btn-success card-product-contact-button" data-toggle="modal" data-target="#messageModal" data-username="admin"
                                                data-productname="@product.ProductName" data-productid="@product.Id">@localizer["AdminContactButtonText"]</a>
                                         </div>
                                         @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
@@ -103,14 +103,13 @@
                                     <input type="text" class="form-control" id="productId">
                                 </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Message:</label>
                                     <textarea rows="5" class="form-control" id="message-text"></textarea>
                                 </div>
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">Send message</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">@localizer["MessageModalCloseButtonText"]</button>
+                            <button type="button" class="btn btn-primary" id="send-message" disabled onclick="sendMessage()">@localizer["SendMessageModalButtonText"]</button>
                         </div>
                     </div>
                 </div>
@@ -125,7 +124,7 @@
         $(".deleteButton").click(function (event) {
             event.preventDefault();
             var productId = $(event.target.parentElement).find("input").val();
-            var response = window.confirm("Məhsulu birdəfəlik silmək istədiyinizdən əminsinizmi?");
+            var response = window.confirm("@localizer["DeleteConfirmationText"]");
             if (response == true) {
                 $.ajax({
                     type: "GET",
@@ -148,10 +147,11 @@
         });
 
         function sendMessage() {
-            var text = $("#message-text").val();
-            var productName = $("#productName").val();
-            var productId = $("#productId").val();
-            var template = "Məhsul: " + productName + "\n" + "Müraciət səbəbi: Blocklanmış məhsul" + "\n" + "Məhsul ID: " + productId + "\n" + "Məhsul sahibinin messaji:" + text;
+            var textContent = @localizer["MessageTemplateContent"] + $("#message-text").val();
+            var productNameContent = @localizer["MessageProdName"] + $("#productName").val();
+            var productIdContent =@localizer["MessageTemplateProdId"] + $("#productId").val();
+            var template = productNameContent + "\n" + productIdContent + "\n" + textContent;
+            @*var template = @localizer["MessageToAdminTemplate"] + productName + "\n" + "Müraciət səbəbi: Blocklanmış məhsul" + "\n" + "Məhsul ID: " + productId + "\n" + "Məhsul sahibinin messaji:" + text;*@
             $.ajax({
                 type: "POST",
                 url: "/Messages/Create",

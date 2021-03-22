@@ -12,10 +12,13 @@
     transition:transform 0.5s;
 }
 
-.card{
-    display:flex;
+.card {
+    /*    display:flex;
     flex-direction:column;
-    justify-content:center;
+    justify-content:center;*/
+    width: 23rem;
+    overflow:hidden;
+    white-space:nowrap;
 }
 
 .card-img-top {
@@ -28,6 +31,11 @@
     margin:0;
 }
 
+.card-product-contact-button {
+    width: 100%;
+    margin-top:2px;
+    margin-left:0;
+}
 .card-product-img{
     height:100%;
 }
