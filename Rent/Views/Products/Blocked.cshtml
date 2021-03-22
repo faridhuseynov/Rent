@@ -1,16 +1,17 @@
-﻿@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<Rent.ViewModels.ProductViewModels.ProductDetailsViewModel>
 
 @{
-    ViewData["Title"] = "Products";
+    ViewData["Title"] = localizer["BlockedProductsPageLabel"];
 }
 <div class="container-fluid">
-    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">Məhsul əlavə et <i class="fa fa-plus-circle"></i></a>
-    <a class="btn btn-outline-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">Aktiv məhsullar</a>
-    <a class="btn btn-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">Blok edilmiş məhsullar</a>
+    <a class="btn btn-outline-info mb-4" asp-controller="Products" asp-action="Create">@localizer["ProductAddButtonText"] <i class="fa fa-plus-circle"></i></a>
+    <a class="btn btn-outline-warning mb-4" asp-area="" asp-controller="Products" asp-action="Index">@localizer["ActiveProducstButtonText"]</a>
+    <a class="btn btn-danger mb-4" asp-area="" asp-controller="Products" asp-action="Blocked">@localizer["BlockedProductsButtonText"]</a>
 
     @if (!Model.Any())
     {
-        <h3>Sizin block edilmiş məhsulunuz yoxdur...</h3>
+        <h3>@localizer["NoProductsText"]</h3>
     }
 
     else
@@ -46,28 +47,28 @@
                                         <p class="card-text">@product.ProductDescription</p>
                                         @if (product.Sell == true)
                                         {
-                                            <h6 class="text-success">Satış: @product.SellPrice <span>AZN</span></h6>
+                                            <h6 class="text-success">@localizer["BuyLabel"]: @product.SellPrice <span>AZN</span></h6>
                                         }
                                         else
                                         {
-                                            <h6 class="text-success">Satış: <span>❌</span></h6>
+                                            <h6 class="text-success">@localizer["BuyLabel"]: <span>❌</span></h6>
 
                                         }
                                         @if (product.Lend == true)
                                         {
-                                            <h6 class="text-warning">Kirayə: @product.LendPrice <span>AZN/gun</span></h6>
+                                            <h6 class="text-warning">@localizer["RentLabel"]: @product.LendPrice <span>@localizer["RentRateText"]</span></h6>
                                         }
                                         else
                                         {
-                                            <h6 class="text-warning">Kirayə: <span>❌</span></h6>
+                                    <h6 class="text-warning">@localizer["RentLabel"]: <span>❌</span></h6>
 
                                         }
 
-                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">Dəyişdir</a>
-                                        <a href="" class="btn btn-danger deleteButton">Sil</a>
+                                        <a asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id" class="btn btn-primary">@localizer["EditButtonText"]</a>
+                                        <a href="" class="btn btn-danger deleteButton">@localizer["DeleteButtonText"]</a>
                                         <div>
                                             <a href="" type="button" class="btn btn-success" data-toggle="modal" data-target="#messageModal" data-username="admin"
-                                               data-productname="@product.ProductName" data-productid="@product.Id">Adminlə Əlaqə</a>
+                                               data-productname="@product.ProductName" data-productid="@product.Id">@localizer["AdminContactButtonText"]</a>
                                         </div>
                                         @*<a href="" class="btn btn-success" asp-area="">Adminlə Əlaqə</a>*@
                                         @*<a asp-controller="Products" asp-route-userName="@User.Identity.Name" asp-action="Delete" asp-route-id="@product.Id" class="btn btn-danger">Sil</a>*@
