@@ -33,18 +33,16 @@
 
         $(".filter-radio").on('click', (event) => {
             selected = event.target.value;
-
             getProposals(id, selected);
         });
 
         function getProposals(id, selected) {
             $.ajax({
                 method: "GET",
-                url: "/Proposals/_FilteredProposalsView",
+                url: "/Proposals/_FilteredInboxProposalsView",
                 data: {
                     userId: id,
-                    selection: selected,
-                    folder: "Inbox"
+                    selection: selected
                 },
                 success: (result) => {
                     $("#filteredProposalsBlock").html(result);

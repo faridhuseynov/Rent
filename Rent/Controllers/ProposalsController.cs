@@ -59,13 +59,25 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult _FilteredProposalsView(string userId, string selection, string folder)
+        public PartialViewResult _FilteredInboxProposalsView(string userId, string selection)
+        {
+            var proposals = proposalsService.GetProposalsByUserId(userId).Where(u=>u.OwnerId==userId);
+                if (selection!="All")
+                {
+                    proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
+                }
+            return PartialView(proposals.OrderByDescending(p => p.ProposalAdded));
+        }
+
+
+        [HttpGet]
+        public PartialViewResult _FilteredOutboxProposalsView(string userId, string selection, string folder)
         {
             var proposals = proposalsService.GetProposalsByUserId(userId);
-            if (folder =="Inbox")
+            if (folder == "Inbox")
             {
-                proposals = proposals.Where(u=>u.OwnerId==userId).OrderByDescending(p => p.ProposalAdded);
-                if (selection!="All")
+                proposals = proposals.Where(u => u.OwnerId == userId).OrderByDescending(p => p.ProposalAdded);
+                if (selection != "All")
                 {
                     proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
                 }
@@ -80,8 +92,7 @@ namespace Rent.Controllers
             }
             return PartialView(proposals);
         }
-
-          // GET: Proposals/Edit/5
+        // GET: Proposals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
