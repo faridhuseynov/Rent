@@ -10,10 +10,10 @@
         <a class="btn btn-info ml-3" asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">@localizer["OutboxText"]</a>
     </div>
     <div class=" row mb-3">
-        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="All" checked  /> All</label>
-        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Open" /> Open</label>
-        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Accepted" /> Accepted</label>
-        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Rejected" /> Rejected</label>
+        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="All" checked  /> @localizer["FilterRadioAll"]</label>
+        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Open" /> @localizer["FilterRadioOpen"]</label>
+        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Accepted" /> @localizer["FilterRadioAccepted"]</label>
+        <label class="ml-2"><input class="filter-radio ml-2" name="proposal-filter" type="radio" value="Rejected" /> @localizer["FilterRadioRejected"]</label>
     </div>
 
     <div id="filteredProposalsBlock">
@@ -40,7 +40,7 @@
         function getProposals(id, selected) {
             $.ajax({
                 method: "GET",
-                url: "/Proposals/_FilteredProposalView",
+                url: "/Proposals/_FilteredProposalsView",
                 data: {
                     userId: id,
                     selection: selected,

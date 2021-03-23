@@ -59,7 +59,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        public PartialViewResult _FilteredProposalView(string userId, string selection, string folder)
+        public PartialViewResult _FilteredProposalsView(string userId, string selection, string folder)
         {
             var proposals = proposalsService.GetProposalsByUserId(userId);
             if (folder =="Inbox")
