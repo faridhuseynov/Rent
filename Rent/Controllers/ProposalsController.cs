@@ -50,16 +50,18 @@ namespace Rent.Controllers
             var user = await userManager.FindByNameAsync(userName);
             if (user != null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id)
-                    .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
-                return View(proposals);
+                //var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.BuyerId == user.Id)
+                //    .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
+                //return View(proposals);
+                ViewBag.UserId = user.Id;
+                return View();
 
             }
             return RedirectToAction("Home", "Index");
         }
 
         [HttpGet]
-        public PartialViewResult _FilteredInboxProposalsView(string userId, string selection)
+        public PartialViewResult _FilteredInboxProposals(string userId, string selection)
         {
             var proposals = proposalsService.GetProposalsByUserId(userId).Where(u=>u.OwnerId==userId);
                 if (selection!="All")
@@ -71,26 +73,15 @@ namespace Rent.Controllers
 
 
         [HttpGet]
-        public PartialViewResult _FilteredOutboxProposalsView(string userId, string selection, string folder)
+        public PartialViewResult _FilteredOutboxProposals(string userId, string selection)
         {
-            var proposals = proposalsService.GetProposalsByUserId(userId);
-            if (folder == "Inbox")
+            var proposals = proposalsService.GetProposalsByUserId(userId).Where(u => u.BuyerId == userId);
+
+            if (selection != "All")
             {
-                proposals = proposals.Where(u => u.OwnerId == userId).OrderByDescending(p => p.ProposalAdded);
-                if (selection != "All")
-                {
-                    proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
-                }
+                proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
             }
-            else
-            {
-                proposals = proposals.Where(u => u.BuyerId == userId).OrderByDescending(p => p.ProposalAdded);
-                if (selection != "All")
-                {
-                    proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
-                }
-            }
-            return PartialView(proposals);
+            return PartialView(proposals.OrderByDescending(p => p.ProposalAdded));
         }
         // GET: Proposals/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FilterRadioAccepted" xml:space="preserve">
-    <value>Accepted</value>
+  <data name="AcceptedStatusText" xml:space="preserve">
+    <value>Status: {0}-da qəbul edilib</value>
   </data>
-  <data name="FilterRadioAll" xml:space="preserve">
-    <value>All</value>
+  <data name="AdditionalNoteText" xml:space="preserve">
+    <value>Əlavə</value>
   </data>
-  <data name="FilterRadioOpen" xml:space="preserve">
-    <value>Open</value>
+  <data name="DateText" xml:space="preserve">
+    <value>Göndərilib</value>
   </data>
-  <data name="FilterRadioRejected" xml:space="preserve">
-    <value>Rejected</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Sil</value>
   </data>
-  <data name="InboxText" xml:space="preserve">
-    <value>Received Proposals</value>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Dəyiş</value>
   </data>
-  <data name="OutboxText" xml:space="preserve">
-    <value>Sent Proposals</value>
+  <data name="OpenStatusLabelText" xml:space="preserve">
+    <value>Status: Açıq</value>
+  </data>
+  <data name="OutboxCountText" xml:space="preserve">
+    <value>Təklif sayı: {0}</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Məhsul</value>
+  </data>
+  <data name="ProductOwnerText" xml:space="preserve">
+    <value>Məhsulun sahibi:</value>
+  </data>
+  <data name="ProposalBuyTypeText" xml:space="preserve">
+    <value>Alış</value>
+  </data>
+  <data name="ProposalPriceText" xml:space="preserve">
+    <value>Təklif</value>
+  </data>
+  <data name="ProposalRentTypeText" xml:space="preserve">
+    <value>Kirayə</value>
+  </data>
+  <data name="QuantityText" xml:space="preserve">
+    <value>Ədəd</value>
+  </data>
+  <data name="RejectedStatusText" xml:space="preserve">
+    <value>Status: {0}-da rədd edilib</value>
+  </data>
+  <data name="RentPeriodText" xml:space="preserve">
+    <value>Kirayə müddəti: {0} - {1}</value>
+  </data>
+  <data name="RentRateText" xml:space="preserve">
+    <value>AZN/gün</value>
+  </data>
+  <data name="StockUnavailableText" xml:space="preserve">
+    <value>Mövcud say təklif sayınnan azdır</value>
   </data>
 </root>

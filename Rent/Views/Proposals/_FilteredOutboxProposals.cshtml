@@ -1,0 +1,79 @@
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
+@model IEnumerable<Rent.ViewModels.ProposalViewModels.ProposalDetailsViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<h3>@localizer["OutboxCountText", Model.Count()]</h3>
+@foreach (var item in Model)
+{
+    //review the option of  using jumbotron-fluid class
+    <div class="row jumbotron-fluid mb-3">
+        <div class="card" style="width: 18rem;">
+            @{
+                //if in any other proposal was accepted for this product the stock
+                //amount has to be checked. If not enough, disable the accept button
+                var latestStockCheck =
+                    (item.Product.TotalAmount - item.Product.CurrentlyRented) <
+                    (item.ProposedAmount)
+                    ? false
+                    : true;
+                if (!latestStockCheck && item.ProposalStatus.StatusName.ToLower() == "open")
+                {
+                    <div class='unavailable-product'>@localizer["StockUnavailableText"]</div>
+                }
+            }
+            <img src="~/Images/Products/@item.Product.MainPhotoUrl" class="card-img-top" alt="...">
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@localizer["ProductLabel"] @item.Product.ProductName</h5>
+            <a asp-action="Profile" asp-controller="Account" asp-route-username="@item.Product.User">
+                <h6 class="label label-info">@localizer["ProductOwnerText"] @item.Product.User</h6>
+            </a>
+            <p class="card-text">
+                @localizer["ProposalPriceText"]: @item.ProposedPrice
+                @if (item.ProposalType.Type == "Sell")
+                {
+                    <span>AZN</span>
+                    <span class="label label-success">@localizer["ProposalBuyTypeText"]</span>
+                }
+                else
+                {
+                    <span>@localizer["RentRateText"]</span>
+                    <span class="label label-warning">@localizer["ProposalRentTypeText"]</span>
+                <p class="card-text">
+                    @localizer["RentPeriodText", item.ProposedRentStartDate.ToString("dd/MM/yyyy"), item.ProposedRentEndDate.ToString("dd/MM/yyyy")]
+                </p>
+
+            }
+                <p class="card-text">
+                    @localizer["QuantityText"]: @item.ProposedAmount
+                </p>
+
+                <p class="card-text">
+                    @localizer["AdditionalNoteText"]: @(item.ProposalMessage!=null?item.ProposalMessage: "❌")
+                </p>
+
+                <p class="card-text">
+                    @localizer["DateText"]: @item.ProposalAdded.ToString("dd/MM/yyyy")
+                </p>
+                <div class="proposal-status-block">
+
+                    @if (item.ProposalStatus.StatusName == "Open")
+                    {
+                        <label class="card-footer badge-info">@localizer["OpenStatusLabelText"]</label>
+                        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">@localizer["EditButtonText"]</a>
+                        <a class="btn btn-danger deleteButton" asp-action="Delete" asp-route-id="@item.Id">@localizer["DeleteButtonText"]</a>
+                    }
+                    else if (item.ProposalStatus.StatusName == "Accepted")
+                    {
+                        <label class="card-footer badge-success">@localizer["AcceptedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
+                    }
+                    else
+                    {
+                        <label class="card-footer badge-danger">@localizer["RejectedStatusText", item.ProposalClosed.ToString("dd/MM/yyyy")]</label>
+                    }
+                </div>
+            </div>
+        </div>
+    }

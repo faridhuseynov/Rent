@@ -39,7 +39,7 @@
         function getProposals(id, selected) {
             $.ajax({
                 method: "GET",
-                url: "/Proposals/_FilteredInboxProposalsView",
+                url: "/Proposals/_FilteredInboxProposals",
                 data: {
                     userId: id,
                     selection: selected

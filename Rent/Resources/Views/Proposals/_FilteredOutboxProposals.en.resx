@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FilterRadioAccepted" xml:space="preserve">
-    <value>Accepted</value>
+  <data name="AcceptedStatusText" xml:space="preserve">
+    <value>Status: Accepted on {0}</value>
   </data>
-  <data name="FilterRadioAll" xml:space="preserve">
-    <value>All</value>
+  <data name="AdditionalNoteText" xml:space="preserve">
+    <value>Note</value>
   </data>
-  <data name="FilterRadioOpen" xml:space="preserve">
-    <value>Open</value>
+  <data name="DateText" xml:space="preserve">
+    <value>Sent</value>
   </data>
-  <data name="FilterRadioRejected" xml:space="preserve">
-    <value>Rejected</value>
+  <data name="DeleteButtonText" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="InboxText" xml:space="preserve">
-    <value>Received Proposals</value>
+  <data name="EditButtonText" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="OutboxText" xml:space="preserve">
-    <value>Sent Proposals</value>
+  <data name="OpenStatusLabelText" xml:space="preserve">
+    <value>Status: Open</value>
+  </data>
+  <data name="OutboxCountText" xml:space="preserve">
+    <value>Total proposals: {0}</value>
+  </data>
+  <data name="ProductLabel" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ProductOwnerText" xml:space="preserve">
+    <value>Owner:</value>
+  </data>
+  <data name="ProposalBuyTypeText" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="ProposalPriceText" xml:space="preserve">
+    <value>Proposal</value>
+  </data>
+  <data name="ProposalRentTypeText" xml:space="preserve">
+    <value>Rent</value>
+  </data>
+  <data name="QuantityText" xml:space="preserve">
+    <value>Quantity</value>
+  </data>
+  <data name="RejectedStatusText" xml:space="preserve">
+    <value>Status: Rejected on {0}</value>
+  </data>
+  <data name="RentPeriodText" xml:space="preserve">
+    <value>Rent period: {0} - {1}</value>
+  </data>
+  <data name="RentRateText" xml:space="preserve">
+    <value>AZN/day</value>
+  </data>
+  <data name="StockUnavailableText" xml:space="preserve">
+    <value>NOT ENOUGH IN STOCK</value>
   </data>
 </root>
