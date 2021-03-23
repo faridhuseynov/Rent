@@ -117,22 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FilterRadioAccepted" xml:space="preserve">
-    <value>Accepted</value>
-  </data>
-  <data name="FilterRadioAll" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="FilterRadioOpen" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="FilterRadioRejected" xml:space="preserve">
-    <value>Rejected</value>
-  </data>
-  <data name="InboxText" xml:space="preserve">
-    <value>Received Proposals</value>
-  </data>
-  <data name="OutboxText" xml:space="preserve">
-    <value>Sent Proposals</value>
+  <data name="IndexDetailsViewLink" xml:space="preserve">
+    <value>View Details</value>
   </data>
 </root>

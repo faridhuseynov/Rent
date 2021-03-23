@@ -1,4 +1,4 @@
-﻿
+﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,7 +14,7 @@
                 @*<div class="card-body">@ViewBag.Registered Registered User(s)</div>*@
                 <div class="card-body">Qeydiyyat olmuş istifadəçi: @ViewBag.Registered</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">View Details</a>
+                    <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">@localizer["IndexDetailsViewLink"]</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
