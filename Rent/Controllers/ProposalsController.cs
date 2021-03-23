@@ -26,24 +26,25 @@ namespace Rent.Controllers
             this.productsService = productsService;
         }
 
-        // GET: Proposals
+        // GET: IncomingProposals
         public async Task<IActionResult> IncomingProposals(string? userName)
         {
             var user = await userManager.FindByNameAsync(userName);
-            if (user!=null)
+            //if (user!=null)
+            //{
+            //    var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.OwnerId == user.Id)
+            //        .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
+            //    return View(proposals);
+            //}
+            if (user != null)
             {
-                var proposals = proposalsService.GetProposalsByUserId(user.Id).Where(u => u.OwnerId == user.Id)
-                    .OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
-                    //.OrderByDescending(p => p.ProposalAdded).OrderByDescending(p => p.ProposalClosed).OrderBy(p => p.ProposalStatusId);
-                return View(proposals);
-
+                ViewBag.UserId = user.Id;
+                return View();
             }
             return RedirectToAction("Home", "Index");
-            //var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
-
-            //return View(await appDbContext.ToListAsync());
         }
 
+        // GET: OutgoingProposals
         public async Task<IActionResult> OutgoingProposals(string? userName)
         {
             var user = await userManager.FindByNameAsync(userName);
@@ -55,9 +56,29 @@ namespace Rent.Controllers
 
             }
             return RedirectToAction("Home", "Index");
-            //var appDbContext = _context.Proposals.Include(p => p.Buyer).Include(p => p.Owner).Include(p => p.Product);
+        }
 
-            //return View(await appDbContext.ToListAsync());
+        [HttpGet]
+        public PartialViewResult _FilteredProposalView(string userId, string selection, string folder)
+        {
+            var proposals = proposalsService.GetProposalsByUserId(userId);
+            if (folder =="Inbox")
+            {
+                proposals = proposals.Where(u=>u.OwnerId==userId).OrderByDescending(p => p.ProposalAdded);
+                if (selection!="All")
+                {
+                    proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
+                }
+            }
+            else
+            {
+                proposals = proposals.Where(u => u.BuyerId == userId).OrderByDescending(p => p.ProposalAdded);
+                if (selection != "All")
+                {
+                    proposals = proposals.Where(p => p.ProposalStatus.StatusName == selection);
+                }
+            }
+            return PartialView(proposals);
         }
 
           // GET: Proposals/Edit/5
