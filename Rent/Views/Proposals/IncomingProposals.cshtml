@@ -10,6 +10,13 @@
         <a class="btn btn-info" asp-action="IncomingProposals" asp-route-userName="@User.Identity.Name">@localizer["InboxText"]</a>
         <a class="btn btn-info ml-3" asp-action="OutgoingProposals" asp-route-userName="@User.Identity.Name">@localizer["OutboxText"]</a>
     </div>
+    <div class=" row mb-3">
+        <label class="ml-2"><input class="ml-2" name="proposal-filter" type="radio" value="All" /> All</label>
+        <label class="ml-2"><input class="ml-2" name="proposal-filter" type="radio" value="Open" /> Open</label>
+        <label class="ml-2"><input class="ml-2" name="proposal-filter" type="radio" value="Accepted" /> Accepted</label>
+        <label class="ml-2"><input class="ml-2" name="proposal-filter" type="radio" value="Rejected" /> Rejected</label>
+
+    </div>
     <h3>@localizer["InboxCountText", Model.Count()]</h3>
     @foreach (var item in Model)
     {
