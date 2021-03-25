@@ -1,3 +1,4 @@
+
 .partial-category-block{
     display:flex;
     align-items:center;
@@ -16,10 +17,19 @@
     padding:0;
 }
 
-.card-text{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+.filter-price-block{
+    display:flex;
+    justify-content:space-around;
+}
+
+.filter-price-input{
+    padding:10px;
+    width:50px;
+}
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-photo {
