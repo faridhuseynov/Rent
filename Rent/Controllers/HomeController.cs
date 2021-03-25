@@ -64,7 +64,7 @@ namespace Rent.Controllers
             return Redirect(returnUrl);
         }
 
-        public IActionResult Index(int id = 0, int PageNo = 1, string searchString="")
+        public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
         {
             IEnumerable<ProductDetailsViewModel> products = new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
