@@ -64,14 +64,14 @@ namespace Rent.Controllers
             return Redirect(returnUrl);
         }
 
-        public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
+        public IActionResult Index(string Id = "All", int PageNo = 1, string searchString="")
         {
             IEnumerable<ProductDetailsViewModel> products = new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
             ViewBag.Categories = categories;
-            if (Id != 0)
-                products = ps.GetProducts().Where(p => p.CategoryId == Id && p.Blocked!=true);
+            if (Id != "All")
+                products = ps.GetProducts().Where(p => p.SubcategoryId.ToString() == Id && p.Blocked!=true);
             else
                 products = ps.GetProducts().Where(p=>p.Blocked!=true);
             if (!String.IsNullOrWhiteSpace(searchString))
