@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using Rent.ServiceLayers.EmailService;
 
 namespace Rent
 {
@@ -96,6 +97,7 @@ namespace Rent
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
             services.AddScoped<IProductsService, ProductsService>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
