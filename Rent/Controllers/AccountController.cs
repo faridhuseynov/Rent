@@ -298,22 +298,24 @@ namespace Rent.Controllers
                 return RedirectToAction("Login");
             }
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
-            var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
-            var message = new MailMessage(new string[] { user.Email }, "Reset password token", callback);
+            var passwordResetLink = Url.Action("ResetPassword", "Account", new { token=token, email = user.Email }, Request.Scheme);
+            var message = new MailMessage(new string[] { user.Email }, "Reset password token", passwordResetLink);
             await emailSenderService.SendEmailAsync(message);
             return RedirectToAction("ForgotPasswordConfirmation");
         }
-        [HttpGet]
+
         [AllowAnonymous]
+        [HttpGet]
         [ValidateAntiForgeryToken]
-        public IActionResult ForgotPasswordConfirmation()
+        public async Task<IActionResult> ForgotPasswordConfirmation()
         {
+            var fl = "hello";
             return View();
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [ValidateAntiForgeryToken]
-        [AllowAnonymous]
         public IActionResult ResetPassword(string token, string email)
         {
             var model = new ResetPasswordViewModel() { Token = token, Email = email };
