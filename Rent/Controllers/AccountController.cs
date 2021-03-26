@@ -294,16 +294,61 @@ namespace Rent.Controllers
             var user = await userManager.FindByEmailAsync(recoveryEmail);
             if (user==null)
             {
-                return RedirectToAction("Error");
+                TempData["NoAccountFound"] = "No registered account with this mail address was found";
+                return RedirectToAction("Login");
             }
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
             var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
-            var message = new MailMessage(new string[] { user.Email }, "Reset password token", callback, null);
+            var message = new MailMessage(new string[] { user.Email }, "Reset password token", callback);
             await emailSenderService.SendEmailAsync(message);
+            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+        [HttpGet]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+
+        public IActionResult ResetPassword(string token, string email)
+        {
+            var model = new ResetPasswordViewModel() { Token = token, Email = email };
+            return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordModel)
+        {
+            if (!ModelState.IsValid)
+                return View(resetPasswordModel);
+            var user = await userManager.FindByEmailAsync(resetPasswordModel.Email);
+            if (user == null)
+            {
+                TempData["NoAccountFound"] = "No registered account with this mail was found";
+                return RedirectToAction("Login");
+
+            }
+            var resetPassResult = await userManager.ResetPasswordAsync(user, resetPasswordModel.Token, resetPasswordModel.Password);
+            if (!resetPassResult.Succeeded)
+            {
+                foreach (var error in resetPassResult.Errors)
+                {
+                    ModelState.TryAddModelError(error.Code, error.Description);
+                }
+                return View();
+            }
+            TempData["PasswordReset"] = "Your password was successfully reset, please log in";
             return RedirectToAction("Login");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task BlockUnblockUser(string userId)
         {
             var user = await userManager.FindByIdAsync(userId);
@@ -329,6 +374,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -336,6 +382,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AccountInfo(string userId)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
@@ -344,6 +391,7 @@ namespace Rent.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<string> ChangeProfilePicture(IFormFile image)
         {
 
@@ -374,6 +422,7 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> ProfileDetailsChange(string name, string surname,
             string phoneNumber, string meetingLocation, string email, string gender, string country,
             string city)
@@ -396,6 +445,7 @@ namespace Rent.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> PasswordChange(string password)
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
@@ -409,6 +459,7 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(string username)
         {
             if (username != User.Identity.Name)

@@ -19,7 +19,7 @@
                         <p>
                             @if (provider.DisplayName == "Google")
                             {
-                            <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   @localizer["GoogleSignInText"]</button>
+                                <button name="provider" value="@provider.Name" class="btn btn-block btn-outline-danger"> <i class="fab fa-google-plus"></i>   @localizer["GoogleSignInText"]</button>
                             }
                             @if (provider.DisplayName == "Twitter")
                             {
@@ -35,18 +35,26 @@
             }
 
             @*@foreach (var modelState in ViewData.ModelState.Values)
+        {
+
+            foreach (var error in modelState.Errors)
             {
 
-                foreach (var error in modelState.Errors)
-                {
-                    
-                    <span style="width:auto" class="text-danger">
-                        <b><i class="fas fa-ban"></i> @error.ErrorMessage</b>
-                    </span>
-                }
-            }*@
+                <span style="width:auto" class="text-danger">
+                    <b><i class="fas fa-ban"></i> @error.ErrorMessage</b>
+                </span>
+            }
+        }*@
 
             <hr>
+            @if (TempData["NoAccountFound"] != null)
+            {
+        <p class="alert alert-danger">@TempData["NoAccountFound"]</p>
+            }
+            @if (TempData["PasswordReset"] != null)
+            {
+                <p class="alert alert-success">@TempData["PasswordReset"]</p>
+            }
             <form method="post" asp-action="Login">
                 <div class="form-group">
                     <input asp-for="ReturnUrl" hidden value="@Model.ReturnUrl" />
