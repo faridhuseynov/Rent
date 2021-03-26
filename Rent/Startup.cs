@@ -45,6 +45,11 @@ namespace Rent
         {
             var connString = Configuration.GetConnectionString("DefaultConnection");
 
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddReact();
 
