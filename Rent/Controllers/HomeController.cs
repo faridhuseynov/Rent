@@ -64,20 +64,23 @@ namespace Rent.Controllers
             return Redirect(returnUrl);
         }
 
-        public IActionResult Index(int Id = 0, int PageNo = 1, string searchString="")
+        public IActionResult Index(string Id = "All", int PageNo = 1, string searchString="")
         {
             IEnumerable<ProductDetailsViewModel> products = new List<ProductDetailsViewModel>();
             NoOfRecordsToSkip = (PageNo - 1) * NoOfRecordsPerPage;
             ViewBag.PageNo = PageNo;
             ViewBag.Categories = categories;
-            if (Id != 0)
-                products = ps.GetProducts().Where(p => p.SubcategoryId == Id && p.Blocked!=true);
+            if (Id != "All")
+                products = ps.GetProducts().Where(p => p.SubcategoryId.ToString() == Id && p.Blocked!=true);
             else
                 products = ps.GetProducts().Where(p=>p.Blocked!=true);
             if (!String.IsNullOrWhiteSpace(searchString))
             {
-                products = products.Where(p => p.ProductName.Contains(searchString)
-                || p.ProductDescription.Contains(searchString)|| p.Subcategory.SubcategoryName.Contains(searchString));
+                searchString = searchString.ToUpper();
+                var newSearchString = searchString[0] + searchString.Substring(1).ToLower();
+                products = (products.Where(p => p.ProductName.Contains(newSearchString)).Concat(products.Where(p => p.ProductDescription.Contains(newSearchString)))
+                    .Concat(products.Where(p=>p.Subcategory.SubcategoryName.Contains(newSearchString)))).Distinct();
+               
             }
             if (User.Identity.IsAuthenticated==true)
             {

@@ -1,7 +1,35 @@
-.card-text{
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
+
+.partial-category-block{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.show {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.subcategory-link {
+    color: blue;
+    margin-left:15px;
+    padding:0;
+}
+
+.filter-price-block{
+    display:flex;
+    justify-content:space-around;
+}
+
+.filter-price-input{
+    padding:10px;
+    width:50px;
+}
+.card-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-photo {
@@ -189,6 +217,8 @@ ul, ol {
   padding: 0;
   list-style: none
 }
+
+
 
 /*----------------------------*\
 	Buttons

@@ -1,16 +1,33 @@
 ﻿@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model IEnumerable<Category>
-<form method="post">
-    <select class="input-select">
+<form>
+    <select class="input-select" id="selectionList">
         @{
             var i = 0;
             foreach (var category in Model)
             {
-                <option value=i>@category.CategoryName</option>
+                <option value=i id="@category.Id">@category.CategoryName</option>
                 ++i;
             }
         }
     </select>
     <input class="input" placeholder="Search here" name="searchString">
-    <button class="search-btn" asp-controller="Home" asp-action="Index">@localizer["SearchButtonText"]</button>
+    <button class="search-btn" id="searchButton" onclick="searchButtonPressed(this)">@localizer["SearchButtonText"]</button>
 </form>
+
+<script>
+    function searchButtonPressed(event) {        
+        console.log(event);
+        console.log('hello');
+
+    }
+
+    //var element = document.getElementById('#searchButton');
+    //console.log(element);
+    //function search(event) {
+    //    event.preventDefault();
+    //    console.log('test');
+    //    var option = $("#selectionList").id();
+    //    console.log(option);
+    //}
+</script>
