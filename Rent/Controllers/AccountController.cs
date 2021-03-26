@@ -301,7 +301,7 @@ namespace Rent.Controllers
             var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
             var message = new MailMessage(new string[] { user.Email }, "Reset password token", callback);
             await emailSenderService.SendEmailAsync(message);
-            return RedirectToAction(nameof(ForgotPasswordConfirmation));
+            return RedirectToAction("ForgotPasswordConfirmation");
         }
         [HttpGet]
         [AllowAnonymous]
@@ -310,19 +310,19 @@ namespace Rent.Controllers
         {
             return View();
         }
+
         [HttpGet]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-
         public IActionResult ResetPassword(string token, string email)
         {
             var model = new ResetPasswordViewModel() { Token = token, Email = email };
             return View(model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [AllowAnonymous]
-
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel resetPasswordModel)
         {
             if (!ModelState.IsValid)

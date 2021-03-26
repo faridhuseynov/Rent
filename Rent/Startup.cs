@@ -95,7 +95,8 @@ namespace Rent
 
             //services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>();
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddScoped<IEmailSenderService, EmailSenderService>();
             services.AddScoped<IProductsRepository, ProductsRepository>();
