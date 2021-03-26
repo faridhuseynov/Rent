@@ -11,7 +11,7 @@ namespace Rent.ServiceLayers.EmailService
     {
         void SendEmail(MailMessage mail);
     }
-    public class EmailSenderService : IEmailSender
+    public class EmailSenderService : IEmailSenderService
     {
         private readonly EmailConfiguration _emailConfiguration;
 

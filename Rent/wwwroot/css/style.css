@@ -1,8 +1,20 @@
+.forgot-password-button-block {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    width:100%;
+}
 
-.partial-category-block{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+.forgot-password-button{
+    width:200px;
+    margin-left:10px;
+}
+
+
+.partial-category-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .show {

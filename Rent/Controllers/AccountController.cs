@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 //using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
 using Rent.ViewModels.AccountViewModels;
@@ -145,7 +146,12 @@ namespace Rent.Controllers
             //var token = userManager.GenerateEmailConfirmationTokenAsync(user);
             //var confirmationLink = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, token = token }, Request.Scheme);
 
-            await signInManager.SignInAsync(user, isPersistent: false);
+            //var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            //var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+            //var message = new Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging.Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
+            //await _emailSender.SendEmailAsync(message);
+
+            //await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
 
@@ -265,6 +271,13 @@ namespace Rent.Controllers
                 ViewBag.ErrorMessage = "Please contact support  on farid@gmail.com";
                 return View("Login");
             }
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
         }
 
         [HttpPost]
