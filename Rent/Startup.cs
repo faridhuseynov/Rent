@@ -119,6 +119,7 @@ namespace Rent
 
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+                options.SignIn.RequireConfirmedEmail = true;
             });
 
             //this part of configuration added to immediately sign off the user in case 
