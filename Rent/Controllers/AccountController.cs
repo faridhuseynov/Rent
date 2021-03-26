@@ -280,17 +280,28 @@ namespace Rent.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
-            var message = new MailMessage(new string[] { "f.h189@hotmail.com" }, "Test email", "This is the content from our email");
-            emailSenderService.SendEmail(message);
             return View();
         }
 
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public IActionResult ForgotPassword(string recoveryEmail)
-        //{
-
-        //}
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ForgotPassword(string recoveryEmail)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var user = await userManager.FindByEmailAsync(recoveryEmail);
+            if (user==null)
+            {
+                return RedirectToAction("Error");
+            }
+            var token = await userManager.GeneratePasswordResetTokenAsync(user);
+            var callback = Url.Action(nameof(ResetPassword), "Account", new { token, email = user.Email }, Request.Scheme);
+            var message = new MailMessage(new string[] { user.Email }, "Reset password token", callback, null);
+            await emailSenderService.SendEmailAsync(message);
+            return RedirectToAction("Login");
+        }
 
         [HttpPost]
         public async Task BlockUnblockUser(string userId)

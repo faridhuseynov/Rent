@@ -10,6 +10,7 @@ namespace Rent.ServiceLayers.EmailService
     public interface IEmailSenderService
     {
         void SendEmail(MailMessage mail);
+        Task SendEmailAsync(MailMessage mail);
     }
     public class EmailSenderService : IEmailSenderService
     {
@@ -56,6 +57,35 @@ namespace Rent.ServiceLayers.EmailService
                 finally
                 {
                     client.Disconnect(true);
+                    client.Dispose();
+                }
+            }
+        }
+
+        public async Task SendEmailAsync(MailMessage mail)
+        {
+            var emailMessage = CreateEmailMessage(mail);
+            await SendAsync(emailMessage);
+        }
+
+        public async Task SendAsync(MimeMessage mailMessage)
+        {
+            using (var client = new SmtpClient())
+            {
+                try
+                {
+                    await client.ConnectAsync(_emailConfiguration.SmtpServer, _emailConfiguration.Port, true);
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    await client.AuthenticateAsync(_emailConfiguration.UserName, _emailConfiguration.Password);
+                    await client.SendAsync(mailMessage);
+                }
+                catch
+                {
+                    throw;
+                }
+                finally
+                {
+                    await client.DisconnectAsync(true);
                     client.Dispose();
                 }
             }
