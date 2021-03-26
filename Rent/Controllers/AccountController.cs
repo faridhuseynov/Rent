@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
+using Rent.ServiceLayers.EmailService;
 using Rent.ViewModels.AccountViewModels;
 
 namespace Rent.Controllers
@@ -22,13 +23,15 @@ namespace Rent.Controllers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IEmailSenderService emailSenderService;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager, IEmailSenderService emailSenderService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
+            this.emailSenderService = emailSenderService;
         }
 
         [AllowAnonymous]
@@ -277,8 +280,17 @@ namespace Rent.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
+            var message = new MailMessage(new string[] { "f.h189@hotmail.com" }, "Test email", "This is the content from our email");
+            emailSenderService.SendEmail(message);
             return View();
         }
+
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public IActionResult ForgotPassword(string recoveryEmail)
+        //{
+
+        //}
 
         [HttpPost]
         public async Task BlockUnblockUser(string userId)
