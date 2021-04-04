@@ -200,6 +200,10 @@ namespace Rent.Controllers
                 return RedirectToAction("Index", "Home");
 
             }
+            else
+            {
+                TempData["FailedLogin"]="Wrong password. Try again.";
+            }
             //result.Succeeded
             return View("Login",User);
         }

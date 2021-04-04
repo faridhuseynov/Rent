@@ -49,11 +49,15 @@
             <hr>
             @if (TempData["NoAccountFound"] != null)
             {
-        <p class="alert alert-danger">@TempData["NoAccountFound"]</p>
+                <p class="alert alert-danger">@TempData["NoAccountFound"]</p>
             }
             @if (TempData["PasswordReset"] != null)
             {
                 <p class="alert alert-success">@TempData["PasswordReset"]</p>
+            }
+            @if (TempData["FailedLogin"] != null)
+            {
+                <p class="alert alert-danger">@TempData["FailedLogin"]</p>
             }
             <form method="post" asp-action="Login">
                 <div class="form-group">
