@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 //using System.Web.Providers.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
@@ -24,14 +25,16 @@ namespace Rent.Controllers
         private readonly SignInManager<User> signInManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IEmailSenderService emailSenderService;
+        private readonly IHtmlLocalizer<AccountController> localizer;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager,
-            RoleManager<IdentityRole> roleManager, IEmailSenderService emailSenderService)
+            RoleManager<IdentityRole> roleManager, IEmailSenderService emailSenderService, IHtmlLocalizer<AccountController> localizer)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.roleManager = roleManager;
             this.emailSenderService = emailSenderService;
+            this.localizer = localizer;
         }
 
         [AllowAnonymous]
@@ -202,7 +205,7 @@ namespace Rent.Controllers
             }
             else
             {
-                TempData["FailedLogin"]="Wrong password. Try again.";
+                TempData["FailedLogin"]=localizer["FailedLogin"];
             }
             //result.Succeeded
             return View("Login",User);
@@ -298,7 +301,7 @@ namespace Rent.Controllers
             var user = await userManager.FindByEmailAsync(recoveryEmail);
             if (user==null)
             {
-                TempData["NoAccountFound"] = "No registered account with this mail address was found";
+                TempData["NoAccountFound"] = localizer["NoAccountFound"];
                 return RedirectToAction("Login");
             }
             var token = await userManager.GeneratePasswordResetTokenAsync(user);
@@ -336,7 +339,7 @@ namespace Rent.Controllers
             var user = await userManager.FindByEmailAsync(resetPasswordModel.Email);
             if (user == null)
             {
-                TempData["NoAccountFound"] = "No registered account with this mail was found";
+                TempData["NoAccountFound"] = localizer["NoAccountFound"];
                 return RedirectToAction("Login");
 
             }
@@ -349,7 +352,7 @@ namespace Rent.Controllers
                 }
                 return View();
             }
-            TempData["PasswordReset"] = "Your password was successfully reset, please log in";
+            TempData["PasswordReset"] = localizer["PasswordReset"];
             return RedirectToAction("Login");
         }
 
