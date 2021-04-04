@@ -376,7 +376,6 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -384,7 +383,6 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AccountInfo()
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
@@ -393,7 +391,6 @@ namespace Rent.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<string> ChangeProfilePicture(IFormFile image)
         {
 
