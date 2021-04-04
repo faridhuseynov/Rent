@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using Rent.DomainModels.Models;
 using Rent.ServiceLayers;
 using Rent.ServiceLayers.EmailService;

@@ -463,10 +463,6 @@
               "target": "Package",
               "version": "[3.1.8, )"
             },
-            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
-              "target": "Package",
-              "version": "[3.1.5, )"
-            },
             "Mustache": {
               "target": "Package",
               "version": "[1.0.1, )"
