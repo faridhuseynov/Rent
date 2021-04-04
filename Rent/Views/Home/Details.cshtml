@@ -303,38 +303,39 @@
                                 <div class="col-md-6">
                                     <div id="reviews">
                                         <ul class="reviews">
+                                                    <li>
+                                                    </li>
+                                        </ul>
                                             @if (Model.Rates.Count() > 0)
                                             {
 
-                                                @foreach (var rate in Model.Rates)
+                                                @foreach (var rate in Model.Rates.OrderByDescending(r=>r.DateAdded))
                                                 {
-                                                    <li>
                                                         <div class="review-heading">
                                                             <h5 class="name">@rate.User.UserName</h5>
-                                                            <p class="date">@rate.DateAdded</p>
+                                                            @*<div class="review-body">
+                                                                <p>@rate.Review</p>
+                                                            </div>*@
+                                                                <p>@rate.Review</p>
                                                             <div class="review-rating">
                                                                 @for (int i = 0; i < 5; i++)
                                                                 {
                                                                     while (i < rate.Note)
                                                                     {
-                                                                        <i class="fa fa-star"></i>
+                                                                        <i class="fa fa-star" style="color:#D10024"></i>
                                                                         ++i;
                                                                     }
                                                                     while (i < 5)
                                                                     {
-                                                                        <i class="fa fa-star-o empty"></i>
+                                                                        <i class="fa fa-star-o empty" style="color:#D10024"></i>
                                                                         ++i;
                                                                     }
                                                                 }
                                                             </div>
+                                                            <p>@rate.DateAdded</p>
                                                         </div>
-                                                        <div class="review-body">
-                                                            <p>@rate.Review</p>
-                                                        </div>
-                                                    </li>
                                                 }
                                             }
-                                        </ul>
                                     </div>
                                 </div>
                                 <!-- /tab2  -->
@@ -456,9 +457,7 @@
 
         $("#postNewRate").on("click",function (event) {
             event.preventDefault();
-            console.log("test");
-            console.log(@User.Identity);
-            if (@User.Identity.IsAuthenticated==true) {
+            if ("@User.Identity.IsAuthenticated") {
                 if (!($(event.target).hasClass("disabled"))) {
                     var _review = $("#newReview").val();
                     var _score = $('input[name$="rating"]:checked').val();
