@@ -385,7 +385,7 @@ namespace Rent.Controllers
 
         [HttpGet]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AccountInfo(string userId)
+        public async Task<IActionResult> AccountInfo()
         {
             var userFromRepo = await userManager.FindByNameAsync(User.Identity.Name);
             return View(userFromRepo);
