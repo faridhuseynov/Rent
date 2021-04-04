@@ -50,26 +50,42 @@
                             {
                                 <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="btn btn-info">@localizer["AdminPanelLink"]</a>
                             }
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-outline-danger">@User.Identity.Name</button>
-                                <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">
-                                        @localizer["UserAccountLink"]
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">
-                                        @localizer["UserLogoutLink"]
-                                    </a>
+                            <div class="user-control-block">
+                                <label style="font-size:15px;color:white;">@User.Identity.Name</label>
+                                <div>
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">
+                                            @localizer["UserAccountLink"]
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">
+                                            @localizer["UserLogoutLink"]
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
+                            @*<div class="btn-group">
+                                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">
+                                            @localizer["UserAccountLink"]
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">
+                                            @localizer["UserLogoutLink"]
+                                        </a>
+                                    </div>
+                                </div>*@
                         }
                         else
                         {
-                            <a asp-area="" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl" class="float-right btn btn-primary">@localizer["SignUpLinkText"]</a>
-                            <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="float-right btn btn-success">@localizer["LoginLinkText"]</a>
+                            <a asp-area="" asp-controller="Account" asp-action="Register" class="float-right btn btn-primary">@localizer["SignUpLinkText"]</a>
+                            <a asp-area="" asp-controller="Account" asp-action="Login" class="float-right btn btn-success">@localizer["LoginLinkText"]</a>
 
                         }
                     </li>
@@ -166,7 +182,7 @@
                         }
                     </ul>
                 </div>
-                        <partial name="_Culture" />
+                <partial name="_Culture" />
 
                 @*<form class="form-inline">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -196,6 +212,6 @@
     }
     @RenderSection("Scripts", required: false)
     @*<script src="~/js/signalr/dist/browser/signalr.js"></script>
-    <script src="~/js/wishlistCount.js"></script>*@
+        <script src="~/js/wishlistCount.js"></script>*@
 </body>
 </html>

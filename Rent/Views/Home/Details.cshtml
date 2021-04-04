@@ -456,24 +456,28 @@
 
         $("#postNewRate").on("click",function (event) {
             event.preventDefault();
-            if (!($(event.target).hasClass("disabled"))) {
-                var _review = $("#newReview").val();
-                var _score = $('input[name$="rating"]:checked').val();
-                var _rater = $("#buyerName").val();
-                $.ajax({
-                    type: "POST",
-                    url: "/Home/AddNewRating",
-                    data: {
-                        productid:@Model.Id,
-                        rater: _rater,
-                        review: _review,
-                        score:_score
-                    },
-                    success: function () {
-                        location.reload(true);
-                    }
-                })
-            };
+            console.log("test");
+            console.log(@User.Identity);
+            if (@User.Identity.IsAuthenticated==true) {
+                if (!($(event.target).hasClass("disabled"))) {
+                    var _review = $("#newReview").val();
+                    var _score = $('input[name$="rating"]:checked').val();
+                    var _rater = $("#buyerName").val();
+                    $.ajax({
+                        type: "POST",
+                        url: "/Home/AddNewRating",
+                        data: {
+                            productid:@Model.Id,
+                            rater: _rater,
+                            review: _review,
+                            score: _score
+                        },
+                        success: function () {
+                            location.reload(true);
+                        }
+                    })
+                };
+            }
         });
 
         $("#wishlistIcon").click((event) => {
