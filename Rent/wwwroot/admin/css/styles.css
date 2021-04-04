@@ -13,12 +13,16 @@
 
 /*--------------------------------------------*/
 
-/*Category name div*/
+/*Info card block*/
+.admin-dashboard-card{
+    width:100vw;
+}
 
-.category-name-block{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+/*Category name div*/
+.category-name-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .category-name-block i:hover{

@@ -56,9 +56,8 @@ namespace Rent.Areas.Admin.Controllers
             var products = ps.GetProducts();
             ViewBag.Registered = users.Count;
             ViewBag.Proposals = proposals.Count();
-            ViewBag.Closed = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").Count();
             ViewBag.Products = products.Count();
-            ViewBag.Successful = proposals.Where(p => p.ProposalStatus.StatusName == "Closed").ToList();
+            ViewBag.Successful = proposals.Where(p => p.ProposalStatus.StatusName == "Accepted").ToList();
             return View();
         }
 
@@ -71,15 +70,13 @@ namespace Rent.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BlockAndUnblockProduct(string userName, int productId)
+        public async Task BlockAndUnblockProduct(string userName, int productId)
         {
             var product = await ps.GetProductByProductID(productId);
             if (product != null && userName == "admin@rent.com")
             {
                 await ps.UpdateProductBlockStatus(product.Id);
-
             }
-            return RedirectToAction("Profile", "Account", new {area="", userName = userName });
         }
 
         [HttpGet]

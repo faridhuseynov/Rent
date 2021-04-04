@@ -12,7 +12,7 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
                 @*<div class="card-body">@ViewBag.Registered Registered User(s)</div>*@
-                <div class="card-body">Qeydiyyat olmuş istifadəçi: @ViewBag.Registered</div>
+                <div class="card-body admin-dashboard-card">Qeydiyyat olmuş istifadəçi: @ViewBag.Registered</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">@localizer["IndexDetailsViewLink"]</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -22,7 +22,7 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
                 @*<div class="card-body">@ViewBag.Proposals Proposal(s)</div>*@
-                <div class="card-body">Təklif sayı: @ViewBag.Proposals</div>
+                <div class="card-body admin-dashboard-card">Təklif sayı: @ViewBag.Proposals</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" href="#">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -32,40 +32,16 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
                 @*<div class="card-body">@ViewBag.Products Product(s)</div>*@
-                <div class="card-body">Məhsul sayı: @ViewBag.Products</div>
+                <div class="card-body admin-dashboard-card">Məhsul sayı: @ViewBag.Products</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="ActiveProducts">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
         </div>
-        @*<div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-                <div class="card-body">@ViewBag.Closed Closed Proposal(s)</div>
-                <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" href="#">View Details</a>
-                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                </div>
-            </div>
-        </div>*@
     </div>
-    @*<div class="row">
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-chart-area mr-1"></i>Area Chart Example</div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
-            </div>
-        </div>
-        <div class="col-xl-6">
-            <div class="card mb-4">
-                <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>Bar Chart Example</div>
-                <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
-            </div>
-        </div>
-    </div>*@
     <div class="card mb-4">
-        @*<div class="card-header"><i class="fas fa-table mr-1"></i>Successful Deals</div>*@
-        <div class="card-header"><i class="fas fa-table mr-1"></i>Uğurlu Təkliflər</div>
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Uğurlu Təkliflər: @ViewBag.Successful.Count</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -79,7 +55,7 @@
                             <th>Alıcı</th>
                             <th>Satıcı</th>
                             <th>Məhsul</th>
-                            <th>Təklif Növü</th>
+                            <th>Təklif</th>
                             <th>Yekun Qiymət</th>
                         </tr>
                     </thead>
@@ -94,8 +70,7 @@
                     </tfoot>*@
                     <tbody>
                         @foreach (var proposal in ViewBag.Successful)
-                        {
-                            
+                        {            
                             <tr>
                                 
                                  <td><a asp-area="" asp-controller="Account" asp-action="Profile" asp-route-username="@proposal.Buyer.UserName">@proposal.Buyer.UserName</a></td>
@@ -122,7 +97,6 @@
                                     <td>2011/04/25</td>
                                     <td>$320,800</td>*@
                             </tr>
-
                         }
                     </tbody>
                 </table>
