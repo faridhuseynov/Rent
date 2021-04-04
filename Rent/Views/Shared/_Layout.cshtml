@@ -66,6 +66,12 @@
                                 </div>
                             </div>
                         }
+                        else
+                        {
+                            <a asp-area="" asp-controller="Account" asp-action="Register" asp-route-returnUrl="@Model.ReturnUrl" class="float-right btn btn-primary">@localizer["SignUpLinkText"]</a>
+                            <a asp-area="" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl" class="float-right btn btn-success">@localizer["LoginLinkText"]</a>
+
+                        }
                     </li>
                 </ul>
             </div>

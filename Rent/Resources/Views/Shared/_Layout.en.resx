@@ -126,6 +126,9 @@
   <data name="LoginButtonText" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="LoginLinkText" xml:space="preserve">
+    <value>Log in</value>
+  </data>
   <data name="ProductsLink" xml:space="preserve">
     <value>Products</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="RegisterButtonText" xml:space="preserve">
     <value>Register</value>
+  </data>
+  <data name="SignUpLinkText" xml:space="preserve">
+    <value>Sign up</value>
   </data>
   <data name="UserAccountLink" xml:space="preserve">
     <value>Account</value>

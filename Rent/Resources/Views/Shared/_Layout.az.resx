@@ -126,6 +126,9 @@
   <data name="LoginButtonText" xml:space="preserve">
     <value>Daxil ol</value>
   </data>
+  <data name="LoginLinkText" xml:space="preserve">
+    <value>Daxil ol</value>
+  </data>
   <data name="ProductsLink" xml:space="preserve">
     <value>Məhsullarım</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="SearchButtonText" xml:space="preserve">
     <value>Axtar</value>
+  </data>
+  <data name="SignUpLinkText" xml:space="preserve">
+    <value>Qeydiyyat</value>
   </data>
   <data name="UserAccountLink" xml:space="preserve">
     <value>Şəxsi hesab</value>
