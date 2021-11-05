@@ -12,9 +12,9 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
                 @*<div class="card-body">@ViewBag.Registered Registered User(s)</div>*@
-                <div class="card-body admin-dashboard-card">Qeydiyyat olmuş istifadəçi: @ViewBag.Registered</div>
+                <div class="card-body admin-dashboard-card">Registered users: @ViewBag.Registered</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
-                    <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">@localizer["IndexDetailsViewLink"]</a>
+                    <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="Users">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                 </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
                 @*<div class="card-body">@ViewBag.Proposals Proposal(s)</div>*@
-                <div class="card-body admin-dashboard-card">Təklif sayı: @ViewBag.Proposals</div>
+                <div class="card-body admin-dashboard-card">Proposals: @ViewBag.Proposals</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" href="#">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -32,7 +32,7 @@
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
                 @*<div class="card-body">@ViewBag.Products Product(s)</div>*@
-                <div class="card-body admin-dashboard-card">Məhsul sayı: @ViewBag.Products</div>
+                <div class="card-body admin-dashboard-card">Products: @ViewBag.Products</div>
                 <div class="card-footer d-flex align-items-center justify-content-between">
                     <a class="small text-white stretched-link" asp-area="Admin" asp-controller="Home" asp-action="ActiveProducts">View Details</a>
                     <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="card mb-4">
-        <div class="card-header"><i class="fas fa-table mr-1"></i>Uğurlu Təkliflər: @ViewBag.Successful.Count</div>
+        <div class="card-header"><i class="fas fa-table mr-1"></i>Accepted Proposals: @ViewBag.Successful.Count</div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -52,11 +52,11 @@
                             <th>Product</th>
                             <th>Proposal Type</th>
                             <th>Deal Price</th>*@
-                            <th>Alıcı</th>
-                            <th>Satıcı</th>
-                            <th>Məhsul</th>
-                            <th>Təklif</th>
-                            <th>Yekun Qiymət</th>
+                            <th>Buyer</th>
+                            <th>Owner</th>
+                            <th>Product</th>
+                            <th>Proposal</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     @*<tfoot>
@@ -79,15 +79,15 @@
                                 @if (@proposal.ProposalType.Type == "Sell")
                                 {
                                     @*<td>Buy</td>*@
-                                    <td>Alış</td>
+                                    <td>Buy</td>
                                 }
                                 else
                                 {
                                     <td>
-                                        @*Rent: @proposal.ProposedPrice AZN/day*@
-                                        Kirayə: @proposal.ProposedPrice AZN/gün
-                                        @*<br />Period: @proposal.ProposedRentStartDate - @proposal.ProposedRentEndDate*@
-                                        <br />Müddət: @proposal.ProposedRentStartDate - @proposal.ProposedRentEndDate
+                                        Rent: @proposal.ProposedPrice AZN/day
+                                       @* Kirayə: @proposal.ProposedPrice AZN/gün*@
+                                        <br />Period: @proposal.ProposedRentStartDate - @proposal.ProposedRentEndDate
+                                       @* <br />Müddət: @proposal.ProposedRentStartDate - @proposal.ProposedRentEndDate*@
                                     </td>
                                 }
                                 <td>@proposal.ProposedTotalPrice</td>

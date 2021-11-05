@@ -32,9 +32,9 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">@localizer["AccountLinkText"]</a>
+                    <a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="AccountInfo">Account</a>
                     <div class="dropdown-divider"></div>
-                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">@localizer["LogoutLinkText"]</a>
+                    <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">Logout</a>
                 </div>
             </li>
         </ul>
@@ -47,19 +47,22 @@
                         @*<div class="sb-sidenav-menu-heading">Core</div>*@
                         <a class="nav-link" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            @localizer["DashboardLabel"]
+                            Dashboard                        
+    @*@localizer["DashboardLabel"]*@
                         </a>
                         @*<div class="sb-sidenav-menu-heading">Interface</div>*@
                         <a class="nav-link collapsed" asp-area="" asp-controller="Messages" asp-action="Inbox" >
                             <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
-                            @localizer["MessagesLabel"]
+                            Messages
+                            @*@localizer["MessagesLabel"]*@
                         </a>
                         @*<div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav"><a class="nav-link" href="layout-static.html">Static Navigation</a><a class="nav-link" href="layout-sidenav-light.html">Light Sidenav</a></nav>
                         </div>*@
                         <a class="nav-link collapsed" asp-area="Admin" asp-controller="Home" asp-action="Categories">
                             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            @localizer["CategoriesLabel"]
+                            Categories
+                            @*@localizer["CategoriesLabel"]*@
                         </a>
                         @*<a class="nav-link collapsed" asp-area="Admin" asp-controller="ProposalTypes" asp-action="Index">
                             <div class="sb-nav-link-icon"><i class="fas fa-money-check-alt"></i></div>
