@@ -156,7 +156,7 @@ namespace Rent.Controllers
             //var message = new Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging.Message(new string[] { user.Email }, "Confirmation email link", confirmationLink, null);
             //await _emailSender.SendEmailAsync(message);
 
-            //await signInManager.SignInAsync(user, isPersistent: false);
+            await signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Home");
         }
 
@@ -464,7 +464,6 @@ namespace Rent.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Profile(string username)
         {
             if (username != User.Identity.Name)

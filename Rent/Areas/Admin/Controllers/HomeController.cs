@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Rent.DomainModels.Models;
 using Rent.Repositories;
 using Rent.ServiceLayers;
@@ -26,12 +27,14 @@ namespace Rent.Areas.Admin.Controllers
         private readonly IWishListProdsRepository wishListProdsRepository;
         private readonly IRatingsRepository ratingsRepository;
         private readonly ISubcategoriesService subcategoriesService;
+        private readonly IHtmlLocalizer<HomeController> localizer;
         IEnumerable<Category> categories;
         IEnumerable<ProposalType> proposalTypes;
+
         public HomeController(IProductsService productsService, ICategoriesService categoriesService,
                     IProposalsService proposalsService, UserManager<User> userManager, IProposalTypesRepository proposalTypesRepository,
                     IWishListProdsRepository wishListProdsRepository, IRatingsRepository ratingsRepository,
-                    ISubcategoriesService subcategoriesService)
+                    ISubcategoriesService subcategoriesService, IHtmlLocalizer<HomeController> localizer )
         {
             ps = productsService;
             cs = categoriesService;
@@ -41,6 +44,7 @@ namespace Rent.Areas.Admin.Controllers
             this.wishListProdsRepository = wishListProdsRepository;
             this.ratingsRepository = ratingsRepository;
             this.subcategoriesService = subcategoriesService;
+            this.localizer = localizer;
             categories = new List<Category>();
             categories = cs.GetCategories().Result;
             proposalTypes = new List<ProposalType>();

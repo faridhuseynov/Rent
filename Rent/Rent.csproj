@@ -63,6 +63,10 @@
     <None Include="wwwroot\admin\js\scripts.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Admin\Controllers\" />
+  </ItemGroup>
+
   <ProjectExtensions><VisualStudio><UserProperties libman_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>
